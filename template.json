@@ -345,6 +345,31 @@
                 "label": "Mutants",
                 "advance": -20,
                 "cost": 0
+              },
+              "officioAssassinorum": {
+                "label": "Officio Assassinorum",
+                "advance": -20,
+                "cost": 0
+              },
+              "pirates": {
+                "label": "Pirates",
+                "advance": -20,
+                "cost": 0
+              },
+              "psykers": {
+                "label": "Psykers",
+                "advance": -20,
+                "cost": 0
+              },
+              "theWarp": {
+                "label": "The Warp",
+                "advance": -20,
+                "cost": 0
+              },
+              "xenos": {
+                "label": "Xenos",
+                "advance": -20,
+                "cost": 0
               }
             }
           },

@@ -2,11 +2,11 @@
   "name": "dark-heresy",
   "title": "Dark Heresy 2E",
   "description": "Innocence proves nothing",
-  "version": "1.11.0",
+  "version": "2.0.0",
   "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "0.7.7",
+  "compatibleCoreVersion": "0.7.8",
   "templateVersion": 2,
-  "author": "Perfectro",
+  "author": "fredthedeadhead, Moo Man, Perfectro",
   "scripts": [],
   "esmodules": [
     "script/common/hooks.js"
@@ -64,9 +64,9 @@
   "gridUnits": "m",
   "primaryTokenAttribute": null,
   "secondaryTokenAttribute": null,
-  "url": "https://github.com/Perfectro/dark-heresy-foundry-vtt",
+  "url": "https://github.com/moo-man/DarkHeresy2E-FoundryVTT",
   "socket": true,
-  "manifest": "https://raw.githubusercontent.com/Perfectro/dark-heresy-foundry-vtt/master/system.json",
-  "download": "https://github.com/Perfectro/dark-heresy-foundry-vtt/archive/v1.11.zip",
+  "manifest": "https://raw.githubusercontent.com/moo-man/DarkHeresy2E-FoundryVTT/master/system.json",
+  "download": "https://github.com/moo-man/DarkHeresy2E-FoundryVTT/archive/master.zip",
   "license": "LICENSE.txt"
 }
