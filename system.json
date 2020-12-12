@@ -1,0 +1,72 @@
+{
+  "name": "dark-heresy",
+  "title": "Dark Heresy 2E",
+  "description": "Innocence proves nothing",
+  "version": "1.11.0",
+  "minimumCoreVersion": "0.7.5",
+  "compatibleCoreVersion": "0.7.7",
+  "templateVersion": 2,
+  "author": "Perfectro",
+  "scripts": [],
+  "esmodules": [
+    "script/common/hooks.js"
+  ],
+  "styles": [
+    "style/common/variable.css",
+    "style/common/helper.css",
+    "style/common/override.css",
+    "style/chat/chat.css",
+    "style/dialog/dialog.css",
+    "style/sheet/actor.css",
+    "style/sheet/item.css",
+    "style/sheet/acolyte.css",
+    "style/sheet/npc.css",
+    "style/sheet/mental-disorder.css",
+    "style/sheet/malignancy.css",
+    "style/sheet/mutation.css",
+    "style/sheet/talent.css",
+    "style/sheet/trait.css",
+    "style/sheet/special-ability.css",
+    "style/sheet/psychic-power.css",
+    "style/sheet/critical-injury.css",
+    "style/sheet/weapon.css",
+    "style/sheet/armour.css",
+    "style/sheet/gear.css",
+    "style/sheet/drug.css",
+    "style/sheet/tool.css",
+    "style/sheet/cybernetic.css",
+    "style/sheet/weapon-modification.css",
+    "style/sheet/ammunition.css",
+    "style/sheet/force-field.css",
+    "style/sheet/tab/stats.css",
+    "style/sheet/tab/npc-stats.css",
+    "style/sheet/tab/combat.css",
+    "style/sheet/tab/abilities.css",
+    "style/sheet/tab/psychic-powers.css",
+    "style/sheet/tab/gear.css",
+    "style/sheet/tab/progression.css",
+    "style/sheet/tab/notes.css"
+  ],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "lang/es.json"
+    }
+  ],
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "primaryTokenAttribute": null,
+  "secondaryTokenAttribute": null,
+  "url": "https://github.com/Perfectro/dark-heresy-foundry-vtt",
+  "socket": true,
+  "manifest": "https://raw.githubusercontent.com/Perfectro/dark-heresy-foundry-vtt/master/system.json",
+  "download": "https://github.com/Perfectro/dark-heresy-foundry-vtt/archive/v1.11.zip",
+  "license": "LICENSE.txt"
+}

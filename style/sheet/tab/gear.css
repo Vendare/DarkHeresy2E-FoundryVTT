@@ -1,0 +1,155 @@
+.dark-heresy .gear .encumbrance {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+
+.dark-heresy .gear .encumbrance .information {
+    display: flex;
+    margin-top: 5px;
+    flex-basis: 100%;
+    justify-content: space-evenly;
+}
+
+.dark-heresy .gear .encumbrance .information .max,
+.dark-heresy .gear .encumbrance .information .current {
+    display: flex;
+    align-self: center;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .encumbrance .information .max label,
+.dark-heresy .gear .encumbrance .information .current label {
+    flex-basis: 30%;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.dark-heresy .gear .encumbrance .information .max input,
+.dark-heresy .gear .encumbrance .information .current input {
+    font-size: 24px;
+    height: 50px;
+    width: 50px;
+    margin-left: 10px;
+}
+
+.dark-heresy .gear .all-gear {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 2px;
+    flex-basis: 100%;
+    overflow-y: scroll;
+    max-height: 581px;
+    height: 581px;
+    align-content: flex-start;
+}
+
+.dark-heresy .gear .all-gear .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .gear .all-gear .item-list .name {
+    flex-basis: 30%;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.dark-heresy .gear .all-gear .item-list .installed {
+    flex-basis: 10%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .upgrade {
+    flex-basis: 50%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .class {
+    flex-basis: 30%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .damage {
+    flex-basis: 10%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .type {
+    flex-basis: 5%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .clip {
+    flex-basis: 10%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .weapon {
+    flex-basis: 45%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .quantity {
+    flex-basis: 10%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .part {
+    flex-basis: 55%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .craftsmanship {
+    flex-basis: 55%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .short-description {
+    flex-basis: 55%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .installed {
+    flex-basis: 10%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .cybernetic-craftsmanship {
+    flex-basis: 45%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .weight {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .button {
+    flex-basis: 7%;
+    text-align: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .item {
+    overflow-y: visible;
+}
+
+.dark-heresy .gear .all-gear .item-list .items .gear {
+    width: 100%;
+}

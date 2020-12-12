@@ -1,0 +1,33 @@
+.dark-heresy .flex {
+    display: flex;
+}
+
+.dark-heresy .row {
+    flex-direction: row;
+}
+
+.dark-heresy .column {
+    flex-direction: column;
+}
+
+.dark-heresy .border {
+    border: 2px solid var(--color-border);
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.dark-heresy .background {
+    background: url(../../asset/image/background-window.jpg) repeat;
+}
+
+.dark-heresy .grow {
+    flex-grow: 1;
+}
+
+.dark-heresy .wrap {
+    flex-wrap: wrap;
+}
+
+.dark-heresy .justify-center {
+    justify-content: center;
+}

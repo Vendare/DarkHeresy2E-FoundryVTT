@@ -1,0 +1,54 @@
+.dark-heresy .notes-tab .notes-editor {
+    margin-top: 2px;
+    height: 476px;
+}
+
+.dark-heresy .notes-tab .information {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+
+.dark-heresy .notes-tab .information .information-row {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0;
+}
+
+.dark-heresy .notes-tab .information .full {
+    flex-basis: 100%;
+}
+
+.dark-heresy .notes-tab .information .information-row .wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.dark-heresy .notes-tab .information .information-row .margin {
+    margin-left: 14px;
+}
+
+.dark-heresy .notes-tab .information .information-row input {
+    margin-left: 8px;
+}
+
+.dark-heresy .notes-tab .information .information-row .age input {
+    width: 2em;
+    text-align: center;
+}
+
+.dark-heresy .notes-tab .information .information-row .gender input,
+.dark-heresy .notes-tab .information .information-row .build input,
+.dark-heresy .notes-tab .information .information-row .complexion input,
+.dark-heresy .notes-tab .information .information-row .hair input {
+    width: 8em;
+}
+
+.dark-heresy .notes-tab .information .information-row .divination label,
+.dark-heresy .notes-tab .information .information-row .quirks label,
+.dark-heresy .notes-tab .information .information-row .superstition label,
+.dark-heresy .notes-tab .information .information-row .momentos label {
+    flex-basis: 10%;
+}

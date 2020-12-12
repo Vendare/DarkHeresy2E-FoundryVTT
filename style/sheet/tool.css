@@ -1,0 +1,26 @@
+.dark-heresy.tool .notes-editor {
+    height: 165px;
+    max-height: 165px;
+}
+
+.dark-heresy.tool .stats {
+    height: 165px;
+    align-content: baseline;
+}
+
+.dark-heresy.tool .stats .stats-row .stat.craftsmanship select {
+    width: 8em;
+}
+
+.dark-heresy.tool .stats .stats-row .stat.availability select {
+    width: 8em;
+}
+
+.dark-heresy.tool .stats .stats-row .stat.weight input {
+    width: 2em;
+    text-align: center;
+}
+
+.dark-heresy.tool .stats .stats-row .stat.short-description input {
+    width: 31em;
+}

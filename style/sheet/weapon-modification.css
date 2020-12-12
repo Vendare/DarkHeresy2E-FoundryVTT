@@ -1,0 +1,26 @@
+.dark-heresy.weapon-modification .notes-editor {
+    height: 165px;
+    max-height: 165px;
+}
+
+.dark-heresy.weapon-modification .stats {
+    height: 165px;
+    align-content: baseline;
+}
+
+.dark-heresy.weapon-modification .stats .stats-row .stat.craftsmanship select {
+    width: 8em;
+}
+
+.dark-heresy.weapon-modification .stats .stats-row .stat.availability select {
+    width: 8em;
+}
+
+.dark-heresy.weapon-modification .stats .stats-row .stat.weight input {
+    width: 2em;
+    text-align: center;
+}
+
+.dark-heresy.weapon-modification .stats .stats-row .stat.upgrades input {
+    width: 330px;
+}

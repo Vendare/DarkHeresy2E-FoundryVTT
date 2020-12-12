@@ -1,0 +1,35 @@
+.dark-heresy .npc {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.dark-heresy .npc .header .type,
+.dark-heresy .npc .header .faction {
+    flex-basis: 35%;
+}
+
+.dark-heresy .npc .header .threat-level,
+.dark-heresy .npc .header .subfaction {
+    flex-basis: 40%;
+}
+
+.dark-heresy .npc .header .fate,
+.dark-heresy .npc .header .fatigue {
+    flex-basis: 23%;
+}
+
+.dark-heresy .npc .header .type select,
+.dark-heresy .npc .header .faction input,
+.dark-heresy .npc .header .threat-level input,
+.dark-heresy .npc .header .subfaction input {
+    width: 11em;
+    height: 22px;
+}
+
+.dark-heresy .npc .header .fate input,
+.dark-heresy .npc .header .fatigue input {
+    width: 2em;
+    margin: 0 5px;
+}

@@ -1,0 +1,32 @@
+.dark-heresy.dialog {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+
+.dark-heresy.dialog .wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 100%;
+    margin-top: 5px;
+    align-items: center;
+}
+
+.dark-heresy.dialog .separator {
+    flex-basis: 100%;
+    padding-top: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.dark-heresy.dialog .wrapper label {
+    width: 4em;
+}
+
+.dark-heresy.dialog .wrapper input,
+.dark-heresy.dialog .wrapper select {
+    width: 101px;
+    margin-left: 5px;
+    text-align: center;
+}

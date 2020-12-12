@@ -1,0 +1,136 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "WEAPON.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="stats-row">
+                    <div class="stat class">
+                        <label>{{localize "WEAPON.CLASS"}}</label>
+                        <select name="data.class">
+                            {{#select data.class}}
+                                <option value="melee">{{localize "WEAPON.MELEE"}}</option>
+                                <option value="thrown">{{localize "WEAPON.THROWN"}}</option>
+                                <option value="pistol">{{localize "WEAPON.PISTOL"}}</option>
+                                <option value="basic">{{localize "WEAPON.BASIC"}}</option>
+                                <option value="heavy">{{localize "WEAPON.HEAVY"}}</option>
+                                <option value="vehicle">{{localize "WEAPON.VEHICLE"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat range">
+                        <label>{{localize "WEAPON.RANGE"}}</label>
+                        <input name="data.range" type="number" value="{{data.range}}" data-dtype="Number" />
+                    </div>
+                    <div class="stat reload">
+                        <label>{{localize "WEAPON.RELOAD_FULL"}}</label>
+                        <input name="data.reload" type="text" value="{{data.reload}}" />
+                    </div>
+                    <div class="stat clip">
+                        <label>{{localize "WEAPON.CLIP"}}</label>
+                        <input style="margin-left: 8px" name="data.clip.value" type="number" value="{{data.clip.value}}" data-dtype="Number" />
+                        /
+                        <input name="data.clip.max" type="number" value="{{data.clip.max}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat damage">
+                        <label>{{localize "WEAPON.DAMAGE_FULL"}}</label>
+                        <input name="data.damage" type="text" value="{{data.damage}}" />
+                        <select name="data.damageType">
+                            {{#select data.damageType}}
+                                <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
+                                <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
+                                <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
+                                <option value="explosive">{{localize "DAMAGE_TYPE.EXPLOSIVE"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat penetration">
+                        <label>{{localize "WEAPON.PENETRATION"}}</label>
+                        <input name="data.penetration" type="text" value="{{data.penetration}}" />
+                    </div>
+                    <div class="stat rate-of-fire">
+                        <label>{{localize "WEAPON.RATE_OF_FIRE_FULL"}}</label>
+                        <input style="margin-left: 8px" name="data.rateOfFire.single" type="number" value="{{data.rateOfFire.single}}" data-dtype="Number" />
+                        /
+                        <input name="data.rateOfFire.burst" type="number" value="{{data.rateOfFire.burst}}" data-dtype="Number" />
+                        /
+                        <input name="data.rateOfFire.full" type="number" value="{{data.rateOfFire.full}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat craftsmanship">
+                        <label>{{localize "WEAPON.CRAFTSMANSHIP"}}</label>
+                        <select name="data.craftsmanship">
+                            {{#select data.craftsmanship}}
+                                <option value="poor">{{localize "CRAFTSMANSHIP.POOR"}}</option>
+                                <option value="common">{{localize "CRAFTSMANSHIP.COMMON"}}</option>
+                                <option value="good">{{localize "CRAFTSMANSHIP.GOOD"}}</option>
+                                <option value="best">{{localize "CRAFTSMANSHIP.BEST"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat availability">
+                        <label>{{localize "WEAPON.AVAILABILITY"}}</label>
+                        <select name="data.availability">
+                            {{#select data.availability}}
+                                <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
+                                <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
+                                <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
+                                <option value="common">{{localize "AVAILABILITY.COMMON"}}</option>
+                                <option value="average">{{localize "AVAILABILITY.AVERAGE"}}</option>
+                                <option value="scarce">{{localize "AVAILABILITY.SCARCE"}}</option>
+                                <option value="rare">{{localize "AVAILABILITY.RARE"}}</option>
+                                <option value="very-rare">{{localize "AVAILABILITY.VERY_RARE"}}</option>
+                                <option value="extremely-rare">{{localize "AVAILABILITY.EXTREMELY_RARE"}}</option>
+                                <option value="near-unique">{{localize "AVAILABILITY.NEAR_UNIQUE"}}</option>
+                                <option value="unique">{{localize "AVAILABILITY.UNIQUE"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat weight">
+                        <label>{{localize "WEAPON.WEIGHT"}}</label>
+                        <input name="data.weight" type="number" value="{{data.weight}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat special">
+                        <label>{{localize "WEAPON.SPECIAL"}}</label>
+                        <input name="data.special" type="text" value="{{data.special}}" />
+                    </div>
+                    <div class="stat attack">
+                        <label>{{localize "WEAPON.ATTACK"}}</label>
+                        <input name="data.attack" type="number" value="{{data.attack}}" data-dtype="Number" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div style="height: 132px; width: 100%">
+                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

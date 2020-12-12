@@ -1,0 +1,138 @@
+<div class="dark-heresy chat item">
+    <div class="background border">
+        <h1>{{name}}</h1>
+        {{#if img}}
+        <img src="{{img}}" title="{{name}}"/>
+        {{/if}}
+
+        {{#if isAmmunition}}
+        <p><strong>{{localize "AMMUNITION.WEAPON"}}:</strong> {{data.weapon}}</p>
+        <p><strong>{{localize "AMMUNITION.DAMAGE"}}:</strong> {{data.effect.damage.modifier}} {{damageType data.effect.damage.type}}</p>
+        <p><strong>{{localize "AMMUNITION.ATTACK"}}:</strong> {{data.effect.attack.modifier}}</p>
+        <p><strong>{{localize "AMMUNITION.PENETRATION"}}:</strong> {{data.effect.penetration}}</p>
+        <p><strong>{{localize "AMMUNITION.SPECIAL"}}:</strong> {{data.effect.special}}</p>
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        <p><strong>{{localize "AMMUNITION.WEIGHT"}}:</strong> {{data.weight}}</p>
+        <p><strong>{{localize "AMMUNITION.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
+        <p><strong>{{localize "AMMUNITION.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+
+        {{#if isArmour}}
+        <p><strong>{{localize "ARMOUR.TYPE"}}:</strong> {{armourType data.type}}</p>
+        <p><strong>{{localize "ARMOUR.PART"}}:</strong> {{part data.part}}</p>
+        <p><strong>{{localize "ARMOUR.MAX_AGILITY"}}:</strong> {{data.maxAgility}}</p>
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        <p><strong>{{localize "ARMOUR.WEIGHT"}}:</strong> {{data.weight}}</p>
+        <p><strong>{{localize "ARMOUR.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
+        <p><strong>{{localize "ARMOUR.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+
+        {{#if isCriticalInjury}}
+        <p><strong>{{localize "CRITICAL_INJURY.TYPE"}}:</strong> {{damageType data.type}}</p>
+        <p><strong>{{localize "CRITICAL_INJURY.PART"}}:</strong> {{partLocation data.part}}</p>
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        {{/if}}
+
+        {{#if isCybernetic}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        <p><strong>{{localize "CYBERNETIC.WEIGHT"}}:</strong> {{data.weight}}</p>
+        <p><strong>{{localize "CYBERNETIC.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
+        <p><strong>{{localize "CYBERNETIC.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+
+        {{#if isDrug}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        <p><strong>{{localize "DRUG.WEIGHT"}}:</strong> {{data.weight}}</p>
+        <p><strong>{{localize "DRUG.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
+        <p><strong>{{localize "DRUG.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+
+        {{#if isForceField}}
+        <p><strong>{{localize "FORCE_FIELD.PROTECTION_RATING"}}:</strong> {{data.protectionRating}}</p>
+        <p><strong>{{localize "FORCE_FIELD.OVERLOAD_CHANCE"}}:</strong> {{data.overloadChance}}</p>
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        <p><strong>{{localize "FORCE_FIELD.WEIGHT"}}:</strong> {{data.weight}}</p>
+        <p><strong>{{localize "FORCE_FIELD.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
+        <p><strong>{{localize "FORCE_FIELD.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+
+        {{#if isGear}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        <p><strong>{{localize "GEAR.WEIGHT"}}:</strong> {{data.weight}}</p>
+        <p><strong>{{localize "GEAR.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
+        <p><strong>{{localize "GEAR.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+
+        {{#if isMalignancy}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        {{/if}}
+
+        {{#if isMentalDisorder}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        {{/if}}
+
+        {{#if isMutation}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        {{/if}}
+
+        {{#if isPsychicPower}}
+        <p><strong>{{localize "PSYCHIC_POWER.PREREQUISITE"}}:</strong> {{data.prerequisite}}</p>
+        <p><strong>{{localize "PSYCHIC_POWER.ACTION"}}:</strong> {{data.action}}</p>
+        <p><strong>{{localize "PSYCHIC_POWER.FOCUS_POWER"}}:</strong> {{data.focusPower.test}} ({{data.focusPower.difficulty}})</p>
+        <p><strong>{{localize "PSYCHIC_POWER.RANGE"}}:</strong> {{data.range}}</p>
+        <p><strong>{{localize "PSYCHIC_POWER.SUSTAINED"}}:</strong> {{data.sustained}}</p>
+        <p><strong>{{localize "PSYCHIC_POWER.SUBTYPE"}}:</strong> {{data.subtype}}</p>
+        <p><strong>{{localize "PSYCHIC_POWER.ZONE"}}:</strong> {{psychicPowerZone data.damage.zone}}</p>
+        <p><strong>{{localize "PSYCHIC_POWER.DAMAGE_FULL"}}:</strong> {{data.damage.formula}} {{damageType data.damage.type}}</p>
+        <p><strong>{{localize "PSYCHIC_POWER.PENETRATION"}}:</strong> {{data.damage.penetration}}</p>
+        <p><strong>{{localize "PSYCHIC_POWER.SPECIAL"}}:</strong> {{data.damage.special}}</p>
+        <p><strong>{{localize "PSYCHIC_POWER.EFFECT"}}:</strong> {{removeMarkup data.effect}}</p>
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        {{/if}}
+
+        {{#if isSpecialAbility}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        {{/if}}
+
+        {{#if isTalent}}
+        <p><strong>{{localize "TALENT.PREREQUISITES"}}:</strong> {{data.prerequisites}}</p>
+        <p><strong>{{localize "TALENT.APTITUDES"}}:</strong> {{data.aptitudes}}</p>
+        <p><strong>{{localize "TALENT.TIER"}}:</strong> {{data.tier}}</p>
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        {{/if}}
+
+        {{#if isTool}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        <p><strong>{{localize "TOOL.WEIGHT"}}:</strong> {{data.weight}}</p>
+        <p><strong>{{localize "TOOL.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
+        <p><strong>{{localize "TOOL.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+
+        {{#if isTrait}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        {{/if}}
+
+        {{#if isWeapon}}
+        <p><strong>{{localize "WEAPON.CLASS"}}:</strong> {{weaponClass data.class}}</p>
+        <p><strong>{{localize "WEAPON.RANGE"}}:</strong> {{data.range}}</p>
+        <p><strong>{{localize "WEAPON.RATE_OF_FIRE_FULL"}}:</strong> {{rateOfFire data.rateOfFire}}</p>
+        <p><strong>{{localize "WEAPON.DAMAGE_FULL"}}:</strong> {{data.damage}} {{damageType data.damageType}}</p>
+        <p><strong>{{localize "WEAPON.PENETRATION_FULL"}}:</strong> {{data.penetration}}</p>
+        <p><strong>{{localize "WEAPON.CLIP"}}:</strong> {{clip data.clip}}</p>
+        <p><strong>{{localize "WEAPON.RELOAD_FULL"}}:</strong> {{data.reload}}</p>
+        <p><strong>{{localize "WEAPON.SPECIAL"}}:</strong> {{data.special}}</p>
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        <p><strong>{{localize "WEAPON.WEIGHT"}}:</strong> {{data.weight}}</p>
+        <p><strong>{{localize "WEAPON.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
+        <p><strong>{{localize "WEAPON.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+
+        {{#if isWeaponModification}}
+        <p><strong>{{localize "WEAPON_MODIFICATION.UPGRADES"}}:</strong> {{data.upgrades}}</p>
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{removeMarkup data.description}}</p>
+        <p><strong>{{localize "WEAPON_MODIFICATION.WEIGHT"}}:</strong> {{data.weight}}</p>
+        <p><strong>{{localize "WEAPON_MODIFICATION.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
+        <p><strong>{{localize "WEAPON_MODIFICATION.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+    </div>
+</div>

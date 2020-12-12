@@ -1,0 +1,30 @@
+<div class="flex wrap psychic">
+    <div class="psychic-powers border">
+        <h1>{{localize "TITLE.PSYCHIC_POWERS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "PSYCHIC_POWER.NAME"}}</b>
+                <b class="short">{{localize "PSYCHIC_POWER.SHORT_DESCRIPTION"}}</b>
+                <a class="button item-create" title="Add Psychic Power" data-type="psychicPower"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isPsychicPower}}
+                        <div class="psychic-power item flex row" data-item-id="{{item._id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="short">{{item.data.shortDescription}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Psychic Power"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

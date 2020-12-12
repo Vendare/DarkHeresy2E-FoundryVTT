@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Caslon Antique";
+    src: url("../../asset/font/caslon-antique.ttf");
+}
+
+@font-face {
+    font-family: "Caslon Antique";
+    src: url("../../asset/font/caslon-antique-Italic.ttf");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Caslon Antique";
+    src: url("../../asset/font/caslon-antique-bold.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Caslon Antique";
+    src: url("../../asset/font/caslon-antique-boldItalic.ttf");
+    font-style: italic;
+    font-weight: bold;
+}
+
+:root {
+    --color-highlight: red;
+    --color-text: black;
+    --color-title: white;
+    --color-border: black;
+    --color-foreground: #7a1404;
+    --color-shadow: #ab4c00;
+    --color-success: green;
+    --color-failure: red;
+    --font-text: "Caslon Antique", serif;
+}

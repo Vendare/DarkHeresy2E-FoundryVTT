@@ -1,0 +1,114 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "PSYCHIC_POWER.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="effect">{{localize "TAB.EFFECT"}}</b>
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="stats-row">
+                    <div class="stat prerequisite">
+                        <label>{{localize "PSYCHIC_POWER.PREREQUISITE"}}</label>
+                        <input name="data.prerequisite" type="text" value="{{data.prerequisite}}" />
+                    </div>
+                    <div class="stat action">
+                        <label>{{localize "PSYCHIC_POWER.ACTION"}}</label>
+                        <input name="data.action" type="text" value="{{data.action}}" />
+                    </div>
+                    <div class="stat subtype">
+                        <label>{{localize "PSYCHIC_POWER.SUBTYPE"}}</label>
+                        <input name="data.subtype" type="text" value="{{data.subtype}}" />
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat focus-power">
+                        <label>{{localize "PSYCHIC_POWER.FOCUS_POWER"}}</label>
+                        <input name="data.focusPower.difficulty" type="number" value="{{data.focusPower.difficulty}}" data-dtype="Number" />
+                        <input name="data.focusPower.test" type="text" value="{{data.focusPower.test}}" />
+                    </div>
+                    <div class="stat range">
+                        <label>{{localize "PSYCHIC_POWER.RANGE"}}</label>
+                        <input name="data.range" type="text" value="{{data.range}}" />
+                    </div>
+                    <div class="stat sustained">
+                        <label>{{localize "PSYCHIC_POWER.SUSTAINED"}}</label>
+                        <input name="data.sustained" type="text" value="{{data.sustained}}" />
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat damage">
+                        <label>{{localize "PSYCHIC_POWER.DAMAGE_FULL"}}</label>
+                        <input name="data.damage.formula" type="text" value="{{data.damage.formula}}" />
+                        <select name="data.damage.type">
+                            {{#select data.damage.type}}
+                                <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
+                                <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
+                                <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
+                                <option value="explosive">{{localize "DAMAGE_TYPE.EXPLOSIVE"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat penetration">
+                        <label>{{localize "PSYCHIC_POWER.PENETRATION"}}</label>
+                        <input name="data.damage.penetration" type="text" value="{{data.damage.penetration}}" />
+                    </div>
+                    <div class="stat zone">
+                        <label>{{localize "PSYCHIC_POWER.ZONE"}}</label>
+                        <select name="data.zone">
+                            {{#select data.zone}}
+                                <option value="bolt">{{localize "PSYCHIC_POWER.BOLT"}}</option>
+                                <option value="barrage">{{localize "PSYCHIC_POWER.BARRAGE"}}</option>
+                                <option value="storm">{{localize "PSYCHIC_POWER.STORM"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat special">
+                        <label>{{localize "PSYCHIC_POWER.SPECIAL"}}</label>
+                        <input name="data.damage.special" type="text" value="{{data.damage.special}}" />
+                    </div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat short-description">
+                        <label style="width: 90px">{{localize "PSYCHIC_POWER.SHORT_DESCRIPTION"}}</label>
+                        <input name="data.shortDescription" type="text" value="{{data.shortDescription}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="effect">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.EFFECT"}}</h1>
+                <div style="height: 160px; width: 100%">
+                    {{editor content=data.effect target="data.effect" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div style="height: 160px; width: 100%">
+                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

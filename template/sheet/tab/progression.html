@@ -1,0 +1,218 @@
+<div class="flex wrap progression">
+    <div class="aptitudes border">
+        <h1>{{localize "TITLE.APTITUDES"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "APTITUDE.NAME"}}</b>
+                <a class="button aptitude-create" title="Add Aptitude"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each data.aptitudes as |aptitude|}}
+                    <div class="aptitude item flex row" data-aptitude-id="{{aptitude.id}}">
+                        <input class="name" name="data.aptitudes.{{aptitude.id}}.name" type="text" value="{{aptitude.name}}" />
+                        <div class="button">
+                            <a class="item-control aptitude-delete" title="Delete Aptitude"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="talents border">
+        <h1>{{localize "TITLE.TALENTS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "TALENT.NAME"}}</b>
+                <b class="cost">{{localize "TALENT.COST"}}</b>
+                <a class="button item-create" title="Add Talent" data-type="talent"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isTalent}}
+                        <div class="talent item flex row" data-item-id="{{item._id}}">
+                            <div class="flex talent-row item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div class="name">{{item.name}}</div>
+                            </div>
+                            <input class="item-cost" type="number" value="{{item.data.cost}}" data-dtype="Number" />
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="experience border">
+        <h1>{{localize "TITLE.EXPERIENCE"}}</h1>
+        <div class="information">
+            <label>{{localize "EXPERIENCE.CURRENT"}}</label>
+            <input name="data.experience.value" type="number" value="{{data.experience.value}}" data-dtype="Number" />
+        </div>
+        <div class="information">
+            <label>{{localize "EXPERIENCE.SPENT_CHARACTERISTICS"}}</label>
+            <input name="data.experience.spentCharacteristics" type="number" value="{{data.experience.spentCharacteristics}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "EXPERIENCE.SPENT_SKILLS"}}</label>
+            <input name="data.experience.spentSkills" type="number" value="{{data.experience.spentSkills}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "EXPERIENCE.SPENT_TALENTS"}}</label>
+            <input name="data.experience.spentTalents" type="number" value="{{data.experience.spentTalents}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "EXPERIENCE.SPENT_PSYCHIC_POWERS"}}</label>
+            <input name="data.experience.spentPsychicPowers" type="number" value="{{data.experience.spentPsychicPowers}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "EXPERIENCE.TOTAL_SPENT"}}</label>
+            <input name="data.experience.totalSpent" type="number" value="{{data.experience.totalSpent}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "EXPERIENCE.TOTAL"}}</label>
+            <input name="data.experience.total" type="number" value="{{data.experience.total}}" data-dtype="Number" disabled />
+        </div>
+    </div>
+    <div class="flex column" style="flex-basis: 50%">
+        <div class="characteristics border">
+            <h1>{{localize "TITLE.CHARACTERISTICS"}}</h1>
+            <div class="item-list">
+                <div class="flex header">
+                    <b class="name">{{localize "CHARACTERISTIC.NAME"}}</b>
+                    <b class="advance">{{localize "CHARACTERISTIC.ADVANCE"}}</b>
+                    <b class="unnatural">{{localize "CHARACTERISTIC.UNNATURAL"}}</b>
+                    <b class="base">{{localize "CHARACTERISTIC.BASE"}}</b>
+                    <b class="cost">{{localize "CHARACTERISTIC.COST"}}</b>
+                </div>
+                <div class="items">
+                    {{#each data.characteristics as |characteristic key|}}
+                        <div class="characteristic item flex row">
+                            <div class="name">{{localize characteristic.label}}</div>
+                            <select class="advance" name="data.characteristics.{{key}}.advance" data-dtype="Number">
+                                {{#select characteristic.advance}}
+                                    <option value="0">{{localize "ADVANCE.NONE"}}</option>
+                                    <option value="5">{{localize "ADVANCE.SIMPLE"}}</option>
+                                    <option value="10">{{localize "ADVANCE.INTERMEDIATE"}}</option>
+                                    <option value="15">{{localize "ADVANCE.TRAINED"}}</option>
+                                    <option value="20">{{localize "ADVANCE.PROFICIENT"}}</option>
+                                    <option value="25">{{localize "ADVANCE.EXPERT"}}</option>
+                                {{/select}}
+                            </select>
+                            <input class="unnatural" name="data.characteristics.{{key}}.unnatural" type="number" value="{{characteristic.unnatural}}" data-dtype="Number" />
+                            <input class="base" name="data.characteristics.{{key}}.base" type="number" value="{{characteristic.base}}" data-dtype="Number" />
+                            <input class="cost" name="data.characteristics.{{key}}.cost" type="number" value="{{characteristic.cost}}" data-dtype="Number" />
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="psychic-powers border">
+            <h1>{{localize "TITLE.PSYCHIC_POWERS"}}</h1>
+            <div class="header">
+                <div class="class">
+                    <label>{{localize "PSYCHIC_POWER.CLASS"}}</label>
+                    <select name="data.psy.class">
+                        {{#select data.psy.class}}
+                            <option value="bound">{{localize "PSYCHIC_POWER.BOUND"}}</option>
+                            <option value="unbound">{{localize "PSYCHIC_POWER.UNBOUND"}}</option>
+                            <option value="daemonic">{{localize "PSYCHIC_POWER.DAEMONIC"}}</option>
+                        {{/select}}
+                    </select>
+                </div>
+                <div class="rating">
+                    <div class="flex">
+                        <label>{{localize "PSYCHIC_POWER.RATING"}}</label>
+                        <input name="data.psy.rating" type="number" value="{{data.psy.rating}}" data-dtype="Number" />
+                    </div>
+                    <div class="flex" style="margin-top: 2px">
+                        <label>{{localize "PSYCHIC_POWER.COST"}}</label>
+                        <input name="data.psy.cost" type="number" value="{{data.psy.cost}}" data-dtype="Number" />
+                    </div>
+                </div>
+            </div>
+            <div class="item-list">
+                <div class="flex header">
+                    <b class="name">{{localize "PSYCHIC_POWER.NAME"}}</b>
+                    <b class="cost">{{localize "PSYCHIC_POWER.COST"}}</b>
+                    <a class="button item-create" title="Add Psychic Power" data-type="psychicPower"><i class="fas fa-plus"></i></a>
+                </div>
+                <div class="items">
+                    {{#each actor.items as |item|}}
+                        {{#if item.isPsychicPower}}
+                            <div class="psychic-power item flex row" data-item-id="{{item._id}}">
+                                <div class="flex psychic-powers-row item-edit">
+                                    <div class="image-container">
+                                        <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                    </div>
+                                    <div class="name">{{item.name}}</div>
+                                </div>
+                                <input class="item-cost" type="number" value="{{item.data.cost}}" data-dtype="Number" />
+                                <div class="button">
+                                    <a class="item-control item-delete" title="Delete Psychic Power"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </div>
+                        {{/if}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="skills border">
+        <h1>{{localize "TITLE.SKILLS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "SKILL.NAME"}}</b>
+                <b class="advance">{{localize "SKILL.ADVANCE"}}</b>
+                <b class="total">{{localize "SKILL.TOTAL"}}</b>
+                <b class="cost">{{localize "SKILL.COST"}}</b>
+            </div>
+            <div class="items">
+                {{#each data.skills as |skill key|}}
+                    {{#unless skill.isSpecialist}}
+                        <div class="skill item flex row">
+                            <div class="name">{{localize skill.label}}</div>
+                            <select class="advance" name="data.skills.{{key}}.advance" data-dtype="Number">
+                                {{#select skill.advance}}
+                                    <option value="-20">{{localize "ADVANCE.UNTRAINED"}}</option>
+                                    <option value="0">{{localize "ADVANCE.KNOWN"}}</option>
+                                    <option value="10">{{localize "ADVANCE.TRAINED"}}</option>
+                                    <option value="20">{{localize "ADVANCE.EXPERT"}}</option>
+                                    <option value="30">{{localize "ADVANCE.VETERAN"}}</option>
+                                {{/select}}
+                            </select>
+                            <input class="total" name="data.skills.{{key}}.total" type="number" value="{{skill.total}}" data-dtype="Number" disabled />
+                            <input class="cost" name="data.skills.{{key}}.cost" type="number" value="{{skill.cost}}" data-dtype="Number" />
+                        </div>
+                    {{/unless}}
+                {{/each}}
+                {{#each data.skills as |skill key|}}
+                    {{#if skill.isSpecialist}}
+                        <div class="flex header">
+                            <b class="name">{{localize skill.label}}</b>
+                        </div>
+                        {{#each skill.specialities as |speciality keySpe|}}
+                            <div class="speciality item flex row">
+                                <div class="name">{{localize speciality.label}}</div>
+                                <select class="advance" name="data.skills.{{key}}.specialities.{{keySpe}}.advance" data-dtype="Number">
+                                    {{#select speciality.advance}}
+                                        <option value="-20">{{localize "ADVANCE.UNTRAINED"}}</option>
+                                        <option value="0">{{localize "ADVANCE.KNOWN"}}</option>
+                                        <option value="10">{{localize "ADVANCE.TRAINED"}}</option>
+                                        <option value="20">{{localize "ADVANCE.EXPERT"}}</option>
+                                        <option value="30">{{localize "ADVANCE.VETERAN"}}</option>
+                                    {{/select}}
+                                </select>
+                                <input class="total" name="data.skills.{{key}}.specialities.{{keySpe}}.total" type="number" value="{{speciality.total}}" data-dtype="Number" disabled />
+                                <input class="cost" name="data.skills.{{key}}.specialities.{{keySpe}}.cost" type="number" value="{{speciality.cost}}" data-dtype="Number" />
+                            </div>
+                        {{/each}}
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

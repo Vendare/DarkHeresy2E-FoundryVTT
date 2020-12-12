@@ -1,0 +1,321 @@
+.dark-heresy .progression .aptitudes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: 25%;
+    align-items: center;
+}
+
+.dark-heresy .progression .aptitudes .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .progression .aptitudes .item-list .header .name {
+    flex-basis: 89%;
+}
+
+.dark-heresy .progression .aptitudes .item-list .items .aptitude {
+    width: 100%;
+}
+
+.dark-heresy .progression .aptitudes .item-list .items {
+    max-height: 160px;
+    height: 160px;
+}
+
+.dark-heresy .progression .aptitudes .item-list .items .item .name {
+    flex-basis: 90%;
+    align-items: center;
+    background: none;
+    border: none;
+    box-shadow: none;
+    font-size: 16px;
+    padding: 0;
+}
+
+.dark-heresy .progression .aptitudes .item-list .items .item .name:focus {
+    background: url(../../../asset/image/background-input.jpg) repeat;
+    border-radius: 3px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 10px var(--color-shadow);
+    outline: none;
+    color: var(--color-text);
+    font-family: var(--font-text);
+    font-size: 12px;
+    padding: 2px 4px;
+}
+
+.dark-heresy .progression .talents {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: calc(45% - 4px);
+    align-items: center;
+    margin: 0 2px;
+}
+
+.dark-heresy .progression .talents .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .progression .talents .item-list .header .name {
+    flex-basis: 64%;
+}
+
+.dark-heresy .progression .talents .item-list .header .cost {
+    flex-basis: 30%;
+}
+
+.dark-heresy .progression .talents .item-list .items .talent {
+    width: 100%;
+}
+
+.dark-heresy .progression .talents .item-list .items {
+    max-height: 160px;
+    height: 160px;
+}
+
+.dark-heresy .progression .talents .item-list .items .item .talent-row {
+    flex-basis: 64%;
+    align-items: center;
+}
+
+.dark-heresy .progression .talents .item-list .items .item input {
+    flex-basis: 28%;
+    margin: 1px 5px;
+}
+
+.dark-heresy .progression .experience {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: 30%;
+}
+
+.dark-heresy .progression .experience .information {
+    display: flex;
+    margin-top: 5px;
+}
+
+.dark-heresy .progression .experience .information label {
+    flex-basis: 75%;
+}
+
+.dark-heresy .progression .experience .information input {
+    flex-basis: 25%;
+}
+
+.dark-heresy .progression .characteristics {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-right: 1px;
+    margin-top: 2px;
+}
+
+.dark-heresy .progression .characteristics .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .progression .characteristics .item-list .header .name {
+    flex-basis: 29%;
+}
+
+.dark-heresy .progression .characteristics .item-list .header .advance {
+    flex-basis: 25%;
+    margin-right: 5px;
+}
+
+.dark-heresy .progression .characteristics .item-list .header .unnatural {
+    flex-basis: 13%;
+    margin: 1px;
+}
+
+.dark-heresy .progression .characteristics .item-list .header .base {
+    flex-basis: 11%;
+    margin: 1px;
+}
+
+.dark-heresy .progression .characteristics .item-list .header .cost {
+    flex-basis: 15%;
+    margin-left: 5px;
+}
+
+.dark-heresy .progression .characteristics .item-list .items {
+    max-height: 157px;
+    height: 157px;
+}
+
+.dark-heresy .progression .characteristics .item-list .items .item .name {
+    flex-basis: 30%;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dark-heresy .progression .characteristics .item-list .items .item .advance {
+    flex-basis: 25%;
+    text-align: center;
+    height: 22px;
+    margin-right: 5px;
+}
+
+.dark-heresy .progression .characteristics .item-list .items .item .unnatural {
+    font-size: 12px;
+    height: 24px;
+    width: 40px;
+    margin: 1px;
+}
+
+.dark-heresy .progression .characteristics .item-list .items .item .base {
+    font-size: 12px;
+    height: 24px;
+    width: 40px;
+    margin: 1px;
+}
+
+.dark-heresy .progression .characteristics .item-list .items .item .cost {
+    flex-basis: 15%;
+    text-align: center;
+    height: 22px;
+    margin-left: 5px;
+}
+
+.dark-heresy .progression .psychic-powers {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-right: 1px;
+    margin-top: 2px;
+}
+
+.dark-heresy .progression .psychic-powers .header {
+    margin-top: 5px;
+    display: flex;
+}
+
+.dark-heresy .progression .psychic-powers .header .class {
+    display: flex;
+    flex-basis: 50%;
+    align-self: center;
+}
+
+.dark-heresy .progression .psychic-powers .header .class label {
+    flex-basis: 40%;
+}
+
+.dark-heresy .progression .psychic-powers .header .class select {
+    flex-basis: 60%;
+}
+
+.dark-heresy .progression .psychic-powers .header .rating {
+    display: flex;
+    flex-basis: 50%;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.dark-heresy .progression .psychic-powers .header .rating label {
+    flex-basis: 70%;
+}
+
+.dark-heresy .progression .psychic-powers .header .rating input {
+    flex-basis: 40%;
+}
+
+.dark-heresy .progression .psychic-powers .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .progression .psychic-powers .item-list .header .name {
+    flex-basis: 64%;
+}
+
+.dark-heresy .progression .psychic-powers .item-list .header .cost {
+    flex-basis: 30%;
+}
+
+.dark-heresy .progression .psychic-powers .item-list .items .psychic-power {
+    width: 100%;
+}
+
+.dark-heresy .progression .psychic-powers .item-list .items {
+    max-height: 107px;
+    height: 107px;
+}
+
+.dark-heresy .progression .psychic-powers .item-list .items .item .psychic-powers-row {
+    flex-basis: 64%;
+    align-items: center;
+}
+
+.dark-heresy .progression .psychic-powers .item-list .items .item input {
+    flex-basis: 28%;
+    margin: 1px 5px;
+}
+
+.dark-heresy .progression .skills {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: calc(50% - 1px);
+    margin-left: 1px;
+    margin-top: 2px;
+}
+
+.dark-heresy .progression .skills .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .progression .skills .item-list .header .name {
+    flex-basis: 40%;
+}
+
+.dark-heresy .progression .skills .item-list .header .advance {
+    flex-basis: 25%;
+    margin-right: 5px;
+}
+
+.dark-heresy .progression .skills .item-list .header .total {
+    flex-basis: 11%;
+    margin: 1px;
+}
+
+.dark-heresy .progression .skills .item-list .header .cost {
+    flex-basis: 15%;
+    margin-left: 5px;
+}
+
+.dark-heresy .progression .skills .item-list .items {
+    max-height: 382px;
+    height: 382px;
+}
+
+.dark-heresy .progression .skills .item-list .items .item .name {
+    flex-basis: 40%;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dark-heresy .progression .skills .item-list .items .item .advance {
+    flex-basis: 25%;
+    text-align: center;
+    height: 22px;
+    margin-right: 5px;
+}
+
+.dark-heresy .progression .skills .item-list .items .item .total {
+    font-size: 12px;
+    height: 24px;
+    width: 40px;
+    margin: 1px;
+}
+
+.dark-heresy .progression .skills .item-list .items .item .cost {
+    flex-basis: 15%;
+    text-align: center;
+    height: 22px;
+    margin-left: 5px;
+}

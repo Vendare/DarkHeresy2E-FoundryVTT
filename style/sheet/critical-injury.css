@@ -1,0 +1,14 @@
+.dark-heresy.critical-injury .notes-editor {
+    height: 165px;
+    max-height: 165px;
+}
+
+.dark-heresy.critical-injury .header .part,
+.dark-heresy.critical-injury .header .type {
+    flex-basis: 50%;
+}
+
+.dark-heresy.critical-injury .header .part select,
+.dark-heresy.critical-injury .header .type select {
+    margin: 0 8px;
+}

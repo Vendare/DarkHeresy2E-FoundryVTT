@@ -1,0 +1,13 @@
+.dark-heresy.special-ability .notes-editor {
+    height: 165px;
+    max-height: 165px;
+}
+
+.dark-heresy.special-ability .stats {
+    height: 165px;
+    align-content: baseline;
+}
+
+.dark-heresy.special-ability .stats .stats-row .stat.benefit input {
+    width: 428px;
+}

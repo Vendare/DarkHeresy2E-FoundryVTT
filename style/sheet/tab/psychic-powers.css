@@ -1,0 +1,36 @@
+.dark-heresy .psychic .psychic-powers {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+
+.dark-heresy .psychic .psychic-powers .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .psychic .psychic-powers .item-list .name {
+    flex-basis: 20%;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.dark-heresy .psychic .psychic-powers .item-list .short {
+    flex-basis: 73%;
+    text-align: center;
+}
+
+.dark-heresy .psychic .psychic-powers .item-list .button {
+    flex-basis: 7%;
+    text-align: center;
+}
+
+.dark-heresy .psychic .psychic-powers .item-list .items .psychic-power {
+    width: 100%;
+}
+
+.dark-heresy .psychic .psychic-powers .item-list .items  {
+    max-height: 611px;
+    height: 611px;
+}

@@ -1,0 +1,32 @@
+.dark-heresy.force-field .notes-editor {
+    height: 165px;
+    max-height: 165px;
+}
+
+.dark-heresy.force-field .stats {
+    height: 165px;
+    align-content: baseline;
+}
+
+.dark-heresy.force-field .stats .stats-row .stat.protection-rating input {
+    width: 4em;
+    text-align: center;
+}
+
+.dark-heresy.force-field .stats .stats-row .stat.overload-chance input {
+    width: 4em;
+    text-align: center;
+}
+
+.dark-heresy.force-field .stats .stats-row .stat.craftsmanship select {
+    width: 8em;
+}
+
+.dark-heresy.force-field .stats .stats-row .stat.availability select {
+    width: 8em;
+}
+
+.dark-heresy.force-field .stats .stats-row .stat.weight input {
+    width: 2em;
+    text-align: center;
+}

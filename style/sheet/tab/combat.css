@@ -1,0 +1,306 @@
+.dark-heresy .combat .wounds {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: 30%;
+}
+
+.dark-heresy .combat .wounds .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .combat .wounds .item-list .header .name {
+    flex-basis: 94%;
+}
+
+.dark-heresy .combat .wounds .item-list .items .wound {
+    width: 100%;
+}
+
+.dark-heresy .combat .wounds .item-list .items {
+    max-height: 120px;
+    height: 120px;
+}
+
+.dark-heresy .combat .wounds .item-list .items .item .wound-row {
+    flex-basis: 95%;
+    align-items: center;
+}
+
+.dark-heresy .combat .wounds .item-list .items .item .wound-row .name {
+    flex-basis: 60%;
+    align-items: center;
+}
+
+.dark-heresy .combat .wounds .item-list .items .item .wound-row input {
+    flex-basis: 28%;
+    margin: 1px 5px;
+}
+
+.dark-heresy .combat .wounds .information {
+    display: flex;
+    margin-top: 5px;
+}
+
+.dark-heresy .combat .wounds .information label {
+    flex-basis: 75%;
+}
+
+.dark-heresy .combat .wounds .information input {
+    flex-basis: 25%;
+}
+
+.dark-heresy .combat .armour {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: calc(45% - 4px);
+    align-items: center;
+    margin: 0 2px
+}
+
+.dark-heresy .combat .armour .armour-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 5px;
+    flex-basis: 100%;
+}
+
+.dark-heresy .combat .armour .armour-row .part {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-basis: 100%;
+    justify-content: center;
+}
+
+.dark-heresy .combat .armour .armour-row .part .name {
+    flex-basis: 18%;
+    font-size: 20px;
+    text-align: center;
+    font-family: var(--font-text);
+    font-weight: bold;
+}
+
+.dark-heresy .combat .armour .armour-row .part .total {
+    font-size: 24px;
+    height: 50px;
+    width: 50px;
+    margin: 1px;
+}
+
+.dark-heresy .combat .armour .armour-row .part .information {
+    display: flex;
+    flex-direction: column;
+}
+
+.dark-heresy .combat .armour .armour-row .part .information input {
+    height: 24px;
+    width: 24px;
+    margin: 1px;
+    text-align: center;
+}
+
+.dark-heresy .combat .movement {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: 25%;
+    justify-content: space-between;
+}
+
+.dark-heresy .combat .movement .information {
+    display: flex;
+    margin-top: 5px;
+}
+
+.dark-heresy .combat .movement .information label {
+    flex-basis: 75%;
+}
+
+.dark-heresy .combat .movement .information input {
+    text-align: center;
+    flex-basis: 25%;
+}
+
+.dark-heresy .combat .movement .information select {
+    flex-basis: 45%;
+}
+
+.dark-heresy .combat .movement .information.initiative label {
+    flex-basis: 30%;
+}
+
+.dark-heresy .combat .weapons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 2px;
+    flex-basis: 100%;
+}
+
+.dark-heresy .combat .weapons .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .combat .weapons .item-list .name {
+    flex-basis: 20%;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .combat .weapons .item-list .class {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .combat .weapons .item-list .range {
+    flex-basis: 5%;
+    text-align: center;
+}
+
+.dark-heresy .combat .weapons .item-list .rate-of-fire {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .combat .weapons .item-list .damage {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .combat .weapons .item-list .type {
+    flex-basis: 5%;
+    text-align: center;
+}
+
+.dark-heresy .combat .weapons .item-list .penetration {
+    flex-basis: 5%;
+    text-align: center;
+}
+
+.dark-heresy .combat .weapons .item-list .clip {
+    flex-basis: 5%;
+    text-align: center;
+}
+
+.dark-heresy .combat .weapons .item-list .reload {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .combat .weapons .item-list .special {
+    flex-basis: 20%;
+    text-align: center;
+}
+
+.dark-heresy .combat .weapons .item-list .items .weapon {
+    width: 100%;
+}
+
+.dark-heresy .combat .weapons .item-list .items {
+    max-height: 100px;
+    height: 100px;
+}
+
+.dark-heresy .combat .psychic-powers {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-top: 2px;
+    flex-basis: 100%;
+}
+
+.dark-heresy .combat .psychic-powers .information {
+    display: flex;
+}
+
+.dark-heresy .combat .psychic-powers .information .class {
+    display: flex;
+    flex-basis: 40%;
+    align-self: center;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .combat .psychic-powers .information .class label {
+    flex-basis: 30%;
+}
+
+.dark-heresy .combat .psychic-powers .information .class select {
+    flex-basis: 40%;
+}
+
+.dark-heresy .combat .psychic-powers .information .rating,
+.dark-heresy .combat .psychic-powers .information .sustained {
+    display: flex;
+    flex-basis: 30%;
+    align-self: center;
+    text-align: center;
+    align-items: center;
+}
+
+.dark-heresy .combat .psychic-powers .information .rating label,
+.dark-heresy .combat .psychic-powers .information .sustained label {
+    flex-basis: 30%;
+}
+
+.dark-heresy .combat .psychic-powers .information .rating input,
+.dark-heresy .combat .psychic-powers .information .sustained input {
+    flex-basis: 40%;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .name {
+    flex-basis: 20%;
+    align-items: center;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .action {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .range {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .sustained {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .zone {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .damage {
+    flex-basis: 10%;
+    text-align: center;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .damage-type {
+    flex-basis: 5%;
+    text-align: center;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .penetration {
+    flex-basis: 5%;
+    text-align: center;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .special {
+    flex-basis: 20%;
+    text-align: center;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .items .psychic-power {
+    width: 100%;
+}
+
+.dark-heresy .combat .psychic-powers .item-list .items {
+    max-height: 141px;
+    height: 141px;
+}

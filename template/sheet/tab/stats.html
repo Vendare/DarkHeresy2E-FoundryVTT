@@ -1,0 +1,178 @@
+<div class="flex wrap stats">
+    <div class="insanities border">
+        <h1>{{localize "TITLE.INSANITY"}}</h1>
+        <div class="flex" style="margin-top: 2px">
+            <input class="total" name="data.insanity" type="number" value="{{data.insanity}}" data-dtype="Number" />
+            <div class="information">
+                <button class="roll-insanity">
+                    <i class="fas fa-dice"></i>
+                </button>
+                <input class="bonus" type="number" value="{{data.insanityBonus}}" data-dtype="Number" disabled />
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "INSANITY.MENTAL_DISORDER"}}</b>
+                <a class="button item-create" title="Add Mental Disorder" data-type="mentalDisorder"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isMentalDisorder}}
+                        <div class="insanity item flex row" data-item-id="{{item._id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div class="name">{{item.name}}</div>
+                            </div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Mental Disorder"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="characteristics border">
+        <h1>{{localize "TITLE.CHARACTERISTICS"}}</h1>
+        <div class="left">
+            {{#each data.characteristics as |characteristic key|}}
+                {{#if characteristic.isLeft}}
+                    <div class="characteristic">
+                        <div class="name">
+                            <button class="roll-characteristic" data-characteristic="{{key}}">{{localize characteristic.label}}</button>
+                        </div>
+                        <input class="total" type="number" value="{{characteristic.total}}" data-dtype="Number" disabled />
+                        <div class="information">
+                            <input type="text" value="{{advanceCharacteristic characteristic.advance}}" disabled />
+                            <input type="number" value="{{characteristic.bonus}}" data-dtype="Number" disabled />
+                        </div>
+                    </div>
+                {{/if}}
+            {{/each}}
+        </div>
+        <div class="right">
+            {{#each data.characteristics as |characteristic key|}}
+                {{#if characteristic.isRight}}
+                    <div class="characteristic">
+                        <div class="information">
+                            <input type="text" value="{{advanceCharacteristic characteristic.advance}}" disabled />
+                            <input type="number" value="{{characteristic.bonus}}" data-dtype="Number" disabled />
+                        </div>
+                        <input class="total" type="number" value="{{characteristic.total}}" data-dtype="Number" disabled />
+                        <div class="name">
+                            <button class="roll-characteristic" data-characteristic="{{key}}">{{localize characteristic.label}}</button>
+                        </div>
+                    </div>
+                {{/if}}
+            {{/each}}
+        </div>
+    </div>
+    <div class="corruptions border">
+        <h1>{{localize "TITLE.CORRUPTION"}}</h1>
+        <div class="flex" style="margin-top: 2px">
+            <input class="total" name="data.corruption" type="number" value="{{data.corruption}}" data-dtype="Number" />
+            <div class="information">
+                <button class="roll-corruption">
+                    <i class="fas fa-dice"></i>
+                </button>
+                <input class="bonus" type="number" value="{{data.corruptionBonus}}" data-dtype="Number" disabled />
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "CORRUPTION.MALIGNANCY"}}</b>
+                <a class="button item-create" title="Add Malignancy" data-type="malignancy"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isMalignancy}}
+                        <div class="corruption item flex row" data-item-id="{{item._id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div class="name">{{item.name}}</div>
+                            </div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Malignancy"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "CORRUPTION.MUTATION"}}</b>
+                <a class="button item-create" title="Add Mutation" data-type="mutation"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isMutation}}
+                        <div class="corruption item flex row" data-item-id="{{item._id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div class="name">{{item.name}}</div>
+                            </div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Muration"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="skills border">
+        <h1>{{localize "TITLE.SKILLS"}}</h1>
+        <div class="flex row" style="flex-basis: 60%">
+            <div class="flex column wrap" style="max-height: 330px;flex-basis: 50%">
+                {{#each data.skills as |skill key|}}
+                    {{#unless skill.isSpecialist}}
+                        <div class="skill">
+                            <div class="name">
+                                <button class="roll-skill" data-skill="{{key}}">{{localize skill.label}}</button>
+                            </div>
+                            <input class="total" type="number" value="{{skill.total}}" data-dtype="Number" disabled />
+                            <div class="information">
+                                <input type="text" value="{{advanceSkill skill.advance}}" disabled />
+                            </div>
+                        </div>
+                    {{/unless}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="flex row" style="flex-basis: 40%">
+            <div class="flex column" style="max-height: 330px;flex-basis: 100%;overflow-y: scroll">
+                {{#each data.skills as |skill key|}}
+                    {{#if skill.isSpecialist}}
+                        <div class="item-list">
+                            <div class="flex header">
+                                <b class="name">{{localize skill.label}}</b>
+                            </div>
+                            <div class="items" style="overflow-y: visible">
+                                {{#each skill.specialities as |speciality keySpe|}}
+                                    {{#if speciality.isKnown}}
+                                        <div class="speciality item flex row" data-skill="{{key}}">
+                                            <div class="name">
+                                                <button class="roll-speciality" data-speciality="{{keySpe}}">{{speciality.label}}</button>
+                                            </div>
+                                            <input class="total" type="number" value="{{speciality.total}}" data-dtype="Number" disabled />
+                                            <div class="information">
+                                                <input type="text" value="{{advanceSkill speciality.advance}}" disabled />
+                                            </div>
+                                        </div>
+                                    {{/if}}
+                                {{/each}}
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

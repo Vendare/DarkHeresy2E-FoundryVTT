@@ -1,0 +1,26 @@
+.dark-heresy.talent .notes-editor {
+    height: 165px;
+    max-height: 165px;
+}
+
+.dark-heresy.talent .stats {
+    height: 165px;
+    align-content: baseline;
+}
+
+.dark-heresy.talent .stats .stats-row .stat.prerequisites input {
+    width: 28em;
+}
+
+.dark-heresy.talent .stats .stats-row .stat.tier input {
+    width: 2em;
+    text-align: center;
+}
+
+.dark-heresy.talent .stats .stats-row .stat.aptitudes input {
+    width: 416px;
+}
+
+.dark-heresy.talent .stats .stats-row .stat.benefit input {
+    width: 428px;
+}

@@ -1,0 +1,234 @@
+.dark-heresy .tabs .item {
+    padding: 5px;
+    font-size: 18px;
+}
+
+.dark-heresy .tabs .item.active {
+    text-shadow: 0 0 10px var(--color-highlight);
+}
+
+.dark-heresy .tab {
+    height: 100%;
+    width: 100%;
+}
+
+.dark-heresy .sheet-body {
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.dark-heresy .editor,
+.dark-heresy .editor-content {
+    font-family: var(--font-text);
+    font-size: 16px;
+    color: var(--color-text);
+    height: 100%;
+    width: 100%;
+}
+
+.dark-heresy .sheet-tabs {
+    border-radius: 3px;
+    background: url(../../asset/image/background-tab.jpg) repeat;
+    color: var(--color-title);
+    font-family: var(--font-text);
+    margin: 8px 0;
+    padding: 0 8px;
+}
+
+.dark-heresy .sheet-tabs b:hover {
+    cursor: pointer;
+    text-shadow: 0 0 8px var(--color-highlight);
+}
+
+.dark-heresy .item-edit:hover {
+    cursor: pointer;
+    text-shadow: 0 0 8px var(--color-highlight);
+}
+
+.dark-heresy h1 {
+    width: 100%;
+    height: 24px;
+    border: 0 none;
+    border-radius: 3px;
+    font-family: var(--font-text);
+    font-size: 16px;
+    line-height: initial;
+    margin: 0;
+    padding: 4px 4px;
+    text-align: center;
+    text-transform: uppercase;
+    background: url(../../asset/image/background-title.jpg) repeat;
+    color: var(--color-title);
+}
+
+.dark-heresy button {
+    background: transparent;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: none;
+    color: var(--color-text);
+    cursor: pointer;
+    font-family: var(--font-text);
+    font-size: inherit;
+    font-weight: bold;
+    height: auto;
+    line-height: inherit;
+    padding: 2px 4px;
+    width: auto;
+}
+.dark-heresy button:focus,
+.dark-heresy button:hover {
+    background: var(--color-foreground);
+    color: var(--color-title);
+}
+
+.dark-heresy label {
+    color: var(--color-text);
+    font-family: var(--font-text);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.dark-heresy input[type="number"],
+.dark-heresy input[type="text"],
+.dark-heresy select,
+.dark-heresy textarea {
+    background: url(../../asset/image/background-input.jpg) repeat;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    box-shadow: inset 0 0 6px var(--color-shadow);
+    color: var(--color-text);
+    font-family: var(--font-text);
+    font-size: 12px;
+    height: auto;
+    line-height: 16px;
+    padding: 2px 4px;
+    width: 100%;
+}
+
+.dark-heresy input[type="number"] {
+    -moz-appearance: textfield;
+    text-align: center;
+}
+.dark-heresy input[type="number"]::-webkit-outer-spin-button,
+.dark-heresy input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.dark-heresy input[type="number"]:focus,
+.dark-heresy input[type="text"]:focus,
+.dark-heresy select:focus,
+.dark-heresy textarea:focus {
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 10px var(--color-shadow);
+    outline: none;
+}
+
+.dark-heresy .item-list {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-text);
+    font-size: 16px;
+    line-height: 16px;
+    min-height: 0;
+    width: 100%;
+}
+
+.dark-heresy .item-list .header {
+    width: 100%;
+    height: 22px;
+    border: 0 none;
+    border-radius: 3px;
+    font-family: var(--font-text);
+    font-size: 12px;
+    line-height: initial;
+    margin: 0;
+    padding: 4px 4px;
+    text-align: center;
+    background: url(../../asset/image/background-subtitle.jpg) repeat;
+    color: var(--color-title);
+}
+
+.dark-heresy .item-list .items {
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.dark-heresy .item-list .items .item {
+    align-items: center;
+}
+
+.dark-heresy .item-list .fas {
+    font-size: 10px;
+}
+
+.dark-heresy .item-list .items .item:nth-child(odd) {
+    background: rgba(0, 0 , 0, 0.2);
+}
+
+.dark-heresy .item-list .items .item button:focus,
+.dark-heresy .item-list .items .item button:hover {
+    background: var(--color-foreground);
+}
+
+.dark-heresy .item-list .items .item .image {
+    background-size: 20px;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+}
+
+.dark-heresy.sheet .header {
+}
+
+.dark-heresy.sheet .header label {
+}
+
+.dark-heresy.sheet .header input {
+    flex-grow: 1;
+    margin: 0 8px;
+}
+
+.dark-heresy.sheet .header .header-row {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+.dark-heresy.sheet .header .avatar {
+    background: radial-gradient(
+            closest-side,
+            var(--color-foreground) 0%,
+            transparent 100%
+    );
+    flex: 0 0 auto;
+    height: 95px;
+    margin-right: 8px;
+    width: 95px;
+}
+
+.dark-heresy.sheet .header .avatar img {
+    border: 0 none;
+    display: block;
+    max-width: 95px;
+    max-height: 95px;
+    min-width: 20px;
+    min-height: 20px;
+    margin: auto;
+}
+
+.dark-heresy.sheet .avatar img:hover {
+    box-shadow: 0 0 10px var(--color-highlight);
+    cursor: pointer;
+}
+
+.dark-heresy.sheet .notes-editor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}

@@ -1,0 +1,89 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="npc">
+        <div class="header border">
+            <div class="flex row">
+                <div class="avatar">
+                    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+                </div>
+                <div class="flex column grow">
+                    <div class="name header-row">
+                        <label>{{localize "BIO.NAME"}}</label>
+                        <input name="name" type="text" value="{{actor.name}}" />
+                    </div>
+                    <div class="header-row" style="height: 22px">
+                        <div class="type">
+                            <label>{{localize "BIO.TYPE"}}</label>
+                            <select name="data.type" style="margin-left: 22px">
+                                {{#select data.type}}
+                                    <option value="troop">{{localize "NPC_TYPE.TROOP"}}</option>
+                                    <option value="master">{{localize "NPC_TYPE.MASTER"}}</option>
+                                    <option value="elite">{{localize "NPC_TYPE.ELITE"}}</option>
+                                {{/select}}
+                            </select>
+                        </div>
+                        <div class="threat-level">
+                            <label>{{localize "BIO.THREAT_LEVEL"}}</label>
+                            <input style="margin-left: 8px" name="data.threatLevel" type="number" value="{{data.threatLevel}}" data-dtype="Number" />
+                        </div>
+                        <div class="fate">
+                            <label>{{localize "FATE"}}</label>
+                            <input style="margin-left: 20px" name="data.fate.value" type="number" value="{{data.fate.value}}" data-dtype="Number" />
+                            /
+                            <input name="data.fate.max" type="number" value="{{data.fate.max}}" data-dtype="Number" />
+                        </div>
+                    </div>
+                    <div class="header-row">
+                        <div class="faction">
+                            <label>{{localize "BIO.FACTION"}}</label>
+                            <input style="margin-left: 10px" name="data.faction" type="text" value="{{data.faction}}" />
+                        </div>
+                        <div class="subfaction">
+                            <label>{{localize "BIO.SUBFACTION"}}</label>
+                            <input style="margin-left: 17px" name="data.subfaction" type="text" value="{{data.subfaction}}" />
+                        </div>
+                        <div class="fatigue">
+                            <label>{{localize "FATIGUE"}}</label>
+                            <input name="data.fatigue.value" type="number" value="{{data.fatigue.value}}" data-dtype="Number" />
+                            /
+                            <input name="data.fatigue.max" type="number" value="{{data.fatigue.max}}" data-dtype="Number" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sheet-tabs tabs flex row" data-group="primary">
+            <b class="item" data-tab="stats">{{localize "TAB.STATS"}}</b>
+            <b class="item" data-tab="combat">{{localize "TAB.COMBAT"}}</b>
+            <b class="item" data-tab="abilities">{{localize "TAB.ABILITIES"}}</b>
+            <b class="item" data-tab="psychic-powers">{{localize "TAB.PSYCHIC_POWERS"}}</b>
+            <b class="item" data-tab="gear">{{localize "TAB.GEAR"}}</b>
+            <b class="item" data-tab="progression">{{localize "TAB.ADVANCES"}}</b>
+            <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+        </div>
+
+        <div class="sheet-body">
+            <div class="tab" data-group="primary" data-tab="stats">
+                {{> systems/dark-heresy/template/sheet/tab/npc-stats.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="combat">
+                {{> systems/dark-heresy/template/sheet/tab/combat.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="abilities">
+                {{> systems/dark-heresy/template/sheet/tab/abilities.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="psychic-powers">
+                {{> systems/dark-heresy/template/sheet/tab/psychic-powers.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="gear">
+                {{> systems/dark-heresy/template/sheet/tab/gear.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="progression">
+                {{> systems/dark-heresy/template/sheet/tab/progression.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="notes">
+                {{> systems/dark-heresy/template/sheet/tab/npc-notes.html}}
+            </div>
+        </div>
+    </div>
+</form>

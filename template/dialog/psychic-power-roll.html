@@ -1,0 +1,46 @@
+<div class="dark-heresy dialog">
+    <div class="flex row wrap background border" style="flex-basis: 100%;margin-bottom: 5px">
+        <h1>{{localize name}}</h1>
+        <div class="wrapper">
+            <label>{{localize "DIALOG.TARGET"}}</label>
+            <input id="target" type="number" value="{{baseTarget}}" data-dtype="Number"/>
+        </div>
+        <div class="wrapper">
+            <label>{{localize "DIALOG.MODIFIER"}}</label>
+            <input id="modifier" type="text" value="{{modifier}}"/>
+        </div>
+        <div class="separator"></div>
+        <div class="wrapper">
+            <label>{{localize "DIALOG.PSY_RATING"}}</label>
+            <input id="psy" type="number" value="{{psy.value}}" data-dtype="Number"/>
+        </div>
+        <div class="wrapper damage">
+            <label>{{localize "DIALOG.DAMAGE"}}</label>
+            <input id="damageFormula" type="text" value="{{damageFormula}}"/>
+        </div>
+        <div class="wrapper damage">
+            <label>{{localize "DIALOG.TYPE"}}</label>
+            <select id="damageType">
+                {{#select damageType}}
+                <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
+                <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
+                <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
+                <option value="explosive">{{localize "DAMAGE_TYPE.EXPLOSIVE"}}</option>
+                {{/select}}
+            </select>
+        </div>
+        <div class="wrapper">
+            <label>{{localize "DIALOG.BONUS"}}</label>
+            <input id="damageBonus" type="number" value="{{damageBonus}}" data-dtype="Number"/>
+        </div>
+        <div class="wrapper">
+            <label>{{localize "DIALOG.PENETRATION"}}</label>
+            <input id="penetration" type="text" value="{{penetrationFormula}}"/>
+        </div>
+    </div>
+</div>
+<script>
+    $(".wrapper input").focusin(function () {
+        $(this).select();
+    });
+</script>

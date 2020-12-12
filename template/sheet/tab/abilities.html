@@ -1,0 +1,86 @@
+<div class="flex wrap abilities">
+    <div class="talents border">
+        <h1>{{localize "TITLE.TALENTS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "TALENT.NAME"}}</b>
+                <b class="benefit">{{localize "TALENT.BENEFIT"}}</b>
+                <a class="button item-create" title="Add Talent" data-type="talent"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isTalent}}
+                        <div class="talent item flex row" data-item-id="{{item._id}}">
+                        <div class="flex name item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
+                            </div>
+                            <div>{{item.name}}</div>
+                        </div>
+                        <div class="benefit">{{item.data.benefit}}</div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="traits border">
+        <h1>{{localize "TITLE.TRAITS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "TRAIT.NAME"}}</b>
+                <b class="benefit">{{localize "TRAIT.BENEFIT"}}</b>
+                <a class="button item-create" title="Add Trait" data-type="trait"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isTrait}}
+                        <div class="trait item flex row" data-item-id="{{item._id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="benefit">{{item.data.benefit}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Trait"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="special-abilities border">
+        <h1>{{localize "TITLE.SPECIAL_ABILITIES"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "SPECIAL_ABILITY.NAME"}}</b>
+                <b class="benefit">{{localize "SPECIAL_ABILITY.BENEFIT"}}</b>
+                <a class="button item-create" title="Add Special Abilities" data-type="specialAbility"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isSpecialAbility}}
+                        <div class="special-ability item flex row" data-item-id="{{item._id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="benefit">{{item.data.benefit}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Special Abilities"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

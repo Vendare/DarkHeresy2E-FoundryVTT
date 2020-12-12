@@ -1,0 +1,246 @@
+.dark-heresy .stats .insanities {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: calc(23% - 2px);
+    margin-right: 2px;
+    align-items: center;
+}
+
+.dark-heresy .stats .insanities .total {
+    font-size: 24px;
+    height: 50px;
+    width: 50px;
+    margin: 1px;
+}
+
+.dark-heresy .stats .insanities .information {
+    display: flex;
+    flex-direction: column;
+}
+
+.dark-heresy .stats .insanities .information .roll-insanity {
+    height: 24px;
+    width: 24px;
+    margin: 1px;
+    text-align: center;
+}
+
+.dark-heresy .stats .insanities .information .bonus {
+    height: 24px;
+    width: 24px;
+    margin: 1px;
+    text-align: center;
+}
+
+.dark-heresy .stats .insanities .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .stats .insanities .item-list .header .name {
+    flex-basis: 85%;
+}
+
+.dark-heresy .stats .insanities .item-list .items .insanity {
+    width: 100%;
+}
+
+.dark-heresy .stats .insanities .item-list .items {
+    max-height: 187px;
+    height: 187px;
+}
+
+.dark-heresy .stats .insanities .item-list .items .item .name {
+    flex-basis: 90%;
+    align-items: center;
+}
+
+.dark-heresy .stats .characteristics {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: 54%;
+}
+
+.dark-heresy .stats .characteristics .left {
+    display: flex;
+    flex-direction: column;
+    margin: 2px;
+    flex-basis: 50%;
+}
+
+.dark-heresy .stats .characteristics .right {
+    display: flex;
+    flex-direction: column;
+    margin: 2px;
+}
+
+.dark-heresy .stats .characteristics .characteristic {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.dark-heresy .stats .characteristics .characteristic .name {
+    flex-basis: 64%;
+    font-size: 20px;
+    text-align: center;
+}
+
+.dark-heresy .stats .characteristics .characteristic .total {
+    font-size: 24px;
+    height: 50px;
+    width: 50px;
+    margin: 1px;
+}
+
+.dark-heresy .stats .characteristics .characteristic .information {
+    display: flex;
+    flex-direction: column;
+}
+
+.dark-heresy .stats .characteristics .characteristic .information input {
+    height: 24px;
+    width: 24px;
+    margin: 1px;
+    text-align: center;
+}
+
+.dark-heresy .stats .corruptions {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: calc(23% - 2px);
+    margin-left: 2px;
+    align-items: center;
+}
+
+.dark-heresy .stats .corruptions .total {
+    font-size: 24px;
+    height: 50px;
+    width: 50px;
+    margin: 1px;
+}
+
+.dark-heresy .stats .corruptions .information {
+    display: flex;
+    flex-direction: column;
+}
+
+.dark-heresy .stats .corruptions .information .roll-corruption {
+    height: 24px;
+    width: 24px;
+    margin: 1px;
+    text-align: center;
+}
+
+.dark-heresy .stats .corruptions .information .bonus {
+    height: 24px;
+    width: 24px;
+    margin: 1px;
+    text-align: center;
+}
+
+.dark-heresy .stats .corruptions .item-list .header {
+    margin-top: 5px;
+}
+
+.dark-heresy .stats .corruptions .item-list .header .name {
+    flex-basis: 85%;
+}
+
+.dark-heresy .stats .corruptions .item-list .items .corruption {
+    width: 100%;
+}
+
+.dark-heresy .stats .corruptions .item-list .items {
+    max-height: 80px;
+    height: 80px;
+}
+
+.dark-heresy .stats .corruptions .item-list .items .item .name {
+    flex-basis: 90%;
+    align-items: center;
+}
+
+.dark-heresy .stats .skills {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    margin-top: 2px;
+}
+
+.dark-heresy .stats .skills .skill {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.dark-heresy .stats .skills .skill .name {
+    flex-basis: 60%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dark-heresy .stats .skills .skill .total {
+    font-size: 12px;
+    height: 24px;
+    width: 40px;
+    margin: 1px;
+}
+
+.dark-heresy .stats .skills .skill .information {
+    display: flex;
+    flex-direction: column;
+}
+
+.dark-heresy .stats .skills .skill .information input {
+    height: 24px;
+    width: 24px;
+    margin: 1px;
+    text-align: center;
+}
+
+.dark-heresy .stats .skills .item-list {
+    margin-top: 2px;
+    min-height: auto;
+}
+
+.dark-heresy .stats .skills .item-list .item.speciality {
+    margin: 0 2px;
+}
+
+.dark-heresy .stats .skills .item-list .item.speciality .total {
+    font-size: 12px;
+    height: 24px;
+    width: 40px;
+    margin: 1px;
+}
+
+.dark-heresy .stats .skills .item-list .item.speciality .name {
+    flex-basis: 70%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.dark-heresy .stats .skills .item-list .item.speciality .name .roll-speciality {
+    text-align: left;
+}
+
+.dark-heresy .stats .skills .item-list .item.speciality .information {
+    display: flex;
+    flex-direction: column;
+}
+
+.dark-heresy .stats .skills .item-list .item.speciality .information input {
+    height: 24px;
+    width: 24px;
+    margin: 1px;
+    text-align: center;
+}
+
+.dark-heresy .stats .skills .item-list .items .item:nth-child(odd) {
+    background: none;
+}

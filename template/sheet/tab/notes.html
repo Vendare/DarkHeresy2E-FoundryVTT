@@ -1,0 +1,57 @@
+<div class="flex wrap notes-tab">
+    <div class="information border">
+        <h1>{{localize "TITLE.BIO"}}</h1>
+        <div class="information-row">
+            <div class="gender wrapper">
+                <label>{{localize "BIO.GENDER"}}</label>
+                <input name="data.bio.gender" type="text" value="{{data.bio.gender}}" />
+            </div>
+            <div class="age wrapper margin">
+                <label>{{localize "BIO.AGE"}}</label>
+                <input name="data.bio.age" type="text" value="{{data.bio.age}}" />
+            </div>
+            <div class="build wrapper margin">
+                <label>{{localize "BIO.BUILD"}}</label>
+                <input name="data.bio.build" type="text" value="{{data.bio.build}}" />
+            </div>
+            <div class="complexion wrapper margin">
+                <label>{{localize "BIO.COMPLEXION"}}</label>
+                <input name="data.bio.complexion" type="text" value="{{data.bio.complexion}}" />
+            </div>
+            <div class="hair wrapper margin" style="margin-left: 16px">
+                <label>{{localize "BIO.HAIR"}}</label>
+                <input name="data.bio.hair" type="text" value="{{data.bio.hair}}" />
+            </div>
+        </div>
+        <div class="information-row full">
+            <div class="divination wrapper full">
+                <label>{{localize "BIO.DIVINATION"}}</label>
+                <input name="data.bio.divination" type="text" value="{{data.bio.divination}}" />
+            </div>
+        </div>
+        <div class="information-row full">
+            <div class="quirks wrapper full">
+                <label>{{localize "BIO.QUIRKS"}}</label>
+                <input name="data.bio.quirks" type="text" value="{{data.bio.quirks}}" />
+            </div>
+        </div>
+        <div class="information-row full">
+            <div class="superstition wrapper full">
+                <label>{{localize "BIO.SUPERSTITION"}}</label>
+                <input name="data.bio.superstition" type="text" value="{{data.bio.superstition}}" />
+            </div>
+        </div>
+        <div class="information-row full">
+            <div class="momentos wrapper full">
+                <label>{{localize "BIO.MOMENTOS"}}</label>
+                <input name="data.bio.momentos" type="text" value="{{data.bio.momentos}}" />
+            </div>
+        </div>
+    </div>
+    <div class="notes-editor border">
+        <h1>{{localize "TITLE.NOTES"}}</h1>
+        <div style="height: 442px; width: 100%">
+            {{editor content=data.bio.notes target="data.bio.notes" button=true owner=owner editable=editable}}
+        </div>
+    </div>
+</div>

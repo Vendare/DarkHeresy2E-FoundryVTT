@@ -1,0 +1,83 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="acolyte">
+        <div class="header border">
+            <div class="flex row">
+                <div class="avatar">
+                    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+                </div>
+                <div class="flex column grow">
+                    <div class="name header-row">
+                        <label>{{localize "BIO.NAME"}}</label>
+                        <input name="name" type="text" value="{{actor.name}}" />
+                    </div>
+                    <div class="header-row">
+                        <div class="home-world">
+                            <label>{{localize "BIO.HOME_WORLD"}}</label>
+                            <input name="data.bio.homeWorld" type="text" value="{{data.bio.homeWorld}}" />
+                        </div>
+                        <div class="role">
+                            <label>{{localize "BIO.ROLE"}}</label>
+                            <input style="margin-left: 8px" name="data.bio.role" type="text" value="{{data.bio.role}}" />
+                        </div>
+                        <div class="fate">
+                            <label>{{localize "FATE"}}</label>
+                            <input style="margin-left: 20px" name="data.fate.value" type="number" value="{{data.fate.value}}" data-dtype="Number" />
+                            /
+                            <input name="data.fate.max" type="number" value="{{data.fate.max}}" data-dtype="Number" />
+                        </div>
+                    </div>
+                    <div class="header-row">
+                        <div class="background">
+                            <label>{{localize "BIO.BACKGROUND"}}</label>
+                            <input style="margin-left: 18px" name="data.bio.background" type="text" value="{{data.bio.background}}" />
+                        </div>
+                        <div class="elite">
+                            <label>{{localize "BIO.ELITE"}}</label>
+                            <input name="data.bio.elite" type="text" value="{{data.bio.elite}}" />
+                        </div>
+                        <div class="fatigue">
+                            <label>{{localize "FATIGUE"}}</label>
+                            <input name="data.fatigue.value" type="number" value="{{data.fatigue.value}}" data-dtype="Number" />
+                            /
+                            <input name="data.fatigue.max" type="number" value="{{data.fatigue.max}}" data-dtype="Number" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sheet-tabs tabs flex row" data-group="primary">
+            <b class="item" data-tab="stats">{{localize "TAB.STATS"}}</b>
+            <b class="item" data-tab="combat">{{localize "TAB.COMBAT"}}</b>
+            <b class="item" data-tab="abilities">{{localize "TAB.ABILITIES"}}</b>
+            <b class="item" data-tab="psychic-powers">{{localize "TAB.PSYCHIC_POWERS"}}</b>
+            <b class="item" data-tab="gear">{{localize "TAB.GEAR"}}</b>
+            <b class="item" data-tab="progression">{{localize "TAB.ADVANCES"}}</b>
+            <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+        </div>
+
+        <div class="sheet-body">
+            <div class="tab" data-group="primary" data-tab="stats">
+                {{> systems/dark-heresy/template/sheet/tab/stats.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="combat">
+                {{> systems/dark-heresy/template/sheet/tab/combat.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="abilities">
+                {{> systems/dark-heresy/template/sheet/tab/abilities.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="psychic-powers">
+                {{> systems/dark-heresy/template/sheet/tab/psychic-powers.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="gear">
+                {{> systems/dark-heresy/template/sheet/tab/gear.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="progression">
+                {{> systems/dark-heresy/template/sheet/tab/progression.html}}
+            </div>
+            <div class="tab" data-group="primary" data-tab="notes">
+                {{> systems/dark-heresy/template/sheet/tab/notes.html}}
+            </div>
+        </div>
+    </div>
+</form>

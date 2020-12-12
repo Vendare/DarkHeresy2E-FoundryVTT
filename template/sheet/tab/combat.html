@@ -1,0 +1,229 @@
+<div class="flex wrap combat">
+    <div class="wounds border">
+        <h1>{{localize "TITLE.WOUNDS"}}</h1>
+        <div class="information">
+            <label>{{localize "WOUND.TOTAL"}}</label>
+            <input name="data.wounds.max" type="number" value="{{data.wounds.max}}" data-dtype="Number" />
+        </div>
+        <div class="information">
+            <label>{{localize "WOUND.CURRENT"}}</label>
+            <input name="data.wounds.value" type="number" value="{{data.wounds.value}}" data-dtype="Number" />
+        </div>
+        <div class="information">
+            <label>{{localize "WOUND.CRITICAL_DAMAGE"}}</label>
+            <input name="data.wounds.critical" type="number" value="{{data.wounds.critical}}" data-dtype="Number" />
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "WOUND.CRITICAL_INJURIES"}}</b>
+                <a class="button item-create" title="Add Critical Injury" data-type="criticalInjury"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isCriticalInjury}}
+                        <div class="wound item flex row" data-item-id="{{item._id}}">
+                        <div class="flex wound-row item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
+                            </div>
+                            <div class="name">{{item.name}}</div>
+                        </div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Critical Injury"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="armour border">
+        <h1>{{localize "TITLE.ARMOUR"}}</h1>
+        <div class="armour-row">
+            <div class="part" style="margin-right: 25px">
+                <div class="name">{{localize "ARMOUR.HEAD"}}</div>
+                <input class="total" type="number" value="{{data.armour.head.total}}" data-dtype="Number" disabled />
+                <div class="information">
+                    <input type="number" value="{{data.armour.head.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{data.armour.head.value}}" data-dtype="Number" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="armour-row">
+            <div class="part">
+                <div class="name">{{localize "ARMOUR.LEFT_ARM"}}</div>
+                <input class="total" type="number" value="{{data.armour.leftArm.total}}" data-dtype="Number" disabled />
+                <div class="information">
+                    <input type="number" value="{{data.armour.leftArm.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{data.armour.leftArm.value}}" data-dtype="Number" disabled />
+                </div>
+                <div class="information">
+                    <input type="number" value="{{data.armour.rightArm.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{data.armour.rightArm.value}}" data-dtype="Number" disabled />
+                </div>
+                <input class="total" type="number" value="{{data.armour.rightArm.total}}" data-dtype="Number" disabled />
+                <div class="name">{{localize "ARMOUR.RIGHT_ARM"}}</div>
+            </div>
+        </div>
+        <div class="armour-row">
+            <div class="part" style="margin-right: 25px">
+                <div class="name">{{localize "ARMOUR.BODY"}}</div>
+                <input class="total" type="number" value="{{data.armour.body.total}}" data-dtype="Number" disabled />
+                <div class="information">
+                    <input type="number" value="{{data.armour.body.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{data.armour.body.value}}" data-dtype="Number" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="armour-row">
+            <div class="part">
+                <div class="name">{{localize "ARMOUR.LEFT_LEG"}}</div>
+                <input class="total" type="number" value="{{data.armour.leftLeg.total}}" data-dtype="Number" disabled />
+                <div class="information">
+                    <input type="number" value="{{data.armour.leftLeg.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{data.armour.leftLeg.value}}" data-dtype="Number" disabled />
+                </div>
+                <div class="information">
+                    <input type="number" value="{{data.armour.rightLeg.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{data.armour.rightLeg.value}}" data-dtype="Number" disabled />
+                </div>
+                <input class="total" type="number" value="{{data.armour.rightLeg.total}}" data-dtype="Number" disabled />
+                <div class="name">{{localize "ARMOUR.RIGHT_LEG"}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="movement border">
+        <h1>{{localize "TITLE.MOVEMENT"}}</h1>
+        <div class="information">
+            <label>{{localize "MOVEMENT.HALF"}}</label>
+            <input type="number" value="{{data.movement.half}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.FULL"}}</label>
+            <input type="number" value="{{data.movement.full}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.CHARGE"}}</label>
+            <input type="number" value="{{data.movement.charge}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.RUN"}}</label>
+            <input type="number" value="{{data.movement.run}}" data-dtype="Number" disabled />
+        </div>
+        <h1 style="margin-top: 5px">{{localize "TITLE.OTHER"}}</h1>
+        <div class="information initiative">
+            <label>{{localize "INITIATIVE"}}</label>
+            <input name="data.initiative.base" type="text" value="{{data.initiative.base}}" />
+            +
+            <select name="data.initiative.characteristic">
+                {{#select data.initiative.characteristic}}
+                    {{#each data.characteristics as |characteristic key|}}
+                        <option value="{{key}}">{{localize characteristic.label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div class="information">
+            <label>{{localize "SIZE"}}</label>
+            <input name="data.size" type="number" value="{{data.size}}" data-dtype="Number" />
+        </div>
+    </div>
+    <div class="weapons border">
+        <h1>{{localize "TITLE.WEAPONS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "WEAPON.NAME"}}</b>
+                <b class="class">{{localize "WEAPON.CLASS"}}</b>
+                <b class="range">{{localize "WEAPON.RANGE"}}</b>
+                <b class="rate-of-fire">{{localize "WEAPON.RATE_OF_FIRE"}}</b>
+                <b class="damage">{{localize "WEAPON.DAMAGE"}}</b>
+                <b class="type">{{localize "WEAPON.DAMAGE_TYPE"}}</b>
+                <b class="penetration">{{localize "WEAPON.PENETRATION"}}</b>
+                <b class="clip">{{localize "WEAPON.CLIP"}}</b>
+                <b class="reload">{{localize "WEAPON.RELOAD"}}</b>
+                <b class="special">{{localize "WEAPON.SPECIAL"}}</b>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isWeapon}}
+                        <div class="weapon item flex row" data-item-id="{{item._id}}">
+                            <div class="flex name">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <button class="roll-weapon">{{item.name}}</button>
+                            </div>
+                            <div class="class">{{weaponClass item.data.class}}</div>
+                            <div class="range">{{item.data.range}}</div>
+                            <div class="rate-of-fire">{{rateOfFire item.data.rateOfFire}}</div>
+                            <div class="damage">{{item.data.damage}}</div>
+                            <div class="type">{{damageType item.data.damageType}}</div>
+                            <div class="penetration">{{item.data.penetration}}</div>
+                            <div class="clip">{{clip item.data.clip}}</div>
+                            <div class="reload">{{item.data.reload}}</div>
+                            <div class="special">{{item.data.special}}</div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="psychic-powers border">
+        <h1>{{localize "TITLE.PSYCHIC_POWERS"}}</h1>
+        <div class="information">
+            <div class="class">
+                <label>{{localize "PSYCHIC_POWER.CLASS"}}</label>
+                <select disabled>
+                    {{#select data.psy.class}}
+                        <option value="bound">{{localize "PSYCHIC_POWER.BOUND"}}</option>
+                        <option value="unbound">{{localize "PSYCHIC_POWER.UNBOUND"}}</option>
+                        <option value="daemonic">{{localize "PSYCHIC_POWER.DAEMONIC"}}</option>
+                    {{/select}}
+                </select>
+            </div>
+            <div class="rating">
+                <label>{{localize "PSYCHIC_POWER.RATING"}}</label>
+                <input type="number" value="{{data.psy.currentRating}}" data-dtype="Number" disabled />
+            </div>
+            <div class="sustained">
+                <label>{{localize "PSYCHIC_POWER.SUSTAINED"}}</label>
+                <input name="data.psy.sustained" type="number" value="{{data.psy.sustained}}" data-dtype="Number" />
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "PSYCHIC_POWER.NAME"}}</b>
+                <b class="action">{{localize "PSYCHIC_POWER.ACTION"}}</b>
+                <b class="range">{{localize "PSYCHIC_POWER.RANGE"}}</b>
+                <b class="sustained">{{localize "PSYCHIC_POWER.SUSTAINED"}}</b>
+                <b class="zone">{{localize "PSYCHIC_POWER.ZONE"}}</b>
+                <b class="damage">{{localize "PSYCHIC_POWER.DAMAGE"}}</b>
+                <b class="damage-type">{{localize "PSYCHIC_POWER.DAMAGE_TYPE"}}</b>
+                <b class="penetration">{{localize "PSYCHIC_POWER.PENETRATION"}}</b>
+                <b class="special">{{localize "PSYCHIC_POWER.SPECIAL"}}</b>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isPsychicPower}}
+                        <div class="weapon item flex row" data-item-id="{{item._id}}">
+                            <div class="flex name">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <button class="roll-psychic-power">{{item.name}}</button>
+                            </div>
+                            <div class="action">{{item.data.action}}</div>
+                            <div class="range">{{item.data.range}}</div>
+                            <div class="sustained">{{item.data.sustained}}</div>
+                            <div class="zone">{{psychicPowerZone item.data.damage.zone}}</div>
+                            <div class="damage">{{item.data.damage.formula}}</div>
+                            <div class="damage-type">{{damageType item.data.damage.type}}</div>
+                            <div class="penetration">{{item.data.damage.penetration}}</div>
+                            <div class="special">{{item.data.damage.special}}</div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
