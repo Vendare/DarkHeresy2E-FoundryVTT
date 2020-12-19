@@ -1,3 +1,570 @@
+/* IMG BORDER REMOVAL */
+img.profile { 
+  border: none !important; 
+}
+
+
+/* MISCELLANEOUS */
+button {
+border-radius: 5px;
+}
+
+.fa-angle-up:before {
+content: "\f105";
+}
+
+#playlists li.global-volume input[type="range"] {
+border-radius: 5px;
+padding: 5px;
+}
+
+/* UNSET LINE HEIGHT FONT AWESOME ICONS */
+#sidebar .fa, #sidebar .fab, #sidebar .fad, #sidebar .fal, #sidebar .far, #sidebar .fas { line-height: unset; }
+
+/* MAKE THE TOKEN HUD LESS TRANSPARENT & BIGGER */
+.placeable-hud input[type="text"] {
+background: rgba(0, 0, 0, 0.75) !important;
+}
+
+/* SCROLL BARS - CHROME ONLY ~ FUCK FIREFOX */
+::-webkit-scrollbar-thumb {
+background: rgba(55, 90, 160, 1);
+border: 1px solid rgba(150, 160, 175, 1);
+}
+
+/* NOTIFICATION PIP */
+.notification-pip {
+color: #FFF;
+text-shadow: 0px 0px 2px rgba(20, 50, 120, 1), 0px 0px 4px rgba(20, 50, 120, 0.8);
+top: -5px;
+right: -5px;
+}
+
+/* TOKEN HUD STUFF */
+#token-hud .status-effects {
+width: 200px;
+grid-template-columns: 50px 50px 50px 50px;
+}
+
+#token-hud .status-effects .effect-control {
+height: 50px;
+width: 50px;
+}
+
+#token-hud .status-effects {
+background: rgba(0, 0, 0, 0.9);
+}
+
+#token-hud .status-effects .effect-control:hover {
+opacity: 1;
+}
+
+.placeable-hud .control-icon.active {
+border: 1px solid #FFF;
+}
+
+a:hover,
+.tabs .item.active {
+/* color: rgba(55, 90, 160, 1); */
+/*font-weight: bold;*/
+text-shadow: none;
+}
+
+.alt5e.dnd5e.sheet .editable .rollable:hover h4,
+.alt5e.dnd5e.sheet .editable .rollable:hover {
+font-weight: bold;
+}
+
+.tabs .item.active, .tabs a:hover {
+font-weight: normal;
+}
+
+input[type="text"]:hover, 
+input[type="text"]:focus
+select:focus,
+select:hover,
+input:focus,
+input:hover
+{
+border: 1px solid rgba(25, 50, 125, 1);
+box-shadow: 0 0 3px rgba(70, 110, 235, 1), 0 0 6px rgba(70, 110, 235, 1);
+background-color: rgba(0, 0, 0, 0.015);
+}
+
+.dialog .dialog-buttons button {
+border: none;
+}
+
+button:hover {
+/* box-shadow: 0 0 3px rgba(70, 110, 235, 1), 0 0 6px rgba(70, 110, 235, 1); */
+/* border: 1px solid transparent; */
+/* font-weight: bold; */
+color: rgba(55, 90, 160, 1);
+background-color: rgba(55, 90, 160, 0.2);
+}
+
+.close:hover, .configure-sheet:hover, .configure-token:hover,
+.share-image:hover, .entry-text:hover, .entry-image:hover {
+color: #FFF;
+font-weight: normal;
+}
+
+.filepicker .directory > li:hover {
+color: rgba(55, 90, 160, 1);
+font-weight: bold;
+text-shadow: none;
+}
+
+/* CHAT BOX */
+textarea {
+border: 2px solid rgba(55, 90, 160, 1);
+border-radius: 5px;
+}
+
+textarea:focus {
+outline: none;
+border-radius: 5px;
+border: 2px solid rgba(55, 90, 160, 1);
+box-shadow: 0 0 15px rgba(70, 110, 235, 1);
+}
+
+#controls .scene-control.active, #controls .control-tool.active, #controls .scene-control:hover, #controls .control-tool:hover  {
+color: #FFF;
+border: 1px solid rgba(255, 255, 255, 0.25);
+box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 5px #FFF;
+}
+
+#controls .control-tool.toggle.active {
+background: rgba(255, 255, 255, 0.75);
+box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 8px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 1);
+color: rgba(80, 70, 170, 1);
+border: 1px solid;
+}
+
+#controls .control-tool.toggle.active:hover {
+background: rgba(100, 0, 0, 1);
+color: #FFF;
+}
+
+/* NAVIGATION BAR */
+#navigation #scene-list .scene, 
+#navigation #scene-list .scene.view, 
+#navigation #scene-list .scene.context {
+border: 1px solid rgba(255, 255, 255, 0.25);
+background: rgba(20, 50, 120, 0.9);
+color: #FFF;
+}
+
+#navigation #scene-list .scene.view, #navigation #scene-list .scene.context {
+box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 1);
+}
+
+#navigation #scene-list .scene.gm {
+border: 1px solid rgba(255, 255, 255, 0.25);
+background: rgba(51, 51, 51, 0.9);
+color: #FFF;
+}
+
+#navigation #scene-list .scene.active, 
+#navigation #scene-list .scene.active.gm {
+background: rgb(0 0 0 / 80%);
+border: 1px solid rgba(255, 255, 255, 0.25); /* DkGreen */
+}
+
+#navigation #scene-list .scene a:hover {
+font-weight: normal;
+color: #FFF;
+text-shadow: 0 0 12px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 255, 255, 0.75), 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/* MACROBAR */
+#hotbar .macro:hover {
+box-shadow: 0 0 12px inset rgba(255, 255, 255, 0.8), 0 0 12px inset rgba(255, 255, 255, 0.8), 0 0 12px inset #9db9d2, 0 0 12px inset rgba(255, 255, 255, 0.8);
+}
+
+#hotbar .bar-controls a:hover {
+color: #FFF;
+text-shadow: 0 0 12px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 255, 255, 0.75), 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+#hotbar .macro.active:hover {
+border: 1px solid #FFF;
+}
+
+/* SIDEBAR */
+/* TAB COLORS */
+#sidebar-tabs > .item {
+line-height: 31px;
+}
+#sidebar-tabs > .collapse {
+color: rgba(20, 50, 120, 0.9);
+}
+
+#sidebar.collapsed #sidebar-tabs > .item.active {
+border: 1px solid transparent;
+}
+
+#sidebar-tabs > .item.active {
+color: #f1f7fd;
+text-shadow: 0 0 5px #580951, 0 0 5px #a03939;
+border: 1px solid rgb(80 51 28);
+box-shadow: 0 0 12px inset #761616, 0 0 12px inset #1f0b03, 0 0 12px inset #9db9d2, 0 0 12px inset #FFFFFF;
+}
+
+#sidebar-tabs {
+color: rgb(130 25 25);
+border-bottom: 1px solid rgb(175 16 0);
+box-shadow: 0 0 10px #2f0000;
+}
+
+#sidebar-tabs a:hover {
+color: #FFF;
+text-shadow: 0 0 8px rgb(0 0 0 / 90%), 0 0 8px rgb(175 52 25 / 90%), 0 0 8px rgb(216 42 82 / 90%);
+-webkit-text-stroke-width: 1px;
+-webkit-text-stroke-color: rgba(255, 255, 255, 0.25);
+}
+
+/* BORDER SHENANIGANS */
+.subdirectory,
+.subdirectory .folder,
+.sidebar-tab .directory-list .entity,
+li.folder > .folder-header,
+.sidebar-tab .directory-list .folder + .entity,
+.sidebar-tab .directory-list .entity:last-child,
+.sidebar-tab .directory-list .directory-item {
+border: none;
+line-height: 34px
+}
+
+/* MARGIN & PADDING SHENANIGANS */
+.sidebar-tab .directory-list {
+padding-left: 5px;
+padding-right: 5px;
+}
+
+ol.subdirectory  {
+margin-left: 5px;
+padding-left: 5px;
+}
+
+.sidebar-tab .directory-list .entity {
+margin-bottom: 2px;
+padding-left: 5px;
+}
+
+/* FOLDER ICON SIZE */
+li.folder > .folder-header h3 > i {
+display: inline;
+vertical-align: middle;
+font-size: 2em;
+}
+
+#actors-popout {
+width: fit-content !important;
+}
+
+/* SIDEBAR BACKGROUND & TEXT COLOR */
+#sidebar, .sidebar-popout {
+background: url('../../asset/image/heresy2.jpg') repeat;
+background-position: center;
+}
+
+#sidebar, .sidebar-popout,
+.app.sidebar-popout .window-content,
+li.folder > .folder-header h3,
+li.folder > .folder-header .create-folder, li.folder > .folder-header .create-entity {
+color: #333;
+}
+}
+
+li.folder > .folder-header,
+li.folder.collapsed > .folder-header {
+background-color: transparent;
+line-height: 28px;
+border-radius: 5px;
+}
+
+li.folder > .folder-header {
+padding: 3px 4px 1px 0px;
+background: #63452c87;
+}
+
+.sidebar-tab .directory-list .directory-item h3, .sidebar-tab .directory-list .directory-item h4 {
+padding: 0px 6px;
+font-size: 18px;
+}
+
+.sidebar-tab .directory-list .directory-item img {
+flex: 0 0 40px;
+height: 40px;
+width: 40px;
+object-fit: cover;
+object-position: 50% 0;
+margin: 0 8px 0 2px;
+border-radius: 5px;
+}
+
+#actors-popout li.folder > .folder-header h3,
+#items-popout li.folder > .folder-header h3,
+#scenes-popout li.folder > .folder-header h3 {
+margin-top: -2px;
+}
+
+#scenes .scene h3 a:hover {
+color: #FFF;
+font-weight: normal;
+text-shadow: 1px 1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
+}
+
+/* COMBAT TRACKER */
+#combat #combat-round .encounters a,
+#combat #combat-round .encounters h4,
+#combat li.combatant .token-resource,
+#combat li.combatant .token-name .combatant-control {
+color: #333;
+border: none;
+}
+
+#combat li.combatant .token-name,
+#combat li.combatant .token-initiative .initiative {
+font-size: 22px;
+text-shadow: none;
+}
+
+#combat li.combatant {
+align-items: center;
+}
+
+#combat li.combatant.active {
+background: rgba(65, 170, 40, 0.5);
+}
+
+#combat li.combatant .token-initiative {
+flex: 0 0 60px;
+}
+
+#combat li.combatant .roll {
+width: unset;
+background-size: 44px;
+}
+
+#combat li.combatant .token-name .token-effects {
+border: 1px solid #333;
+border-radius: 5px;
+background-color: rgba(0, 0, 0, 0.4);
+margin-bottom: 4px;
+padding: 1px 0px 0px 1px;
+height: 23px;
+min-height: 23px;
+}
+
+#combat li.combatant .token-name .token-effects:hover {
+min-height: 23px;
+  height: auto;
+}
+
+#combat li.combatant .token-name .token-effects:hover .token-effect {
+  margin-bottom: -3px;
+}
+
+#combat ol.directory-list > li.directory-item:odd {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+#combat li.combatant .token-name h4 {
+  margin: 0px 0px 4px 0px;
+  padding: 0px;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+}
+
+/* SCENE TAB */
+#scenes .scene h3 {
+  font-size: 1.75em;
+  color: #FFF;
+  text-shadow: 1px 1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
+  line-height: 100px;
+  padding-left: 0px;
+}
+
+#scenes .subdirectory {
+  border-left: 1px solid rgba(51, 51, 51, 0.5);
+  border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+  border-radius: 0px 0px 0px 15px;
+  padding-bottom: 10px;
+}
+
+#scenes .scene {
+  border-radius: 15px;
+  position: relative;
+  height: 100px;
+  line-height: 100px;
+  background-position: 50% 50%;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  margin: 6px 0px -5px 5px;
+  box-shadow: none;
+}
+
+/* PLAYLIST */
+#playlists li.playlist .sound-control {
+  font-size: 13px;
+  color: #333;
+}
+
+/* SETTINGS */
+#settings .game-system h4 {
+  color: #333 !important;
+}
+
+/* FILEPICKER */
+.filepicker .display-modes a.active {
+  background: rgba(55, 90, 160, 1);
+  color: #FFF;
+  text-shadow: none;
+}
+
+.filepicker .tiles-list li.picked {
+  box-shadow: 0 0 6px inset rgba(55, 90, 160, 1);
+  background: rgba(55, 90, 160, 1);
+}
+
+.filepicker .directory > li.picked {
+  background: rgba(55, 90, 160, 1);
+  color: #FFF;
+  font-weight: normal;
+}
+
+.filepicker .directory {
+  border: none;
+  border-top: 1px solid #191813;
+  border-left: 1px solid #191813;
+}
+
+.filepicker .directory > li:last-child {
+  border-bottom: 1px solid #191813;
+}
+
+.filepicker .tiles-list {
+  width: 501px;
+}
+
+/* TOKEN & PLACEABLE HUD ALTERATIONS */
+#token-hud .status-effects {
+  top: -2px;
+  width: 220px;
+  grid-template-columns: 56px 56px 56px 56px;
+  background: rgba(0, 0, 0, 1);
+  box-shadow: none;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 5px 1px 5px;
+}
+
+#token-hud .status-effects .effect-control {
+  height: 52px;
+  width: 52px;
+  border: 2px solid transparent;
+  padding: 2px;
+  margin-bottom: 4px;
+}
+
+#token-hud .status-effects .effect-control:hover {
+  opacity: 1;
+  border: 2px solid #0FF;
+  border-radius: 5px;
+  background: rgba(0, 255, 255, 0.25);
+}
+
+#token-hud .status-effects .effect-control.active {
+  border: 2px solid #0F0;
+  border-radius: 5px;
+  background: rgba(0, 255, 0, 0.25);
+}
+
+#token-hud .attribute.bar1 input {
+  border: 2px solid #7cd000;
+}
+
+.placeable-hud .control-icon {
+  border: 2px solid transparent;
+  background: #000;
+}
+
+.placeable-hud .control-icon:hover {
+  border: 2px solid #0FF;
+}
+
+.placeable-hud .control-icon.active {
+  color: #FFF;
+  border: 2px solid #0F0;
+}
+
+.placeable-hud .control-icon.active img {
+  opacity: 1;
+}
+
+.placeable-hud input[type="text"] {
+  background: #000;
+  box-shadow: none;
+}
+
+/* CONTROLS MENU */
+#controls .scene-control:hover, #controls .control-tool:hover {
+  border: 1px solid #9c0093;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 5px #630175;
+}
+
+#controls .scene-control.active, #controls .control-tool.active {
+  border: 1px solid #ff5900;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 5px #f00;
+}
+
+#controls .control-tool, #controls .control-tool.toggle {
+  border: 1px solid #000;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 5px #000;
+}
+
+#controls .control-tool.toggle.active {
+  color: #FFF;
+  background: rgba(0, 255, 0, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 5px #0F0;
+  border: 1px solid #0F0;
+}
+
+#controls .control-tool.toggle:hover {
+  color: #FFF;
+  background: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 5px #0FF;
+  border: 1px solid #0FF;
+}
+
+#controls .control-tool.toggle.active:hover {
+  color: #FFF;
+  background: rgba(150, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 5px #800;
+  border: 1px solid #C00;
+}
+
+.chat-message {
+  padding: 5px;
+  color: #191813;
+  font-size: 14px;
+  background: #b7ac9ecc;
+}
+
+#chat-form textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  background: #b7ac9ecc;
+}
+
+li.folder.collapsed > .folder-header {
+  background: rgb(86 78 74 / 40%);
+}
+
 .window-app .window-content {
-    background: url(../../asset/image/background-window.jpg) repeat;
+    background: url("../../asset/image/background.jpg") center;
 }
