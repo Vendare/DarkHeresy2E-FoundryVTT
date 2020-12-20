@@ -1,5 +1,5 @@
 export const migrateWorld = async () => {
-    const schemaVersion = 2;
+    const schemaVersion = 3;
     const worldSchemaVersion = Number(game.settings.get("dark-heresy", "worldSchemaVersion"));
     if (worldSchemaVersion !== schemaVersion && game.user.isGM) {
         ui.notifications.info("Upgrading the world, please wait...");
@@ -73,6 +73,10 @@ const migrateActorData = (actor, worldSchemaVersion) => {
             }
             update["data.skills.forbiddenLore"] = actor.data.skills.forbiddenLore;
         }
+    }
+    if (worldSchemaVersion < 3) {
+         actor.prepareData();
+         update["data.armour"] = actor.data.armour;
     }
     return update;
 };
