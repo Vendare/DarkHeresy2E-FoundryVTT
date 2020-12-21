@@ -88,7 +88,7 @@ input:hover
 {
 border: 1px solid rgba(25, 50, 125, 1);
 box-shadow: 0 0 3px rgba(70, 110, 235, 1), 0 0 6px rgba(70, 110, 235, 1);
-background-color: rgba(0, 0, 0, 0.015);
+background-color: rgb(210 200 185);
 }
 
 .dialog .dialog-buttons button {
