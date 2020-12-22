@@ -32,7 +32,7 @@ export class DarkHeresyActor extends Actor {
             skill.total = characteristic.total + skill.advance;
             if (skill.isSpecialist) {
                 for (let speciality of Object.values(skill.specialities)) {
-                    speciality.total =  characteristic.total + speciality.advance;
+                    speciality.total = characteristic.total + speciality.advance;
                     speciality.isKnown = speciality.advance >= 0;
                 }
             }
@@ -96,49 +96,49 @@ export class DarkHeresyActor extends Actor {
     }
 
     _computeArmour(data) {
+        let locations = game.system.template.Item.armour.part;
+
         let toughness = data.data.characteristics.toughness;
-        data.data.armour = {
-            head: {
-                total: toughness.bonus,
-                toughnessBonus: toughness.bonus,
-                value: 0
-            },
-            leftArm: {
-                total: toughness.bonus,
-                toughnessBonus: toughness.bonus,
-                value: 0
-            },
-            rightArm: {
-                total: toughness.bonus,
-                toughnessBonus: toughness.bonus,
-                value: 0
-            },
-            body: {
-                total: toughness.bonus,
-                toughnessBonus: toughness.bonus,
-                value: 0
-            },
-            leftLeg: {
-                total: toughness.bonus,
-                toughnessBonus: toughness.bonus,
-                value: 0
-            },
-            rightLeg: {
-                total: toughness.bonus,
-                toughnessBonus: toughness.bonus,
-                value: 0
-            }
-        }
-        for (let item of Object.values(data.items)) {
-            if (item.isArmour) {
-                data.data.armour.head.value += item.data.part.head;
-                data.data.armour.leftArm.value += item.data.part.leftArm;
-                data.data.armour.rightArm.value += item.data.part.rightArm;
-                data.data.armour.body.value += item.data.part.body;
-                data.data.armour.leftLeg.value += item.data.part.leftLeg;
-                data.data.armour.rightLeg.value += item.data.part.rightLeg;
-            }
-        }
+
+        data.data.armour =
+            Object.keys(locations)
+            .reduce((accumulator, location) =>
+                Object.assign(accumulator,
+                    {
+                        [location]: {
+                            total: toughness.bonus,
+                            toughnessBonus: toughness.bonus,
+                            value: 0
+                        }
+                    }), {});
+
+        // object for storing the max armour
+        let maxArmour = Object.keys(locations)
+        .reduce((acc, location) =>
+            Object.assign(acc, {[location]: 0}), {})
+
+        // for each item, find the maximum armour val per location
+        data.items
+        .filter(item => item.type === "armour")
+        .reduce((acc, armour) => {
+            Object.keys(locations)
+            .forEach((location) => {
+                    let armourVal = armour.data.part[location] || 0;
+                    if (armourVal > acc[location]) {
+                        acc[location] = armourVal;
+                    }
+                }
+            )
+            return acc;
+        }, maxArmour);
+
+        data.data.armour.head.value = maxArmour["head"];
+        data.data.armour.leftArm.value = maxArmour["leftArm"];
+        data.data.armour.rightArm.value = maxArmour["rightArm"];
+        data.data.armour.body.value = maxArmour["body"];
+        data.data.armour.leftLeg.value = maxArmour["leftLeg"];
+        data.data.armour.rightLeg.value = maxArmour["rightLeg"];
+
         data.data.armour.head.total += data.data.armour.head.value;
         data.data.armour.leftArm.total += data.data.armour.leftArm.value;
         data.data.armour.rightArm.total += data.data.armour.rightArm.value;
