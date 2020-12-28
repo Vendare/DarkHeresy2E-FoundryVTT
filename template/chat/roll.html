@@ -27,7 +27,7 @@
         {{/if}}
         {{#each damages as |damage|}}
             <h3 class="separator">{{localize location}}</h3>
-            <p><strong>{{localize "CHAT.DAMAGE"}}:</strong> {{damage.total}} <strong>{{damageType damageType}}</strong></p>
+            <p><strong>{{localize "CHAT.DAMAGE"}}:</strong> {{damage.total}} <strong>{{damageType ../damageType}}</strong></p>
             <p><strong>{{localize "CHAT.PENETRATION"}}:</strong> {{penetration}}</p>
             {{#if damage.righteousFury}}
             <p><strong>{{localize "CHAT.RIGHTEOUS_FURY"}}:</strong> {{damage.righteousFury}}</p>
