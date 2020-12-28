@@ -34,7 +34,7 @@
 }
 
 .dark-heresy .progression .aptitudes .item-list .items .item .name:focus {
-    background: url(../../../asset/image/background-input.jpg) repeat;
+    background: #d0d0d0;
     border-radius: 3px;
     border: 1px solid var(--color-border);
     box-shadow: 0 0 10px var(--color-shadow);
