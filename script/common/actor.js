@@ -149,11 +149,12 @@ export class DarkHeresyActor extends Actor {
 
     _computeMovement(data) {
         let agility = data.data.characteristics.agility;
+        let size = data.data.size;
         data.data.movement = {
-            half: agility.bonus,
-            full: agility.bonus * 2,
-            charge: agility.bonus * 3,
-            run: agility.bonus * 6
+            half: agility.bonus + (size - 4),
+            full: (agility.bonus * 2) + (size - 4),
+            charge: (agility.bonus * 3) + (size - 4),
+            run: (agility.bonus * 6) + (size - 4)
         }
     }
 
