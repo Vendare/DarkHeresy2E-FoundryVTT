@@ -124,9 +124,9 @@ function registerHandlebarsHelpers() {
         return game.i18n.localize("WEAPON.MELEE");
     }
   });
-  Handlebars.registerHelper("damageType", function (weaponClass) {
-    weaponClass = normalize(weaponClass, "melee");
-    switch (weaponClass) {
+  Handlebars.registerHelper("damageType", function (damageType) {
+    damageType = normalize(damageType, "impact");
+    switch (damageType) {
       case "energy":
         return game.i18n.localize("DAMAGE_TYPE.ENERGY_SHORT");
       case "impact":
