@@ -244,8 +244,6 @@ export class DarkHeresyActor extends Actor {
         }
     }
 
-
-
     /**
      * Apply wounds to the actor, takes into account the armour value
      * and the area of the hit.
@@ -253,20 +251,51 @@ export class DarkHeresyActor extends Actor {
      * @param {number} damages.amount       An amount of damage to sustain
      * @param {string} damages.location     Localised location of the body part taking damage
      * @param {number} damages.penetration  Amount of penetration from the attack
+     * @param {string} damages.type         Type of damage
      * @param {number} damages.righteousFury Amount rolled on the righteous fury die, defaults to 0
      * @return {Promise<Actor>}             A Promise which resolves once the damage has been applied
      */
     async applyDamage(damages) {
         let wounds = this.data.data.wounds.value;
+        let criticalWounds = this.data.data.wounds.critical;
+        const maxWounds = this.data.data.wounds.max;
 
         // apply damage from multiple hits
         for (const damage of damages) {
-            wounds += Number(damage.amount)
+            // get the armour for the location and minus penetration
+            let armour = this._getArmour(damage.location) - Number(damage.penetration)
+
+            // calculate wounds to add
+            let woundsToAdd = Math.max(Number(damage.amount) - armour, 0)
+
+            // If no wounds inflicted and righteous fury was rolled, attack causes one wound
+            if (damage.righteousFury && woundsToAdd === 0) {
+                woundsToAdd = 1
+            } else if(damage.righteousFury) {
+                // roll on crit table but don't add critical wounds
+                this._showCritMessage(damage.righteousFury, damage.type)
+            }
+
+            // check for critical wounds
+            if (wounds === maxWounds) {
+                // all new wounds are critical
+                criticalWounds += woundsToAdd;
+                this._showCritMessage(criticalWounds, damage.type)
+            } else if (wounds + woundsToAdd > maxWounds) {
+                // will bring wounds to max and add left overs as crits
+                woundsToAdd = (wounds + woundsToAdd) - maxWounds;
+                criticalWounds += woundsToAdd;
+                wounds = maxWounds;
+                this._showCritMessage(criticalWounds, damage.type)
+            } else {
+                wounds += woundsToAdd
+            }
         }
 
         // Update the Actor
         const updates = {
-            "data.wounds.value": wounds
+            "data.wounds.value": wounds,
+            "data.wounds.critical": criticalWounds
         };
 
         // Delegate damage application to a hook
@@ -278,4 +307,37 @@ export class DarkHeresyActor extends Actor {
         }, updates);
         return allowed !== false ? this.update(updates) : this;
     }
+
+    /**
+     * Gets the armour value for a non-localized location string
+     * @param {string} location
+     * @returns {number} armour value for the location
+     */
+    _getArmour(location) {
+        switch (location) {
+            case "ARMOUR.HEAD":
+                return this.data.data.armour.head.total;
+            case "ARMOUR.LEFT_ARM":
+                return this.data.data.armour.leftArm.total;
+            case "ARMOUR.RIGHT_ARM":
+                return this.data.data.armour.rightArm.total;
+            case "ARMOUR.BODY":
+                return this.data.data.armour.body.total;
+            case "ARMOUR.LEFT_LEG":
+                return this.data.data.armour.leftLeg.total;
+            case "ARMOUR.RIGHT_LEG":
+                return this.data.data.armour.rightLeg.total;
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * Helper to show that an effect from the critical table needs to be applied.
+     * TODO: This needs styling and rewording and ideally would roll on the crit tables for you
+     */
+    _showCritMessage(critNumber, damageType) {
+        ChatMessage.create({ content: `${this.name} takes critical damage ${critNumber} ${damageType}` });
+    }
+
 }

@@ -36,6 +36,7 @@ function applyChatCardDamage(roll, multiplier) {
     const amount = roll.find('.damage-total')
     const location = roll.find('.damage-location')
     const penetration = roll.find('.damage-penetration')
+    const type = roll.find('.damage-type')
     const righteousFury = roll.find('.damage-righteous-fury')
 
     // put the data from different hits together
@@ -43,8 +44,9 @@ function applyChatCardDamage(roll, multiplier) {
     for (let i = 0; i < amount.length; i++) {
         damages.push({
             amount: $(amount[i]).text(),
-            location: $(location[i]).text(),
+            location: $(location[i]).data("location"),
             penetration: $(penetration[i]).text(),
+            type: $(type[i]).text(),
             righteousFury: $(righteousFury[i]).text(),
         })
     }
