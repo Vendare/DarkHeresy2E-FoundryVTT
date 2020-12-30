@@ -165,7 +165,7 @@ export class DarkHeresyActor extends Actor {
                 return characteristic;
             }
         }
-        return {total: 0};
+        return { total: 0 };
     }
 
     _computeEncumbrance(data, encumbrance) {
@@ -242,5 +242,40 @@ export class DarkHeresyActor extends Actor {
                 data.data.encumbrance.max = 2250;
                 break
         }
+    }
+
+
+
+    /**
+     * Apply wounds to the actor, takes into account the armour value
+     * and the area of the hit.
+     * @param {Object[]} damages            Array of damage objects to apply to the Actor
+     * @param {number} damages.amount       An amount of damage to sustain
+     * @param {string} damages.location     Localised location of the body part taking damage
+     * @param {number} damages.penetration  Amount of penetration from the attack
+     * @param {number} damages.righteousFury Amount rolled on the righteous fury die, defaults to 0
+     * @return {Promise<Actor>}             A Promise which resolves once the damage has been applied
+     */
+    async applyDamage(damages) {
+        let wounds = this.data.data.wounds.value;
+
+        // apply damage from multiple hits
+        for (const damage of damages) {
+            wounds += Number(damage.amount)
+        }
+
+        // Update the Actor
+        const updates = {
+            "data.wounds.value": wounds
+        };
+
+        // Delegate damage application to a hook
+        const allowed = Hooks.call("modifyTokenAttribute", {
+            attribute: "wounds.value",
+            value: this.data.data.wounds.value,
+            isDelta: false,
+            isBar: true
+        }, updates);
+        return allowed !== false ? this.update(updates) : this;
     }
 }

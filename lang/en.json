@@ -122,6 +122,7 @@
   "CHAT.PSY_PUSH": "Push",
   "CHAT.NUMBER_OF_HIT": "Number of Hit",
   "CHAT.HAS_PSYCHIC_PHENOMENA": "You must roll on the Psychic Phenomena table !",
+  "CHAT.CONTEXT.APPLY_DAMAGE": "Apply Damage",
 
   "CORRUPTION.HEADER": "Corruption",
   "CORRUPTION.MALIGNANCY": "Malignancy",
