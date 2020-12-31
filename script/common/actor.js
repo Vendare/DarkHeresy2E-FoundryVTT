@@ -258,6 +258,7 @@ export class DarkHeresyActor extends Actor {
     async applyDamage(damages) {
         let wounds = this.data.data.wounds.value;
         let criticalWounds = this.data.data.wounds.critical;
+        const critRolls = []
         const maxWounds = this.data.data.wounds.max;
 
         // apply damage from multiple hits
@@ -271,22 +272,22 @@ export class DarkHeresyActor extends Actor {
             // If no wounds inflicted and righteous fury was rolled, attack causes one wound
             if (damage.righteousFury && woundsToAdd === 0) {
                 woundsToAdd = 1
-            } else if(damage.righteousFury) {
+            } else if (damage.righteousFury) {
                 // roll on crit table but don't add critical wounds
-                this._showCritMessage(damage.righteousFury, damage.type)
+                critRolls.push({ critNumber: damage.righteousFury, type: damage.type })
             }
 
             // check for critical wounds
             if (wounds === maxWounds) {
                 // all new wounds are critical
                 criticalWounds += woundsToAdd;
-                this._showCritMessage(criticalWounds, damage.type)
+                critRolls.push({ critNumber: criticalWounds, type: damage.type })
             } else if (wounds + woundsToAdd > maxWounds) {
                 // will bring wounds to max and add left overs as crits
                 woundsToAdd = (wounds + woundsToAdd) - maxWounds;
                 criticalWounds += woundsToAdd;
                 wounds = maxWounds;
-                this._showCritMessage(criticalWounds, damage.type)
+                critRolls.push({ critNumber: criticalWounds, type: damage.type })
             } else {
                 wounds += woundsToAdd
             }
@@ -305,6 +306,8 @@ export class DarkHeresyActor extends Actor {
             isDelta: false,
             isBar: true
         }, updates);
+
+        await this._showCritMessage(critRolls)
         return allowed !== false ? this.update(updates) : this;
     }
 
@@ -334,10 +337,15 @@ export class DarkHeresyActor extends Actor {
 
     /**
      * Helper to show that an effect from the critical table needs to be applied.
-     * TODO: This needs styling and rewording and ideally would roll on the crit tables for you
+     * TODO: This needs styling, rewording and ideally would roll on the crit tables for you
+     * @param {Object[]} rolls Array of critical rolls
+     * @param {number} rolls.critNumber Number rolled on the crit table
+     * @param {string} rolls.type Letter representing the damage type
      */
-    _showCritMessage(critNumber, damageType) {
-        ChatMessage.create({ content: `${this.name} takes critical damage ${critNumber} ${damageType}` });
+    async _showCritMessage(rolls) {
+        if (rolls.length === 0) return;
+        const html = await renderTemplate("systems/dark-heresy/template/chat/critical.html", {rolls})
+        ChatMessage.create({ content: html });
     }
 
 }
