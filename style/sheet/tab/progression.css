@@ -80,7 +80,12 @@
     align-items: center;
 }
 
-.dark-heresy .progression .talents .item-list .items .item input {
+.dark-heresy .progression .aptitudes .item-list .items .item .aptitude-row {
+    flex-basis: 90%;
+    align-items: center;
+}
+
+.dark-heresy .progression .aptitudes .item-list .items .item input {
     flex-basis: 28%;
     margin: 1px 5px;
 }

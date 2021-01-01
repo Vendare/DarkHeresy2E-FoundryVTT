@@ -922,6 +922,7 @@
   "Item": {
     "types": [
       "ammunition",
+      "aptitude",
       "armour",
       "criticalInjury",
       "cybernetic",
@@ -945,6 +946,10 @@
         "description": "",
         "availability": "common",
         "weight": 0
+      },
+      "itemDescription": {
+        "description": "",
+        "source": ""
       }
     },
     "ammunition": {
@@ -977,9 +982,9 @@
       "maxAgility": 0
     },
     "criticalInjury": {
+      "templates": ["itemDescription"],
       "type": "impact",
-      "part": "body",
-      "description": ""
+      "part": "body"
     },
     "cybernetic": {
       "templates": [ "equipment" ],
@@ -999,16 +1004,16 @@
       "shortDescription": ""
     },
     "malignancy": {
-      "description": ""
+      "templates": ["itemDescription"]
     },
     "mentalDisorder": {
-      "description": ""
+      "templates": ["itemDescription"]
     },
     "mutation": {
-      "description": ""
+      "templates": ["itemDescription"]
     },
     "psychicPower": {
-      "description": "",
+      "templates": ["itemDescription"],
       "shortDescription": "",
       "cost": 0,
       "prerequisite": "",
@@ -1030,14 +1035,14 @@
       }
     },
     "specialAbility": {
-      "benefit": "",
-      "description": ""
+      "templates": ["itemDescription"],
+      "benefit": ""
     },
     "talent": {
+      "templates": ["itemDescription"],
       "prerequisites": "",
       "aptitudes": "",
       "benefit": "",
-      "description": "",
       "tier": 0,
       "cost": 0
     },
@@ -1046,8 +1051,8 @@
       "shortDescription": ""
     },
     "trait": {
-      "benefit": "",
-      "description": ""
+      "templates": ["itemDescription"],
+      "benefit": ""
     },
     "weapon": {
       "templates": [ "equipment" ],
@@ -1073,6 +1078,9 @@
       "templates": [ "equipment" ],
       "upgrades": "",
       "installed": false
+    },
+    "aptitude" : {
+      "templates": ["itemDescription"]
     }
   }
 }
