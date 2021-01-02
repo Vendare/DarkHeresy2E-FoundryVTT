@@ -47,7 +47,15 @@
     "style/sheet/tab/progression.css",
     "style/sheet/tab/notes.css"
   ],
-  "packs": [],
+  "packs": [
+    {
+      "name": "character-aptitudes",
+      "label": "Character Aptitudes",
+      "system": "dark-heresy",
+      "path": "./packs/character/aptitudes.db",
+      "entity": "Item"
+    }
+  ],
   "languages": [
     {
       "lang": "en",
