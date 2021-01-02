@@ -1,6 +1,6 @@
 <div class="dark-heresy chat item">
     <div class="background border">
-        <h1>{{name}}</h1>
+        <h1>{{type}}&#58; {{name}}</h1>
         {{#if img}}
         <img src="{{img}}" title="{{name}}"/>
         {{/if}}
@@ -133,6 +133,10 @@
         <p><strong>{{localize "WEAPON_MODIFICATION.WEIGHT"}}:</strong> {{data.weight}}</p>
         <p><strong>{{localize "WEAPON_MODIFICATION.CRAFTSMANSHIP"}}:</strong> {{craftsmanship data.craftsmanship}}</p>
         <p><strong>{{localize "WEAPON_MODIFICATION.AVAILABILITY"}}:</strong> {{availability data.availability}}</p>
+        {{/if}}
+
+        {{#if isAptitude}}
+        <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{{data.description}}}</p>
         {{/if}}
     </div>
 </div>
