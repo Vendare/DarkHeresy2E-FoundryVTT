@@ -85,10 +85,13 @@ const migrateActorData = (actor, worldSchemaVersion) => {
             if (textAptitudes !== null && textAptitudes !== undefined) {
                 let aptitudeItemsData =
                     Object.values(textAptitudes)
-                    ?.filter(textAptitude => textAptitude?.name !== null && textAptitude?.name !== undefined
-                        && typeof textAptitude?.name === 'string')
-                    ?.filter(textAptitude => 'id' in textAptitude)
-                    ?.filter(textAptitude => textAptitude?.name?.trim().length !== 0)
+                    // be extra careful and filter out bad data because the existing data is bugged
+                    ?.filter(textAptitude =>
+                        'id' in textAptitude
+                        && textAptitude?.name !== null
+                        && textAptitude?.name !== undefined
+                        && typeof textAptitude?.name === 'string'
+                        && 0 !== textAptitude?.name?.trim().length)
                     ?.map(textAptitude => {
                         return {
                             name: textAptitude.name,
@@ -101,6 +104,7 @@ const migrateActorData = (actor, worldSchemaVersion) => {
                     actor.createEmbeddedEntity("OwnedItem", aptitudeItemsData)
                 }
             }
+            update["data.-=aptitudes"] = null
         }
     }
     return update;
