@@ -78,14 +78,32 @@ export class DarkHeresySheet extends ActorSheet {
     await prepareCommonRoll(rollData);
   }
 
+  _getCharacteristicOptions (selected) {
+    const characteristics = []
+    for (let char of Object.values(this.actor.data.data.characteristics)) {
+      characteristics.push({
+        label: char.label,
+        base: char.base,
+        selected: char.short === selected
+      })
+    }
+    return characteristics
+  }
+
   async _prepareRollSkill(event) {
     event.preventDefault();
     const skillName = $(event.currentTarget).data("skill");
     const skill = this.actor.data.data.skills[skillName];
+    const defaultChar = skill.defaultCharacteristic || skill.characteristics[0]
+
+    const characteristics = this._getCharacteristicOptions(defaultChar)
+
     const rollData = {
       name: skill.label,
       baseTarget: skill.total,
-      modifier: 0
+      modifier: 0,
+      skill: skill,
+      characteristics: characteristics
     };
     await prepareCommonRoll(rollData);
   }

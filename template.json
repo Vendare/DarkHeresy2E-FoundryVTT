@@ -31,7 +31,7 @@
             "unnatural": 0,
             "cost": 0
           },
-          "toughness": {  
+          "toughness": {
             "label": "CHARACTERISTIC.TOUGHNESS",
             "short": "T",
             "base": 0,

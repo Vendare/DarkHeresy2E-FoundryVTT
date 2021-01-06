@@ -1,6 +1,16 @@
 <div class="dark-heresy dialog">
     <div class="flex row wrap background border" style="flex-basis: 100%;margin-bottom: 5px">
         <h1>{{localize name}}</h1>
+        {{#if characteristics}}
+            <div class="wrapper">
+                <label>{{localize "DIALOG.ROLL_WITH"}}</label>
+                <select name="characteristic">
+                    {{#each characteristics}}
+                        <option value="{{base}}"{{#if selected}} selected{{/if}}>{{localize label}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        {{/if}}
         <div class="wrapper">
             <label>{{localize "DIALOG.TARGET"}}</label>
             <input id="target" type="number" value="{{baseTarget}}" data-dtype="Number"/>

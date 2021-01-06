@@ -7,6 +7,10 @@
         <h3><span style="color: var(--color-failure)">{{localize "CHAT.FAILURE"}}</span> ({{result}})</h3>
         {{/if}}
 
+        {{#if rolledWith}}
+            <p><strong>{{localize "CHAT.ROLLED_WITH"}}:</strong> {{rolledWith}}</p>
+        {{/if}}
+
         {{#if isSuccess}}
         <p><strong>{{localize "CHAT.DOS"}}:</strong> {{dos}}</p>
         {{#if numberOfHit}}
