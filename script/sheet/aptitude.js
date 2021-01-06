@@ -17,19 +17,4 @@ export class AptitudeSheet extends DarkHeresyItemSheet {
             ]
         });
     }
-
-    getData() {
-        const data = super.getData();
-        return data;
-    }
-
-    _getHeaderButtons() {
-        let buttons = super._getHeaderButtons();
-        buttons = [].concat(buttons);
-        return buttons;
-    }
-
-    activateListeners(html) {
-        super.activateListeners(html);
-    }
 }
