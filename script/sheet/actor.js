@@ -83,7 +83,7 @@ export class DarkHeresySheet extends ActorSheet {
     for (let char of Object.values(this.actor.data.data.characteristics)) {
       characteristics.push({
         label: char.label,
-        base: char.base,
+        target: char.total,
         selected: char.short === selected
       })
     }
@@ -98,7 +98,7 @@ export class DarkHeresySheet extends ActorSheet {
 
     let characteristics = this._getCharacteristicOptions(defaultChar)
     characteristics = characteristics.map((char) => {
-      char.base += skill.advance
+      char.target += skill.advance
       return char
     })
 
