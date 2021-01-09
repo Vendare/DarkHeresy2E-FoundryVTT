@@ -1,4 +1,4 @@
-import { DarkHeresySheet } from "./actornew.js";
+import { DarkHeresySheet } from "./actor.js";
 
 export class NpcSheet extends DarkHeresySheet {
 
