@@ -1,7 +1,7 @@
 import { DarkHeresyActor } from "./actor.js";
 import { DarkHeresyItem } from "./item.js";
-import { AcolyteSheet } from "../sheet/acolyte.js";
-import { NpcSheet } from "../sheet/npc.js";
+import { AcolyteSheet } from "../sheet/actor/acolyte.js";
+import { NpcSheet } from "../sheet/actor/npc.js";
 import { WeaponSheet } from "../sheet/weapon.js";
 import { AmmunitionSheet } from "../sheet/ammunition.js";
 import { WeaponModificationSheet } from "../sheet/weapon-modification.js";

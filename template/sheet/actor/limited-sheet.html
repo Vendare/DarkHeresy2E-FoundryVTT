@@ -1,0 +1,26 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <div class="limited-sheet">
+    <div class="header border">
+      <div class="flex row">
+        <div class="avatar">
+          <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+        </div>
+        <div class="flex column grow">
+          <div class="name header-row">
+            <label>{{localize "BIO.NAME"}}</label>
+            <span>{{actor.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!--    <div class="flex wrap">-->
+      <div class="flex wrap notes-editor border">
+        <h1>{{localize "TITLE.NOTES"}}</h1>
+        <div class="notes-editor-content">
+          {{editor content=data.bio.notes target="data.bio.notes" button=true owner=owner
+          editable=editable}}
+        </div>
+      </div>
+  </div>
+</form>

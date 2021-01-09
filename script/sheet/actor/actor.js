@@ -1,4 +1,4 @@
-import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "../common/dialog.js";
+import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "../../common/dialog.js";
 
 export class DarkHeresySheet extends ActorSheet {
   activateListeners(html) {
