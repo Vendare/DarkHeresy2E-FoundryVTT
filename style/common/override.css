@@ -555,7 +555,9 @@ min-height: 23px;
 }
 
 .chat-message.whisper {
-    background: #b39583;
+    background: #ffc300;
+    font-size: 20px;
+    color: red;
 }
 
 #chat-form textarea {
