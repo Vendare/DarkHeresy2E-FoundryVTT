@@ -47,12 +47,14 @@
         </div>
 
         <div class="sheet-tabs tabs flex row" data-group="primary">
+            {{#unless limited}}
             <b class="item" data-tab="stats">{{localize "TAB.STATS"}}</b>
             <b class="item" data-tab="combat">{{localize "TAB.COMBAT"}}</b>
             <b class="item" data-tab="abilities">{{localize "TAB.ABILITIES"}}</b>
             <b class="item" data-tab="psychic-powers">{{localize "TAB.PSYCHIC_POWERS"}}</b>
             <b class="item" data-tab="gear">{{localize "TAB.GEAR"}}</b>
             <b class="item" data-tab="progression">{{localize "TAB.ADVANCES"}}</b>
+            {{/unless}}
             <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
         </div>
 
