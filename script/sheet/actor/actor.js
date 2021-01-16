@@ -19,7 +19,6 @@ export class DarkHeresySheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    data.limited = this.entity.limited;
     return data
   }
 
