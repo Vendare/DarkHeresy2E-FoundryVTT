@@ -12,6 +12,7 @@ export async function prepareCommonRoll(rollData) {
                 callback: async (html) => {
                     rollData.name = game.i18n.localize(rollData.name);
                     rollData.baseTarget = parseInt(html.find("#target")[0].value, 10);
+                    rollData.rolledWith = html.find('[name=characteristic] :selected').text();
                     rollData.modifier = html.find("#modifier")[0].value;
                     await commonRoll(rollData);
                 },
@@ -21,10 +22,20 @@ export async function prepareCommonRoll(rollData) {
                 label: game.i18n.localize("BUTTON.CANCEL"),
                 callback: () => {},
             },
+
         },
         default: "roll",
         close: () => {},
-    }, {width: 200});
+        render: (html) => {
+            const sel = html.find('select[name=characteristic')
+            const target = html.find('#target')
+            sel.change((ev) => {
+                target.val(sel.val())
+            })
+        }
+    }, {
+        width: 200,
+    });
     dialog.render(true);
 }
 

@@ -110,10 +110,11 @@
   "CHARACTERISTIC.BASE": "Base",
   "CHARACTERISTIC.COST": "Cost",
 
-  "CHAT.SUCCESS": "Success !",
-  "CHAT.FAILURE": "Failure !",
-  "CHAT.DOS": "Degree of Success",
-  "CHAT.DOF": "Degree of Failure",
+  "CHAT.SUCCESS": "Success!",
+  "CHAT.FAILURE": "Failure!",
+  "CHAT.ROLLED_WITH": "Rolled With",
+  "CHAT.DOS": "Degrees of Success",
+  "CHAT.DOF": "Degrees of Failure",
   "CHAT.DAMAGE": "Damage",
   "CHAT.RIGHTEOUS_FURY": "Righteous Fury",
   "CHAT.PENETRATION": "Penetration",
@@ -152,6 +153,7 @@
   "DAMAGE_TYPE.EXPLOSIVE_SHORT": "E",
 
   "DIALOG.CUSTOM_ROLL": "Custom Roll",
+  "DIALOG.ROLL_WITH": "Roll With",
   "DIALOG.TARGET": "Target",
   "DIALOG.BONUS": "Bonus",
   "DIALOG.MODIFIER": "Modifier",
