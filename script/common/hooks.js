@@ -19,6 +19,7 @@ import { PsychicPowerSheet } from "../sheet/psychic-power.js";
 import { TalentSheet } from "../sheet/talent.js";
 import { SpecialAbilitySheet } from "../sheet/special-ability.js";
 import { TraitSheet } from "../sheet/trait.js";
+import { AptitudeSheet } from "../sheet/aptitude.js";
 import { initializeHandlebars } from "./handlebars.js";
 import { migrateWorld } from "./migration.js";
 import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "./dialog.js";
@@ -57,6 +58,7 @@ Hooks.once("init", () => {
     Items.registerSheet("dark-heresy", TalentSheet, { types: ["talent"], makeDefault: true });
     Items.registerSheet("dark-heresy", SpecialAbilitySheet, { types: ["specialAbility"], makeDefault: true });
     Items.registerSheet("dark-heresy", TraitSheet, { types: ["trait"], makeDefault: true });
+    Items.registerSheet("dark-heresy", AptitudeSheet, { types: ["aptitude"], makeDefault: true });
     initializeHandlebars();
     game.settings.register("dark-heresy", "worldSchemaVersion", {
         name: "World Version",

@@ -6,6 +6,7 @@ export const initializeHandlebars = () => {
 function preloadHandlebarsTemplates() {
   const templatePaths = [
     "systems/dark-heresy/template/sheet/acolyte.html",
+    "systems/dark-heresy/template/sheet/aptitude.html",
     "systems/dark-heresy/template/sheet/npc.html",
     "systems/dark-heresy/template/sheet/mental-disorder.html",
     "systems/dark-heresy/template/sheet/malignancy.html",

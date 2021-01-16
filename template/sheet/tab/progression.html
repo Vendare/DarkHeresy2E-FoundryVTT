@@ -4,16 +4,23 @@
         <div class="item-list">
             <div class="flex header">
                 <b class="name">{{localize "APTITUDE.NAME"}}</b>
-                <a class="button aptitude-create" title="Add Aptitude"><i class="fas fa-plus"></i></a>
+                <a class="button item-create" title="Add Aptitude" data-type="aptitude"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each data.aptitudes as |aptitude|}}
-                    <div class="aptitude item flex row" data-aptitude-id="{{aptitude.id}}">
-                        <input class="name" name="data.aptitudes.{{aptitude.id}}.name" type="text" value="{{aptitude.name}}" />
+                {{#each actor.items as |item|}}
+                    {{#if item.isAptitude}}
+                    <div class="aptitude item flex row" data-item-id="{{item._id}}">
+                        <div class="flex aptitude-row item-edit" title="{{removeMarkup item.data.description}}">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
+                            </div>
+                            <div class="name">{{item.name}}</div>
+                        </div>
                         <div class="button">
-                            <a class="item-control aptitude-delete" title="Delete Aptitude"><i class="fas fa-trash"></i></a>
+                            <a class="item-control item-delete" title="Delete Aptitude"><i class="fas fa-trash"></i></a>
                         </div>
                     </div>
+                    {{/if}}
                 {{/each}}
             </div>
         </div>

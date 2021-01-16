@@ -47,6 +47,7 @@ export class DarkHeresyActor extends Actor {
             item.isMutation = item.type === "mutation";
             item.isTalent = item.type === "talent";
             item.isTrait = item.type === "trait";
+            item.isAptitude = item.type === "aptitude";
             item.isSpecialAbility = item.type === "specialAbility";
             item.isPsychicPower = item.type === "psychicPower";
             item.isCriticalInjury = item.type === "criticalInjury";
