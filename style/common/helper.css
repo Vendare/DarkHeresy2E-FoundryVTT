@@ -14,7 +14,10 @@
     border: 2px solid var(--color-border);
     border-radius: 3px;
     padding: 5px;
-    text-align: center;
+}
+
+.dark-heresy .background {
+    background: url(../../asset/image/background-window.jpg) repeat;
 }
 
 .dark-heresy .grow {
