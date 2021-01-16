@@ -4,32 +4,14 @@
         <div class="left">
             {{#each data.characteristics as |characteristic key|}}
                 {{#if characteristic.isLeft}}
-                    <div class="characteristic">
-                        <div class="name">
-                            <button class="roll-characteristic" data-characteristic="{{key}}">{{localize characteristic.label}}</button>
-                        </div>
-                        <input class="total" type="number" value="{{characteristic.total}}" data-dtype="Number" disabled />
-                        <div class="information">
-                            <input type="text" value="{{advanceCharacteristic characteristic.advance}}" disabled />
-                            <input type="number" value="{{characteristic.bonus}}" data-dtype="Number" disabled />
-                        </div>
-                    </div>
+                    {{> systems/dark-heresy/template/sheet/characteristics/left.html characteristic=characteristic key=key}}
                 {{/if}}
             {{/each}}
         </div>
         <div class="right">
             {{#each data.characteristics as |characteristic key|}}
                 {{#if characteristic.isRight}}
-                    <div class="characteristic">
-                        <div class="information">
-                            <input type="text" value="{{advanceCharacteristic characteristic.advance}}" disabled />
-                            <input type="number" value="{{characteristic.bonus}}" data-dtype="Number" disabled />
-                        </div>
-                        <input class="total" type="number" value="{{characteristic.total}}" data-dtype="Number" disabled />
-                        <div class="name">
-                            <button class="roll-characteristic" data-attribute="{{key}}">{{localize characteristic.label}}</button>
-                        </div>
-                    </div>
+                    {{> systems/dark-heresy/template/sheet/characteristics/right.html characteristic=characteristic key=key}}
                 {{/if}}
             {{/each}}
         </div>
