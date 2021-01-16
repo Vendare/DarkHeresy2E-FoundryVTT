@@ -17,10 +17,7 @@
     "style/common/override.css",
     "style/chat/chat.css",
     "style/dialog/dialog.css",
-    "style/sheet/actor.css",
     "style/sheet/item.css",
-    "style/sheet/acolyte.css",
-    "style/sheet/npc.css",
     "style/sheet/mental-disorder.css",
     "style/sheet/malignancy.css",
     "style/sheet/mutation.css",
@@ -38,14 +35,19 @@
     "style/sheet/weapon-modification.css",
     "style/sheet/ammunition.css",
     "style/sheet/force-field.css",
-    "style/sheet/tab/stats.css",
-    "style/sheet/tab/npc-stats.css",
-    "style/sheet/tab/combat.css",
-    "style/sheet/tab/abilities.css",
-    "style/sheet/tab/psychic-powers.css",
-    "style/sheet/tab/gear.css",
-    "style/sheet/tab/progression.css",
-    "style/sheet/tab/notes.css"
+
+    "style/sheet/actor/actor.css",
+    "style/sheet/actor/acolyte.css",
+    "style/sheet/actor/npc.css",
+    "style/sheet/actor/limited-sheet.css",
+    "style/sheet/actor/tab/stats.css",
+    "style/sheet/actor/tab/npc-stats.css",
+    "style/sheet/actor/tab/combat.css",
+    "style/sheet/actor/tab/abilities.css",
+    "style/sheet/actor/tab/psychic-powers.css",
+    "style/sheet/actor/tab/gear.css",
+    "style/sheet/actor/tab/progression.css",
+    "style/sheet/actor/tab/notes.css"
   ],
   "packs": [
     {

@@ -1,4 +1,4 @@
-import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "../common/dialog.js";
+import {prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll} from "../../common/dialog.js";
 
 export class DarkHeresySheet extends ActorSheet {
   activateListeners(html) {
@@ -14,6 +14,21 @@ export class DarkHeresySheet extends ActorSheet {
     html.find(".roll-corruption").click(async ev => await this._prepareRollCorruption(ev));
     html.find(".roll-weapon").click(async ev => await this._prepareRollWeapon(ev));
     html.find(".roll-psychic-power").click(async ev => await this._prepareRollPsychicPower(ev));
+  }
+
+  /** @override */
+  getData() {
+    const data = super.getData();
+    return data
+  }
+
+  /** @override */
+  get template() {
+    if (!game.user.isGM && this.actor.limited) {
+      return "systems/dark-heresy/template/sheet/actor/limited-sheet.html";
+    } else {
+      return this.options.template;
+    }
   }
 
   _getHeaderButtons() {
@@ -133,9 +148,9 @@ export class DarkHeresySheet extends ActorSheet {
     let characteristic = this._getWeaponCharacteristic(weapon);
     let rateOfFire;
     if (weapon.data.data.class === "melee") {
-      rateOfFire = { burst: characteristic.bonus, full: characteristic.bonus };
+      rateOfFire = {burst: characteristic.bonus, full: characteristic.bonus};
     } else {
-      rateOfFire = { burst: weapon.data.data.rateOfFire.burst, full: weapon.data.data.rateOfFire.full };
+      rateOfFire = {burst: weapon.data.data.rateOfFire.burst, full: weapon.data.data.rateOfFire.full};
     }
     let rollData = {
       name: weapon.name,
@@ -149,7 +164,7 @@ export class DarkHeresySheet extends ActorSheet {
       penetrationFormula: weapon.data.data.penetration,
       rateOfFire: rateOfFire,
       special: weapon.data.data.special,
-      psy: { value: this.actor.data.data.psy.rating, display: false },
+      psy: {value: this.actor.data.data.psy.rating, display: false},
     };
     await prepareCombatRoll(rollData);
   }
@@ -164,11 +179,11 @@ export class DarkHeresySheet extends ActorSheet {
       baseTarget: characteristic.total,
       modifier: psychicPower.data.data.focusPower.difficulty,
       damageFormula: psychicPower.data.data.damage.formula,
-      psy: { value: 1, max: this.actor.data.data.psy.rating, display: true },
+      psy: {value: 1, max: this.actor.data.data.psy.rating, display: true},
       damageType: psychicPower.data.data.damage.type,
       damageBonus: 0,
       penetrationFormula: psychicPower.data.data.damage.penetration,
-      attackType: { name: psychicPower.data.data.zone }
+      attackType: {name: psychicPower.data.data.zone}
     };
     await preparePsychicPowerRoll(rollData);
   }

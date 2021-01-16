@@ -5,7 +5,7 @@ export class AcolyteSheet extends DarkHeresySheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "actor"],
-            template: "systems/dark-heresy/template/sheet/acolyte.html",
+            template: "systems/dark-heresy/template/sheet/actor/acolyte.html",
             width: 700,
             height: 881,
             resizable: false,
