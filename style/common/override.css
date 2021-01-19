@@ -149,13 +149,13 @@ border-radius: 5px;
 }
 
 #playlists li.global-volume input[type="range"] {
-border-radius: 5px;
-padding: 5px;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 #playlists li.playlist .playlist-header .playlist-name i.fa {
-    color: #9e3c16;
-    margin-left: 5px;
+  color: #9e3c16;
+  margin-left: 5px;
 }
 
 /* NAVIGATION BAR */
