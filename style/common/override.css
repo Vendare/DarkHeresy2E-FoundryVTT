@@ -1,3 +1,175 @@
+/* TAB COLORS */
+#sidebar-tabs > .item {
+line-height: 31px;
+}
+#sidebar-tabs > .collapse {
+color: rgba(20, 50, 120, 0.9);
+}
+
+#sidebar.collapsed #sidebar-tabs > .item.active {
+border: 1px solid transparent;
+}
+
+#sidebar-tabs > .item.active {
+color: #f1f7fd;
+text-shadow: 0 0 5px #580951, 0 0 5px #a03939;
+border: 1px solid rgb(80 51 28);
+box-shadow: 0 0 12px inset #761616, 0 0 12px inset #1f0b03, 0 0 12px inset #9db9d2, 0 0 12px inset #FFFFFF;
+}
+
+#sidebar-tabs {
+color: rgb(130 25 25);
+border-bottom: 1px solid rgb(175 16 0);
+box-shadow: 0 0 10px #2f0000;
+}
+
+#sidebar-tabs a:hover {
+color: #FFF;
+text-shadow: 0 0 8px rgb(0 0 0 / 90%), 0 0 8px rgb(175 52 25 / 90%), 0 0 8px rgb(216 42 82 / 90%);
+-webkit-text-stroke-width: 1px;
+-webkit-text-stroke-color: rgba(255, 255, 255, 0.25);
+}
+
+/* BORDER SHENANIGANS */
+.subdirectory,
+.subdirectory .folder,
+.sidebar-tab .directory-list .entity,
+li.folder > .folder-header,
+.sidebar-tab .directory-list .folder + .entity,
+.sidebar-tab .directory-list .entity:last-child,
+.sidebar-tab .directory-list .directory-item {
+border: none;
+line-height: 34px
+}
+
+/* MARGIN & PADDING SHENANIGANS */
+.sidebar-tab .directory-list {
+padding-left: 5px;
+padding-right: 5px;
+}
+
+ol.subdirectory  {
+margin-left: 5px;
+padding-left: 5px;
+}
+
+.sidebar-tab .directory-list .entity {
+margin-bottom: 2px;
+padding-left: 5px;
+}
+
+/* FOLDER ICON SIZE */
+li.folder > .folder-header h3 > i {
+display: inline;
+vertical-align: middle;
+font-size: 2em;
+}
+
+#actors-popout {
+width: fit-content !important;
+}
+
+/* SIDEBAR BACKGROUND & TEXT COLOR */
+#sidebar, .sidebar-popout {
+background: url('../../asset/image/heresy2.jpg') repeat;
+background-position: center;
+}
+
+#sidebar, .sidebar-popout,
+.app.sidebar-popout .window-content,
+li.folder > .folder-header h3,
+li.folder > .folder-header .create-folder, li.folder > .folder-header .create-entity {
+color: #333;
+}
+}
+
+li.folder > .folder-header,
+li.folder.collapsed > .folder-header {
+background-color: transparent;
+line-height: 28px;
+border-radius: 5px;
+}
+
+li.folder > .folder-header {
+padding: 3px 4px 1px 0px;
+background: #63452c87;
+}
+
+.sidebar-tab .directory-list .directory-item h3, .sidebar-tab .directory-list .directory-item h4 {
+padding: 0px 6px;
+font-size: 18px;
+}
+
+.sidebar-tab .directory-list .directory-item img {
+flex: 0 0 40px;
+height: 40px;
+width: 40px;
+object-fit: cover;
+object-position: 50% 0;
+margin: 0 8px 0 2px;
+border-radius: 5px;
+} 
+
+/* SCENES MENU */
+#scenes .scene h3 a:hover {
+color: #FFF;
+font-weight: normal;
+text-shadow: 1px 1px 3px #000, 1px -1px 3px #000, -1px 1px 3px #000;
+}
+
+/* COMBAT TRACKER */
+#combat #combat-round .encounters a,
+#combat #combat-round .encounters h4,
+#combat li.combatant .token-resource,
+#combat li.combatant .token-name .combatant-control {
+color: #333;
+border: none;
+}
+
+#combat li.combatant .token-name,
+#combat li.combatant .token-initiative .initiative {
+font-size: 22px;
+text-shadow: none;
+}
+
+#combat li.combatant .token-initiative {
+  mix-blend-mode: difference;
+}
+
+#combat li.combatant.hover, #combat li.combatant:hover {
+    background: rgba(140, 75, 30, 0.20);
+}
+
+#combat li.combatant.active {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+/* CHAT IMPROVEMENTS */
+.chat-message {
+  padding: 5px;
+  color: #191813;
+  font-size: 14px;
+  background: #b7ac9ecc;
+}
+
+.chat-message.whisper {
+    background: #ebc98c;
+    font-size: 20px;
+    color: red;
+}
+
+#chat-form textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  background: #b7ac9ecc;
+}
+
+/* MISC */
+li.folder.collapsed > .folder-header {
+  background: rgb(86 78 74 / 40%);
+}
+
 .window-app .window-content {
-    background: url(../../asset/image/background-window.jpg) repeat;
+  background: url("../../asset/image/background.jpg") center;
 }
