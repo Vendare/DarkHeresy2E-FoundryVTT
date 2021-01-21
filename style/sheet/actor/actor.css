@@ -82,7 +82,8 @@
     color: var(--color-title);
 }
 
-.dark-heresy label {
+.dark-heresy label,
+.dark-heresy span {
     color: var(--color-text);
     font-family: var(--font-text);
     font-size: 16px;
@@ -186,7 +187,8 @@
 .dark-heresy.sheet .header label {
 }
 
-.dark-heresy.sheet .header input {
+.dark-heresy.sheet .header input,
+.dark-heresy.sheet .header span {
     flex-grow: 1;
     margin: 0 8px;
 }
