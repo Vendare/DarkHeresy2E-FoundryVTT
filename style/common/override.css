@@ -97,7 +97,11 @@ background: #63452c87;
 
 .sidebar-tab .directory-list .directory-item h3, .sidebar-tab .directory-list .directory-item h4 {
 padding: 0px 6px;
-font-size: 18px;
+font-size: 16px;
+}
+
+#playlists li.sound .sound-name {
+font-size: 12px;
 }
 
 .sidebar-tab .directory-list .directory-item img {
