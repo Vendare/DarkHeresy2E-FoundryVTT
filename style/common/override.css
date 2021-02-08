@@ -104,6 +104,18 @@ font-size: 16px;
 font-size: 12px;
 }
 
+#compendium h3 {
+background: rgb(115 10 0 / 30%);
+}
+
+#compendium ol.compendium-list {
+font-size: 16px;
+}
+
+footer.compendium-footer {
+font-size: 12px;
+}
+
 .sidebar-tab .directory-list .directory-item img {
 flex: 0 0 40px;
 height: 40px;
