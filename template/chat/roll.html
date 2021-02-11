@@ -13,6 +13,14 @@
             <p><strong>{{localize "CHAT.ROLLED_WITH"}}:</strong> {{rolledWith}}</p>
         {{/if}}
 
+        {{#if rangeText}}
+            <p><strong>{{localize "CHAT.ATTACK_RANGE"}}:</strong> {{rangeText}}</p>
+        {{/if}}
+
+        {{#if attackType}}
+            <p><strong>{{localize "CHAT.ATTACK_TYPE"}}:</strong> {{attackType.text}}</p>
+        {{/if}}
+
         {{#if isSuccess}}
         <p><strong>{{localize "CHAT.DOS"}}:</strong> {{dos}}</p>
         {{#if numberOfHit}}

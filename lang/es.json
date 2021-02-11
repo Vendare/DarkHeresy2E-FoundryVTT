@@ -105,6 +105,8 @@
   "CHAT.SUCCESS": "Exito !",
   "CHAT.FAILURE": "Fallo !",
   "CHAT.TEST_MODIFIER": "Modificador",
+  "CHAT.ATTACK_RANGE": "Rango",
+  "CHAT.ATTACK_TYPE": "Tipo de Ataque",
   "CHAT.ROLLED_WITH": "Lanzado contra",
   "CHAT.DOS": "Grados de Exito",
   "CHAT.DOF": "Grados de Fallo",
