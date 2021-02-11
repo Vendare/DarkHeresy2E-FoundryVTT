@@ -104,6 +104,8 @@
 
   "CHAT.SUCCESS": "Exito !",
   "CHAT.FAILURE": "Fallo !",
+  "CHAT.TEST_MODIFIER": "Modificador",
+  "CHAT.ROLLED_WITH": "Lanzado contra",
   "CHAT.DOS": "Grados de Exito",
   "CHAT.DOF": "Grados de Fallo",
   "CHAT.DAMAGE": "Daño",
