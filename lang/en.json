@@ -112,6 +112,7 @@
 
   "CHAT.SUCCESS": "Success!",
   "CHAT.FAILURE": "Failure!",
+  "CHAT.TEST_MODIFIER": "Test Modifier",
   "CHAT.ROLLED_WITH": "Rolled With",
   "CHAT.DOS": "Degrees of Success",
   "CHAT.DOF": "Degrees of Failure",
