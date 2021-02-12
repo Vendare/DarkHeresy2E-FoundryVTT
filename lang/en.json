@@ -112,9 +112,9 @@
 
   "CHAT.SUCCESS": "Success!",
   "CHAT.FAILURE": "Failure!",
-  "CHAT.TEST_MODIFIER": "Test Modifier",
+  "CHAT.TEST_MODIFIER": "Modifier",
   "CHAT.ATTACK_RANGE": "Range",
-  "CHAT.ATTACK_TYPE": "Attack Type",
+  "CHAT.ATTACK_TYPE": "Type",
   "CHAT.ROLLED_WITH": "Rolled With",
   "CHAT.DOS": "Degrees of Success",
   "CHAT.DOF": "Degrees of Failure",
