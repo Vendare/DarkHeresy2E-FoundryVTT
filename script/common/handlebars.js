@@ -44,6 +44,7 @@ function preloadHandlebarsTemplates() {
     "systems/dark-heresy/template/sheet/characteristics/total.html",
     "systems/dark-heresy/template/chat/item.html",
     "systems/dark-heresy/template/chat/roll.html",
+    "systems/dark-heresy/template/chat/critical.html",
     "systems/dark-heresy/template/dialog/common-roll.html",
     "systems/dark-heresy/template/dialog/combat-roll.html",
     "systems/dark-heresy/template/dialog/psychic-power-roll.html"
@@ -146,6 +147,21 @@ function registerHandlebarsHelpers() {
         return game.i18n.localize("DAMAGE_TYPE.EXPLOSIVE_SHORT");
       default:
         return game.i18n.localize("DAMAGE_TYPE.IMPACT_SHORT");
+    }
+  });
+  Handlebars.registerHelper("damageTypeLong", function (damageType) {
+    damageType = normalize(damageType, "i");
+    switch (damageType) {
+      case "e":
+        return game.i18n.localize("DAMAGE_TYPE.ENERGY");
+      case "i":
+        return game.i18n.localize("DAMAGE_TYPE.IMPACT");
+      case "r":
+        return game.i18n.localize("DAMAGE_TYPE.RENDING");
+      case "e":
+        return game.i18n.localize("DAMAGE_TYPE.EXPLOSIVE");
+      default:
+        return game.i18n.localize("DAMAGE_TYPE.IMPACT");
     }
   });
   Handlebars.registerHelper("craftsmanship", function (craftsmanship) {
