@@ -258,7 +258,7 @@ export class DarkHeresyActor extends Actor {
     async applyDamage(damages) {
         let wounds = this.data.data.wounds.value;
         let criticalWounds = this.data.data.wounds.critical;
-        const critRolls = []
+        const dmgRolls = []
         const maxWounds = this.data.data.wounds.max;
 
         // apply damage from multiple hits
@@ -274,21 +274,43 @@ export class DarkHeresyActor extends Actor {
                 woundsToAdd = 1
             } else if (damage.righteousFury) {
                 // roll on crit table but don't add critical wounds
-                critRolls.push({ critNumber: damage.righteousFury, type: damage.type })
+                dmgRolls.push({
+                  appliedDmg: damage.righteousFury,
+                  type: damage.type,
+                  source: 'Critical Effect (RF)'
+                })
             }
 
             // check for critical wounds
             if (wounds === maxWounds) {
                 // all new wounds are critical
                 criticalWounds += woundsToAdd;
-                critRolls.push({ critNumber: criticalWounds, type: damage.type })
+                dmgRolls.push({
+                  appliedDmg: woundsToAdd,
+                  type: damage.type,
+                  source: 'Critical Damage'
+                })
             } else if (wounds + woundsToAdd > maxWounds) {
                 // will bring wounds to max and add left overs as crits
+                dmgRolls.push({
+                  appliedDmg: maxWounds - wounds,
+                  type: damage.type,
+                  source: 'Wounds'
+                })
                 woundsToAdd = (wounds + woundsToAdd) - maxWounds;
                 criticalWounds += woundsToAdd;
                 wounds = maxWounds;
-                critRolls.push({ critNumber: criticalWounds, type: damage.type })
+                dmgRolls.push({
+                  appliedDmg: woundsToAdd,
+                  type: damage.type,
+                  source: 'Critical'
+                });
             } else {
+                dmgRolls.push({
+                  appliedDmg: woundsToAdd,
+                  type: damage.type,
+                  source: 'Wounds'
+                })
                 wounds += woundsToAdd
             }
         }
@@ -307,7 +329,7 @@ export class DarkHeresyActor extends Actor {
             isBar: true
         }, updates);
 
-        await this._showCritMessage(critRolls)
+        await this._showCritMessage(dmgRolls, this.name, wounds, criticalWounds)
         return allowed !== false ? this.update(updates) : this;
     }
 
@@ -339,12 +361,19 @@ export class DarkHeresyActor extends Actor {
      * Helper to show that an effect from the critical table needs to be applied.
      * TODO: This needs styling, rewording and ideally would roll on the crit tables for you
      * @param {Object[]} rolls Array of critical rolls
-     * @param {number} rolls.critNumber Number rolled on the crit table
+     * @param {number} rolls.appliedDmg Number rolled on the crit table
      * @param {string} rolls.type Letter representing the damage type
+     * @param {string} rolls.source What kind of damage represented
+     * @param {string} rolls.location Where this damage applied against for armor and AP considerations
      */
-    async _showCritMessage(rolls) {
+    async _showCritMessage(rolls, target, totalWounds, totalCritWounds) {
         if (rolls.length === 0) return;
-        const html = await renderTemplate("systems/dark-heresy/template/chat/critical.html", {rolls})
+        const html = await renderTemplate("systems/dark-heresy/template/chat/critical.html", {
+          rolls: rolls,
+          target: target,
+          totalWounds: totalWounds,
+          totalCritWounds: totalCritWounds
+        })
         ChatMessage.create({ content: html });
     }
 
