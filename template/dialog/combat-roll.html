@@ -77,8 +77,12 @@
     <div>
         {{#if isRange}}
             <div class="wrapper">
-                <label>{{localize "DIALOG.CLIP"}}: </label>
-                <div>{{clip.value}}</div>
+                <table>
+                <tr>
+                <td style="padding:0 10px 0 10px;"><b>{{localize "DIALOG.CLIP"}}: </b>{{clip.value}}</td>
+                <td style="padding:0 10px 0 10px;"><b>RoF: </b>1/{{#if rateOfFire.burst}}{{rateOfFire.burst}}{{else}}-{{/if}}/{{#if rateOfFire.full}}{{rateOfFire.full}}{{else}}-{{/if}}</td>
+                </tr>
+                </table>
             </div>
         {{/if}}
     </div>
