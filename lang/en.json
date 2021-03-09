@@ -158,6 +158,7 @@
 
   "DIALOG.CUSTOM_ROLL": "Custom Roll",
   "DIALOG.ROLL_WITH": "Roll With",
+  "DIALOG.CLIP": "Ammo Left",
   "DIALOG.TARGET": "Target",
   "DIALOG.BONUS": "Bonus",
   "DIALOG.MODIFIER": "Modifier",

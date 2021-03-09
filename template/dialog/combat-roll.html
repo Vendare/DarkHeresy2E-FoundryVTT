@@ -74,6 +74,14 @@
             <input id="penetration" type="text" value="{{penetrationFormula}}" />
         </div>
     </div>
+    <div>
+        {{#if isRange}}
+            <div class="wrapper">
+                <label>{{localize "DIALOG.CLIP"}}: </label>
+                <div>{{clip.value}}</div>
+            </div>
+        {{/if}}
+    </div>
 </div>
 <script>
     $(".wrapper input").focusin(function () {
