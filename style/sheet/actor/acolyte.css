@@ -15,11 +15,6 @@
     flex-basis: 32%;
 }
 
-.dark-heresy .acolyte .header .fate,
-.dark-heresy .acolyte .header .fatigue {
-    flex-basis: 23%;
-}
-
 .dark-heresy .acolyte .header .home-world input,
 .dark-heresy .acolyte .header .background input,
 .dark-heresy .acolyte .header .role input,
