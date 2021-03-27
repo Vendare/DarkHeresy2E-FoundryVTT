@@ -122,6 +122,10 @@ function registerHandlebarsHelpers() {
         return game.i18n.localize("WEAPON.MELEE");
       case "thrown":
         return game.i18n.localize("WEAPON.THROWN");
+	  case "launched":
+        return game.i18n.localize("WEAPON.LAUNCHED");
+	  case "placed":
+        return game.i18n.localize("WEAPON.PLACED");
       case "pistol":
         return game.i18n.localize("WEAPON.PISTOL");
       case "basic":
@@ -132,6 +136,41 @@ function registerHandlebarsHelpers() {
         return game.i18n.localize("WEAPON.VEHICLE");
       default:
         return game.i18n.localize("WEAPON.MELEE");
+    }
+  });
+  Handlebars.registerHelper("weaponType", function (weaponType) {
+    weaponType = normalize(weaponType, "las");
+    switch (weaponType) {
+      case "las":
+        return game.i18n.localize("WEAPON.LAS");
+      case "solidprojectile":
+        return game.i18n.localize("WEAPON.SOLIDPROJECTILE");
+	  case "bolt":
+        return game.i18n.localize("WEAPON.BOLT");
+	  case "melta":
+        return game.i18n.localize("WEAPON.MELTA");
+	  case "plasma":
+        return game.i18n.localize("WEAPON.PLASMA");
+      case "flame":
+        return game.i18n.localize("WEAPON.FLAME");
+      case "lowtech":
+        return game.i18n.localize("WEAPON.LOWTECH");
+      case "launcher":
+        return game.i18n.localize("WEAPON.LAUNCHER");
+      case "explosive":
+        return game.i18n.localize("WEAPON.EXPLOSIVE");
+      case "exotic":
+        return game.i18n.localize("WEAPON.EXOTIC");
+      case "chain":
+        return game.i18n.localize("WEAPON.CHAIN");
+      case "power":
+        return game.i18n.localize("WEAPON.POWER");
+      case "shock":
+        return game.i18n.localize("WEAPON.SHOCK");
+      case "force":
+        return game.i18n.localize("WEAPON.FORCE");
+      default:
+        return game.i18n.localize("WEAPON.LAS");
     }
   });
   Handlebars.registerHelper("damageType", function (damageType) {

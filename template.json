@@ -1057,6 +1057,7 @@
     "weapon": {
       "templates": [ "equipment" ],
       "class": "",
+      "type": "",
       "range": 0,
       "rateOfFire": {
         "single": 0,
