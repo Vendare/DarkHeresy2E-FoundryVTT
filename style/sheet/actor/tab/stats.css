@@ -65,14 +65,15 @@
 .dark-heresy .stats .characteristics .left {
     display: flex;
     flex-direction: column;
-    margin: 2px;
-    flex-basis: 50%;
+    margin: 2px 0;
+    flex-basis: calc(50% - 2px);
 }
 
 .dark-heresy .stats .characteristics .right {
     display: flex;
     flex-direction: column;
-    margin: 2px;
+    margin: 2px 0;
+    flex-basis: calc(50% - 2px);
 }
 
 .dark-heresy .stats .characteristics .characteristic {
