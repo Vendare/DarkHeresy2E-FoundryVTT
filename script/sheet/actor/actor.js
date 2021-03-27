@@ -174,11 +174,13 @@ export class DarkHeresySheet extends ActorSheet {
       rateOfFire = {burst: weapon.data.data.rateOfFire.burst, full: weapon.data.data.rateOfFire.full};
     }
     let rollData = {
+      wid: weapon.id,
       name: weapon.name,
       baseTarget: characteristic.total + weapon.data.data.attack,
       modifier: 0,
       isMelee: weapon.data.data.class === "melee",
       isRange: !(weapon.data.data.class === "melee"),
+      clip: weapon.data.data.clip,
       damageFormula: weapon.data.data.damage,
       damageBonus: (weapon.data.data.class === "melee") ? this.actor.data.data.characteristics.strength.bonus : 0,
       damageType: weapon.data.data.damageType,
@@ -187,7 +189,7 @@ export class DarkHeresySheet extends ActorSheet {
       special: weapon.data.data.special,
       psy: {value: this.actor.data.data.psy.rating, display: false},
     };
-    await prepareCombatRoll(rollData);
+    await prepareCombatRoll(rollData, this.actor);
   }
 
   async _prepareRollPsychicPower(event) {

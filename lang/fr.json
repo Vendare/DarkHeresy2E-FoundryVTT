@@ -154,6 +154,7 @@
   
     "DIALOG.CUSTOM_ROLL": "Lancer personnalisé",
     "DIALOG.ROLL_WITH": "Lancer avec",
+    "DIALOG.CLIP": "Munitions restantes",
     "DIALOG.TARGET": "Cible",
     "DIALOG.BONUS": "Bonus",
     "DIALOG.MODIFIER": "Modificateur",

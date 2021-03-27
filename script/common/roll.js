@@ -13,6 +13,10 @@ export async function combatRoll(rollData) {
     await _sendToChat(rollData);
 }
 
+export async function reportEmptyClip(rollData) {
+    await _emptyClipToChat(rollData);
+}
+
 function _computeTarget(rollData) {
     const range = (rollData.range) ? rollData.range : "0";
     let attackType = 0;
@@ -225,5 +229,19 @@ async function _sendToChat(rollData) {
     } else if (chatData.rollMode === "selfroll") {
         chatData.whisper = [game.user];
     }
+    ChatMessage.create(chatData);
+}
+
+async function _emptyClipToChat(rollData) {
+    let chatData = {
+        user: game.user._id,
+        content: `
+          <div class="dark-heresy chat roll">
+              <div class="background border">
+                  <p><strong>Reload! Out of Ammo!</strong></p>
+              </div>
+          </div>
+        `
+    };
     ChatMessage.create(chatData);
 }
