@@ -32,7 +32,7 @@
   
     "ARMOUR.HEADER": "Armure",
     "ARMOUR.NAME": "Nom",
-    "ARMOUR.PART": "Localistaion(s)",
+    "ARMOUR.PART": "Localisation(s)",
     "ARMOUR.WEIGHT": "Poids",
     "ARMOUR.MAX_AGILITY": "Max Ag",
     "ARMOUR.TYPE": "Type",
@@ -81,8 +81,8 @@
     "BIO.MOMENTOS": "Momentos",
     "BIO.TYPE": "Type",
     "BIO.FACTION": "Faction",
-    "BIO.SUBFACTION": "Sous-faction",
-    "BIO.THREAT_LEVEL": "Niveau de menace",
+    "BIO.SUBFACTION": "S/s faction",
+    "BIO.THREAT_LEVEL": "Menace",
   
     "BUTTON.POST_ITEM": "Ajouter objet",
     "BUTTON.ROLL": "Lancer",
@@ -101,7 +101,7 @@
     "CHARACTERISTIC.INTELLIGENCE": "Intelligence",
     "CHARACTERISTIC.PERCEPTION": "Perception",
     "CHARACTERISTIC.WILLPOWER": "Force Mentale",
-    "CHARACTERISTIC.FELLOWSHIP": "Socaibilité",
+    "CHARACTERISTIC.FELLOWSHIP": "Sociabilité",
     "CHARACTERISTIC.INFLUENCE": "Influence",
   
     "CHARACTERISTIC.NAME": "Nom",
@@ -121,7 +121,7 @@
     "CHAT.PSY_RATING": "Niveau psy",
     "CHAT.PSY_PUSH": "Push",
     "CHAT.NUMBER_OF_HIT": "Nombre de touches",
-    "CHAT.HAS_PSYCHIC_PHENOMENA": "You must roll on the Psychic Phenomena table !",
+    "CHAT.HAS_PSYCHIC_PHENOMENA": "Vous devez lancer sur la table des phénomènes psy !",
   
     "CORRUPTION.HEADER": "Corruption",
     "CORRUPTION.MALIGNANCY": "Malignité",
@@ -133,7 +133,7 @@
     "CRAFTSMANSHIP.BEST": "Exceptionnelle",
   
     "CRITICAL_INJURY.NAME": "Nom",
-    "CRITICAL_INJURY.PART": "Localysation",
+    "CRITICAL_INJURY.PART": "Localisation",
     "CRITICAL_INJURY.TYPE": "Type",
   
     "CYBERNETIC.HEADER": "Cybernétique",
@@ -154,6 +154,7 @@
   
     "DIALOG.CUSTOM_ROLL": "Lancer personnalisé",
     "DIALOG.ROLL_WITH": "Lancer avec",
+    "DIALOG.CLIP": "Munitions restantes",
     "DIALOG.TARGET": "Cible",
     "DIALOG.BONUS": "Bonus",
     "DIALOG.MODIFIER": "Modificateur",
@@ -175,7 +176,7 @@
     "EXPERIENCE.SPENT_CHARACTERISTICS": "Dépensée en caractéristiques",
     "EXPERIENCE.SPENT_SKILLS": "Dépensée en compétences",
     "EXPERIENCE.SPENT_TALENTS": "Dépensée en talents",
-    "EXPERIENCE.SPENT_PSYCHIC_POWERS": "Dépensée en pouvoirs psychiques",
+    "EXPERIENCE.SPENT_PSYCHIC_POWERS": "Dépensée en pouvoirs psy",
     "EXPERIENCE.TOTAL_SPENT": "Total dépensé",
     "EXPERIENCE.TOTAL": "Total",
   
@@ -184,13 +185,13 @@
   
     "FEAR.HEADER": "Peur",
   
-    "FORCE_FIELD.HEADER": "CHamp de conversion",
+    "FORCE_FIELD.HEADER": "Champ de conversion",
     "FORCE_FIELD.NAME": "Nom",
     "FORCE_FIELD.CRAFTSMANSHIP": "Qualité",
     "FORCE_FIELD.WEIGHT": "Poids",
     "FORCE_FIELD.AVAILABILITY": "Disponibilité",
     "FORCE_FIELD.PROTECTION_RATING": "Points d'Armure",
-    "FORCE_FIELD.OVERLOAD_CHANCE": "Overload Chance",
+    "FORCE_FIELD.OVERLOAD_CHANCE": "Chance de Surcharge",
   
     "GEAR.HEADER": "Équipement",
     "GEAR.NAME": "Nom",
@@ -226,7 +227,7 @@
     "PSYCHIC_POWER.RATING": "Niveau psy",
     "PSYCHIC_POWER.PREREQUISITE": "Prérequis",
     "PSYCHIC_POWER.ACTION": "Action",
-    "PSYCHIC_POWER.FOCUS_POWER": "Concentration psychique",
+    "PSYCHIC_POWER.FOCUS_POWER": "Concentration psy",
     "PSYCHIC_POWER.RANGE": "Portée",
     "PSYCHIC_POWER.SUSTAINED": "Prolongeable",
     "PSYCHIC_POWER.ZONE": "Zone",
@@ -334,12 +335,12 @@
     "TITLE.MOVEMENT": "Mouvement",
     "TITLE.WEAPONS": "Armes",
     "TITLE.GEAR": "Arsenal",
-    "TITLE.DRUGS": "DRUGS",
-    "TITLE.TOOLS": "TOOLS",
+    "TITLE.DRUGS": "Stimulants",
+    "TITLE.TOOLS": "Outils",
     "TITLE.CYBERNETICS": "Cybernétiques",
     "TITLE.WEAPON_MODIFICATIONS": "Améliorations d'arme",
     "TITLE.AMMUNITION": "Munitions",
-    "TITLE.FORCE_FIELDS": "FORCE FIELDS",
+    "TITLE.FORCE_FIELDS": "Champs de conversion",
     "TITLE.ENCUMBRANCE": "Encombrement",
     "TITLE.EQUIPMENT": "Équipement",
     "TITLE.NOTES": "Notes",
@@ -386,5 +387,4 @@
     "WOUND.TOTAL": "Total",
     "WOUND.CURRENT": "Actuel",
     "WOUND.CRITICAL_DAMAGE": "Dégats critiques"
-  }
-  
+}

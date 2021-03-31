@@ -147,6 +147,7 @@
 
   "DIALOG.CUSTOM_ROLL": "Tirada personalizada",
   "DIALOG.TARGET": "Objetivo",
+  "DIALOG.CLIP": "Munición Restante",
   "DIALOG.BONUS": "Bonus",
   "DIALOG.MODIFIER": "Modificador",
   "DIALOG.DAMAGE": "Daño",
