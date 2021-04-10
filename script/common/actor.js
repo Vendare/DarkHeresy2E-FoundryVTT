@@ -263,11 +263,13 @@ export class DarkHeresyActor extends Actor {
 
         // apply damage from multiple hits
         for (const damage of damages) {
-            // get the armour for the location and minus penetration
-            let armour = this._getArmour(damage.location) - Number(damage.penetration)
+            // get the armour for the location and minus penetration, no negatives
+            let armour = Math.max(this._getArmour(damage.location) - Number(damage.penetration), 0)
+
+            const damageMinusToughness = Math.max(Number(damage.amount) - this.data.data.characteristics.toughness.bonus, 0)
 
             // calculate wounds to add
-            let woundsToAdd = Math.max(Number(damage.amount) - armour, 0)
+            let woundsToAdd = Math.max(damageMinusToughness - armour, 0)
 
             // If no wounds inflicted and righteous fury was rolled, attack causes one wound
             if (damage.righteousFury && woundsToAdd === 0) {
