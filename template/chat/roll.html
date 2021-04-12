@@ -48,4 +48,15 @@
             {{/if}}
         {{/each}}
     </div>
+    <div class="dice-rolls" style="display:none">
+        <div class="dice-roll-render">
+            {{{render}}}
+        </div>
+
+        {{#each damages as |damage|}}
+            <div class="dice-roll-render">
+                {{{damage.damageRoll}}}
+            </div>
+        {{/each}}
+    </div>
 </div>

@@ -99,3 +99,4 @@ Hooks.once("ready", () => {
 /* -------------------------------------------- */
 
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
+Hooks.on("getChatLogEntryContext", chat.showRolls);

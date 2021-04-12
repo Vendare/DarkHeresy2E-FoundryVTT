@@ -101,7 +101,8 @@ function _computeDamage(formula, dos, penetration) {
         result: 0,
         dos: dos,
         formula: formula,
-        replaced: false
+        replaced: false,
+        damageRoll: r.render()
     };
     r.terms.forEach((term) => {
         if (typeof term === 'object' && term !== null && term.results) {
@@ -228,6 +229,12 @@ function _getDegree(a, b) {
 }
 
 async function _sendToChat(rollData) {
+    rollData.render = await rollData.rollObject.render()
+    // wait for any damage roll renders
+    if(rollData.damages){
+        rollData.damages.forEach(async d => d.damageRoll = await d.damageRoll)
+    }
+
     const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
     let chatData = {
         user: game.user.id,
