@@ -100,6 +100,7 @@ function _computeDamage(formula, dos, penetration) {
         dices: [],
         result: 0,
         dos: dos,
+        formula: formula,
         replaced: false
     };
     r.terms.forEach((term) => {
