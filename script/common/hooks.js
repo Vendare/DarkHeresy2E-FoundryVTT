@@ -93,21 +93,6 @@ Hooks.once("ready", () => {
     migrateWorld();
 });
 
-Hooks.on("preCreateActor", (createData) => {
-    mergeObject(createData, {
-        "token.bar1" :{ "attribute" : "wounds" },
-        "token.bar2" :{ "attribute" : "fatigue" },
-        "token.displayName" : game.settings.get('dark-heresy', 'defaultTokenDisplay'),
-        "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.ALWAYS,
-        "token.disposition" : CONST.TOKEN_DISPOSITIONS.NEUTRAL,
-        "token.name" : createData.name
-    });
-    if (createData.type === "acolyte") {
-        createData.token.vision = true;
-        createData.token.actorLink = true;
-    }
-});
-
 
 /* -------------------------------------------- */
 /*  Other Hooks                                 */

@@ -21,7 +21,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isCriticalInjury}}
-                        <div class="wound item flex row" data-item-id="{{item._id}}">
+                        <div class="wound item flex row" data-item-id="{{item.id}}">
                         <div class="flex wound-row item-edit">
                             <div class="image-container">
                                 <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -146,20 +146,20 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isWeapon}}
-                        <div class="weapon item flex row" data-item-id="{{item._id}}">
+                        <div class="weapon item flex row" data-item-id="{{item.id}}">
                             <div class="flex name">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <button class="roll-weapon">{{item.name}}</button>
                             </div>
-                            <div class="class">{{weaponClass item.data.class}}</div>
+                            <div class="class">{{item.weaponClass}}</div>
                             <div class="range">{{item.data.range}}</div>
-                            <div class="rate-of-fire">{{rateOfFire item.data.rateOfFire}}</div>
+                            <div class="rate-of-fire">{{item.rateOfFire}}</div>
                             <div class="damage">{{item.data.damage}}</div>
-                            <div class="type">{{damageType item.data.damageType}}</div>
+                            <div class="type">{{item.damageType}}</div>
                             <div class="penetration">{{item.data.penetration}}</div>
-                            <div class="clip">{{clip item.data.clip}}</div>
+                            <div class="clip">{{item.clip}}</div>
                             <div class="reload">{{item.data.reload}}</div>
                             <div class="special">{{item.data.special}}</div>
                         </div>
@@ -205,7 +205,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isPsychicPower}}
-                        <div class="weapon item flex row" data-item-id="{{item._id}}">
+                        <div class="weapon item flex row" data-item-id="{{item.id}}">
                             <div class="flex name">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -215,9 +215,9 @@
                             <div class="action">{{item.data.action}}</div>
                             <div class="range">{{item.data.range}}</div>
                             <div class="sustained">{{item.data.sustained}}</div>
-                            <div class="zone">{{psychicPowerZone item.data.damage.zone}}</div>
+                            <div class="zone">{{item.psychicPowerZone}}</div>
                             <div class="damage">{{item.data.damage.formula}}</div>
-                            <div class="damage-type">{{damageType item.data.damage.type}}</div>
+                            <div class="damage-type">{{item.damageType}}</div>
                             <div class="penetration">{{item.data.damage.penetration}}</div>
                             <div class="special">{{item.data.damage.special}}</div>
                         </div>

@@ -9,7 +9,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isAptitude}}
-                    <div class="aptitude item flex row" data-item-id="{{item._id}}">
+                    <div class="aptitude item flex row" data-item-id="{{item.id}}">
                         <div class="flex aptitude-row item-edit" title="{{removeMarkup item.data.description}}">
                             <div class="image-container">
                                 <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -36,7 +36,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isTalent}}
-                        <div class="talent item flex row" data-item-id="{{item._id}}">
+                        <div class="talent item flex row" data-item-id="{{item.id}}">
                             <div class="flex talent-row item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -150,7 +150,7 @@
                 <div class="items">
                     {{#each actor.items as |item|}}
                         {{#if item.isPsychicPower}}
-                            <div class="psychic-power item flex row" data-item-id="{{item._id}}">
+                            <div class="psychic-power item flex row" data-item-id="{{item.id}}">
                                 <div class="flex psychic-powers-row item-edit">
                                     <div class="image-container">
                                         <div class="image" style="background-image: url('{{item.img}}')"></div>

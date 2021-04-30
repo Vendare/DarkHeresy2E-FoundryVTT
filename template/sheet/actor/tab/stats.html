@@ -18,7 +18,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isMentalDisorder}}
-                        <div class="insanity item flex row" data-item-id="{{item._id}}">
+                        <div class="insanity item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -70,7 +70,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isMalignancy}}
-                        <div class="corruption item flex row" data-item-id="{{item._id}}">
+                        <div class="corruption item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -93,7 +93,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isMutation}}
-                        <div class="corruption item flex row" data-item-id="{{item._id}}">
+                        <div class="corruption item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -121,7 +121,7 @@
                             </div>
                             <input class="total" type="number" value="{{skill.total}}" data-dtype="Number" disabled />
                             <div class="information">
-                                <input type="text" value="{{advanceSkill skill.advance}}" disabled />
+                                <input type="text" value="{{skill.advanceSkill}}" disabled />
                             </div>
                         </div>
                     {{/unless}}
@@ -145,7 +145,7 @@
                                             </div>
                                             <input class="total" type="number" value="{{speciality.total}}" data-dtype="Number" disabled />
                                             <div class="information">
-                                                <input type="text" value="{{advanceSkill speciality.advance}}" disabled />
+                                                <input type="text" value="{{specialty.advanceSpec}}" disabled />
                                             </div>
                                         </div>
                                     {{/if}}

@@ -19,6 +19,7 @@ export class DarkHeresySheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
+    data.data = data.data.data
     return data
   }
 
@@ -33,7 +34,7 @@ export class DarkHeresySheet extends ActorSheet {
 
   _getHeaderButtons() {
     let buttons = super._getHeaderButtons();
-    if (this.actor.owner) {
+    if (this.actor.isOwner) {
       buttons = [
         {
           label: game.i18n.localize("BUTTON.ROLL"),
@@ -49,22 +50,22 @@ export class DarkHeresySheet extends ActorSheet {
   _onItemCreate(event) {
     event.preventDefault();
     let header = event.currentTarget;
-    let data = duplicate(header.dataset);
+    let data = foundry.utils.deepClone(header.dataset);
     data["name"] = `New ${data.type.capitalize()}`;
-    this.actor.createEmbeddedEntity("OwnedItem", data, {renderSheet: true});
+    this.actor.createEmbeddedDocuments("Item", [data], {renderSheet: true});
   }
 
   _onItemEdit(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
-    const item = this.actor.getOwnedItem(div.data("itemId"));
+    const item = this.actor.getEmbeddedDocument("Item",div.data("itemId"));
     item.sheet.render(true);
   }
 
   _onItemDelete(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
-    this.actor.deleteOwnedItem(div.data("itemId"));
+    this.actor.deleteEmbeddedDocuments("Item", [div.data("itemId")]);
     div.slideUp(200, () => this.render(false));
   }
 
@@ -165,7 +166,7 @@ export class DarkHeresySheet extends ActorSheet {
   async _prepareRollWeapon(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
-    const weapon = this.actor.getOwnedItem(div.data("itemId"));
+    const weapon = this.actor.getEmbeddedDocument("Item",div.data("itemId"));
     let characteristic = this._getWeaponCharacteristic(weapon);
     let rateOfFire;
     if (weapon.data.data.class === "melee") {
@@ -195,7 +196,7 @@ export class DarkHeresySheet extends ActorSheet {
   async _prepareRollPsychicPower(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
-    const psychicPower = this.actor.getOwnedItem(div.data("itemId"));
+    const psychicPower = this.actor.getEmbeddedDocument("Item",div.data("itemId"));
     let characteristic = this._getPsychicPowerCharacteristic(psychicPower);
     const rollData = {
       name: psychicPower.name,

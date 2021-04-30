@@ -10,7 +10,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isTalent}}
-                        <div class="talent item flex row" data-item-id="{{item._id}}">
+                        <div class="talent item flex row" data-item-id="{{item.id}}">
                         <div class="flex name item-edit">
                             <div class="image-container">
                                 <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -38,7 +38,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isTrait}}
-                        <div class="trait item flex row" data-item-id="{{item._id}}">
+                        <div class="trait item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -66,7 +66,7 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isSpecialAbility}}
-                        <div class="special-ability item flex row" data-item-id="{{item._id}}">
+                        <div class="special-ability item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>

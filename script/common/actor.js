@@ -1,15 +1,32 @@
 export class DarkHeresyActor extends Actor {
-    prepareData() {
-        super.prepareData();
-        this._computeCharacteristics(this.data);
-        this._computeSkills(this.data);
-        this._computeItems(this.data);
-        this._computeExperience(this.data);
-        this._computeArmour(this.data);
-        this._computeMovement(this.data);
+
+    async _preCreate(data, options, user) {
+        mergeObject(data, {
+            "token.bar1": { "attribute": "wounds" },
+            "token.bar2": { "attribute": "fatigue" },
+            "token.displayName": game.settings.get('dark-heresy', 'defaultTokenDisplay'),
+            "token.displayBars": CONST.TOKEN_DISPLAY_MODES.ALWAYS,
+            "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
+            "token.name": data.name
+        });
+        if (data.type === "acolyte") {
+            data.token.vision = true;
+            data.token.actorLink = true;
+        }
     }
 
-    _computeCharacteristics(data) {
+    prepareData() {
+        super.prepareData();
+        this._computeCharacteristics();
+        this._computeSkills();
+        this._computeItems();
+        this._computeExperience();
+        this._computeArmour();
+        this._computeMovement();
+    }
+
+    _computeCharacteristics() {
+        let data = this.data
         let middle = Object.values(data.data.characteristics).length / 2;
         let i = 0;
         for (let characteristic of Object.values(data.data.characteristics)) {
@@ -17,6 +34,7 @@ export class DarkHeresyActor extends Actor {
             characteristic.bonus = Math.floor(characteristic.total / 10) + characteristic.unnatural;
             characteristic.isLeft = i < middle;
             characteristic.isRight = i >= middle;
+            characteristic.advanceCharacteristic = this._getAdvanceCharacteristic(characteristic.advance)
             i++;
         }
         data.data.insanityBonus = Math.floor(data.data.insanity / 10);
@@ -25,50 +43,38 @@ export class DarkHeresyActor extends Actor {
         data.data.initiative.bonus = data.data.characteristics[data.data.initiative.characteristic].bonus;
     }
 
-    _computeSkills(data) {
+    _computeSkills() {
+        let data = this.data
         for (let skill of Object.values(data.data.skills)) {
             let short = skill.characteristics[0];
             let characteristic = this._findCharacteristic(data, short)
             skill.total = characteristic.total + skill.advance;
+            skill.advanceSkill = this._getAdvanceCharacteristic(skill.advance)
             if (skill.isSpecialist) {
                 for (let speciality of Object.values(skill.specialities)) {
                     speciality.total = characteristic.total + speciality.advance;
                     speciality.isKnown = speciality.advance >= 0;
+                    skill.advanceSpec = this._getAdvanceCharacteristic(speciality.advance)
                 }
             }
+
         }
     }
 
-    _computeItems(data) {
+    _computeItems() {
+        let data = this.data
         let encumbrance = 0;
-        for (let item of Object.values(data.items)) {
-            item.isMentalDisorder = item.type === "mentalDisorder";
-            item.isMalignancy = item.type === "malignancy";
-            item.isMutation = item.type === "mutation";
-            item.isTalent = item.type === "talent";
-            item.isTrait = item.type === "trait";
-            item.isAptitude = item.type === "aptitude";
-            item.isSpecialAbility = item.type === "specialAbility";
-            item.isPsychicPower = item.type === "psychicPower";
-            item.isCriticalInjury = item.type === "criticalInjury";
-            item.isWeapon = item.type === "weapon";
-            item.isArmour = item.type === "armour";
-            item.isGear = item.type === "gear";
-            item.isDrug = item.type === "drug";
-            item.isTool = item.type === "tool";
-            item.isCybernetic = item.type === "cybernetic";
-            item.isWeaponModification = item.type === "weaponModification";
-            item.isAmmunition = item.type === "ammunition";
-            item.isForceField = item.type === "forceField";
-            item.isAbilities = item.isTalent || item.isTrait || item.isSpecialAbility;
-            if (item.data.hasOwnProperty('weight')) {
-                encumbrance = encumbrance + item.data.weight;
+        for (let item of this.items) {
+
+            if (item.data.data.hasOwnProperty('weight')) {
+                encumbrance = encumbrance + item.data.data.weight;
             }
         }
-        this._computeEncumbrance(data, encumbrance);
+        this._computeEncumbrance(encumbrance);
     }
 
-    _computeExperience(data) {
+    _computeExperience() {
+        let data = this.data
         data.data.experience.spentCharacteristics = 0;
         data.data.experience.spentSkills = 0;
         data.data.experience.spentTalents = 0;
@@ -85,53 +91,54 @@ export class DarkHeresyActor extends Actor {
                 data.data.experience.spentSkills += parseInt(skill.cost, 10);
             }
         }
-        for (let item of Object.values(data.items)) {
+        for (let item of this.items) {
             if (item.isTalent) {
-                data.data.experience.spentTalents += parseInt(item.data.cost, 10);
+                data.data.experience.spentTalents += parseInt(item.data.data.cost, 10);
             } else if (item.isPsychicPower) {
-                data.data.experience.spentPsychicPowers += parseInt(item.data.cost, 10);
+                data.data.experience.spentPsychicPowers += parseInt(item.data.data.cost, 10);
             }
         }
         data.data.experience.totalSpent = data.data.experience.spentCharacteristics + data.data.experience.spentSkills + data.data.experience.spentTalents + data.data.experience.spentPsychicPowers;
         data.data.experience.total = data.data.experience.value + data.data.experience.totalSpent;
     }
 
-    _computeArmour(data) {
+    _computeArmour() {
+        let data = this.data
         let locations = game.system.template.Item.armour.part;
 
         let toughness = data.data.characteristics.toughness;
 
         data.data.armour =
             Object.keys(locations)
-            .reduce((accumulator, location) =>
-                Object.assign(accumulator,
-                    {
-                        [location]: {
-                            total: toughness.bonus,
-                            toughnessBonus: toughness.bonus,
-                            value: 0
-                        }
-                    }), {});
+                .reduce((accumulator, location) =>
+                    Object.assign(accumulator,
+                        {
+                            [location]: {
+                                total: toughness.bonus,
+                                toughnessBonus: toughness.bonus,
+                                value: 0
+                            }
+                        }), {});
 
         // object for storing the max armour
         let maxArmour = Object.keys(locations)
-        .reduce((acc, location) =>
-            Object.assign(acc, {[location]: 0}), {})
+            .reduce((acc, location) =>
+                Object.assign(acc, { [location]: 0 }), {})
 
         // for each item, find the maximum armour val per location
         data.items
-        .filter(item => item.type === "armour")
-        .reduce((acc, armour) => {
-            Object.keys(locations)
-            .forEach((location) => {
-                    let armourVal = armour.data.part[location] || 0;
-                    if (armourVal > acc[location]) {
-                        acc[location] = armourVal;
+            .filter(item => item.type === "armour")
+            .reduce((acc, armour) => {
+                Object.keys(locations)
+                    .forEach((location) => {
+                        let armourVal = armour.data.part[location] || 0;
+                        if (armourVal > acc[location]) {
+                            acc[location] = armourVal;
+                        }
                     }
-                }
-            )
-            return acc;
-        }, maxArmour);
+                    )
+                return acc;
+            }, maxArmour);
 
         data.data.armour.head.value = maxArmour["head"];
         data.data.armour.leftArm.value = maxArmour["leftArm"];
@@ -148,7 +155,8 @@ export class DarkHeresyActor extends Actor {
         data.data.armour.rightLeg.total += data.data.armour.rightLeg.value;
     }
 
-    _computeMovement(data) {
+    _computeMovement() {
+        let data = this.data
         let agility = data.data.characteristics.agility;
         let size = data.data.size;
         data.data.movement = {
@@ -159,7 +167,8 @@ export class DarkHeresyActor extends Actor {
         }
     }
 
-    _findCharacteristic(data, short) {
+    _findCharacteristic(short) {
+        let data = this.data
         for (let characteristic of Object.values(data.data.characteristics)) {
             if (characteristic.short === short) {
                 return characteristic;
@@ -168,7 +177,8 @@ export class DarkHeresyActor extends Actor {
         return { total: 0 };
     }
 
-    _computeEncumbrance(data, encumbrance) {
+    _computeEncumbrance(encumbrance) {
+        let data = this.data
         const attributeBonus = data.data.characteristics.strength.bonus + data.data.characteristics.toughness.bonus;
         data.data.encumbrance = {
             max: 0,
@@ -244,6 +254,45 @@ export class DarkHeresyActor extends Actor {
         }
     }
 
+
+    _getAdvanceCharacteristic(characteristic)
+    {
+        switch (characteristic || 0) {
+          case 0:
+            return "N";
+          case 5:
+            return "S";
+          case 10:
+            return "I";
+          case 15:
+            return "T";
+          case 20:
+            return "P";
+          case 25:
+            return "E";
+          default:
+            return "N";
+        }
+    }
+    
+    _getAdvanceSkill(skill)
+    {
+        switch (skill || 0) {
+            case -20:
+              return "U";
+            case 0:
+              return "K";
+            case 10:
+              return "T";
+            case 20:
+              return "E";
+            case 30:
+              return "V";
+            default:
+              return "U";
+          }
+    }
+
     /**
      * Apply wounds to the actor, takes into account the armour value
      * and the area of the hit.
@@ -275,9 +324,9 @@ export class DarkHeresyActor extends Actor {
             } else if (damage.righteousFury) {
                 // roll on crit table but don't add critical wounds
                 dmgRolls.push({
-                  appliedDmg: damage.righteousFury,
-                  type: damage.type,
-                  source: 'Critical Effect (RF)'
+                    appliedDmg: damage.righteousFury,
+                    type: damage.type,
+                    source: 'Critical Effect (RF)'
                 })
             }
 
@@ -286,30 +335,30 @@ export class DarkHeresyActor extends Actor {
                 // all new wounds are critical
                 criticalWounds += woundsToAdd;
                 dmgRolls.push({
-                  appliedDmg: woundsToAdd,
-                  type: damage.type,
-                  source: 'Critical Damage'
+                    appliedDmg: woundsToAdd,
+                    type: damage.type,
+                    source: 'Critical Damage'
                 })
             } else if (wounds + woundsToAdd > maxWounds) {
                 // will bring wounds to max and add left overs as crits
                 dmgRolls.push({
-                  appliedDmg: maxWounds - wounds,
-                  type: damage.type,
-                  source: 'Wounds'
+                    appliedDmg: maxWounds - wounds,
+                    type: damage.type,
+                    source: 'Wounds'
                 })
                 woundsToAdd = (wounds + woundsToAdd) - maxWounds;
                 criticalWounds += woundsToAdd;
                 wounds = maxWounds;
                 dmgRolls.push({
-                  appliedDmg: woundsToAdd,
-                  type: damage.type,
-                  source: 'Critical'
+                    appliedDmg: woundsToAdd,
+                    type: damage.type,
+                    source: 'Critical'
                 });
             } else {
                 dmgRolls.push({
-                  appliedDmg: woundsToAdd,
-                  type: damage.type,
-                  source: 'Wounds'
+                    appliedDmg: woundsToAdd,
+                    type: damage.type,
+                    source: 'Wounds'
                 })
                 wounds += woundsToAdd
             }
@@ -369,10 +418,10 @@ export class DarkHeresyActor extends Actor {
     async _showCritMessage(rolls, target, totalWounds, totalCritWounds) {
         if (rolls.length === 0) return;
         const html = await renderTemplate("systems/dark-heresy/template/chat/critical.html", {
-          rolls: rolls,
-          target: target,
-          totalWounds: totalWounds,
-          totalCritWounds: totalCritWounds
+            rolls: rolls,
+            target: target,
+            totalWounds: totalWounds,
+            totalCritWounds: totalCritWounds
         })
         ChatMessage.create({ content: html });
     }

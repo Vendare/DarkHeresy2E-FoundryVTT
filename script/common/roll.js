@@ -215,10 +215,10 @@ function _getDegree(a, b) {
 async function _sendToChat(rollData) {
     const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
     let chatData = {
-        user: game.user._id,
+        user: game.user.id,
         rollMode: game.settings.get("core", "rollMode"),
         content: html,
-        type: CHAT_MESSAGE_TYPES.ROLL
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL
     };
     if(rollData.rollObject){
         chatData.roll = rollData.rollObject;
@@ -234,7 +234,7 @@ async function _sendToChat(rollData) {
 
 async function _emptyClipToChat(rollData) {
     let chatData = {
-        user: game.user._id,
+        user: game.user.id,
         content: `
           <div class="dark-heresy chat roll">
               <div class="background border">
