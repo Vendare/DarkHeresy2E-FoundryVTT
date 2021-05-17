@@ -263,11 +263,13 @@ export class DarkHeresyActor extends Actor {
 
         // apply damage from multiple hits
         for (const damage of damages) {
-            // get the armour for the location and minus penetration
-            let armour = this._getArmour(damage.location) - Number(damage.penetration)
+            // get the armour for the location and minus penetration, no negatives
+            let armour = Math.max(this._getArmour(damage.location) - Number(damage.penetration), 0)
+            // reduce damage by toughness bonus
+            const damageMinusToughness = Math.max(Number(damage.amount) - this.data.data.characteristics.toughness.bonus, 0)
 
-            // calculate wounds to add
-            let woundsToAdd = Math.max(Number(damage.amount) - armour, 0)
+            // calculate wounds to add, reducing damage by armour after pen
+            let woundsToAdd = Math.max(damageMinusToughness - armour, 0)
 
             // If no wounds inflicted and righteous fury was rolled, attack causes one wound
             if (damage.righteousFury && woundsToAdd === 0) {
@@ -275,9 +277,9 @@ export class DarkHeresyActor extends Actor {
             } else if (damage.righteousFury) {
                 // roll on crit table but don't add critical wounds
                 dmgRolls.push({
-                  appliedDmg: damage.righteousFury,
-                  type: damage.type,
-                  source: 'Critical Effect (RF)'
+                    appliedDmg: damage.righteousFury,
+                    type: damage.type,
+                    source: 'Critical Effect (RF)'
                 })
             }
 
@@ -286,30 +288,30 @@ export class DarkHeresyActor extends Actor {
                 // all new wounds are critical
                 criticalWounds += woundsToAdd;
                 dmgRolls.push({
-                  appliedDmg: woundsToAdd,
-                  type: damage.type,
-                  source: 'Critical Damage'
+                    appliedDmg: woundsToAdd,
+                    type: damage.type,
+                    source: 'Critical Damage'
                 })
             } else if (wounds + woundsToAdd > maxWounds) {
                 // will bring wounds to max and add left overs as crits
                 dmgRolls.push({
-                  appliedDmg: maxWounds - wounds,
-                  type: damage.type,
-                  source: 'Wounds'
+                    appliedDmg: maxWounds - wounds,
+                    type: damage.type,
+                    source: 'Wounds'
                 })
                 woundsToAdd = (wounds + woundsToAdd) - maxWounds;
                 criticalWounds += woundsToAdd;
                 wounds = maxWounds;
                 dmgRolls.push({
-                  appliedDmg: woundsToAdd,
-                  type: damage.type,
-                  source: 'Critical'
+                    appliedDmg: woundsToAdd,
+                    type: damage.type,
+                    source: 'Critical'
                 });
             } else {
                 dmgRolls.push({
-                  appliedDmg: woundsToAdd,
-                  type: damage.type,
-                  source: 'Wounds'
+                    appliedDmg: woundsToAdd,
+                    type: damage.type,
+                    source: 'Wounds'
                 })
                 wounds += woundsToAdd
             }
@@ -334,24 +336,24 @@ export class DarkHeresyActor extends Actor {
     }
 
     /**
-     * Gets the armour value for a non-localized location string
+     * Gets the armour value not including toughness bonus for a non-localized location string
      * @param {string} location
      * @returns {number} armour value for the location
      */
     _getArmour(location) {
         switch (location) {
             case "ARMOUR.HEAD":
-                return this.data.data.armour.head.total;
+                return this.data.data.armour.head.value;
             case "ARMOUR.LEFT_ARM":
-                return this.data.data.armour.leftArm.total;
+                return this.data.data.armour.leftArm.value;
             case "ARMOUR.RIGHT_ARM":
-                return this.data.data.armour.rightArm.total;
+                return this.data.data.armour.rightArm.value;
             case "ARMOUR.BODY":
-                return this.data.data.armour.body.total;
+                return this.data.data.armour.body.value;
             case "ARMOUR.LEFT_LEG":
-                return this.data.data.armour.leftLeg.total;
+                return this.data.data.armour.leftLeg.value;
             case "ARMOUR.RIGHT_LEG":
-                return this.data.data.armour.rightLeg.total;
+                return this.data.data.armour.rightLeg.value;
             default:
                 return 0;
         }
@@ -369,10 +371,10 @@ export class DarkHeresyActor extends Actor {
     async _showCritMessage(rolls, target, totalWounds, totalCritWounds) {
         if (rolls.length === 0) return;
         const html = await renderTemplate("systems/dark-heresy/template/chat/critical.html", {
-          rolls: rolls,
-          target: target,
-          totalWounds: totalWounds,
-          totalCritWounds: totalCritWounds
+            rolls: rolls,
+            target: target,
+            totalWounds: totalWounds,
+            totalCritWounds: totalCritWounds
         })
         ChatMessage.create({ content: html });
     }
