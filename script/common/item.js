@@ -16,18 +16,19 @@ export class DarkHeresyItem extends Item {
     }
 
 
-    get clip() { return `${this.data.data.clip.value}/${this.data.data.clip.max}` }
+    // TODO convert to config file
+    get Clip() { return `${this.clip.value}/${this.clip.max}` }
 
-    get rateOfFire() {
-        let rof = this.data.data.rateOfFire
+    get RateOfFire() {
+        let rof = this.rateOfFire
         let single = rof.single > 0 ? "S" : "-";
         let burst = rof.burst > 0 ? `${rof.burst}` : "-";
         let full = rof.full > 0 ? `${rof.full}` : "-";
         return `${single}/${burst}/${full}`
     }
 
-    get damageType() {
-        switch (this.data.data.damageType) {
+    get DamageTypeShort() {
+        switch (this.damageType) {
             case "energy":
               return game.i18n.localize("DAMAGE_TYPE.ENERGY_SHORT");
             case "impact":
@@ -41,9 +42,24 @@ export class DarkHeresyItem extends Item {
           }
     }
 
-    get weaponClass() {
+    get DamageType() {
+      switch (this.damageType) {
+          case "energy":
+            return game.i18n.localize("DAMAGE_TYPE.ENERGY");
+          case "impact":
+            return game.i18n.localize("DAMAGE_TYPE.IMPACT");
+          case "rending":
+            return game.i18n.localize("DAMAGE_TYPE.RENDING");
+          case "explosive":
+            return game.i18n.localize("DAMAGE_TYPE.EXPLOSIVE");
+          default:
+            return game.i18n.localize("DAMAGE_TYPE.IMPACT");
+        }
+  }
 
-        switch (this.data.data.class) {
+    get WeaponClass() {
+
+        switch (this.class) {
           case "melee":
             return game.i18n.localize("WEAPON.MELEE");
           case "thrown":
@@ -64,9 +80,9 @@ export class DarkHeresyItem extends Item {
             return game.i18n.localize("WEAPON.MELEE");
         }
     }
-    get weaponType() {
+    get WeaponType() {
 
-        switch (this.data.data.type) {
+        switch (this.subtype) {
             case "las" : 
                 return game.i18n.localize("WEAPON.LAS")
             case "solidprojectile" : 
@@ -98,8 +114,8 @@ export class DarkHeresyItem extends Item {
         }
     }
 
-    get craftsmanship() {
-        switch (this.data.data.craftsmanship) {
+    get Craftsmanship() {
+        switch (this.craftsmanship) {
             case "poor":
               return game.i18n.localize("CRAFTSMANSHIP.POOR");
             case "common":
@@ -113,8 +129,8 @@ export class DarkHeresyItem extends Item {
           }
     }
 
-    get availability() {
-        switch (this.data.data.availability) {
+    get Availability() {
+        switch (this.availability) {
             case "ubiquitous":
               return game.i18n.localize("AVAILABILITY.UBIQUITOUS");
             case "abundant":
@@ -142,8 +158,8 @@ export class DarkHeresyItem extends Item {
           }
     }
 
-    get armourType() {
-        switch (this.data.data.type) {
+    get ArmourType() {
+        switch (this.subtype) {
             case "basic":
               return game.i18n.localize("ARMOUR_TYPE.BASIC");
             case "flak":
@@ -159,8 +175,8 @@ export class DarkHeresyItem extends Item {
           }
     }
 
-    get part() {
-        let part = this.data.data.part
+    get Part() {
+        let part = this.part
         let parts = [];
         if (part.head > 0) parts.push(`${game.i18n.localize("ARMOUR.HEAD")} (${part.head})`);
         if (part.leftArm > 0) parts.push(`${game.i18n.localize("ARMOUR.LEFT_ARM")} (${part.leftArm})`);
@@ -171,8 +187,8 @@ export class DarkHeresyItem extends Item {
         return parts.join(" / ");
     }
 
-    get partLocation() {
-        switch (this.data.data.part) {
+    get PartLocation() {
+        switch (this.part) {
             case "head":
               return game.i18n.localize("ARMOUR.HEAD");
             case "leftArm":
@@ -190,8 +206,8 @@ export class DarkHeresyItem extends Item {
           }
     }
 
-    get psychicPowerZone() {
-        switch (this.data.data.damage.zone) {
+    get PsychicPowerZone() {
+        switch (this.damage.zone) {
             case "bolt":
               return game.i18n.localize("PSYCHIC_POWER.BOLT");
             case "barrage":
@@ -203,63 +219,67 @@ export class DarkHeresyItem extends Item {
           }
     }
 
-    get isInstalled() { 
-        return this.data.data.installed ?
+    get isInstalled() { return this.installed ?
          game.i18n.localize("Yes") : 
          game.i18n.localize("No")
     }
 
 
-
-    get damage() {return this.data.data.damage}
-
-    get range() {return this.data.data.range}
-
-    get weight() {return this.data.data.weight}
-
-    get upgrades() {return this.data.data.upgrades}
-
-    get shortDescription() {return this.data.data.shortDescription}
-
-
-
-
     get isMentalDisorder() { return this.type === "mentalDisorder"; }
-
     get isMalignancy() { return this.type === "malignancy"; }
-
     get isMutation() { return this.type === "mutation"; }
-
     get isTalent() { return this.type === "talent"; }
-
     get isTrait() { return this.type === "trait"; }
-
     get isAptitude() { return this.type === "aptitude"; }
-
     get isSpecialAbility() { return this.type === "specialAbility"; }
-
     get isPsychicPower() { return this.type === "psychicPower"; }
-
     get isCriticalInjury() { return this.type === "criticalInjury"; }
-
     get isWeapon() { return this.type === "weapon"; }
-
     get isArmour() { return this.type === "armour"; }
-
     get isGear() { return this.type === "gear"; }
-
     get isDrug() { return this.type === "drug"; }
-
     get isTool() { return this.type === "tool"; }
-
     get isCybernetic() { return this.type === "cybernetic"; }
-
     get isWeaponModification() { return this.type === "weaponModification"; }
-
     get isAmmunition() { return this.type === "ammunition"; }
-
     get isForceField() { return this.type === "forceField"; }
-
     get isAbilities() { return this.isTalent || item.isTrait || item.isSpecialAbility; }
+
+    get craftsmanship() { return this.data.data.craftsmanship}
+    get description() { return this.data.data.description}
+    get availability() { return this.data.data.availability}
+    get weight() { return this.data.data.weight}
+    get quantity() { return this.data.data.quantity}
+    get effect() { return this.data.data.effect}
+    get weapon() { return this.data.data.weapon}
+    get source() { return this.data.data.source}
+    get subtype() { return this.data.data.type}
+    get part() { return this.data.data.part}
+    get maxAgility() { return this.data.data.maxAgility}
+    get installed() { return this.data.data.installed}
+    get shortDescription() { return this.data.data.shortDescription}
+    get protectionRating() { return this.data.data.protectionRating}
+    get overloadChance() { return this.data.data.overloadChance}
+    get cost() { return this.data.data.cost}
+    get prerequisite() { return this.data.data.prerequisite}
+    get action() { return this.data.data.action}
+    get focusPower() { return this.data.data.focusPower}
+    get range() { return this.data.data.range}
+    get sustained() { return this.data.data.sustained}
+    get psychicType() { return this.data.data.subtype}
+    get damage() { return this.data.data.damage}
+    get benefit() { return this.data.data.benefit}
+    get prerequisites() { return this.data.data.prerequisites}
+    get aptitudes() { return this.data.data.aptitudes}
+    get tier() { return this.data.data.tier}
+    get class() { return this.data.data.class}
+    get rateOfFire() { return this.data.data.rateOfFire}
+    get damageType() { return this.data.data.damageType || this.data.data?.damage?.type || this.data.data.effect?.damage?.type}
+    get penetration() { return this.data.data.penetration}
+    get clip() { return this.data.data.clip}
+    get reload() { return this.data.data.reload}
+    get special() { return this.data.data.special}
+    get attack() { return this.data.data.attack}
+    get upgrades() { return this.data.data.upgrades}
 
 }

@@ -58,7 +58,7 @@ export class AcolyteSheet extends DarkHeresySheet {
     async _onItemCostFocusOut(event) {
         event.preventDefault();
         const div = $(event.currentTarget).parents(".item");
-        let item = this.actor.getEmbeddedDocument("Item",div.data("itemId"));
+        let item = this.actor.items.get(div.data("itemId"));
         let data = { _id: item.id, "data.cost": $(event.currentTarget)[0].value };
         await this.actor.updateEmbeddedDocuments("Item", data);
         this._render(true);
