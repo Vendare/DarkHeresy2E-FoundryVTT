@@ -90,9 +90,9 @@ export class DarkHeresyActor extends Actor {
         }
         for (let item of this.items) {
             if (item.isTalent) {
-                this.experience.spentTalents += parseInt(item.this.cost, 10);
+                this.experience.spentTalents += parseInt(item.cost, 10);
             } else if (item.isPsychicPower) {
-                this.experience.spentPsychicPowers += parseInt(item.this.cost, 10);
+                this.experience.spentPsychicPowers += parseInt(item.cost, 10);
             }
         }
         this.experience.totalSpent = this.experience.spentCharacteristics + this.experience.spentSkills + this.experience.spentTalents + this.experience.spentPsychicPowers;
