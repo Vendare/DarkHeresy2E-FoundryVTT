@@ -60,7 +60,7 @@ function registerHandlebarsHelpers() {
 
 
   Handlebars.registerHelper("damageTypeLong", function (damageType) {
-    damageType = normalize(damageType, "i");
+    damageType = (damageType || "i").toLowerCase();
     switch (damageType) {
       case "e":
         return game.i18n.localize("DAMAGE_TYPE.ENERGY");

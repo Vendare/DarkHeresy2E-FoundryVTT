@@ -177,7 +177,7 @@ export class DarkHeresySheet extends ActorSheet {
       rateOfFire = {burst: weapon.rateOfFire.burst, full: weapon.rateOfFire.full};
     }
     let rollData = {
-      wid: weapon.id,
+      item: weapon,
       name: weapon.name,
       baseTarget: characteristic.total + weapon.attack,
       modifier: 0,

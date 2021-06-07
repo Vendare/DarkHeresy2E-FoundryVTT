@@ -243,7 +243,7 @@ export class DarkHeresyItem extends Item {
     get isWeaponModification() { return this.type === "weaponModification"; }
     get isAmmunition() { return this.type === "ammunition"; }
     get isForceField() { return this.type === "forceField"; }
-    get isAbilities() { return this.isTalent || item.isTrait || item.isSpecialAbility; }
+    get isAbilities() { return this.isTalent || this.isTrait || this.isSpecialAbility; }
 
     get craftsmanship() { return this.data.data.craftsmanship}
     get description() { return this.data.data.description}

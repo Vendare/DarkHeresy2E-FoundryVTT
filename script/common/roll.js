@@ -97,7 +97,7 @@ function _computeDamage(formula, dos, penetration) {
         dices: []
     };
     r.terms.forEach((term) => {
-        if (typeof term === 'object' && term !== null) {
+        if (typeof term === 'object' && term !== null && term.results) {
             term.results.forEach(result => {
                 if (result.active && result.result === term.faces) damage.righteousFury = _rollRighteousFury();
                 if (result.active && result.result < dos) damage.dices.push(result.result);
