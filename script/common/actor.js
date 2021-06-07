@@ -37,8 +37,8 @@ export class DarkHeresyActor extends Actor {
             characteristic.advanceCharacteristic = this._getAdvanceCharacteristic(characteristic.advance)
             i++;
         }
-        this.insanityBonus = Math.floor(this.insanity / 10);
-        this.corruptionBonus = Math.floor(this.corruption / 10);
+        this.data.data.insanityBonus = Math.floor(this.insanity / 10);
+        this.data.data.corruptionBonus = Math.floor(this.corruption / 10);
         this.psy.currentRating = this.psy.rating - this.psy.sustained;
         this.initiative.bonus = this.characteristics[this.initiative.characteristic].bonus;
     }
