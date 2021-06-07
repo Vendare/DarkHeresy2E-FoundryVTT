@@ -101,7 +101,7 @@ const migrateActorData = (actor, worldSchemaVersion) => {
                         }
                     })
                 if (aptitudeItemsData !== null && aptitudeItemsData !== undefined) {
-                    actor.createEmbeddedEntity("OwnedItem", aptitudeItemsData)
+                    actor.createEmbeddedDocuments("Item", [aptitudeItemsData])
                 }
             }
             update["data.-=aptitudes"] = null
@@ -127,7 +127,7 @@ export const migrateCompendium = async function (pack, worldSchemaVersion) {
         }
         if (!isObjectEmpty(updateData)) {
             expandObject(updateData);
-            updateData["_id"] = ent._id;
+            updateData["_id"] = ent.id;
             await pack.updateEntity(updateData);
         }
     }

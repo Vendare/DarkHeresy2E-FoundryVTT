@@ -4,6 +4,12 @@ export class DarkHeresyItemSheet extends ItemSheet {
     html.find("input").focusin(ev => this._onFocusIn(ev));
   }
 
+  getData() {
+    let data = super.getData()
+    data.data = data.data.data
+    return data;
+  }
+
   _getHeaderButtons() {
     let buttons = super._getHeaderButtons();
     buttons = [

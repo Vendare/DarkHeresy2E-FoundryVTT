@@ -104,7 +104,7 @@ function _computeDamage(formula, dos, penetration) {
         replaced: false
     };
     r.terms.forEach((term) => {
-        if (typeof term === 'object' && term !== null) {
+        if (typeof term === 'object' && term !== null && term.results) {
             term.results.forEach(result => {
                 if (result.active && result.result === term.faces) damage.righteousFury = _rollRighteousFury();
                 if (result.active && result.result < dos) damage.dices.push(result.result);
@@ -223,10 +223,10 @@ function _getDegree(a, b) {
 async function _sendToChat(rollData) {
     const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
     let chatData = {
-        user: game.user._id,
+        user: game.user.id,
         rollMode: game.settings.get("core", "rollMode"),
         content: html,
-        type: CHAT_MESSAGE_TYPES.ROLL
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL
     };
     if(rollData.rollObject){
         chatData.roll = rollData.rollObject;
@@ -242,7 +242,7 @@ async function _sendToChat(rollData) {
 
 async function _emptyClipToChat(rollData) {
     let chatData = {
-        user: game.user._id,
+        user: game.user.id,
         content: `
           <div class="dark-heresy chat roll">
               <div class="background border">

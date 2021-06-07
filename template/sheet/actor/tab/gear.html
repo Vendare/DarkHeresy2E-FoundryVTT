@@ -28,19 +28,19 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isWeapon}}
-                        <div class="gear item flex row" data-item-id="{{item._id}}">
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <div>{{item.name}}</div>
                             </div>
-                            <div class="class">{{weaponClass item.data.class}}</div>
-                            <div class="class">{{weaponClass item.data.type}}</div>
-                            <div class="damage">{{item.data.damage}}</div>
-                            <div class="type">{{damageType item.data.damageType}}</div>
-                            <div class="clip">{{clip item.data.clip}}</div>
-                            <div class="weight">{{item.data.weight}}</div>
+                            <div class="class">{{item.weaponClass}}</div>
+                            <div class="class">{{item.weaponType}}</div>
+                            <div class="damage">{{item.damage}}</div>
+                            <div class="type">{{item.DamageTypeShort}}</div>
+                            <div class="clip">{{item.Clip}}</div>
+                            <div class="weight">{{item.weight}}</div>
                             <div class="button">
                                 <a class="item-control item-delete" title="Delete Weapon"><i class="fas fa-trash"></i></a>
                             </div>
@@ -60,16 +60,16 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isWeaponModification}}
-                        <div class="gear item flex row" data-item-id="{{item._id}}">
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <div>{{item.name}}</div>
                             </div>
-                            <div class="installed">{{isInstalled item.data.installed}}</div>
-                            <div class="upgrade">{{item.data.upgrades}}</div>
-                            <div class="weight">{{item.data.weight}}</div>
+                            <div class="installed">{{item.isInstalled}}</div>
+                            <div class="upgrade">{{item.upgrades}}</div>
+                            <div class="weight">{{item.weight}}</div>
                             <div class="button">
                                 <a class="item-control item-delete" title="Delete Weapon Modification"><i class="fas fa-trash"></i></a>
                             </div>
@@ -89,16 +89,16 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isAmmunition}}
-                        <div class="gear item flex row" data-item-id="{{item._id}}">
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
                         <div class="flex name item-edit">
                             <div class="image-container">
                                 <div class="image" style="background-image: url('{{item.img}}')"></div>
                             </div>
                             <div>{{item.name}}</div>
                         </div>
-                        <div class="weapon">{{item.data.weapon}}</div>
-                        <div class="quantity">{{item.data.quantity}}</div>
-                        <div class="weight">{{item.data.weight}}</div>
+                        <div class="weapon">{{item.weapon}}</div>
+                        <div class="quantity">{{item.quantity}}</div>
+                        <div class="weight">{{item.weight}}</div>
                         <div class="button">
                             <a class="item-control item-delete" title="Delete Ammunition"><i class="fas fa-trash"></i></a>
                         </div>
@@ -117,15 +117,15 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isArmour}}
-                        <div class="gear item flex row" data-item-id="{{item._id}}">
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <div>{{item.name}}</div>
                             </div>
-                            <div class="part">{{part item.data.part}}</div>
-                            <div class="weight">{{item.data.weight}}</div>
+                            <div class="part">{{item.Part}}</div>
+                            <div class="weight">{{item.weight}}</div>
                             <div class="button">
                                 <a class="item-control item-delete" title="Delete Armour"><i class="fas fa-trash"></i></a>
                             </div>
@@ -144,15 +144,15 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isForceField}}
-                        <div class="gear item flex row" data-item-id="{{item._id}}">
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
                         <div class="flex name item-edit">
                             <div class="image-container">
                                 <div class="image" style="background-image: url('{{item.img}}')"></div>
                             </div>
                             <div>{{item.name}}</div>
                         </div>
-                        <div class="craftsmanship">{{craftsmanship item.data.craftsmanship}}</div>
-                        <div class="weight">{{item.data.weight}}</div>
+                        <div class="craftsmanship">{{item.Craftsmanship}}</div>
+                        <div class="weight">{{item.weight}}</div>
                         <div class="button">
                             <a class="item-control item-delete" title="Delete Force Field"><i class="fas fa-trash"></i></a>
                         </div>
@@ -171,15 +171,15 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isGear}}
-                        <div class="gear item flex row" data-item-id="{{item._id}}">
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <div>{{item.name}}</div>
                             </div>
-                            <div class="short-description">{{item.data.shortDescription}}</div>
-                            <div class="weight">{{item.data.weight}}</div>
+                            <div class="short-description">{{item.shortDescription}}</div>
+                            <div class="weight">{{item.weight}}</div>
                             <div class="button">
                                 <a class="item-control item-delete" title="Delete Gear"><i class="fas fa-trash"></i></a>
                             </div>
@@ -198,15 +198,15 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isDrug}}
-                        <div class="gear item flex row" data-item-id="{{item._id}}">
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <div>{{item.name}}</div>
                             </div>
-                            <div class="short-description">{{item.data.shortDescription}}</div>
-                            <div class="weight">{{item.data.weight}}</div>
+                            <div class="short-description">{{item.shortDescription}}</div>
+                            <div class="weight">{{item.weight}}</div>
                             <div class="button">
                                 <a class="item-control item-delete" title="Delete Drug"><i class="fas fa-trash"></i></a>
                             </div>
@@ -225,15 +225,15 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isTool}}
-                        <div class="gear item flex row" data-item-id="{{item._id}}">
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <div>{{item.name}}</div>
                             </div>
-                            <div class="short-description">{{item.data.shortDescription}}</div>
-                            <div class="weight">{{item.data.weight}}</div>
+                            <div class="short-description">{{item.shortDescription}}</div>
+                            <div class="weight">{{item.weight}}</div>
                             <div class="button">
                                 <a class="item-control item-delete" title="Delete Tool"><i class="fas fa-trash"></i></a>
                             </div>
@@ -253,16 +253,16 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isCybernetic}}
-                        <div class="gear item flex row" data-item-id="{{item._id}}">
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <div>{{item.name}}</div>
                             </div>
-                            <div class="installed">{{isInstalled item.data.installed}}</div>
-                            <div class="cybernetic-craftsmanship">{{craftsmanship item.data.craftsmanship}}</div>
-                            <div class="weight">{{item.data.weight}}</div>
+                            <div class="installed">{{item.isInstalled}}</div>
+                            <div class="cybernetic-craftsmanship">{{item.Craftsmanship}}</div>
+                            <div class="weight">{{item.weight}}</div>
                             <div class="button">
                                 <a class="item-control item-delete" title="Delete Cybernetic"><i class="fas fa-trash"></i></a>
                             </div>

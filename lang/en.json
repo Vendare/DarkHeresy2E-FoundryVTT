@@ -1,4 +1,27 @@
 {
+
+  "ACTOR.TypeAcolyte" : "Acolyte",
+  "ACTOR.TypeNpc" : "NPC",
+
+  "ITEM.TypeAmmunition" : "Ammunition",
+  "ITEM.TypeAptitude" : "Aptitude",
+  "ITEM.TypeArmour" : "Armour",
+  "ITEM.TypeCriticalinjury" : "Critical Injury",
+  "ITEM.TypeCybernetic" : "Cybernetic",
+  "ITEM.TypeDrug" : "Drug",
+  "ITEM.TypeForcefield" : "Force Field",
+  "ITEM.TypeGear" : "Gear",
+  "ITEM.TypeMalignancy" : "Malignancy",
+  "ITEM.TypeMentaldisorder" : "Mental Disorder",
+  "ITEM.TypeMutation" : "Mutation",
+  "ITEM.TypePsychicpower" : "Psychic Power",
+  "ITEM.TypeSpecialability" : "Special Ability",
+  "ITEM.TypeTalent" : "Talent",
+  "ITEM.TypeTool" : "Tool",
+  "ITEM.TypeTrait" : "Trait",
+  "ITEM.TypeWeapon" : "Weapon",
+  "ITEM.TypeWeaponmodification" : "Weapon Modification",
+
   "ADVANCE.NONE": "None",
   "ADVANCE.UNTRAINED": "Untrained",
   "ADVANCE.SIMPLE": "Simple",

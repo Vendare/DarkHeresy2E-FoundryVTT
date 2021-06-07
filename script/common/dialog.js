@@ -74,8 +74,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                                     return reportEmptyClip(rollData);
                                 } else {
                                     rollData.clip.value -= 1;
-                                    let data = { _id: rollData.wid, "data.clip.value": rollData.clip.value };
-                                    await actorRef.updateOwnedItem(data);
+                                    await rollData.item.update({"data.clip.value" : rollData.clip.value})
                                 }
                                 break;
                             }
@@ -84,8 +83,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                                     return reportEmptyClip(rollData);
                                 } else {
                                     rollData.clip.value -= rollData.rateOfFire.burst;
-                                    let data = { _id: rollData.wid, "data.clip.value": rollData.clip.value };
-                                    await actorRef.updateOwnedItem(data);
+                                    await rollData.item.update({"data.clip.value" : rollData.clip.value})
                                 }
                                 break;
                             }
@@ -94,8 +92,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                                     return reportEmptyClip(rollData);
                                 } else {
                                     rollData.clip.value -= rollData.rateOfFire.full;
-                                    let data = { _id: rollData.wid, "data.clip.value": rollData.clip.value };
-                                    await actorRef.updateOwnedItem(data);
+                                    await rollData.item.update({"data.clip.value" : rollData.clip.value})
                                 }
                                 break;
                             }

@@ -26,14 +26,14 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isAbilities}}
-                        <div class="ability item flex row" data-item-id="{{item._id}}">
+                        <div class="ability item flex row" data-item-id="{{item.id}}">
                             <div class="flex name item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <div>{{item.name}}</div>
                             </div>
-                            <div class="benefit">{{item.data.benefit}}</div>
+                            <div class="benefit">{{item.benefit}}</div>
                         </div>
                     {{/if}}
                 {{/each}}
@@ -52,7 +52,7 @@
                             </div>
                             <input class="total" type="number" value="{{skill.total}}" data-dtype="Number" disabled />
                             <div class="information">
-                                <input type="text" value="{{advanceSkill skill.advance}}" disabled />
+                                <input type="text" value="{{skill.advanceSkill}}" disabled />
                             </div>
                         </div>
                     {{/unless}}
@@ -76,7 +76,7 @@
                                             </div>
                                             <input class="total" type="number" value="{{speciality.total}}" data-dtype="Number" disabled />
                                             <div class="information">
-                                                <input type="text" value="{{advanceSkill speciality.advance}}" disabled />
+                                                <input type="text" value="{{specialty.advanceSpec}}" disabled />
                                             </div>
                                         </div>
                                     {{/if}}
