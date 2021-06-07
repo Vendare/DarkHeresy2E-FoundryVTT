@@ -385,17 +385,17 @@ export class DarkHeresyActor extends Actor {
     _getArmour(location) {
         switch (location) {
             case "ARMOUR.HEAD":
-                return this.armour.head.total;
+                return this.armour.head.value;
             case "ARMOUR.LEFT_ARM":
-                return this.armour.leftArm.total;
+                return this.armour.leftArm.value;
             case "ARMOUR.RIGHT_ARM":
-                return this.armour.rightArm.total;
+                return this.armour.rightArm.value;
             case "ARMOUR.BODY":
-                return this.armour.body.total;
+                return this.armour.body.value;
             case "ARMOUR.LEFT_LEG":
-                return this.armour.leftLeg.total;
+                return this.armour.leftLeg.value;
             case "ARMOUR.RIGHT_LEG":
-                return this.armour.rightLeg.total;
+                return this.armour.rightLeg.value;
             default:
                 return 0;
         }
