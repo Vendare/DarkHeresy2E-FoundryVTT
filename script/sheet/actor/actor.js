@@ -198,7 +198,7 @@ export class DarkHeresySheet extends ActorSheet {
   async _prepareRollPsychicPower(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
-    const psychocPower = this.actor.items.get(div.data("itemId"));
+    const psychicPower = this.actor.items.get(div.data("itemId"));
     let characteristic = this._getPsychicPowerCharacteristic(psychicPower);
     const rollData = {
       name: psychicPower.name,
