@@ -142,8 +142,8 @@
     border: 0 none;
     border-radius: 3px;
     font-family: var(--font-text);
-    font-size: 12px;
-    line-height: initial;
+    font-size: 16px;
+    line-height: 14px;
     margin: 0;
     padding: 4px 4px;
     text-align: center;
