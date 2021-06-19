@@ -118,7 +118,13 @@ function _computeDamage(formula, dos, penetration) {
 
 function _rollPenetration(rollData) {
     let penetration = (rollData.penetrationFormula) ? rollData.penetrationFormula : "0";
-    let r = new Roll(penetration, {});
+    if (penetration.includes("("))
+    {
+        if (rollData.dos >= 3)
+            penetration = parseInt(penetration.split("(")[1])
+        else penetration = parseInt(penetration)
+    }
+    let r = new Roll(penetration.toString(), {});
     r.evaluate();
     return r.total;
 }
