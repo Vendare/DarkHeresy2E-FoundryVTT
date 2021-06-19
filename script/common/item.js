@@ -274,7 +274,7 @@ export class DarkHeresyItem extends Item {
     get tier() { return this.data.data.tier}
     get class() { return this.data.data.class}
     get rateOfFire() { return this.data.data.rateOfFire}
-    get damageType() { return this.data.data.damageType || this.data.data?.damage?.type || this.data.data.effect?.damage?.type}
+    get damageType() { return this.data.data.damageType || this.data.data?.damage?.type || this.data.data.effect?.damage?.type || this.data.data.type}
     get penetration() { return this.data.data.penetration}
     get clip() { return this.data.data.clip}
     get reload() { return this.data.data.reload}
