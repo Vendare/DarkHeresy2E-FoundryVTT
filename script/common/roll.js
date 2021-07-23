@@ -149,18 +149,19 @@ function _isDouble(number) {
 }
 
 function _getLocation(result) {
-    const locationTarget = parseFloat(result.toString().split('').reverse().join('')) * Math.sign(result);
+    const toReverse = result < 10 ? "0" + toReverse : result.toString();
+    const locationTarget = parseInt(toReverse.split('').reverse().join(''));
     if (locationTarget <= 10) {
         return "ARMOUR.HEAD";
-    } else if (locationTarget >= 11 && locationTarget <= 20) {
+    } else if (locationTarget <= 20) {
         return "ARMOUR.RIGHT_ARM";
-    } else if (locationTarget >= 21 && locationTarget <= 30) {
+    } else if (locationTarget <= 30) {
         return "ARMOUR.LEFT_ARM";
-    } else if (locationTarget >= 31 && locationTarget <= 70) {
+    } else if (locationTarget <= 70) {
         return "ARMOUR.BODY";
-    } else if (locationTarget >= 71 && locationTarget <= 85) {
+    } else if (locationTarget <= 85) {
         return "ARMOUR.RIGHT_LEG";
-    } else if (locationTarget >= 86 && locationTarget <= 100) {
+    } else if (locationTarget <= 100) {
         return "ARMOUR.LEFT_LEG";
     } else {
         return "ARMOUR.BODY";
