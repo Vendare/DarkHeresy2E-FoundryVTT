@@ -209,6 +209,16 @@ function _computeRateOfFire(rollData) {
             rollData.attackType.hitMargin = 0;
             break;
 
+        case "charge":
+            rollData.attackType.modifier = 20;
+            rollData.attackType.hitMargin = 0;
+            break;
+
+        case "allOut":
+            rollData.attackType.modifier = 30;
+            rollData.attackType.hitMargin = 0;
+            break;
+
         default:
             rollData.attackType.modifier = 0;
             rollData.attackType.hitMargin = 0;

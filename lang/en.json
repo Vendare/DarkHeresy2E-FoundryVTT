@@ -75,6 +75,8 @@
   "ATTACK_TYPE.LIGHTNING": "Lightning",
   "ATTACK_TYPE.FULL_AUTO": "Full Auto",
   "ATTACK_TYPE.CALLED_SHOT": "Called Shot",
+  "ATTACK_TYPE.CHARGE": "Charge",
+  "ATTACK_TYPE.ALLOUT": "All Out Attack",
 
   "AVAILABILITY.UBIQUITOUS": "Ubiquitous",
   "AVAILABILITY.ABUNDANT": "Abundant",
