@@ -60,7 +60,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     }
                     rollData.attackType = { text: "None", name: "none", modifier: 0};
                     const attackType = html.find("#attackType")[0];
-                    rollData.attackType.name = html.find("#attackType")[0].value;
+                    rollData.attackType.name = attackType.value;
                     rollData.attackType.text = attackType.options[attackType.selectedIndex].text;
                     rollData.damageFormula = html.find("#damageFormula")[0].value.replace(psyRatingRegex, rollData.psy.value);
                     rollData.damageType = html.find("#damageType")[0].value;
@@ -133,6 +133,9 @@ export async function preparePsychicPowerRoll(rollData) {
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
                     rollData.penetrationFormula = html.find("#penetration")[0].value.replace(psyRatingRegex, rollData.psy.value);
                     rollData.rateOfFire = { burst: rollData.psy.value, full: rollData.psy.value };
+                    const attackType = html.find("#attackType")[0];
+                    rollData.attackType.name = attackType.value;
+                    rollData.attackType.text = attackType.options[attackType.selectedIndex].text;
                     rollData.psy.useModifier = true;
                     await combatRoll(rollData);
                 },

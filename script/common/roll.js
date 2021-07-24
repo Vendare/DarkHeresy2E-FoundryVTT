@@ -170,23 +170,49 @@ function _getLocation(result) {
 
 function _computeRateOfFire(rollData) {
     rollData.maxAdditionalHit = 0;
-    if (rollData.attackType.name === "standard" || rollData.attackType.name === "bolt") {
-        rollData.attackType.modifier = 10;
-        rollData.attackType.hitMargin = 0;
-    } else if (rollData.attackType.name === "swift" || rollData.attackType.name === "semi_auto" || rollData.attackType.name === "barrage") {
-        rollData.attackType.modifier = 0;
-        rollData.attackType.hitMargin = 2;
-        rollData.maxAdditionalHit = rollData.rateOfFire.burst - 1;
-    } else if (rollData.attackType.name === "lightning" || rollData.attackType.name === "full_auto" || rollData.attackType.name === "storm") {
-        rollData.attackType.modifier = -10;
-        rollData.attackType.hitMargin = 1;
-        rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;
-    } else if (rollData.attackType.name === "called_shot") {
-        rollData.attackType.modifier = -20;
-        rollData.attackType.hitMargin = 0;
-    } else {
-        rollData.attackType.modifier = 0;
-        rollData.attackType.hitMargin = 0;
+
+    switch(rollData.attackType.name) {
+        case "standard" :
+            rollData.attackType.modifier = 10;
+            rollData.attackType.hitMargin = 0;
+            break;
+
+        case "bolt" :
+        case "blast" :
+            rollData.attackType.modifier = 0;
+            rollData.attackType.hitMargin = 0;
+            break;
+
+        case "swift" :
+        case "semi_auto" :
+        case "barrage" :
+            rollData.attackType.modifier = 0;
+            rollData.attackType.hitMargin = 2;
+            rollData.maxAdditionalHit = rollData.rateOfFire.burst - 1;
+            break;
+
+        case "lightning":
+        case "full_auto":
+            rollData.attackType.modifier = -10;
+            rollData.attackType.hitMargin = 1;
+            rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;
+            break;
+
+        case "storm":
+            rollData.attackType.modifier = 0;
+            rollData.attackType.hitMargin = 1;
+            rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;
+            break;
+        
+        case "called_shot":
+            rollData.attackType.modifier = -20;
+            rollData.attackType.hitMargin = 0;
+            break;
+
+        default:
+            rollData.attackType.modifier = 0;
+            rollData.attackType.hitMargin = 0;
+            break;
     }
 }
 

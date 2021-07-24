@@ -30,6 +30,18 @@
             </select>
         </div>
         <div class="wrapper">
+            <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
+            <select id="attackType">
+                {{#select attackType.name}}
+                <option value="none">{{localize "ATTACK_TYPE.NONE"}}</option>
+                <option value="bolt">{{localize "PSYCHIC_POWER.BOLT"}}</option>
+                <option value="barrage">{{localize "PSYCHIC_POWER.BARRAGE"}}</option>
+                <option value="storm">{{localize "PSYCHIC_POWER.STORM"}}</option>
+                <option value="blast">{{localize "PSYCHIC_POWER.BLAST"}}</option>
+                {{/select}}
+            </select>
+        </div>
+        <div class="wrapper">
             <label>{{localize "DIALOG.BONUS"}}</label>
             <input id="damageBonus" type="number" value="{{damageBonus}}" data-dtype="Number"/>
         </div>

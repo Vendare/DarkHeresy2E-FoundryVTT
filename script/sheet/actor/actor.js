@@ -205,13 +205,25 @@ export class DarkHeresySheet extends ActorSheet {
       baseTarget: characteristic.total,
       modifier: psychicPower.focusPower.difficulty,
       damageFormula: psychicPower.damage.formula,
-      psy: {value: 1, max: this.actor.psy.rating, display: true},
+      psy: {value: this.actor.psy.rating, max: _getMaxPsyRating(), display: true},
       damageType: psychicPower.damage.type,
       damageBonus: 0,
       penetrationFormula: psychicPower.damage.penetration,
-      attackType: {name: psychicPower.zone}
+      attackType: { name: psychicPower.damage.zone, text: "" }
     };
     await preparePsychicPowerRoll(rollData);
+  }
+
+  _getMaxPsyRating() {
+    base = this.actor.psy.rating
+    switch(this.actor.psy.class) {
+      case "bound" :
+        return base + 2;
+      case "unbound" :
+        return base + 4;
+      case "daemonic" :
+        return base + 3;
+    }
   }
 
   _getCorruptionModifier() {
