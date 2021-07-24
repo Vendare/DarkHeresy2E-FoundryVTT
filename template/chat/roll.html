@@ -36,7 +36,11 @@
         <p><strong>{{localize "CHAT.PSY_RATING"}}:</strong> {{psy.value}}</p>
         {{/if}}
         {{#if psy.hasPhenomena}}
-        <p><strong style="color: var(--color-failure)">{{localize "CHAT.HAS_PSYCHIC_PHENOMENA"}}</strong></p>
+            {{#if psy.warpConduit}}
+                <p><strong style="color: var(--color-failure)">{{localize "CHAT.HAS_PSYCHIC_PHENOMENA_WITH_WARPCONDUIT"}}</strong></p>
+            {{else}}
+                <p><strong style="color: var(--color-failure)">{{localize "CHAT.HAS_PSYCHIC_PHENOMENA"}}</strong></p>
+            {{/if}}
         {{/if}}
         {{/if}}
         {{#each damages as |damage|}}

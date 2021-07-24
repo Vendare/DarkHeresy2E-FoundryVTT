@@ -26,8 +26,19 @@ function _computeTarget(rollData) {
     }
     let psyModifier = 0;
     if (typeof rollData.psy !== "undefined" && typeof rollData.psy.useModifier !== "undefined" && rollData.psy.useModifier) {
-        psyModifier = (rollData.psy.max - rollData.psy.value) * 10;
+        //Set Current Psyrating to the allowed maximum if it is bigger
+        if(rollData.psy.value > rollData.psy.max) {
+            rollData.psy.value
+        }
+        psyModifier = (rollData.psy.rating - rollData.psy.value) * 10;
         rollData.psy.push = psyModifier < 0;
+        if(rollData.psy.push && rollData.psy.warpConduit) {
+            let ratingBonus = new Roll("1d5").evaluate().total;
+            rollData.psy.value += ratingBonus
+        }
+        let psyRatingRegex = /PR/gi;
+        rollData.damageFormula = rollData.damageFormula.replace(psyRatingRegex, rollData.psy.value);
+        rollData.penetrationFormula = rollData.penetrationFormula.replace(psyRatingRegex, rollData.psy.value);
     }
     const formula = `0 + ${rollData.modifier} + ${range} + ${attackType} + ${psyModifier}`;
     let r = new Roll(formula, {});

@@ -205,7 +205,7 @@ export class DarkHeresySheet extends ActorSheet {
       baseTarget: characteristic.total,
       modifier: psychicPower.focusPower.difficulty,
       damageFormula: psychicPower.damage.formula,
-      psy: {value: this.actor.psy.rating, max: this._getMaxPsyRating(), display: true},
+      psy: { value: this.actor.psy.rating, rating: this.actor.psy.rating, max: this._getMaxPsyRating(), warpConduit:false, display: true},
       damageType: psychicPower.damage.type,
       damageBonus: 0,
       penetrationFormula: psychicPower.damage.penetration,
