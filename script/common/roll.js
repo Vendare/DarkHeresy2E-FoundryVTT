@@ -149,7 +149,7 @@ function _isDouble(number) {
 }
 
 function _getLocation(result) {
-    const toReverse = result < 10 ? "0" + toReverse : result.toString();
+    const toReverse = result < 10 ? "0" + result : result.toString();
     const locationTarget = parseInt(toReverse.split('').reverse().join(''));
     if (locationTarget <= 10) {
         return "ARMOUR.HEAD";
