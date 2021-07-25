@@ -12,8 +12,19 @@
         <div class="separator"></div>
         <div class="wrapper">
             <label>{{localize "DIALOG.PSY_RATING"}}</label>
-            <input id="psy" type="number" value="{{psy.value}}" data-dtype="Number"/>
+            <input id="rating" class="range" type="range" min="1" max="{{psy.max}}" value="{{psy.value}}" data-dtype="Number" />
+            <input id="psy" class="rangeBox" type="number" value="{{psy.value}}" data-dtype="Number" />
         </div>
+        <!--Done here because nothing else seemed to work. Open for better ideas-->
+        <script>
+            var slider = document.getElementById("rating");
+            var output = document.getElementById("psy");
+            output.value = slider.value;
+            
+            slider.oninput = function() {
+              output.value = this.value;
+            }
+        </script>
         <div class="wrapper damage">
             <label>{{localize "DIALOG.DAMAGE"}}</label>
             <input id="damageFormula" type="text" value="{{damageFormula}}"/>

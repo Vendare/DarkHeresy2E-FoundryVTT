@@ -31,3 +31,11 @@
     text-align: center;
     font-size: 16px;
 }
+
+.dark-heresy.dialog .wrapper .range {
+    width: 66px
+}
+
+.dark-heresy.dialog .wrapper .rangeBox {
+    width: 30px
+}
