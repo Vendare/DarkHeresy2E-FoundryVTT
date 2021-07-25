@@ -18,9 +18,7 @@
         <!--Done here because nothing else seemed to work. Open for better ideas-->
         <script>
             var slider = document.getElementById("rating");
-            var output = document.getElementById("psy");
-            output.value = slider.value;
-            
+            var output = document.getElementById("psy");            
             slider.oninput = function() {
               output.value = this.value;
             }
