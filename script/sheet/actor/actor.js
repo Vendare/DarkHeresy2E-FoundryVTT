@@ -199,10 +199,10 @@ export class DarkHeresySheet extends ActorSheet {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
     const psychicPower = this.actor.items.get(div.data("itemId"));
-    let characteristic = this._getPsychicPowerCharacteristic(psychicPower);
+    let focusPowerTarget = this._getFocusPowerTarget(psychicPower);
     const rollData = {
       name: psychicPower.name,
-      baseTarget: characteristic.total,
+      baseTarget: focusPowerTarget.total,
       modifier: psychicPower.focusPower.difficulty,
       damageFormula: psychicPower.damage.formula,
       psy: { value: this.actor.psy.rating, rating: this.actor.psy.rating, max: this._getMaxPsyRating(), warpConduit:false, display: true},
@@ -247,11 +247,13 @@ export class DarkHeresySheet extends ActorSheet {
     }
   }
 
-  _getPsychicPowerCharacteristic(psychicPower) {
+  _getFocusPowerTarget(psychicPower) {
     const normalizeName = psychicPower.focusPower.test.toLowerCase();
     if (this.actor.characteristics.hasOwnProperty(normalizeName)) {
       return this.actor.characteristics[normalizeName];
-    } else {
+    } else if(this.actor.skills.hasOwnProperty(normalizeName)) {
+      return this.actor.skills[normalizeName];
+    } else {      
       return this.actor.characteristics.willpower;
     }
   }
