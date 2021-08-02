@@ -96,7 +96,7 @@ function _rollDamage(rollData) {
         let minDamage = rollData.damages.reduce((min, damage) => min.minDice < damage.minDice ? min : damage, rollData.damages[0]);
         if (minDamage.minDice < rollData.dos) {
           minDamage.total += (rollData.dos - minDamage.minDice)
-          minDamage.replaced = true;
+          minDamage.result =  minDamage.result.replace(`(${minDamage.minDice})`, `(${minDamage.minDice} -> DoS: ${rollData.dos})`);
         };
     }
 }
@@ -109,21 +109,22 @@ function _computeDamage(formula, dos, penetration) {
         righteousFury: 0,
         penetration: penetration,
         dices: [],
-        result: 0,
+        result: "",
         dos: dos,
-        formula: formula,
-        replaced: false
+        formula: formula.replaceAll(' ', '') //No inconsistent spacing on the tooltip
     };
+    let diceResult = "";
     r.terms.forEach((term) => {
         if (typeof term === 'object' && term !== null && term.results) {
             term.results.forEach(result => {
-                if (result.active && result.result === term.faces) damage.righteousFury = _rollRighteousFury();
+                if (result.active && result.result === term.faces)  damage.righteousFury = _rollRighteousFury();
                 if (result.active && result.result < dos) damage.dices.push(result.result);
                 if (result.active && (typeof damage.minDice === "undefined" || result.result < damage.minDice)) damage.minDice = result.result;
-                damage.result = result.result;
+                diceResult += `+(${result.result})`;
             });
         }
     });
+    damage.result = damage.formula.replace(/\dd\d*/gi, diceResult.substring(1));
     return damage;
 }
 
