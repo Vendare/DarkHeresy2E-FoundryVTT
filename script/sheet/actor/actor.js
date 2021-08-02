@@ -176,21 +176,23 @@ export class DarkHeresySheet extends ActorSheet {
     } else {
       rateOfFire = {burst: weapon.rateOfFire.burst, full: weapon.rateOfFire.full};
     }
+    let isMelee = weapon.class === "melee"
     let rollData = {
       item: weapon,
       name: weapon.name,
       baseTarget: characteristic.total + weapon.attack,
       modifier: 0,
-      isMelee: weapon.class === "melee",
-      isRange: !(weapon.class === "melee"),
+      attributeBoni: this._getAttributeBoni(),
+      isMelee: isMelee,
+      isRange: !isMelee,
       clip: weapon.clip,
-      damageFormula: weapon.damage,
-      damageBonus: (weapon.class === "melee") ? this.actor.characteristics.strength.bonus : 0,
+      damageFormula: weapon.damage + (isMelee && !weapon.damage.toUpperCase().includes("SB") ? "+SB" : ""),
+      damageBonus: 0,
       damageType: weapon.damageType,
       penetrationFormula: weapon.penetration,
       rateOfFire: rateOfFire,
       special: weapon.special,
-      psy: {value: this.actor.psy.rating, display: false},
+      psy: { value: this.actor.psy.rating, display: false}
     };
     await prepareCombatRoll(rollData, this.actor);
   }
@@ -204,6 +206,7 @@ export class DarkHeresySheet extends ActorSheet {
       name: psychicPower.name,
       baseTarget: focusPowerTarget.total,
       modifier: psychicPower.focusPower.difficulty,
+      attributeBoni: this._getAttributeBoni(),
       damageFormula: psychicPower.damage.formula,
       psy: { value: this.actor.psy.rating, rating: this.actor.psy.rating, max: this._getMaxPsyRating(), warpConduit:false, display: true},
       damageType: psychicPower.damage.type,
@@ -256,5 +259,14 @@ export class DarkHeresySheet extends ActorSheet {
     } else {      
       return this.actor.characteristics.willpower;
     }
+  }
+
+  _getAttributeBoni() {
+    let boni = [];
+    for(let characteristic of Object.values(this.actor.characteristics)) {
+      boni.push( {regex: new RegExp(`${characteristic.short}B`,'gi'), value: characteristic.bonus} )
+    }
+    return boni;
+    
   }
 }

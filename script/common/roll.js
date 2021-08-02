@@ -36,9 +36,6 @@ function _computeTarget(rollData) {
             let ratingBonus = new Roll("1d5").evaluate().total;
             rollData.psy.value += ratingBonus
         }
-        let psyRatingRegex = /PR/gi;
-        rollData.damageFormula = rollData.damageFormula.replace(psyRatingRegex, rollData.psy.value);
-        rollData.penetrationFormula = rollData.penetrationFormula.replace(psyRatingRegex, rollData.psy.value);
     }
     const formula = `0 + ${rollData.modifier} + ${range} + ${attackType} + ${psyModifier}`;
     let r = new Roll(formula, {});
@@ -72,12 +69,16 @@ function _rollTarget(rollData) {
 function _rollDamage(rollData) {
     let formula = "0";
     rollData.damages = [];
-    if (rollData.damageFormula) formula = `${rollData.damageFormula} + ${rollData.damageBonus}`;
+    if (rollData.damageFormula) {
+        rollData.damageFormula =`${rollData.damageFormula}+${rollData.damageBonus}`
+        formula = _replaceSymbols(rollData.damageFormula, rollData);
+    }
     let penetration = _rollPenetration(rollData);
     let firstHit = _computeDamage(formula, rollData.dos, penetration);
     if (firstHit.total !== 0) {
         const firstLocation = _getLocation(rollData.result);
         firstHit.location = firstLocation;
+        firstHit.formula = rollData.damageFormula; // For Tooltip
         rollData.damages.push(firstHit);
         if (rollData.attackType.hitMargin > 0) {
             let maxAdditionalHit = Math.floor((rollData.dos - 1) / rollData.attackType.hitMargin);
@@ -88,6 +89,7 @@ function _rollDamage(rollData) {
             for (let i = 0; i < maxAdditionalHit; i++) {
                 let additionalHit = _computeDamage(formula, rollData.dos, penetration);
                 additionalHit.location = _getAdditionalLocation(firstLocation, i);
+                additionalHit.formula = rollData.damageFormula;
                 rollData.damages.push(additionalHit);
             }
         } else {
@@ -110,8 +112,7 @@ function _computeDamage(formula, dos, penetration) {
         penetration: penetration,
         dices: [],
         result: "",
-        dos: dos,
-        formula: formula.replaceAll(' ', '') //No inconsistent spacing on the tooltip
+        dos: dos
     };
     let diceResult = "";
     r.terms.forEach((term) => {
@@ -124,12 +125,12 @@ function _computeDamage(formula, dos, penetration) {
             });
         }
     });
-    damage.result = damage.formula.replace(/\dd\d*/gi, diceResult.substring(1));
+    damage.result = formula.replace(/\dd\d*/gi, diceResult.substring(1));
     return damage;
 }
 
 function _rollPenetration(rollData) {
-    let penetration = (rollData.penetrationFormula) ? rollData.penetrationFormula : "0";
+    let penetration = (rollData.penetrationFormula) ? _replaceSymbols(rollData.penetrationFormula, rollData) : "0";
     if (penetration.includes("("))
     {
         if (rollData.dos >= 3)
@@ -273,6 +274,21 @@ function _getLocationByIt(part, numberOfHit) {
 
 function _getDegree(a, b) {
     return Math.floor(a / 10) - Math.floor(b / 10);
+}
+/**
+ * Replaces all Symbols in the given Formula with their Respective Values
+ * The Symbols consist of Attribute Boni and Psyrating
+ * @param {*} formula 
+ * @param {*} rollData 
+ */
+function _replaceSymbols(formula, rollData) {
+    if(rollData.psy) {
+        formula = formula.replaceAll(/PR/gi, rollData.psy.value);
+    }
+    for(let boni of rollData.attributeBoni) {
+        formula = formula.replaceAll(boni.regex, boni.value);
+    }
+    return formula;
 }
 
 async function _sendToChat(rollData) {
