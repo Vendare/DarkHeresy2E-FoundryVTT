@@ -28,7 +28,7 @@ function _computeTarget(rollData) {
     if (typeof rollData.psy !== "undefined" && typeof rollData.psy.useModifier !== "undefined" && rollData.psy.useModifier) {
         //Set Current Psyrating to the allowed maximum if it is bigger
         if(rollData.psy.value > rollData.psy.max) {
-            rollData.psy.value
+            rollData.psy.value = rollData.psy.max;
         }
         psyModifier = (rollData.psy.rating - rollData.psy.value) * 10;
         rollData.psy.push = psyModifier < 0;
