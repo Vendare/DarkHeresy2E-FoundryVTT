@@ -176,21 +176,23 @@ export class DarkHeresySheet extends ActorSheet {
     } else {
       rateOfFire = {burst: weapon.rateOfFire.burst, full: weapon.rateOfFire.full};
     }
+    let isMelee = weapon.class === "melee"
     let rollData = {
       item: weapon,
       name: weapon.name,
       baseTarget: characteristic.total + weapon.attack,
       modifier: 0,
-      isMelee: weapon.class === "melee",
-      isRange: !(weapon.class === "melee"),
+      attributeBoni: this._getAttributeBoni(),
+      isMelee: isMelee,
+      isRange: !isMelee,
       clip: weapon.clip,
-      damageFormula: weapon.damage,
-      damageBonus: (weapon.class === "melee") ? this.actor.characteristics.strength.bonus : 0,
+      damageFormula: weapon.damage + (isMelee && !weapon.damage.toUpperCase().includes("SB") ? "+SB" : ""),
+      damageBonus: 0,
       damageType: weapon.damageType,
       penetrationFormula: weapon.penetration,
       rateOfFire: rateOfFire,
       special: weapon.special,
-      psy: {value: this.actor.psy.rating, display: false},
+      psy: { value: this.actor.psy.rating, display: false}
     };
     await prepareCombatRoll(rollData, this.actor);
   }
@@ -199,19 +201,32 @@ export class DarkHeresySheet extends ActorSheet {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
     const psychicPower = this.actor.items.get(div.data("itemId"));
-    let characteristic = this._getPsychicPowerCharacteristic(psychicPower);
+    let focusPowerTarget = this._getFocusPowerTarget(psychicPower);
     const rollData = {
       name: psychicPower.name,
-      baseTarget: characteristic.total,
+      baseTarget: focusPowerTarget.total,
       modifier: psychicPower.focusPower.difficulty,
+      attributeBoni: this._getAttributeBoni(),
       damageFormula: psychicPower.damage.formula,
-      psy: {value: 1, max: this.actor.psy.rating, display: true},
+      psy: { value: this.actor.psy.rating, rating: this.actor.psy.rating, max: this._getMaxPsyRating(), warpConduit:false, display: true},
       damageType: psychicPower.damage.type,
       damageBonus: 0,
       penetrationFormula: psychicPower.damage.penetration,
-      attackType: {name: psychicPower.zone}
+      attackType: { name: psychicPower.damage.zone, text: "" }
     };
     await preparePsychicPowerRoll(rollData);
+  }
+
+  _getMaxPsyRating() {
+    let base = this.actor.psy.rating
+    switch(this.actor.psy.class) {
+      case "bound" :
+        return base + 2;
+      case "unbound" :
+        return base + 4;
+      case "daemonic" :
+        return base + 3;
+    }
   }
 
   _getCorruptionModifier() {
@@ -235,12 +250,23 @@ export class DarkHeresySheet extends ActorSheet {
     }
   }
 
-  _getPsychicPowerCharacteristic(psychicPower) {
+  _getFocusPowerTarget(psychicPower) {
     const normalizeName = psychicPower.focusPower.test.toLowerCase();
     if (this.actor.characteristics.hasOwnProperty(normalizeName)) {
       return this.actor.characteristics[normalizeName];
-    } else {
+    } else if(this.actor.skills.hasOwnProperty(normalizeName)) {
+      return this.actor.skills[normalizeName];
+    } else {      
       return this.actor.characteristics.willpower;
     }
+  }
+
+  _getAttributeBoni() {
+    let boni = [];
+    for(let characteristic of Object.values(this.actor.characteristics)) {
+      boni.push( {regex: new RegExp(`${characteristic.short}B`,'gi'), value: characteristic.bonus} )
+    }
+    return boni;
+    
   }
 }

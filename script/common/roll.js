@@ -26,8 +26,16 @@ function _computeTarget(rollData) {
     }
     let psyModifier = 0;
     if (typeof rollData.psy !== "undefined" && typeof rollData.psy.useModifier !== "undefined" && rollData.psy.useModifier) {
-        psyModifier = (rollData.psy.max - rollData.psy.value) * 10;
+        //Set Current Psyrating to the allowed maximum if it is bigger
+        if(rollData.psy.value > rollData.psy.max) {
+            rollData.psy.value = rollData.psy.max;
+        }
+        psyModifier = (rollData.psy.rating - rollData.psy.value) * 10;
         rollData.psy.push = psyModifier < 0;
+        if(rollData.psy.push && rollData.psy.warpConduit) {
+            let ratingBonus = new Roll("1d5").evaluate().total;
+            rollData.psy.value += ratingBonus
+        }
     }
     const formula = `0 + ${rollData.modifier} + ${range} + ${attackType} + ${psyModifier}`;
     let r = new Roll(formula, {});
@@ -61,12 +69,16 @@ function _rollTarget(rollData) {
 function _rollDamage(rollData) {
     let formula = "0";
     rollData.damages = [];
-    if (rollData.damageFormula) formula = `${rollData.damageFormula} + ${rollData.damageBonus}`;
+    if (rollData.damageFormula) {
+        rollData.damageFormula =`${rollData.damageFormula}+${rollData.damageBonus}`
+        formula = _replaceSymbols(rollData.damageFormula, rollData);
+    }
     let penetration = _rollPenetration(rollData);
     let firstHit = _computeDamage(formula, rollData.dos, penetration);
     if (firstHit.total !== 0) {
         const firstLocation = _getLocation(rollData.result);
         firstHit.location = firstLocation;
+        firstHit.formula = rollData.damageFormula; // For Tooltip
         rollData.damages.push(firstHit);
         if (rollData.attackType.hitMargin > 0) {
             let maxAdditionalHit = Math.floor((rollData.dos - 1) / rollData.attackType.hitMargin);
@@ -77,6 +89,7 @@ function _rollDamage(rollData) {
             for (let i = 0; i < maxAdditionalHit; i++) {
                 let additionalHit = _computeDamage(formula, rollData.dos, penetration);
                 additionalHit.location = _getAdditionalLocation(firstLocation, i);
+                additionalHit.formula = rollData.damageFormula;
                 rollData.damages.push(additionalHit);
             }
         } else {
@@ -85,7 +98,7 @@ function _rollDamage(rollData) {
         let minDamage = rollData.damages.reduce((min, damage) => min.minDice < damage.minDice ? min : damage, rollData.damages[0]);
         if (minDamage.minDice < rollData.dos) {
           minDamage.total += (rollData.dos - minDamage.minDice)
-          minDamage.replaced = true;
+          minDamage.result =  minDamage.result.replace(`(${minDamage.minDice})`, `(${minDamage.minDice} -> DoS: ${rollData.dos})`);
         };
     }
 }
@@ -98,26 +111,26 @@ function _computeDamage(formula, dos, penetration) {
         righteousFury: 0,
         penetration: penetration,
         dices: [],
-        result: 0,
-        dos: dos,
-        formula: formula,
-        replaced: false
+        result: "",
+        dos: dos
     };
+    let diceResult = "";
     r.terms.forEach((term) => {
         if (typeof term === 'object' && term !== null && term.results) {
             term.results.forEach(result => {
-                if (result.active && result.result === term.faces) damage.righteousFury = _rollRighteousFury();
+                if (result.active && result.result === term.faces)  damage.righteousFury = _rollRighteousFury();
                 if (result.active && result.result < dos) damage.dices.push(result.result);
                 if (result.active && (typeof damage.minDice === "undefined" || result.result < damage.minDice)) damage.minDice = result.result;
-                damage.result = result.result;
+                diceResult += `+(${result.result})`;
             });
         }
     });
+    damage.result = formula.replace(/\dd\d*/gi, diceResult.substring(1));
     return damage;
 }
 
 function _rollPenetration(rollData) {
-    let penetration = (rollData.penetrationFormula) ? rollData.penetrationFormula : "0";
+    let penetration = (rollData.penetrationFormula) ? _replaceSymbols(rollData.penetrationFormula, rollData) : "0";
     if (penetration.includes("("))
     {
         if (rollData.dos >= 3)
@@ -170,23 +183,59 @@ function _getLocation(result) {
 
 function _computeRateOfFire(rollData) {
     rollData.maxAdditionalHit = 0;
-    if (rollData.attackType.name === "standard" || rollData.attackType.name === "bolt") {
-        rollData.attackType.modifier = 10;
-        rollData.attackType.hitMargin = 0;
-    } else if (rollData.attackType.name === "swift" || rollData.attackType.name === "semi_auto" || rollData.attackType.name === "barrage") {
-        rollData.attackType.modifier = 0;
-        rollData.attackType.hitMargin = 2;
-        rollData.maxAdditionalHit = rollData.rateOfFire.burst - 1;
-    } else if (rollData.attackType.name === "lightning" || rollData.attackType.name === "full_auto" || rollData.attackType.name === "storm") {
-        rollData.attackType.modifier = -10;
-        rollData.attackType.hitMargin = 1;
-        rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;
-    } else if (rollData.attackType.name === "called_shot") {
-        rollData.attackType.modifier = -20;
-        rollData.attackType.hitMargin = 0;
-    } else {
-        rollData.attackType.modifier = 0;
-        rollData.attackType.hitMargin = 0;
+
+    switch(rollData.attackType.name) {
+        case "standard" :
+            rollData.attackType.modifier = 10;
+            rollData.attackType.hitMargin = 0;
+            break;
+
+        case "bolt" :
+        case "blast" :
+            rollData.attackType.modifier = 0;
+            rollData.attackType.hitMargin = 0;
+            break;
+
+        case "swift" :
+        case "semi_auto" :
+        case "barrage" :
+            rollData.attackType.modifier = 0;
+            rollData.attackType.hitMargin = 2;
+            rollData.maxAdditionalHit = rollData.rateOfFire.burst - 1;
+            break;
+
+        case "lightning":
+        case "full_auto":
+            rollData.attackType.modifier = -10;
+            rollData.attackType.hitMargin = 1;
+            rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;
+            break;
+
+        case "storm":
+            rollData.attackType.modifier = 0;
+            rollData.attackType.hitMargin = 1;
+            rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;
+            break;
+        
+        case "called_shot":
+            rollData.attackType.modifier = -20;
+            rollData.attackType.hitMargin = 0;
+            break;
+
+        case "charge":
+            rollData.attackType.modifier = 20;
+            rollData.attackType.hitMargin = 0;
+            break;
+
+        case "allOut":
+            rollData.attackType.modifier = 30;
+            rollData.attackType.hitMargin = 0;
+            break;
+
+        default:
+            rollData.attackType.modifier = 0;
+            rollData.attackType.hitMargin = 0;
+            break;
     }
 }
 
@@ -225,6 +274,21 @@ function _getLocationByIt(part, numberOfHit) {
 
 function _getDegree(a, b) {
     return Math.floor(a / 10) - Math.floor(b / 10);
+}
+/**
+ * Replaces all Symbols in the given Formula with their Respective Values
+ * The Symbols consist of Attribute Boni and Psyrating
+ * @param {*} formula 
+ * @param {*} rollData 
+ */
+function _replaceSymbols(formula, rollData) {
+    if(rollData.psy) {
+        formula = formula.replaceAll(/PR/gi, rollData.psy.value);
+    }
+    for(let boni of rollData.attributeBoni) {
+        formula = formula.replaceAll(boni.regex, boni.value);
+    }
+    return formula;
 }
 
 async function _sendToChat(rollData) {

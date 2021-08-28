@@ -40,7 +40,6 @@ export async function prepareCommonRoll(rollData) {
 }
 
 export async function prepareCombatRoll(rollData, actorRef) {
-    let psyRatingRegex = /PR/gi;
     const html = await renderTemplate("systems/dark-heresy/template/dialog/combat-roll.html", rollData);
     let dialog = new Dialog({
         title: rollData.name,
@@ -60,12 +59,12 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     }
                     rollData.attackType = { text: "None", name: "none", modifier: 0};
                     const attackType = html.find("#attackType")[0];
-                    rollData.attackType.name = html.find("#attackType")[0].value;
+                    rollData.attackType.name = attackType.value;
                     rollData.attackType.text = attackType.options[attackType.selectedIndex].text;
-                    rollData.damageFormula = html.find("#damageFormula")[0].value.replace(psyRatingRegex, rollData.psy.value);
+                    rollData.damageFormula = html.find("#damageFormula")[0].value.replace(' ', '');
                     rollData.damageType = html.find("#damageType")[0].value;
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
-                    rollData.penetrationFormula = html.find("#penetration")[0].value.replace(psyRatingRegex, rollData.psy.value);
+                    rollData.penetrationFormula = html.find("#penetration")[0].value;
                     if (rollData.isRange && rollData.clip.max > 0) {
                         switch(rollData.attackType.name) {
                             case 'standard':
@@ -114,7 +113,6 @@ export async function prepareCombatRoll(rollData, actorRef) {
 }
 
 export async function preparePsychicPowerRoll(rollData) {
-    let psyRatingRegex = /PR/gi;
     const html = await renderTemplate("systems/dark-heresy/template/dialog/psychic-power-roll.html", rollData);
     let dialog = new Dialog({
         title: rollData.name,
@@ -128,11 +126,15 @@ export async function preparePsychicPowerRoll(rollData) {
                     rollData.baseTarget = parseInt(html.find("#target")[0].value, 10);
                     rollData.modifier = html.find("#modifier")[0].value;
                     rollData.psy.value = parseInt(html.find("#psy")[0].value, 10);
-                    rollData.damageFormula = html.find("#damageFormula")[0].value.replace(psyRatingRegex, rollData.psy.value);
+                    rollData.psy.warpConduit = html.find("#warpConduit")[0].checked
+                    rollData.damageFormula = html.find("#damageFormula")[0].value;
                     rollData.damageType = html.find("#damageType")[0].value;
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
-                    rollData.penetrationFormula = html.find("#penetration")[0].value.replace(psyRatingRegex, rollData.psy.value);
+                    rollData.penetrationFormula = html.find("#penetration")[0].value;
                     rollData.rateOfFire = { burst: rollData.psy.value, full: rollData.psy.value };
+                    const attackType = html.find("#attackType")[0];
+                    rollData.attackType.name = attackType.value;
+                    rollData.attackType.text = attackType.options[attackType.selectedIndex].text;
                     rollData.psy.useModifier = true;
                     await combatRoll(rollData);
                 },

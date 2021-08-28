@@ -73,9 +73,11 @@
                         <label>{{localize "PSYCHIC_POWER.ZONE"}}</label>
                         <select name="data.damage.zone">
                             {{#select data.damage.zone}}
+                                <option value="none">{{localize "ATTACK_TYPE.NONE"}}</option>
                                 <option value="bolt">{{localize "PSYCHIC_POWER.BOLT"}}</option>
                                 <option value="barrage">{{localize "PSYCHIC_POWER.BARRAGE"}}</option>
                                 <option value="storm">{{localize "PSYCHIC_POWER.STORM"}}</option>
+                                <option value="blast">{{localize "PSYCHIC_POWER.BLAST"}}</option>
                             {{/select}}
                         </select>
                     </div>

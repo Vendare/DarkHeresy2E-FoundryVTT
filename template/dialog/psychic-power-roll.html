@@ -12,8 +12,17 @@
         <div class="separator"></div>
         <div class="wrapper">
             <label>{{localize "DIALOG.PSY_RATING"}}</label>
-            <input id="psy" type="number" value="{{psy.value}}" data-dtype="Number"/>
+            <input id="rating" class="range" type="range" min="1" max="{{psy.max}}" value="{{psy.value}}" data-dtype="Number" />
+            <input id="psy" class="rangeBox" type="number" value="{{psy.value}}" data-dtype="Number" />
         </div>
+        <!--Done here because nothing else seemed to work. Open for better ideas-->
+        <script>
+            var slider = document.getElementById("rating");
+            var output = document.getElementById("psy");            
+            slider.oninput = function() {
+              output.value = this.value;
+            }
+        </script>
         <div class="wrapper damage">
             <label>{{localize "DIALOG.DAMAGE"}}</label>
             <input id="damageFormula" type="text" value="{{damageFormula}}"/>
@@ -30,12 +39,28 @@
             </select>
         </div>
         <div class="wrapper">
+            <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
+            <select id="attackType">
+                {{#select attackType.name}}
+                <option value="none">{{localize "ATTACK_TYPE.NONE"}}</option>
+                <option value="bolt">{{localize "PSYCHIC_POWER.BOLT"}}</option>
+                <option value="barrage">{{localize "PSYCHIC_POWER.BARRAGE"}}</option>
+                <option value="storm">{{localize "PSYCHIC_POWER.STORM"}}</option>
+                <option value="blast">{{localize "PSYCHIC_POWER.BLAST"}}</option>
+                {{/select}}
+            </select>
+        </div>
+        <div class="wrapper">
             <label>{{localize "DIALOG.BONUS"}}</label>
             <input id="damageBonus" type="number" value="{{damageBonus}}" data-dtype="Number"/>
         </div>
         <div class="wrapper">
             <label>{{localize "DIALOG.PENETRATION"}}</label>
             <input id="penetration" type="text" value="{{penetrationFormula}}"/>
+        </div>
+        <div class=wrapper>
+            <label>{{localize "DIALOG.WARPCONDUIT"}}</label>
+            <input id="warpConduit" type="checkbox" value="{{psy.warpConduit}}" />
         </div>
     </div>
 </div>

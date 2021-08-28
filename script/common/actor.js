@@ -64,15 +64,14 @@ export class DarkHeresyActor extends Actor {
             let short = skill.characteristics[0];
             let characteristic = this._findCharacteristic(short)
             skill.total = characteristic.total + skill.advance;
-            skill.advanceSkill = this._getAdvanceCharacteristic(skill.advance)
+            skill.advanceSkill = this._getAdvanceSkill(skill.advance)
             if (skill.isSpecialist) {
                 for (let speciality of Object.values(skill.specialities)) {
                     speciality.total = characteristic.total + speciality.advance;
                     speciality.isKnown = speciality.advance >= 0;
-                    skill.advanceSpec = this._getAdvanceCharacteristic(speciality.advance)
+                    skill.advanceSpec = this._getAdvanceSkill(speciality.advance)
                 }
             }
-
         }
     }
 
@@ -171,10 +170,10 @@ export class DarkHeresyActor extends Actor {
         let agility = this.characteristics.agility;
         let size = this.size;
         this.data.data.movement = {
-            half: agility.bonus + (size - 4),
-            full: (agility.bonus * 2) + (size - 4),
-            charge: (agility.bonus * 3) + (size - 4),
-            run: (agility.bonus * 6) + (size - 4)
+            half: agility.bonus + size - 4,
+            full: (agility.bonus + size - 4) * 2,
+            charge: (agility.bonus  + size - 4) * 3,
+            run: (agility.bonus + size - 4) * 6
         }
     }
 
