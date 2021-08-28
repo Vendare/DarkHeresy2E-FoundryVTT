@@ -57,3 +57,16 @@ function applyChatCardDamage(roll, multiplier) {
         return a.applyDamage(damages);
     }));
 }
+
+export const showRolls =(html) => {
+    // Show dice rolls on click
+    html.on("click", ".dark-heresy.chat.roll>.background.border", onChatRollClick);
+}
+
+function onChatRollClick(event) {
+    event.preventDefault();
+    let roll = $(event.currentTarget.parentElement),
+        tip = roll.find(".dice-rolls");
+    if ( !tip.is(":visible") ) tip.slideDown(200);
+    else tip.slideUp(200);
+}
