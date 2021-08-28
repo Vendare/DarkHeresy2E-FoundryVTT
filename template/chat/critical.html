@@ -4,7 +4,7 @@
         <h3>{{target}}</h3>
         <ul style="text-align: left; display: inline-block;">
             {{#each rolls}}
-            <li>{{appliedDmg}} {{damageTypeLong type}} as {{source}} </li>
+            <li>{{damage}} {{damageTypeLong type}} as {{source}} ({{localize location}})</li>
             {{/each}}
         </ul>
         <br>
