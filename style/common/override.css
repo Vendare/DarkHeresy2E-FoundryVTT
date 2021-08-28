@@ -3,29 +3,30 @@
 line-height: 31px;
 }
 #sidebar-tabs > .collapse {
-color: rgba(20, 50, 120, 0.9);
+  color: #483d33;
 }
 
 #sidebar.collapsed #sidebar-tabs > .item.active {
-border: 1px solid transparent;
+  border: 1px solid transparent;
 }
 
 #sidebar-tabs > .item.active {
-color: #f1f7fd;
-text-shadow: 0 0 5px #580951, 0 0 5px #a03939;
-border: 1px solid rgb(80 51 28);
-box-shadow: 0 0 12px inset #761616, 0 0 12px inset #1f0b03, 0 0 12px inset #9db9d2, 0 0 12px inset #FFFFFF;
+  color: #f1f7fd;
+  box-shadow: 0 0 10px inset #483d33;
+  text-shadow: 0 0 5px #483d33;
+  border: 1px solid black;
+  border-bottom: none;
 }
 
 #sidebar-tabs {
-color: rgb(130 25 25);
-border-bottom: 1px solid rgb(175 16 0);
-box-shadow: 0 0 10px #2f0000;
+  color: #483d33;
+  border-bottom: 1px solid #000;
+  box-shadow: 0 0 10px #483d33;
 }
 
 #sidebar-tabs a:hover {
 color: #FFF;
-text-shadow: 0 0 8px rgb(0 0 0 / 90%), 0 0 8px rgb(175 52 25 / 90%), 0 0 8px rgb(216 42 82 / 90%);
+text-shadow: 0 0 8px #483d33, 0 0 8px #483d33, 0 0 8px #483d33;
 -webkit-text-stroke-width: 1px;
 -webkit-text-stroke-color: rgba(255, 255, 255, 0.25);
 }
@@ -81,7 +82,7 @@ li.folder > .folder-header h3,
 li.folder > .folder-header .create-folder, li.folder > .folder-header .create-entity {
 color: #333;
 }
-}
+
 
 li.folder > .folder-header,
 li.folder.collapsed > .folder-header {
@@ -125,7 +126,7 @@ object-fit: cover;
 object-position: 50% 0;
 margin: 0 8px 0 2px;
 border-radius: 5px;
-} 
+}
 
 /* SCENES MENU */
 #scenes .scene h3 a:hover {
@@ -272,4 +273,9 @@ li.folder.collapsed > .folder-header {
 
 .window-app .window-content {
   background: url("../../asset/image/background.jpg") center;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1b0f08b8;
+  border: 1px solid #33333380;
 }
