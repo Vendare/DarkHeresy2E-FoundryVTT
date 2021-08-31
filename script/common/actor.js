@@ -111,7 +111,7 @@ export class DarkHeresyActor extends Actor {
             }
         }
         this.experience.totalSpent = this.experience.spentCharacteristics + this.experience.spentSkills + this.experience.spentTalents + this.experience.spentPsychicPowers;
-        this.experience.total = this.experience.value + this.experience.totalSpent;
+        this.experience.remaining = this.experience.value - this.experience.totalSpent;
     }
 
     _computeArmour() {
