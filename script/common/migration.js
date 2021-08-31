@@ -116,8 +116,12 @@ const migrateActorData = (actor, worldSchemaVersion) => {
     if(worldSchemaVersion < 5) {
         actor.prepareData();
         let  experience = actor.data.data?.experience;
-        let value = experience.value + experience.totalspent;
-        update["experience.value"] = value;
+        let value = experience?.value + experience?.totalspent;
+        // In case of an Error in the calculation don't do anything loosing data is worse
+        // than doing nothing in this case since the user can easily do this himself
+        if(value !== NaN && value !== undefined) {
+            update["data.experience.value"] = value;
+        }
     }
     return update;
 };
