@@ -47,16 +47,16 @@ export class DarkHeresyActor extends Actor {
         this.initiative.bonus = this.characteristics[this.initiative.characteristic].bonus;
         // done as variables to make it easier to read & understand
         let tb = Math.floor(
-            ( this.characteristics.toughness.base 
+            ( this.characteristics.toughness.base
             + this.characteristics.toughness.advance) / 10);
 
         let wb = Math.floor(
-            ( this.characteristics.willpower.base 
+            ( this.characteristics.willpower.base
             + this.characteristics.willpower.advance) / 10);
-        
+
         //the only thing not affected by itself
         this.fatigue.max = tb + wb;
-       
+
     }
 
     _computeSkills() {
@@ -116,9 +116,9 @@ export class DarkHeresyActor extends Actor {
 
     _computeArmour() {
         let locations = game.system.template.Item.armour.part;
-    
+
         let toughness = this.characteristics.toughness;
-    
+
         this.data.data.armour =
             Object.keys(locations)
                 .reduce((accumulator, location) =>
@@ -130,12 +130,12 @@ export class DarkHeresyActor extends Actor {
                                 value: 0
                             }
                         }), {});
-    
+
         // object for storing the max armour
         let maxArmour = Object.keys(locations)
             .reduce((acc, location) =>
                 Object.assign(acc, { [location]: 0 }), {})
-    
+
         // for each item, find the maximum armour val per location
         this.items
             .filter(item => item.type === "armour")
@@ -150,14 +150,14 @@ export class DarkHeresyActor extends Actor {
                     )
                 return acc;
             }, maxArmour);
-    
+
         this.armour.head.value = maxArmour["head"];
         this.armour.leftArm.value = maxArmour["leftArm"];
         this.armour.rightArm.value = maxArmour["rightArm"];
         this.armour.body.value = maxArmour["body"];
         this.armour.leftLeg.value = maxArmour["leftLeg"];
         this.armour.rightLeg.value = maxArmour["rightLeg"];
-    
+
         this.armour.head.total += this.armour.head.value;
         this.armour.leftArm.total += this.armour.leftArm.value;
         this.armour.rightArm.total += this.armour.rightArm.value;
@@ -282,7 +282,7 @@ export class DarkHeresyActor extends Actor {
             return "N";
         }
     }
-    
+
     _getAdvanceSkill(skill)
     {
         switch (skill || 0) {
@@ -315,7 +315,7 @@ export class DarkHeresyActor extends Actor {
     async applyDamage(damages) {
         let wounds = this.wounds.value;
         let criticalWounds = this.wounds.critical;
-        const dmgRolls = []
+        const damageTaken = []
         const maxWounds = this.wounds.max;
 
         // apply damage from multiple hits
@@ -333,44 +333,26 @@ export class DarkHeresyActor extends Actor {
                 woundsToAdd = 1
             } else if (damage.righteousFury) {
                 // roll on crit table but don't add critical wounds
-                dmgRolls.push({
-                    appliedDmg: damage.righteousFury,
-                    type: damage.type,
-                    source: 'Critical Effect (RF)'
-                })
+                this._recordDamage(damageTaken, damage.righteousFury, damage, 'Critical Effect (RF)')
             }
 
             // check for critical wounds
             if (wounds === maxWounds) {
                 // all new wounds are critical
                 criticalWounds += woundsToAdd;
-                dmgRolls.push({
-                    appliedDmg: woundsToAdd,
-                    type: damage.type,
-                    source: 'Critical Damage'
-                })
+                this._recordDamage(damageTaken, woundsToAdd, damage, 'Critical')
+
             } else if (wounds + woundsToAdd > maxWounds) {
                 // will bring wounds to max and add left overs as crits
-                dmgRolls.push({
-                    appliedDmg: maxWounds - wounds,
-                    type: damage.type,
-                    source: 'Wounds'
-                })
+                this._recordDamage(damageTaken, maxWounds - wounds, damage, 'Wounds')
+
                 woundsToAdd = (wounds + woundsToAdd) - maxWounds;
                 criticalWounds += woundsToAdd;
                 wounds = maxWounds;
-                dmgRolls.push({
-                    appliedDmg: woundsToAdd,
-                    type: damage.type,
-                    source: 'Critical'
-                });
+                this._recordDamage(damageTaken, woundsToAdd, damage, 'Critical')
             } else {
-                dmgRolls.push({
-                    appliedDmg: woundsToAdd,
-                    type: damage.type,
-                    source: 'Wounds'
-                })
-                wounds += woundsToAdd
+                this._recordDamage(damageTaken, woundsToAdd, damage, 'Wounds');
+                wounds += woundsToAdd;
             }
         }
 
@@ -388,8 +370,30 @@ export class DarkHeresyActor extends Actor {
             isBar: true
         }, updates);
 
-        await this._showCritMessage(dmgRolls, this.name, wounds, criticalWounds)
+        await this._showCritMessage(damageTaken, this.name, wounds, criticalWounds);
         return allowed !== false ? this.update(updates) : this;
+    }
+
+    /**
+     * Records damage to be shown as in chat
+     * @param {Object[]} damageRolls array to record damages
+     * @param {number} damageRolls.damage amount of damage dealt
+     * @param {string} damageRolls.source source of the damage e.g. Critical
+     * @param {string} damageRolls.location location taking the damage
+     * @param {string} damageRolls.type type of the damage
+     * @param {number} damage amount of damage dealt
+     * @param {Object} damageObject damage object containing location and type
+     * @param {string} damageObject.location damage location
+     * @param {string} damageObject.type damage type
+     * @param {string} source source of the damage
+     */
+    _recordDamage(damageRolls, damage, damageObject, source) {
+        damageRolls.push({
+            damage,
+            source,
+            location: damageObject.location,
+            type: damageObject.type
+        })
     }
 
     /**
@@ -420,7 +424,7 @@ export class DarkHeresyActor extends Actor {
      * Helper to show that an effect from the critical table needs to be applied.
      * TODO: This needs styling, rewording and ideally would roll on the crit tables for you
      * @param {Object[]} rolls Array of critical rolls
-     * @param {number} rolls.appliedDmg Number rolled on the crit table
+     * @param {number} rolls.damage Damage applied
      * @param {string} rolls.type Letter representing the damage type
      * @param {string} rolls.source What kind of damage represented
      * @param {string} rolls.location Where this damage applied against for armor and AP considerations
@@ -428,10 +432,10 @@ export class DarkHeresyActor extends Actor {
     async _showCritMessage(rolls, target, totalWounds, totalCritWounds) {
         if (rolls.length === 0) return;
         const html = await renderTemplate("systems/dark-heresy/template/chat/critical.html", {
-            rolls: rolls,
-            target: target,
-            totalWounds: totalWounds,
-            totalCritWounds: totalCritWounds
+            rolls,
+            target,
+            totalWounds,
+            totalCritWounds
         })
         ChatMessage.create({ content: html });
     }

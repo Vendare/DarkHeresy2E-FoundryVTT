@@ -112,7 +112,10 @@ function _computeDamage(formula, dos, penetration) {
         penetration: penetration,
         dices: [],
         result: "",
-        dos: dos
+        dos: dos,
+        formula: formula,
+        replaced: false,
+        damageRoll: r.render()
     };
     let diceResult = "";
     r.terms.forEach((term) => {
@@ -292,6 +295,12 @@ function _replaceSymbols(formula, rollData) {
 }
 
 async function _sendToChat(rollData) {
+    rollData.render = await rollData.rollObject.render()
+    // wait for any damage roll renders
+    if(rollData.damages){
+        rollData.damages.forEach(async d => d.damageRoll = await d.damageRoll)
+    }
+
     const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
     let chatData = {
         user: game.user.id,
