@@ -72,7 +72,13 @@
       "lang": "fr",
       "name": "Français",
       "path": "lang/fr.json"
+    },
+	  {
+      "lang": "pl",
+      "name": "Polski",
+      "path": "lang/pl.json"
     }
+  ],
   ],
   "gridDistance": 1,
   "gridUnits": "m",
