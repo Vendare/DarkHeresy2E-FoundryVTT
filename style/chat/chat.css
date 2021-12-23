@@ -14,10 +14,14 @@
     width: auto;
 }
 
+.dark-heresy.chat.roll h1{
+    height: auto;
+}
+
 .dark-heresy.chat h3 {
     font-family: var(--font-text);
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 25px;
+    font-weight: normal;
     padding: 5px 0;
     margin: 4px 0;
     text-align: center;
@@ -34,6 +38,10 @@
 
 .dark-heresy.chat strong {
     font-family: var(--font-text);
-    font-weight: bold;
-    font-size: 18px;
+    font-weight: normal;
+    font-size: 25px;
+}
+
+.dark-heresy.chat > .dice-rolls > .dice-roll-render {
+    margin-top: 10px;
 }

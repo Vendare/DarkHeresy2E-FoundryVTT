@@ -104,6 +104,10 @@
 
   "CHAT.SUCCESS": "Exito !",
   "CHAT.FAILURE": "Fallo !",
+  "CHAT.TEST_MODIFIER": "Modificador",
+  "CHAT.ATTACK_RANGE": "Rango",
+  "CHAT.ATTACK_TYPE": "Tipo",
+  "CHAT.ROLLED_WITH": "Lanzado con",
   "CHAT.DOS": "Grados de Exito",
   "CHAT.DOF": "Grados de Fallo",
   "CHAT.DAMAGE": "Daño",
@@ -139,10 +143,11 @@
   "DAMAGE_TYPE.ENERGY_SHORT": "E",
   "DAMAGE_TYPE.IMPACT_SHORT": "I",
   "DAMAGE_TYPE.RENDING_SHORT": "A",
-  "DAMAGE_TYPE.EXPLOSIVE_SHORT": "E",
+  "DAMAGE_TYPE.EXPLOSIVE_SHORT": "X",
 
   "DIALOG.CUSTOM_ROLL": "Tirada personalizada",
   "DIALOG.TARGET": "Objetivo",
+  "DIALOG.CLIP": "Munición Restante",
   "DIALOG.BONUS": "Bonus",
   "DIALOG.MODIFIER": "Modificador",
   "DIALOG.DAMAGE": "Daño",

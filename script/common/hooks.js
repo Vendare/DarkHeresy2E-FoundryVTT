@@ -30,8 +30,8 @@ import * as chat from "./chat.js";
 
 Hooks.once("init", () => {
     CONFIG.Combat.initiative = { formula: "@initiative.base + @initiative.bonus", decimals: 0 };
-    CONFIG.Actor.entityClass = DarkHeresyActor;
-    CONFIG.Item.entityClass = DarkHeresyItem;
+    CONFIG.Actor.documentClass = DarkHeresyActor;
+    CONFIG.Item.documentClass = DarkHeresyItem;
     CONFIG.fontFamilies.push("Caslon Antique");
     game.darkHeresy = {
         prepareCommonRoll,
@@ -71,25 +71,26 @@ Hooks.once("init", () => {
         default: 0,
         type: Number,
     });
+    // game.settings.register("dark-heresy", "defaultTokenDisplay", {
+    //     name: "Default token name display mode",
+    //     hint: "Choose default behavior on hovering on token names.",
+    //     scope: "world",
+    //     config: true,
+    //     type: String,
+    //     default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+    //     choices: {
+    //       [CONST.TOKEN_DISPLAY_MODES.NONE]: "Never Displayed",
+    //       [CONST.TOKEN_DISPLAY_MODES.CONTROL]: "When Controlled",
+    //       [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: "Hovered by Owner",
+    //       [CONST.TOKEN_DISPLAY_MODES.HOVER]: "Hovered by Anyone",
+    //       [CONST.TOKEN_DISPLAY_MODES.OWNER]: "Always for Owner",
+    //       [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: "Always for Everyone"
+    //     }
+    // });
 });
 
 Hooks.once("ready", () => {
     migrateWorld();
-});
-
-Hooks.on("preCreateActor", (createData) => {
-    mergeObject(createData, {
-        "token.bar1" :{ "attribute" : "wounds" },
-        "token.bar2" :{ "attribute" : "fatigue" },
-        "token.displayName" : CONST.TOKEN_DISPLAY_MODES.HOVER,
-        "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.ALWAYS,
-        "token.disposition" : CONST.TOKEN_DISPOSITIONS.NEUTRAL,
-        "token.name" : createData.name
-    });
-    if (createData.type === "acolyte") {
-        createData.token.vision = true;
-        createData.token.actorLink = true;
-    }
 });
 
 
@@ -98,3 +99,4 @@ Hooks.on("preCreateActor", (createData) => {
 /* -------------------------------------------- */
 
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
+Hooks.on("getChatLogEntryContext", chat.showRolls);

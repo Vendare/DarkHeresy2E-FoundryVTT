@@ -4,7 +4,11 @@
 }
 
 .dark-heresy.weapon .stats .stats-row .stat.class select {
-    width: 6em;
+    width: 5em;
+}
+
+.dark-heresy.weapon .stats .stats-row .stat.type select {
+    width: 5em;
 }
 
 .dark-heresy.weapon .stats .stats-row .stat.range input {

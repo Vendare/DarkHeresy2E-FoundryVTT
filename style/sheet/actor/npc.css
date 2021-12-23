@@ -15,11 +15,6 @@
     flex-basis: 40%;
 }
 
-.dark-heresy .npc .header .fate,
-.dark-heresy .npc .header .fatigue {
-    flex-basis: 23%;
-}
-
 .dark-heresy .npc .header .type select,
 .dark-heresy .npc .header .faction input,
 .dark-heresy .npc .header .threat-level input,

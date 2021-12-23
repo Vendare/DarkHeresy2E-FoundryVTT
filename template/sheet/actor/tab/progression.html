@@ -9,8 +9,8 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isAptitude}}
-                    <div class="aptitude item flex row" data-item-id="{{item._id}}">
-                        <div class="flex aptitude-row item-edit" title="{{removeMarkup item.data.description}}">
+                    <div class="aptitude item flex row" data-item-id="{{item.id}}">
+                        <div class="flex aptitude-row item-edit" title="{{removeMarkup item.description}}">
                             <div class="image-container">
                                 <div class="image" style="background-image: url('{{item.img}}')"></div>
                             </div>
@@ -36,14 +36,14 @@
             <div class="items">
                 {{#each actor.items as |item|}}
                     {{#if item.isTalent}}
-                        <div class="talent item flex row" data-item-id="{{item._id}}">
+                        <div class="talent item flex row" data-item-id="{{item.id}}">
                             <div class="flex talent-row item-edit">
                                 <div class="image-container">
                                     <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
                                 <div class="name">{{item.name}}</div>
                             </div>
-                            <input class="item-cost" type="number" value="{{item.data.cost}}" data-dtype="Number" />
+                            <input class="item-cost" type="number" value="{{item.cost}}" data-dtype="Number" />
                             <div class="button">
                                 <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
                             </div>
@@ -150,14 +150,14 @@
                 <div class="items">
                     {{#each actor.items as |item|}}
                         {{#if item.isPsychicPower}}
-                            <div class="psychic-power item flex row" data-item-id="{{item._id}}">
+                            <div class="psychic-power item flex row" data-item-id="{{item.id}}">
                                 <div class="flex psychic-powers-row item-edit">
                                     <div class="image-container">
                                         <div class="image" style="background-image: url('{{item.img}}')"></div>
                                     </div>
                                     <div class="name">{{item.name}}</div>
                                 </div>
-                                <input class="item-cost" type="number" value="{{item.data.cost}}" data-dtype="Number" />
+                                <input class="item-cost" type="number" value="{{item.cost}}" data-dtype="Number" />
                                 <div class="button">
                                     <a class="item-control item-delete" title="Delete Psychic Power"><i class="fas fa-trash"></i></a>
                                 </div>
