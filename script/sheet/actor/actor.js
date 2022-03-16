@@ -176,15 +176,17 @@ export class DarkHeresySheet extends ActorSheet {
     } else {
       rateOfFire = {burst: weapon.rateOfFire.burst, full: weapon.rateOfFire.full};
     }
+    //These weapon traits never go above 9 or below 2
+    let rfFace = this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, weapon.special);
+    let proven = this._extractNumberedTrait(/Proven.*\(\d\)/gi, weapon.special);
+    let primitive = this._extractNumberedTrait(/Primitive.*\(\d\)/gi, weapon.special);
+    let razorSharp = this._hasNamedTrait(/Razor.*Sharp/gi, weapon.special);
+    let skipAttackRoll = this._hasNamedTrait(/Flame/gi, weapon.special);
+    skipAttackRoll = skipAttackRoll || this._hasNamedTrait(/Spray/gi, weapon.special);
+
     let isMelee = weapon.class === "melee"
     let rollData = {
       item: weapon,
-    let weaponTraits = weapon.data.data.special
-    let rfFace = this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, weaponTraits);
-    let proven = this._extractNumberedTrait(/Proven.*\(\d\)/gi, weaponTraits);
-    let primitive = this._extractNumberedTrait(/Primitive.*\(\d\)/gi, weaponTraits);
-    let skipAttackRoll = this._extractNamedTrait(/Flame/gi, weaponTraits);
-    skipAttackRoll = skipAttackRoll || this._extractNamedTrait(/Spray/gi, weaponTraits);
       name: weapon.name,
       baseTarget: characteristic.total + weapon.attack,
       modifier: 0,
@@ -192,14 +194,15 @@ export class DarkHeresySheet extends ActorSheet {
       isMelee: isMelee,
       isRange: !isMelee,
       clip: weapon.clip,
-      damageFormula: weapon.damage + (isMelee && !weapon.damage.toUpperCase().includes("SB") ? "+SB" : ""),
+      damageFormula: weapon.damage + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : ""),
       damageBonus: 0,
       damageType: weapon.damageType,
       penetrationFormula: weapon.penetration,
-      primitive: primitive ? 10 : primitive,
-      proven: proven ? 0 : proven,
-      rfFace: rfFace ? 10 : rfFace,
-      rateOfFire: rateOfFire,
+      primitive: primitive,
+      proven: proven,
+      razorSharp: razorSharp,
+      rfFace: rfFace, // The alternativ die face Righteous Fury is triggered on
+      rateOfFire: rateOfFire,      
       special: weapon.special,
       psy: { value: this.actor.psy.rating, display: false}
     };
@@ -211,9 +214,9 @@ export class DarkHeresySheet extends ActorSheet {
     const div = $(event.currentTarget).parents(".item");
     const psychicPower = this.actor.items.get(div.data("itemId"));
     let focusPowerTarget = this._getFocusPowerTarget(psychicPower);
-    let characteristic = this._getPsychicPowerCharacteristic(psychicPower);
 
-    let rfFaces = this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, psychicPower.data.data.damage.special);   
+    let rfFaces = this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, psychicPower.damage.special);
+    let proven = this._extractNumberedTrait(/Proven.*\(\d\)/gi, weapon.special);   
 
     const rollData = {
       name: psychicPower.name,
@@ -225,10 +228,9 @@ export class DarkHeresySheet extends ActorSheet {
       damageType: psychicPower.damage.type,
       damageBonus: 0,
       penetrationFormula: psychicPower.damage.penetration,
-      attackType: { name: psychicPower.damage.zone, text: "" }
-      rfFaces: rfFaces ? 10 : rfFaces,
-      penetrationFormula: psychicPower.data.data.damage.penetration,
-      attackType: {name: psychicPower.data.data.zone}
+      attackType: { name: psychicPower.damage.zone, text: "" },
+      rfFaces: rfFaces, 
+      proven: proven
     };
     await preparePsychicPowerRoll(rollData);
   }
@@ -249,12 +251,12 @@ export class DarkHeresySheet extends ActorSheet {
     let rfMatch = traits.match(regex);
     if(rfMatch) {
       regex = /\d/gi
-      return Intger.parse(rfMatch[0].match(regex)[0]);
+      return parseInt(rfMatch[0].match(regex)[0]);
     }
     return undefined;
   }
 
-  _extractNamedTrait(regex, traits) {
+  _hasNamedTrait(regex, traits) {
     let rfMatch = traits.match(regex);
     if(rfMatch) {
       return true;

@@ -5,13 +5,13 @@ export async function commonRoll(rollData) {
 }
 
 export async function combatRoll(rollData) {
-    _computeTarget(rollData);
     if(rollData.skipAttackRoll) {
-        _rollDamage(rollData);
+        await _rollDamage(rollData);
     } else {
-        _rollTarget(rollData);
+        await _computeTarget(rollData);
+        await _rollTarget(rollData);
         if (rollData.isSuccess) {
-            _rollDamage(rollData);
+           await _rollDamage(rollData);
         }
     }
     await _sendToChat(rollData);
@@ -74,11 +74,20 @@ async function _rollDamage(rollData) {
     let formula = "0";
     rollData.damages = [];
     if (rollData.damageFormula) {
-        rollData.damageFormula =`${rollData.damageFormula}+${rollData.damageBonus}`
-        formula = _replaceSymbols(rollData.damageFormula, rollData);
+        formula = rollData.damageFormula;
+        
+        if(rollData.proven) { 
+            formula = _appendNumberedDiceModifier(formula, "min", rollData.proven);
+        }
+        if(rollData.primitive) {
+            formula = _appendNumberedDiceModifier(formula, "max", rollData.primitive);
+        }
+
+        formula =`${formula}+${rollData.damageBonus}`; 
+        rollData.damageFormula = _replaceSymbols(formula, rollData);
     }
     let penetration = await _rollPenetration(rollData);
-    let firstHit = await _computeDamage(formula, rollData.dos, penetration);
+    let firstHit = await _computeDamage(formula, rollData.dos, penetration, rollData.rfFace);
     if (firstHit.total !== 0) {
         const firstLocation = _getLocation(rollData.result);
         firstHit.location = firstLocation;
@@ -91,7 +100,7 @@ async function _rollDamage(rollData) {
             }
             rollData.numberOfHit = maxAdditionalHit + 1;
             for (let i = 0; i < maxAdditionalHit; i++) {
-                let additionalHit = await _computeDamage(formula, rollData.dos, penetration);
+                let additionalHit = await _computeDamage(formula, rollData.dos, penetration, rollData.rfFace);
                 additionalHit.location = _getAdditionalLocation(firstLocation, i);
                 additionalHit.formula = rollData.damageFormula;
                 rollData.damages.push(additionalHit);
@@ -107,7 +116,7 @@ async function _rollDamage(rollData) {
     }
 }
 
-function _computeDamage(formula, rollData, penetration) {
+async function _computeDamage(formula, dos, penetration, rfFace) {
     let r = new Roll(formula, {});
     await r.evaluate();
     let damage = {
@@ -124,29 +133,39 @@ function _computeDamage(formula, rollData, penetration) {
     let diceResult = "";
     r.terms.forEach((term) => {
         if (typeof term === 'object' && term !== null) {
-            term.results.forEach(result => {
-                if (result.active && result.result === rollData.rfFace) damage.righteousFury = _rollRighteousFury();
-                if (result.active && result.result < rollData.dos) damage.dices.push(result.result);
-                if (result.active && (typeof damage.minDice === "undefined" || result.result < damage.minDice)) damage.minDice = result.result;
-                diceResult += `+(${result.result})`;
+            rfFace = rfFace ? rfFace : term.faces; // without the Vengeful weapon trait rfFace is undefined
+            term.results?.forEach(result => {
+                let dieResult = result.count ? result.count : result.result; // result.count = actual value if modified by term
+                if (result.active && dieResult >= rfFace) damage.righteousFury = _rollRighteousFury();
+                if (result.active && dieResult < dos) damage.dices.push(dieResult);
+                if (result.active && (typeof damage.minDice === "undefined" || dieResult < damage.minDice)) damage.minDice = dieResult;
+                diceResult += `+(${dieResult})`;
             });
         }
     });
-    damage.result = formula.replace(/\dd\d*/gi, diceResult.substring(1));
+    damage.result = formula.replace(/\dd\d+/, diceResult.substring(1));
     return damage;
 }
 
 async function  _rollPenetration(rollData) {
     let penetration = (rollData.penetrationFormula) ? _replaceSymbols(rollData.penetrationFormula, rollData) : "0";
-    if (penetration.includes("("))
+    let multiplier = 1;
+
+    if (penetration.includes("(")) //Legacy Support
     {
-        if (rollData.dos >= 3)
-            penetration = parseInt(penetration.split("(")[1])
-        else penetration = parseInt(penetration)
+        if (rollData.dos >= 3) {
+            let rsValue = penetration.match(/\(d+\)/gi) // Get Razorsharp Value
+            penetration = penetration.replace(/d+.*\(d+\)/gi, rsValue) // Replace construct BaseValue(RazorsharpValue) with the extracted data
+        }
+            
+    } else if(rollData.razorsharp) {
+        if(rollData.dos >= 3) {
+            multiplier = 2;
+        }
     }
     let r = new Roll(penetration.toString(), {});
     await r.evaluate();
-    return r.total;
+    return r.total * multiplier;
 }
 
 async function _rollRighteousFury() {
@@ -298,8 +317,22 @@ function _replaceSymbols(formula, rollData) {
     return formula;
 }
 
+function _appendNumberedDiceModifier(formula, modifier, value) {
+    let diceRegex = /\dd\d+/
+    if(!formula.includes(modifier))
+    {
+        let match = formula.match(diceRegex);
+        if(match) {
+            let dice = match[0];
+            dice += `${modifier}${value}`;
+            formula = formula.replace(diceRegex, dice);
+        }
+    }
+    return formula;
+}
+
 async function _sendToChat(rollData) {
-    rollData.render = await rollData.rollObject.render()
+    rollData.render = await rollData.rollObject?.render()
     // wait for any damage roll renders
     if(rollData.damages){
         rollData.damages.forEach(async d => d.damageRoll = await d.damageRoll)
