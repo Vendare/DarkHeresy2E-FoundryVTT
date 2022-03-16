@@ -5,10 +5,14 @@ export async function commonRoll(rollData) {
 }
 
 export async function combatRoll(rollData) {
-    await _computeTarget(rollData);
-    await _rollTarget(rollData);
-    if (rollData.isSuccess) {
-        await _rollDamage(rollData);
+    _computeTarget(rollData);
+    if(rollData.skipAttackRoll) {
+        _rollDamage(rollData);
+    } else {
+        _rollTarget(rollData);
+        if (rollData.isSuccess) {
+            _rollDamage(rollData);
+        }
     }
     await _sendToChat(rollData);
 }
@@ -103,7 +107,7 @@ async function _rollDamage(rollData) {
     }
 }
 
-async function _computeDamage(formula, dos, penetration) {
+function _computeDamage(formula, rollData, penetration) {
     let r = new Roll(formula, {});
     await r.evaluate();
     let damage = {
@@ -119,10 +123,10 @@ async function _computeDamage(formula, dos, penetration) {
     };
     let diceResult = "";
     r.terms.forEach((term) => {
-        if (typeof term === 'object' && term !== null && term.results) {
-            term.results.forEach(async result => {
-                if (result.active && result.result === term.faces)  damage.righteousFury = await _rollRighteousFury();
-                if (result.active && result.result < dos) damage.dices.push(result.result);
+        if (typeof term === 'object' && term !== null) {
+            term.results.forEach(result => {
+                if (result.active && result.result === rollData.rfFace) damage.righteousFury = _rollRighteousFury();
+                if (result.active && result.result < rollData.dos) damage.dices.push(result.result);
                 if (result.active && (typeof damage.minDice === "undefined" || result.result < damage.minDice)) damage.minDice = result.result;
                 diceResult += `+(${result.result})`;
             });
