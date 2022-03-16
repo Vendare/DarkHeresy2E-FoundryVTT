@@ -1,14 +1,14 @@
 export async function commonRoll(rollData) {
-    _computeTarget(rollData);
-    _rollTarget(rollData);
+    await _computeTarget(rollData);
+    await _rollTarget(rollData);
     await _sendToChat(rollData);
 }
 
 export async function combatRoll(rollData) {
-    _computeTarget(rollData);
-    _rollTarget(rollData);
+    await _computeTarget(rollData);
+    await _rollTarget(rollData);
     if (rollData.isSuccess) {
-        _rollDamage(rollData);
+        await _rollDamage(rollData);
     }
     await _sendToChat(rollData);
 }
@@ -17,7 +17,7 @@ export async function reportEmptyClip(rollData) {
     await _emptyClipToChat(rollData);
 }
 
-function _computeTarget(rollData) {
+async function _computeTarget(rollData) {
     const range = (rollData.range) ? rollData.range : "0";
     let attackType = 0;
     if (typeof rollData.attackType !== "undefined" && rollData.attackType != null) {
@@ -33,13 +33,13 @@ function _computeTarget(rollData) {
         psyModifier = (rollData.psy.rating - rollData.psy.value) * 10;
         rollData.psy.push = psyModifier < 0;
         if(rollData.psy.push && rollData.psy.warpConduit) {
-            let ratingBonus = new Roll("1d5").evaluate().total;
+            let ratingBonus = await (new Roll("1d5").evaluate()).total;
             rollData.psy.value += ratingBonus
         }
     }
     const formula = `0 + ${rollData.modifier} + ${range} + ${attackType} + ${psyModifier}`;
     let r = new Roll(formula, {});
-    r.evaluate();
+    await r.evaluate();
     if (r.total > 60) {
         rollData.target = rollData.baseTarget + 60;
     } else if (r.total < -60) {
@@ -50,9 +50,9 @@ function _computeTarget(rollData) {
     rollData.rollObject = r;
 }
 
-function _rollTarget(rollData) {
+async function _rollTarget(rollData) {
     let r = new Roll("1d100", {});
-    r.evaluate();
+    await r.evaluate();
     rollData.result = r.total;
     rollData.rollObject = r;
     rollData.isSuccess = rollData.result <= rollData.target;
@@ -66,15 +66,15 @@ function _rollTarget(rollData) {
     if (typeof rollData.psy !== "undefined") _computePsychicPhenomena(rollData);
 }
 
-function _rollDamage(rollData) {
+async function _rollDamage(rollData) {
     let formula = "0";
     rollData.damages = [];
     if (rollData.damageFormula) {
         rollData.damageFormula =`${rollData.damageFormula}+${rollData.damageBonus}`
         formula = _replaceSymbols(rollData.damageFormula, rollData);
     }
-    let penetration = _rollPenetration(rollData);
-    let firstHit = _computeDamage(formula, rollData.dos, penetration);
+    let penetration = await _rollPenetration(rollData);
+    let firstHit = await _computeDamage(formula, rollData.dos, penetration);
     if (firstHit.total !== 0) {
         const firstLocation = _getLocation(rollData.result);
         firstHit.location = firstLocation;
@@ -87,7 +87,7 @@ function _rollDamage(rollData) {
             }
             rollData.numberOfHit = maxAdditionalHit + 1;
             for (let i = 0; i < maxAdditionalHit; i++) {
-                let additionalHit = _computeDamage(formula, rollData.dos, penetration);
+                let additionalHit = await _computeDamage(formula, rollData.dos, penetration);
                 additionalHit.location = _getAdditionalLocation(firstLocation, i);
                 additionalHit.formula = rollData.damageFormula;
                 rollData.damages.push(additionalHit);
@@ -103,9 +103,9 @@ function _rollDamage(rollData) {
     }
 }
 
-function _computeDamage(formula, dos, penetration) {
+async function _computeDamage(formula, dos, penetration) {
     let r = new Roll(formula, {});
-    r.evaluate();
+    await r.evaluate();
     let damage = {
         total: r.total,
         righteousFury: 0,
@@ -120,8 +120,8 @@ function _computeDamage(formula, dos, penetration) {
     let diceResult = "";
     r.terms.forEach((term) => {
         if (typeof term === 'object' && term !== null && term.results) {
-            term.results.forEach(result => {
-                if (result.active && result.result === term.faces)  damage.righteousFury = _rollRighteousFury();
+            term.results.forEach(async result => {
+                if (result.active && result.result === term.faces)  damage.righteousFury = await _rollRighteousFury();
                 if (result.active && result.result < dos) damage.dices.push(result.result);
                 if (result.active && (typeof damage.minDice === "undefined" || result.result < damage.minDice)) damage.minDice = result.result;
                 diceResult += `+(${result.result})`;
@@ -132,7 +132,7 @@ function _computeDamage(formula, dos, penetration) {
     return damage;
 }
 
-function _rollPenetration(rollData) {
+async function  _rollPenetration(rollData) {
     let penetration = (rollData.penetrationFormula) ? _replaceSymbols(rollData.penetrationFormula, rollData) : "0";
     if (penetration.includes("("))
     {
@@ -141,13 +141,13 @@ function _rollPenetration(rollData) {
         else penetration = parseInt(penetration)
     }
     let r = new Roll(penetration.toString(), {});
-    r.evaluate();
+    await r.evaluate();
     return r.total;
 }
 
-function _rollRighteousFury() {
+async function _rollRighteousFury() {
     let r = new Roll("1d5", {});
-    r.evaluate();
+    await r.evaluate();
     return r.total;
 }
 
