@@ -1,6 +1,6 @@
 <div class="dark-heresy chat roll">
     <div class="background border">
-        {{# unless skipAttackRoll}}
+        {{# unless weaponTraits.skipAttackRoll}}
             <h1>{{name}} ({{target}})</h1>
             {{#if isSuccess}}
             <h3><span style="color: var(--color-success)">{{localize "CHAT.SUCCESS"}}</span> ({{result}})</h3>
@@ -49,7 +49,7 @@
         {{/unless}}
         {{#each damages as |damage|}}
             <h3 class="separator damage-location" data-location={{location}}>{{localize location}}</h3>
-            <div title="{{damage.formula}} = {{damage.result}}">
+            <div>
                 <p><strong>{{localize "CHAT.DAMAGE"}}:</strong> <span class="damage-total">{{damage.total}}</span> 
                    <strong class="damage-type">{{../item.DamageTypeShort}}</strong>
                 </p>
@@ -62,7 +62,7 @@
     </div>
     
     <div class="dice-rolls" style="display:none">
-        {{# unless skipAttackRoll}}
+        {{# unless weaponTraits.skipAttackRoll}}
             <div class="dice-roll-render">
                 {{{render}}}
             </div>

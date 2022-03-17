@@ -5,9 +5,11 @@ export async function commonRoll(rollData) {
 }
 
 export async function combatRoll(rollData) {
-    if(rollData.skipAttackRoll) {
+    if(rollData.weaponTraits.skipAttackRoll) {
         rollData.result = 5 // Attacks that skip the hit roll always hit body; 05 reversed 50 = body
         await _rollDamage(rollData);
+        //Without a To Hit Roll we need a substitute otherwise foundry can't render the message
+        rollData.rollObject = rollData.damages[0].damageRoll;
     } else {
         await _computeTarget(rollData);
         await _rollTarget(rollData);
@@ -77,18 +79,21 @@ async function _rollDamage(rollData) {
     if (rollData.damageFormula) {
         formula = rollData.damageFormula;
         
-        if(rollData.proven) { 
-            formula = _appendNumberedDiceModifier(formula, "min", rollData.proven);
+        if(rollData.weaponTraits.tearing) {
+            formula = _appendTearing(formula);
         }
-        if(rollData.primitive) {
-            formula = _appendNumberedDiceModifier(formula, "max", rollData.primitive);
+        if(rollData.weaponTraits.proven) { 
+            formula = _appendNumberedDiceModifier(formula, "min", rollData.weaponTraits.proven);
+        }
+        if(rollData.weaponTraits.primitive) {
+            formula = _appendNumberedDiceModifier(formula, "max", rollData.weaponTraits.primitive);
         }
 
         formula =`${formula}+${rollData.damageBonus}`; 
         rollData.damageFormula = _replaceSymbols(formula, rollData);
     }
     let penetration = await _rollPenetration(rollData);
-    let firstHit = await _computeDamage(rollData.damageFormula, rollData.dos, penetration, rollData.rfFace);
+    let firstHit = await _computeDamage(penetration, rollData);
     if (firstHit.total !== 0) {
         const firstLocation = _getLocation(rollData.result);
         firstHit.location = firstLocation;
@@ -101,7 +106,7 @@ async function _rollDamage(rollData) {
             }
             rollData.numberOfHit = maxAdditionalHit + 1;
             for (let i = 0; i < maxAdditionalHit; i++) {
-                let additionalHit = await _computeDamage(rollData.damageFormula, rollData.dos, penetration, rollData.rfFace);
+                let additionalHit = await _computeDamage(penetration, rollData);
                 additionalHit.location = _getAdditionalLocation(firstLocation, i);
                 additionalHit.formula = rollData.damageFormula;
                 rollData.damages.push(additionalHit);
@@ -112,39 +117,40 @@ async function _rollDamage(rollData) {
         let minDamage = rollData.damages.reduce((min, damage) => min.minDice < damage.minDice ? min : damage, rollData.damages[0]);
         if (minDamage.minDice < rollData.dos) {
           minDamage.total += (rollData.dos - minDamage.minDice)
-          minDamage.result =  minDamage.result.replace(`(${minDamage.minDice})`, `(${minDamage.minDice} -> DoS: ${rollData.dos})`);
         };
     }
 }
 
-async function _computeDamage(formula, dos, penetration, rfFace) {
-    let r = new Roll(formula);
+async function _computeDamage(penetration, rollData) {
+    let r = new Roll(rollData.damageFormula);
     await r.evaluate();
     let damage = {
         total: r.total,
         righteousFury: 0,
+        dices: [],
         penetration: penetration,
-        result: "",
-        dos: dos,
-        formula: formula,
+        dos: rollData.dos,
+        formula: rollData.damageFormula,
         replaced: false,
-        damageRoll: r,
         damageRender: await r.render()
     };
-    let diceResult = "";
+
+    //Without a To Hit we a roll to associate the chat message with
+    if(rollData.weaponTraits.skipAttackRoll) {
+        damage.damageRoll = r;
+    }
+
     r.terms.forEach((term) => {
         if (typeof term === 'object' && term !== null) {
-            rfFace = rfFace ? rfFace : term.faces; // without the Vengeful weapon trait rfFace is undefined
+            let rfFace = rollData.weaponTraits.rfFace ? rollData.weaponTraits.rfFace : term.faces; // without the Vengeful weapon trait rfFace is undefined
             term.results?.forEach(async result => {
                 let dieResult = result.count ? result.count : result.result; // result.count = actual value if modified by term
                 if (result.active && dieResult >= rfFace) damage.righteousFury = await _rollRighteousFury();
-                if (result.active && dieResult < dos) damage.dices.push(dieResult);
+                if (result.active && dieResult < rollData.dos) damage.dices.push(dieResult);
                 if (result.active && (typeof damage.minDice === "undefined" || dieResult < damage.minDice)) damage.minDice = dieResult;
-                diceResult += `+(${dieResult})`;
             });
         }
     });
-    damage.result = formula.replace(/\dd\d+/, diceResult.substring(1));
     return damage;
 }
 
@@ -164,7 +170,7 @@ async function  _rollPenetration(rollData) {
             multiplier = 2;
         }
     }
-    let r = new Roll(penetration.toString(), {});
+    let r = new Roll(penetration.toString());
     await r.evaluate();
     return r.total * multiplier;
 }
@@ -319,7 +325,7 @@ function _replaceSymbols(formula, rollData) {
 }
 
 function _appendNumberedDiceModifier(formula, modifier, value) {
-    let diceRegex = /\dd\d+/
+    let diceRegex = /\d+d\d+/;
     if(!formula.includes(modifier))
     {
         let match = formula.match(diceRegex);
@@ -332,16 +338,24 @@ function _appendNumberedDiceModifier(formula, modifier, value) {
     return formula;
 }
 
+function _appendTearing(formula) {
+    let diceRegex = /\d+d\d+/;
+    if(!formula.match(/dl|kh/gi, formula)) { // already has drop lowest or keep highest
+        let match = formula.match(/\d+/g, formula)
+        let numDice = parseInt(match[0]) + 1;
+        let faces = parseInt(match[1]);
+        let diceTerm = `${numDice}d${faces}dl`;
+        formula = formula.replace(diceRegex, diceTerm);
+    }
+    return formula;
+}
+
 async function _sendToChat(rollData) {
-    let chatData = {}
-    rollData.render = await rollData.rollObject?.render()    
+    let chatData = {};       
     
     if(rollData.rollObject){
+        rollData.render = await rollData.rollObject.render() 
         chatData.roll = rollData.rollObject;
-    
-    //Without a To Hit Roll we need a substitute otherwise foundry can't render the message
-    } else if (rollData.skipAttackRoll) {
-        chatData.roll = rollData.damages[0].damageRoll;
     }
     const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
     

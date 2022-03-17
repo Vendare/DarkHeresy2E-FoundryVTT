@@ -1,7 +1,7 @@
 <div class="dark-heresy dialog">
     <div class="flex row wrap background border" style="flex-basis: 100%;margin-bottom: 5px">        
         <h1>{{localize name}}</h1>
-        {{#unless skipAttackRoll}}
+        {{#unless weaponTraits.skipAttackRoll}}
             <div class="wrapper">
                 <label>{{localize "DIALOG.TARGET"}}</label>
                 <input id="target" type="number" value="{{baseTarget}}" data-dtype="Number"/>

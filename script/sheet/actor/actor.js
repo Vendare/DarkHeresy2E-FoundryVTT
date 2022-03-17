@@ -176,12 +176,6 @@ export class DarkHeresySheet extends ActorSheet {
     } else {
       rateOfFire = {burst: weapon.rateOfFire.burst, full: weapon.rateOfFire.full};
     }
-    //These weapon traits never go above 9 or below 2
-    let rfFace = this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, weapon.special);
-    let proven = this._extractNumberedTrait(/Proven.*\(\d\)/gi, weapon.special);
-    let primitive = this._extractNumberedTrait(/Primitive.*\(\d\)/gi, weapon.special);
-    let razorSharp = this._hasNamedTrait(/Razor.*Sharp/gi, weapon.special);
-    let skipAttackRoll = this._hasNamedTrait(/Spray/gi, weapon.special);
 
     let isMelee = weapon.class === "melee"
     let rollData = {
@@ -197,13 +191,9 @@ export class DarkHeresySheet extends ActorSheet {
       damageBonus: 0,
       damageType: weapon.damageType,
       penetrationFormula: weapon.penetration,
-      skipAttackRoll: skipAttackRoll,
-      primitive: primitive,
-      proven: proven,
-      razorSharp: razorSharp,
-      rfFace: rfFace, // The alternativ die face Righteous Fury is triggered on
-      rateOfFire: rateOfFire,      
+      weaponTraits : this._extractWeaponTraits(weapon.special),
       special: weapon.special,
+      rateOfFire: rateOfFire,
       psy: { value: this.actor.psy.rating, display: false}
     };
     await prepareCombatRoll(rollData, this.actor);
@@ -213,10 +203,7 @@ export class DarkHeresySheet extends ActorSheet {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
     const psychicPower = this.actor.items.get(div.data("itemId"));
-    let focusPowerTarget = this._getFocusPowerTarget(psychicPower);
-
-    let rfFaces = this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, psychicPower.damage.special);
-    let proven = this._extractNumberedTrait(/Proven.*\(\d\)/gi, weapon.special);   
+    let focusPowerTarget = this._getFocusPowerTarget(psychicPower);  
 
     const rollData = {
       name: psychicPower.name,
@@ -224,15 +211,26 @@ export class DarkHeresySheet extends ActorSheet {
       modifier: psychicPower.focusPower.difficulty,
       attributeBoni: this._getAttributeBoni(),
       damageFormula: psychicPower.damage.formula,
-      psy: { value: this.actor.psy.rating, rating: this.actor.psy.rating, max: this._getMaxPsyRating(), warpConduit:false, display: true},
       damageType: psychicPower.damage.type,
       damageBonus: 0,
       penetrationFormula: psychicPower.damage.penetration,
       attackType: { name: psychicPower.damage.zone, text: "" },
-      rfFaces: rfFaces, 
-      proven: proven
+      weaponTraits : this._extractWeaponTraits(psychicPower.damage.special),
+      psy: { value: this.actor.psy.rating, rating: this.actor.psy.rating, max: this._getMaxPsyRating(), warpConduit:false, display: true}
     };
     await preparePsychicPowerRoll(rollData);
+  }
+
+  _extractWeaponTraits(traits) {
+    //These weapon traits never go above 9 or below 2 
+    return {
+        rfFace : this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
+        proven : this._extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
+        primitive : this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
+        razorSharp : this._hasNamedTrait(/Razor.*Sharp/gi, traits),
+        skipAttackRoll : this._hasNamedTrait(/Spray/gi, traits),
+        tearing : this._hasNamedTrait(/Tearing/gi, traits)
+    }
   }
 
   _getMaxPsyRating() {
@@ -250,7 +248,7 @@ export class DarkHeresySheet extends ActorSheet {
   _extractNumberedTrait(regex, traits) {
     let rfMatch = traits.match(regex);
     if(rfMatch) {
-      regex = /\d/gi
+      regex = /\d+/gi
       return parseInt(rfMatch[0].match(regex)[0]);
     }
     return undefined;
