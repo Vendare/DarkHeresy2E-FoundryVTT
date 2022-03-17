@@ -6,6 +6,7 @@ export async function commonRoll(rollData) {
 
 export async function combatRoll(rollData) {
     if(rollData.skipAttackRoll) {
+        rollData.result = 5 // Attacks that skip the hit roll always hit body; 05 reversed 50 = body
         await _rollDamage(rollData);
     } else {
         await _computeTarget(rollData);
@@ -87,7 +88,7 @@ async function _rollDamage(rollData) {
         rollData.damageFormula = _replaceSymbols(formula, rollData);
     }
     let penetration = await _rollPenetration(rollData);
-    let firstHit = await _computeDamage(formula, rollData.dos, penetration, rollData.rfFace);
+    let firstHit = await _computeDamage(rollData.damageFormula, rollData.dos, penetration, rollData.rfFace);
     if (firstHit.total !== 0) {
         const firstLocation = _getLocation(rollData.result);
         firstHit.location = firstLocation;
@@ -100,7 +101,7 @@ async function _rollDamage(rollData) {
             }
             rollData.numberOfHit = maxAdditionalHit + 1;
             for (let i = 0; i < maxAdditionalHit; i++) {
-                let additionalHit = await _computeDamage(formula, rollData.dos, penetration, rollData.rfFace);
+                let additionalHit = await _computeDamage(rollData.damageFormula, rollData.dos, penetration, rollData.rfFace);
                 additionalHit.location = _getAdditionalLocation(firstLocation, i);
                 additionalHit.formula = rollData.damageFormula;
                 rollData.damages.push(additionalHit);
@@ -117,26 +118,26 @@ async function _rollDamage(rollData) {
 }
 
 async function _computeDamage(formula, dos, penetration, rfFace) {
-    let r = new Roll(formula, {});
+    let r = new Roll(formula);
     await r.evaluate();
     let damage = {
         total: r.total,
         righteousFury: 0,
         penetration: penetration,
-        dices: [],
         result: "",
         dos: dos,
         formula: formula,
         replaced: false,
-        damageRoll: r.render()
+        damageRoll: r,
+        damageRender: await r.render()
     };
     let diceResult = "";
     r.terms.forEach((term) => {
         if (typeof term === 'object' && term !== null) {
             rfFace = rfFace ? rfFace : term.faces; // without the Vengeful weapon trait rfFace is undefined
-            term.results?.forEach(result => {
+            term.results?.forEach(async result => {
                 let dieResult = result.count ? result.count : result.result; // result.count = actual value if modified by term
-                if (result.active && dieResult >= rfFace) damage.righteousFury = _rollRighteousFury();
+                if (result.active && dieResult >= rfFace) damage.righteousFury = await _rollRighteousFury();
                 if (result.active && dieResult < dos) damage.dices.push(dieResult);
                 if (result.active && (typeof damage.minDice === "undefined" || dieResult < damage.minDice)) damage.minDice = dieResult;
                 diceResult += `+(${dieResult})`;
@@ -169,7 +170,7 @@ async function  _rollPenetration(rollData) {
 }
 
 async function _rollRighteousFury() {
-    let r = new Roll("1d5", {});
+    let r = new Roll("1d5");
     await r.evaluate();
     return r.total;
 }
@@ -332,23 +333,23 @@ function _appendNumberedDiceModifier(formula, modifier, value) {
 }
 
 async function _sendToChat(rollData) {
-    rollData.render = await rollData.rollObject?.render()
-    // wait for any damage roll renders
-    if(rollData.damages){
-        rollData.damages.forEach(async d => d.damageRoll = await d.damageRoll)
-    }
-
-    const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
-    let chatData = {
-        user: game.user.id,
-        rollMode: game.settings.get("core", "rollMode"),
-        content: html,
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL
-    };
+    let chatData = {}
+    rollData.render = await rollData.rollObject?.render()    
+    
     if(rollData.rollObject){
         chatData.roll = rollData.rollObject;
-
+    
+    //Without a To Hit Roll we need a substitute otherwise foundry can't render the message
+    } else if (rollData.skipAttackRoll) {
+        chatData.roll = rollData.damages[0].damageRoll;
     }
+    const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
+    
+    chatData.user = game.user.id,
+    chatData.rollMode = game.settings.get("core", "rollMode"),
+    chatData.content = html,
+    chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL    
+   
     if (["gmroll", "blindroll"].includes(chatData.rollMode)) {
         chatData.whisper = ChatMessage.getWhisperRecipients("GM");
     } else if (chatData.rollMode === "selfroll") {

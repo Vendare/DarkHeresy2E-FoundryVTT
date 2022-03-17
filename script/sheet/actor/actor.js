@@ -181,8 +181,7 @@ export class DarkHeresySheet extends ActorSheet {
     let proven = this._extractNumberedTrait(/Proven.*\(\d\)/gi, weapon.special);
     let primitive = this._extractNumberedTrait(/Primitive.*\(\d\)/gi, weapon.special);
     let razorSharp = this._hasNamedTrait(/Razor.*Sharp/gi, weapon.special);
-    let skipAttackRoll = this._hasNamedTrait(/Flame/gi, weapon.special);
-    skipAttackRoll = skipAttackRoll || this._hasNamedTrait(/Spray/gi, weapon.special);
+    let skipAttackRoll = this._hasNamedTrait(/Spray/gi, weapon.special);
 
     let isMelee = weapon.class === "melee"
     let rollData = {
@@ -198,6 +197,7 @@ export class DarkHeresySheet extends ActorSheet {
       damageBonus: 0,
       damageType: weapon.damageType,
       penetrationFormula: weapon.penetration,
+      skipAttackRoll: skipAttackRoll,
       primitive: primitive,
       proven: proven,
       razorSharp: razorSharp,
