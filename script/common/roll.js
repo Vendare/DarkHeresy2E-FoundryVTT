@@ -161,8 +161,8 @@ async function  _rollPenetration(rollData) {
     if (penetration.includes("(")) //Legacy Support
     {
         if (rollData.dos >= 3) {
-            let rsValue = penetration.match(/\(d+\)/gi) // Get Razorsharp Value
-            penetration = penetration.replace(/d+.*\(d+\)/gi, rsValue) // Replace construct BaseValue(RazorsharpValue) with the extracted data
+            let rsValue = penetration.match(/\(\d+\)/gi) // Get Razorsharp Value
+            penetration = penetration.replace(/\d+.*\(\d+\)/gi, rsValue) // Replace construct BaseValue(RazorsharpValue) with the extracted data
         }
             
     } else if(rollData.razorsharp) {
