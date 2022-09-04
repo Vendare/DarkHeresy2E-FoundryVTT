@@ -19,8 +19,10 @@ export class DarkHeresySheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    data.data = data.data.data
-    return data
+    return {
+      actor: data.actor,
+      system : data.data.system
+    };
   }
 
   /** @override */

@@ -40,13 +40,13 @@ async function _computeTarget(rollData) {
         psyModifier = (rollData.psy.rating - rollData.psy.value) * 10;
         rollData.psy.push = psyModifier < 0;
         if(rollData.psy.push && rollData.psy.warpConduit) {
-            let ratingBonus = await (new Roll("1d5").evaluate()).total;
+            let ratingBonus = await (new Roll("1d5").evaluate({async:false})).total;
             rollData.psy.value += ratingBonus
         }
     }
     const formula = `0 + ${rollData.modifier} + ${range} + ${attackType} + ${psyModifier}`;
     let r = new Roll(formula, {});
-    await r.evaluate();
+    await r.evaluate({async:false});
     if (r.total > 60) {
         rollData.target = rollData.baseTarget + 60;
     } else if (r.total < -60) {
@@ -59,7 +59,7 @@ async function _computeTarget(rollData) {
 
 async function _rollTarget(rollData) {
     let r = new Roll("1d100", {});
-    await r.evaluate();
+    await r.evaluate({async:false});
     rollData.result = r.total;
     rollData.rollObject = r;
     rollData.isSuccess = rollData.result <= rollData.target;
@@ -123,7 +123,7 @@ async function _rollDamage(rollData) {
 
 async function _computeDamage(penetration, rollData) {
     let r = new Roll(rollData.damageFormula);
-    await r.evaluate();
+    await r.evaluate({async:false});
     let damage = {
         total: r.total,
         righteousFury: 0,
@@ -171,13 +171,13 @@ async function  _rollPenetration(rollData) {
         }
     }
     let r = new Roll(penetration.toString());
-    await r.evaluate();
+    await r.evaluate({async:false});
     return r.total * multiplier;
 }
 
 async function _rollRighteousFury() {
     let r = new Roll("1d5");
-    await r.evaluate();
+    await r.evaluate({async:false});
     return r.total;
 }
 
