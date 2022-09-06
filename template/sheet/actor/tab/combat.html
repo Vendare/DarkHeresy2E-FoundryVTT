@@ -3,15 +3,15 @@
         <h1>{{localize "TITLE.WOUNDS"}}</h1>
         <div class="information">
             <label>{{localize "WOUND.TOTAL"}}</label>
-            <input name="data.wounds.max" type="number" value="{{data.wounds.max}}" data-dtype="Number" />
+            <input name="system.wounds.max" type="number" value="{{system.wounds.max}}" data-dtype="Number" />
         </div>
         <div class="information">
             <label>{{localize "WOUND.CURRENT"}}</label>
-            <input name="data.wounds.value" type="number" value="{{data.wounds.value}}" data-dtype="Number" />
+            <input name="system.wounds.value" type="number" value="{{system.wounds.value}}" data-dtype="Number" />
         </div>
         <div class="information">
             <label>{{localize "WOUND.CRITICAL_DAMAGE"}}</label>
-            <input name="data.wounds.critical" type="number" value="{{data.wounds.critical}}" data-dtype="Number" />
+            <input name="system.wounds.critical" type="number" value="{{system.wounds.critical}}" data-dtype="Number" />
         </div>
         <div class="item-list">
             <div class="flex header">
@@ -42,52 +42,52 @@
         <div class="armour-row">
             <div class="part" style="margin-right: 25px">
                 <div class="name">{{localize "ARMOUR.HEAD"}}</div>
-                <input class="total" type="number" value="{{data.armour.head.total}}" data-dtype="Number" disabled />
+                <input class="total" type="number" value="{{system.armour.head.total}}" data-dtype="Number" disabled />
                 <div class="information">
-                    <input type="number" value="{{data.armour.head.toughnessBonus}}" data-dtype="Number" disabled />
-                    <input type="number" value="{{data.armour.head.value}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.head.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.head.value}}" data-dtype="Number" disabled />
                 </div>
             </div>
         </div>
         <div class="armour-row">
             <div class="part">
                 <div class="name">{{localize "ARMOUR.LEFT_ARM"}}</div>
-                <input class="total" type="number" value="{{data.armour.leftArm.total}}" data-dtype="Number" disabled />
+                <input class="total" type="number" value="{{system.armour.leftArm.total}}" data-dtype="Number" disabled />
                 <div class="information">
-                    <input type="number" value="{{data.armour.leftArm.toughnessBonus}}" data-dtype="Number" disabled />
-                    <input type="number" value="{{data.armour.leftArm.value}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.leftArm.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.leftArm.value}}" data-dtype="Number" disabled />
                 </div>
                 <div class="information">
-                    <input type="number" value="{{data.armour.rightArm.toughnessBonus}}" data-dtype="Number" disabled />
-                    <input type="number" value="{{data.armour.rightArm.value}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.rightArm.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.rightArm.value}}" data-dtype="Number" disabled />
                 </div>
-                <input class="total" type="number" value="{{data.armour.rightArm.total}}" data-dtype="Number" disabled />
+                <input class="total" type="number" value="{{system.armour.rightArm.total}}" data-dtype="Number" disabled />
                 <div class="name">{{localize "ARMOUR.RIGHT_ARM"}}</div>
             </div>
         </div>
         <div class="armour-row">
             <div class="part" style="margin-right: 25px">
                 <div class="name">{{localize "ARMOUR.BODY"}}</div>
-                <input class="total" type="number" value="{{data.armour.body.total}}" data-dtype="Number" disabled />
+                <input class="total" type="number" value="{{system.armour.body.total}}" data-dtype="Number" disabled />
                 <div class="information">
-                    <input type="number" value="{{data.armour.body.toughnessBonus}}" data-dtype="Number" disabled />
-                    <input type="number" value="{{data.armour.body.value}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.body.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.body.value}}" data-dtype="Number" disabled />
                 </div>
             </div>
         </div>
         <div class="armour-row">
             <div class="part">
                 <div class="name">{{localize "ARMOUR.LEFT_LEG"}}</div>
-                <input class="total" type="number" value="{{data.armour.leftLeg.total}}" data-dtype="Number" disabled />
+                <input class="total" type="number" value="{{system.armour.leftLeg.total}}" data-dtype="Number" disabled />
                 <div class="information">
-                    <input type="number" value="{{data.armour.leftLeg.toughnessBonus}}" data-dtype="Number" disabled />
-                    <input type="number" value="{{data.armour.leftLeg.value}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.leftLeg.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.leftLeg.value}}" data-dtype="Number" disabled />
                 </div>
                 <div class="information">
-                    <input type="number" value="{{data.armour.rightLeg.toughnessBonus}}" data-dtype="Number" disabled />
-                    <input type="number" value="{{data.armour.rightLeg.value}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.rightLeg.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.rightLeg.value}}" data-dtype="Number" disabled />
                 </div>
-                <input class="total" type="number" value="{{data.armour.rightLeg.total}}" data-dtype="Number" disabled />
+                <input class="total" type="number" value="{{system.armour.rightLeg.total}}" data-dtype="Number" disabled />
                 <div class="name">{{localize "ARMOUR.RIGHT_LEG"}}</div>
             </div>
         </div>
@@ -96,28 +96,28 @@
         <h1>{{localize "TITLE.MOVEMENT"}}</h1>
         <div class="information">
             <label>{{localize "MOVEMENT.HALF"}}</label>
-            <input type="number" value="{{data.movement.half}}" data-dtype="Number" disabled />
+            <input type="number" value="{{system.movement.half}}" data-dtype="Number" disabled />
         </div>
         <div class="information">
             <label>{{localize "MOVEMENT.FULL"}}</label>
-            <input type="number" value="{{data.movement.full}}" data-dtype="Number" disabled />
+            <input type="number" value="{{system.movement.full}}" data-dtype="Number" disabled />
         </div>
         <div class="information">
             <label>{{localize "MOVEMENT.CHARGE"}}</label>
-            <input type="number" value="{{data.movement.charge}}" data-dtype="Number" disabled />
+            <input type="number" value="{{system.movement.charge}}" data-dtype="Number" disabled />
         </div>
         <div class="information">
             <label>{{localize "MOVEMENT.RUN"}}</label>
-            <input type="number" value="{{data.movement.run}}" data-dtype="Number" disabled />
+            <input type="number" value="{{system.movement.run}}" data-dtype="Number" disabled />
         </div>
         <h1 style="margin-top: 5px">{{localize "TITLE.OTHER"}}</h1>
         <div class="information initiative">
             <label>{{localize "INITIATIVE"}}</label>
-            <input name="data.initiative.base" type="text" value="{{data.initiative.base}}" />
+            <input name="system.initiative.base" type="text" value="{{system.initiative.base}}" />
             +
-            <select name="data.initiative.characteristic">
-                {{#select data.initiative.characteristic}}
-                    {{#each data.characteristics as |characteristic key|}}
+            <select name="system.initiative.characteristic">
+                {{#select system.initiative.characteristic}}
+                    {{#each system.characteristics as |characteristic key|}}
                         <option value="{{key}}">{{localize characteristic.label}}</option>
                     {{/each}}
                 {{/select}}
@@ -125,7 +125,7 @@
         </div>
         <div class="information">
             <label>{{localize "SIZE"}}</label>
-            <input name="data.size" type="number" value="{{data.size}}" data-dtype="Number" />
+            <input name="system.size" type="number" value="{{system.size}}" data-dtype="Number" />
         </div>
     </div>
     <div class="weapons border">
@@ -174,7 +174,7 @@
             <div class="class">
                 <label>{{localize "PSYCHIC_POWER.CLASS"}}</label>
                 <select disabled>
-                    {{#select data.psy.class}}
+                    {{#select system.psy.class}}
                         <option value="bound">{{localize "PSYCHIC_POWER.BOUND"}}</option>
                         <option value="unbound">{{localize "PSYCHIC_POWER.UNBOUND"}}</option>
                         <option value="daemonic">{{localize "PSYCHIC_POWER.DAEMONIC"}}</option>
@@ -183,11 +183,11 @@
             </div>
             <div class="rating">
                 <label>{{localize "PSYCHIC_POWER.RATING"}}</label>
-                <input type="number" value="{{data.psy.currentRating}}" data-dtype="Number" disabled />
+                <input type="number" value="{{system.psy.currentRating}}" data-dtype="Number" disabled />
             </div>
             <div class="sustained">
                 <label>{{localize "PSYCHIC_POWER.SUSTAINED"}}</label>
-                <input name="data.psy.sustained" type="number" value="{{data.psy.sustained}}" data-dtype="Number" />
+                <input name="system.psy.sustained" type="number" value="{{system.psy.sustained}}" data-dtype="Number" />
             </div>
         </div>
         <div class="item-list">

@@ -58,6 +58,9 @@ function registerHandlebarsHelpers() {
     return text.replace(markup, "");
   })
 
+  Handlebars.registerHelper("enrich", function (string) {
+    return TextEditor.enrichHTML(string, {async: false})
+  })
 
   Handlebars.registerHelper("damageTypeLong", function (damageType) {
     damageType = (damageType || "i").toLowerCase();

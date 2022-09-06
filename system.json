@@ -2,9 +2,13 @@
   "name": "dark-heresy",
   "title": "Dark Heresy 2E",
   "description": "Innocence proves nothing",
-  "version": "3.2.0",
-  "minimumCoreVersion": "0.8.4",
-  "compatibleCoreVersion": "9",
+  "version": "4.0.0",
+  "minimumCoreVersion" : 10,
+  "compatibility" : {
+    "minimum" : 10,
+    "verified" : 10,
+    "maximum" : 10    
+  },
   "templateVersion": 2,
   "author": "JeansenVaars, Moo Man, fredthedeadhead, Perfectro, Vendare, Silver292",
   "scripts": [],

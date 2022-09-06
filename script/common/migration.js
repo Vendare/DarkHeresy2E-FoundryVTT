@@ -1,9 +1,9 @@
 export const migrateWorld = async () => {
-    const schemaVersion = 4;
+    const schemaVersion = 5;
     const worldSchemaVersion = Number(game.settings.get("dark-heresy", "worldSchemaVersion"));
     if (worldSchemaVersion !== schemaVersion && game.user.isGM) {
         ui.notifications.info("Upgrading the world, please wait...");
-        for (let actor of game.actors.entities) {
+        for (let actor of game.actors.contents) {
             try {
                 const update = migrateActorData(actor, worldSchemaVersion);
                 if (!isObjectEmpty(update)) {
@@ -74,6 +74,7 @@ const migrateActorData = (actor, worldSchemaVersion) => {
             }
             update["data.skills.forbiddenLore"] = actor.data.data.skills.forbiddenLore;
         }
+    
     }
 
     // // migrate aptitudes
@@ -110,6 +111,17 @@ const migrateActorData = (actor, worldSchemaVersion) => {
     if (worldSchemaVersion < 3) {
          actor.prepareData();
          update["data.armour"] = actor.data.armour;
+    }
+
+    if(worldSchemaVersion < 5) {
+        actor.prepareData();
+        let  experience = actor.data.data?.experience;
+        let value = experience?.value + experience?.totalspent;
+        // In case of an Error in the calculation don't do anything loosing data is worse
+        // than doing nothing in this case since the user can easily do this himself
+        if(value !== NaN && value !== undefined) {
+            update["data.experience.value"] = value;
+        }
     }
     return update;
 };

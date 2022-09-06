@@ -1,57 +1,59 @@
 <div class="dark-heresy dialog">
-    <div class="flex row wrap background border" style="flex-basis: 100%;margin-bottom: 5px">
+    <div class="flex row wrap background border" style="flex-basis: 100%;margin-bottom: 5px">        
         <h1>{{localize name}}</h1>
-        <div class="wrapper">
-            <label>{{localize "DIALOG.TARGET"}}</label>
-            <input id="target" type="number" value="{{baseTarget}}" data-dtype="Number"/>
-        </div>
-        <div class="wrapper">
-            <label>{{localize "DIALOG.MODIFIER"}}</label>
-            <input id="modifier" type="text" value="{{modifier}}"/>
-        </div>
-        {{#if isMelee}}
-        <div class="wrapper">
-            <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
-            <select id="attackType">
-                {{#select attackType}}
-                <option value="none" selected>{{localize "ATTACK_TYPE.NONE"}}</option>
-                <option value="standard">{{localize "ATTACK_TYPE.STANDARD"}}</option>
-                <option value="charge">{{localize "ATTACK_TYPE.CHARGE"}}</option>
-                <option value="swift">{{localize "ATTACK_TYPE.SWIFT"}}</option>
-                <option value="lightning">{{localize "ATTACK_TYPE.LIGHTNING"}}</option>
-                <option value="called_shot">{{localize "ATTACK_TYPE.CALLED_SHOT"}}</option>
-                <option value="allOut">{{localize "ATTACK_TYPE.ALLOUT"}}</option>
-                {{/select}}
-            </select>
-        </div>
-        {{/if}}
-        {{#if isRange}}
-        <div class="wrapper">
-            <label>{{localize "DIALOG.RANGE"}}</label>
-            <select id="range">
-                {{#select range}}
-                <option value="0" selected>{{localize "RANGE.NONE"}}</option>
-                <option value="30">{{localize "RANGE.POINT_BLANK"}}</option>
-                <option value="10">{{localize "RANGE.SHORT"}}</option>
-                <option value="-10">{{localize "RANGE.LONG"}}</option>
-                <option value="-30">{{localize "RANGE.EXTREME"}}</option>
-                {{/select}}
-            </select>
-        </div>
-        <div class="wrapper">
-            <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
-            <select id="attackType">
-                {{#select attackType}}
-                <option value="none" selected>{{localize "ATTACK_TYPE.NONE"}}</option>
-                <option value="standard">{{localize "ATTACK_TYPE.STANDARD"}}</option>
-                <option value="semi_auto">{{localize "ATTACK_TYPE.SEMI_AUTO"}}</option>
-                <option value="full_auto">{{localize "ATTACK_TYPE.FULL_AUTO"}}</option>
-                <option value="called_shot">{{localize "ATTACK_TYPE.CALLED_SHOT"}}</option>
-                {{/select}}
-            </select>
-        </div>
-        {{/if}}
-        <div class="separator"></div>
+        {{#unless weaponTraits.skipAttackRoll}}
+            <div class="wrapper">
+                <label>{{localize "DIALOG.TARGET"}}</label>
+                <input id="target" type="number" value="{{baseTarget}}" data-dtype="Number"/>
+            </div>
+            <div class="wrapper">
+                <label>{{localize "DIALOG.MODIFIER"}}</label>
+                <input id="modifier" type="text" value="{{modifier}}"/>
+            </div>
+            {{#if isMelee}}
+            <div class="wrapper">
+                <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
+                <select id="attackType">
+                    {{#select attackType}}
+                    <option value="none">{{localize "ATTACK_TYPE.NONE"}}</option>
+                    <option value="standard" selected>{{localize "ATTACK_TYPE.STANDARD"}}</option>
+                    <option value="charge">{{localize "ATTACK_TYPE.CHARGE"}}</option>
+                    <option value="swift">{{localize "ATTACK_TYPE.SWIFT"}}</option>
+                    <option value="lightning">{{localize "ATTACK_TYPE.LIGHTNING"}}</option>
+                    <option value="called_shot">{{localize "ATTACK_TYPE.CALLED_SHOT"}}</option>
+                    <option value="allOut">{{localize "ATTACK_TYPE.ALLOUT"}}</option>
+                    {{/select}}
+                </select>
+            </div>
+            {{/if}}
+            {{#if isRange}}
+            <div class="wrapper">
+                <label>{{localize "DIALOG.RANGE"}}</label>
+                <select id="range">
+                    {{#select range}}
+                    <option value="0" selected>{{localize "RANGE.NONE"}}</option>
+                    <option value="30">{{localize "RANGE.POINT_BLANK"}}</option>
+                    <option value="10">{{localize "RANGE.SHORT"}}</option>
+                    <option value="-10">{{localize "RANGE.LONG"}}</option>
+                    <option value="-30">{{localize "RANGE.EXTREME"}}</option>
+                    {{/select}}
+                </select>
+            </div>
+            <div class="wrapper">
+                <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
+                <select id="attackType">
+                    {{#select attackType}}
+                    <option value="none">{{localize "ATTACK_TYPE.NONE"}}</option>
+                    <option value="standard" selected>{{localize "ATTACK_TYPE.STANDARD"}}</option>
+                    <option value="semi_auto">{{localize "ATTACK_TYPE.SEMI_AUTO"}}</option>
+                    <option value="full_auto">{{localize "ATTACK_TYPE.FULL_AUTO"}}</option>
+                    <option value="called_shot">{{localize "ATTACK_TYPE.CALLED_SHOT"}}</option>
+                    {{/select}}
+                </select>
+            </div>
+            {{/if}}
+            <div class="separator"></div>
+        {{/unless}}
         <div class="wrapper">
             <label>{{localize "DIALOG.DAMAGE"}}</label>
             <input id="damageFormula" type="text" value="{{damageFormula}}"/>

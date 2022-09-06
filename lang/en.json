@@ -203,7 +203,7 @@
   "DRUG.CRAFTSMANSHIP": "Craftsmanship",
   "DRUG.AVAILABILITY": "Availability",
 
-  "EXPERIENCE.CURRENT": "Current",
+  "EXPERIENCE.REMAINING": "Remaining",
   "EXPERIENCE.SPENT_CHARACTERISTICS": "Spent on Characteristics",
   "EXPERIENCE.SPENT_SKILLS": "Spent on Skills",
   "EXPERIENCE.SPENT_TALENTS": "Spent on Talents",

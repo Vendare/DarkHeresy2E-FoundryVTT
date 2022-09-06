@@ -56,32 +56,32 @@
     <div class="experience border">
         <h1>{{localize "TITLE.EXPERIENCE"}}</h1>
         <div class="information">
-            <label>{{localize "EXPERIENCE.CURRENT"}}</label>
-            <input name="data.experience.value" type="number" value="{{data.experience.value}}" data-dtype="Number" />
+            <label>{{localize "EXPERIENCE.TOTAL"}}</label>
+            <input name="system.experience.value" type="number" value="{{system.experience.value}}" data-dtype="Number" />
         </div>
         <div class="information">
             <label>{{localize "EXPERIENCE.SPENT_CHARACTERISTICS"}}</label>
-            <input name="data.experience.spentCharacteristics" type="number" value="{{data.experience.spentCharacteristics}}" data-dtype="Number" disabled />
+            <input name="system.experience.spentCharacteristics" type="number" value="{{system.experience.spentCharacteristics}}" data-dtype="Number" disabled />
         </div>
         <div class="information">
             <label>{{localize "EXPERIENCE.SPENT_SKILLS"}}</label>
-            <input name="data.experience.spentSkills" type="number" value="{{data.experience.spentSkills}}" data-dtype="Number" disabled />
+            <input name="system.experience.spentSkills" type="number" value="{{system.experience.spentSkills}}" data-dtype="Number" disabled />
         </div>
         <div class="information">
             <label>{{localize "EXPERIENCE.SPENT_TALENTS"}}</label>
-            <input name="data.experience.spentTalents" type="number" value="{{data.experience.spentTalents}}" data-dtype="Number" disabled />
+            <input name="system.experience.spentTalents" type="number" value="{{system.experience.spentTalents}}" data-dtype="Number" disabled />
         </div>
         <div class="information">
             <label>{{localize "EXPERIENCE.SPENT_PSYCHIC_POWERS"}}</label>
-            <input name="data.experience.spentPsychicPowers" type="number" value="{{data.experience.spentPsychicPowers}}" data-dtype="Number" disabled />
+            <input name="system.experience.spentPsychicPowers" type="number" value="{{system.experience.spentPsychicPowers}}" data-dtype="Number" disabled />
         </div>
         <div class="information">
             <label>{{localize "EXPERIENCE.TOTAL_SPENT"}}</label>
-            <input name="data.experience.totalSpent" type="number" value="{{data.experience.totalSpent}}" data-dtype="Number" disabled />
+            <input name="system.experience.totalSpent" type="number" value="{{system.experience.totalSpent}}" data-dtype="Number" disabled />
         </div>
         <div class="information">
-            <label>{{localize "EXPERIENCE.TOTAL"}}</label>
-            <input name="data.experience.total" type="number" value="{{data.experience.total}}" data-dtype="Number" disabled />
+            <label>{{localize "EXPERIENCE.REMAINING"}}</label>
+            <input name="system.experience.remaining" type="number" value="{{system.experience.remaining}}" data-dtype="Number" disabled />
         </div>
     </div>
     <div class="flex column" style="flex-basis: 50%">
@@ -96,10 +96,10 @@
                     <b class="cost">{{localize "CHARACTERISTIC.COST"}}</b>
                 </div>
                 <div class="items">
-                    {{#each data.characteristics as |characteristic key|}}
+                    {{#each system.characteristics as |characteristic key|}}
                         <div class="characteristic item flex row">
                             <div class="name">{{localize characteristic.label}}</div>
-                            <select class="advance" name="data.characteristics.{{key}}.advance" data-dtype="Number">
+                            <select class="advance" name="system.characteristics.{{key}}.advance" data-dtype="Number">
                                 {{#select characteristic.advance}}
                                     <option value="0">{{localize "ADVANCE.NONE"}}</option>
                                     <option value="5">{{localize "ADVANCE.SIMPLE"}}</option>
@@ -109,9 +109,9 @@
                                     <option value="25">{{localize "ADVANCE.EXPERT"}}</option>
                                 {{/select}}
                             </select>
-                            <input class="unnatural" name="data.characteristics.{{key}}.unnatural" type="number" value="{{characteristic.unnatural}}" data-dtype="Number" />
-                            <input class="base" name="data.characteristics.{{key}}.base" type="number" value="{{characteristic.base}}" data-dtype="Number" />
-                            <input class="cost" name="data.characteristics.{{key}}.cost" type="number" value="{{characteristic.cost}}" data-dtype="Number" />
+                            <input class="unnatural" name="system.characteristics.{{key}}.unnatural" type="number" value="{{characteristic.unnatural}}" data-dtype="Number" />
+                            <input class="base" name="system.characteristics.{{key}}.base" type="number" value="{{characteristic.base}}" data-dtype="Number" />
+                            <input class="cost" name="system.characteristics.{{key}}.cost" type="number" value="{{characteristic.cost}}" data-dtype="Number" />
                         </div>
                     {{/each}}
                 </div>
@@ -122,8 +122,8 @@
             <div class="header">
                 <div class="class">
                     <label>{{localize "PSYCHIC_POWER.CLASS"}}</label>
-                    <select name="data.psy.class">
-                        {{#select data.psy.class}}
+                    <select name="system.psy.class">
+                        {{#select system.psy.class}}
                             <option value="bound">{{localize "PSYCHIC_POWER.BOUND"}}</option>
                             <option value="unbound">{{localize "PSYCHIC_POWER.UNBOUND"}}</option>
                             <option value="daemonic">{{localize "PSYCHIC_POWER.DAEMONIC"}}</option>
@@ -133,11 +133,11 @@
                 <div class="rating">
                     <div class="flex">
                         <label>{{localize "PSYCHIC_POWER.RATING"}}</label>
-                        <input name="data.psy.rating" type="number" value="{{data.psy.rating}}" data-dtype="Number" />
+                        <input name="system.psy.rating" type="number" value="{{system.psy.rating}}" data-dtype="Number" />
                     </div>
                     <div class="flex" style="margin-top: 2px">
                         <label>{{localize "PSYCHIC_POWER.COST"}}</label>
-                        <input name="data.psy.cost" type="number" value="{{data.psy.cost}}" data-dtype="Number" />
+                        <input name="system.psy.cost" type="number" value="{{system.psy.cost}}" data-dtype="Number" />
                     </div>
                 </div>
             </div>
@@ -178,11 +178,11 @@
                 <b class="cost">{{localize "SKILL.COST"}}</b>
             </div>
             <div class="items">
-                {{#each data.skills as |skill key|}}
+                {{#each system.skills as |skill key|}}
                     {{#unless skill.isSpecialist}}
                         <div class="skill item flex row">
                             <div class="name">{{localize skill.label}}</div>
-                            <select class="advance" name="data.skills.{{key}}.advance" data-dtype="Number">
+                            <select class="advance" name="system.skills.{{key}}.advance" data-dtype="Number">
                                 {{#select skill.advance}}
                                     <option value="-20">{{localize "ADVANCE.UNTRAINED"}}</option>
                                     <option value="0">{{localize "ADVANCE.KNOWN"}}</option>
@@ -191,12 +191,12 @@
                                     <option value="30">{{localize "ADVANCE.VETERAN"}}</option>
                                 {{/select}}
                             </select>
-                            <input class="total" name="data.skills.{{key}}.total" type="number" value="{{skill.total}}" data-dtype="Number" disabled />
-                            <input class="cost" name="data.skills.{{key}}.cost" type="number" value="{{skill.cost}}" data-dtype="Number" />
+                            <input class="total" name="system.skills.{{key}}.total" type="number" value="{{skill.total}}" data-dtype="Number" disabled />
+                            <input class="cost" name="system.skills.{{key}}.cost" type="number" value="{{skill.cost}}" data-dtype="Number" />
                         </div>
                     {{/unless}}
                 {{/each}}
-                {{#each data.skills as |skill key|}}
+                {{#each system.skills as |skill key|}}
                     {{#if skill.isSpecialist}}
                         <div class="flex header">
                             <b class="name">{{localize skill.label}}</b>
@@ -204,7 +204,7 @@
                         {{#each skill.specialities as |speciality keySpe|}}
                             <div class="speciality item flex row">
                                 <div class="name">{{localize speciality.label}}</div>
-                                <select class="advance" name="data.skills.{{key}}.specialities.{{keySpe}}.advance" data-dtype="Number">
+                                <select class="advance" name="system.skills.{{key}}.specialities.{{keySpe}}.advance" data-dtype="Number">
                                     {{#select speciality.advance}}
                                         <option value="-20">{{localize "ADVANCE.UNTRAINED"}}</option>
                                         <option value="0">{{localize "ADVANCE.KNOWN"}}</option>
@@ -213,8 +213,8 @@
                                         <option value="30">{{localize "ADVANCE.VETERAN"}}</option>
                                     {{/select}}
                                 </select>
-                                <input class="total" name="data.skills.{{key}}.specialities.{{keySpe}}.total" type="number" value="{{speciality.total}}" data-dtype="Number" disabled />
-                                <input class="cost" name="data.skills.{{key}}.specialities.{{keySpe}}.cost" type="number" value="{{speciality.cost}}" data-dtype="Number" />
+                                <input class="total" name="system.skills.{{key}}.specialities.{{keySpe}}.total" type="number" value="{{speciality.total}}" data-dtype="Number" disabled />
+                                <input class="cost" name="system.skills.{{key}}.specialities.{{keySpe}}.cost" type="number" value="{{speciality.cost}}" data-dtype="Number" />
                             </div>
                         {{/each}}
                     {{/if}}
