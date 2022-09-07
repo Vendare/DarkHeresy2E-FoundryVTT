@@ -43,7 +43,7 @@ export class AcolyteSheet extends DarkHeresySheet {
         event.preventDefault();
         let aptitudeId = Date.now().toString();
         let aptitude = { id: Date.now().toString(), name: "New Aptitude" };
-        await this.actor.update({["data.aptitudes." + aptitudeId]: aptitude});
+        await this.actor.update({["system.aptitudes." + aptitudeId]: aptitude});
         this._render(true);
     }
 
@@ -51,7 +51,7 @@ export class AcolyteSheet extends DarkHeresySheet {
         event.preventDefault();
         const div = $(event.currentTarget).parents(".item");
         const aptitudeId = div.data("aptitudeId").toString();
-        await this.actor.update({["data.aptitudes.-=" + aptitudeId]: null});
+        await this.actor.update({["system.aptitudes.-=" + aptitudeId]: null});
         this._render(true);
     }
 
@@ -59,6 +59,6 @@ export class AcolyteSheet extends DarkHeresySheet {
         event.preventDefault();
         const div = $(event.currentTarget).parents(".item");
         let item = this.actor.items.get(div.data("itemId"));
-        item.update({"data.cost" : $(event.currentTarget)[0].value})
+        item.update({"system.cost" : $(event.currentTarget)[0].value})
     }
 }
