@@ -1,7 +1,7 @@
 export class DarkHeresyItem extends Item {
     async sendToChat() {
         const item = new CONFIG.Item.documentClass(this.data._source);
-        const html = await renderTemplate("systems/dark-heresy/template/chat/item.html", {item, data: item.data.data});
+        const html = await renderTemplate("systems/dark-heresy/template/chat/item.html", {item, data: item.system});
         const chatData = {
             user: game.user.id,
             rollMode: game.settings.get("core", "rollMode"),
@@ -245,41 +245,41 @@ export class DarkHeresyItem extends Item {
     get isForceField() { return this.type === "forceField"; }
     get isAbilities() { return this.isTalent || this.isTrait || this.isSpecialAbility; }
 
-    get craftsmanship() { return this.data.data.craftsmanship}
-    get description() { return this.data.data.description}
-    get availability() { return this.data.data.availability}
-    get weight() { return this.data.data.weight}
-    get quantity() { return this.data.data.quantity}
-    get effect() { return this.data.data.effect}
-    get weapon() { return this.data.data.weapon}
-    get source() { return this.data.data.source}
-    get subtype() { return this.data.data.type}
-    get part() { return this.data.data.part}
-    get maxAgility() { return this.data.data.maxAgility}
-    get installed() { return this.data.data.installed}
-    get shortDescription() { return this.data.data.shortDescription}
-    get protectionRating() { return this.data.data.protectionRating}
-    get overloadChance() { return this.data.data.overloadChance}
-    get cost() { return this.data.data.cost}
-    get prerequisite() { return this.data.data.prerequisite}
-    get action() { return this.data.data.action}
-    get focusPower() { return this.data.data.focusPower}
-    get range() { return this.data.data.range}
-    get sustained() { return this.data.data.sustained}
-    get psychicType() { return this.data.data.subtype}
-    get damage() { return this.data.data.damage}
-    get benefit() { return this.data.data.benefit}
-    get prerequisites() { return this.data.data.prerequisites}
-    get aptitudes() { return this.data.data.aptitudes}
-    get tier() { return this.data.data.tier}
-    get class() { return this.data.data.class}
-    get rateOfFire() { return this.data.data.rateOfFire}
-    get damageType() { return this.data.data.damageType || this.data.data?.damage?.type || this.data.data.effect?.damage?.type || this.data.data.type}
-    get penetration() { return this.data.data.penetration}
-    get clip() { return this.data.data.clip}
-    get reload() { return this.data.data.reload}
-    get special() { return this.data.data.special}
-    get attack() { return this.data.data.attack}
-    get upgrades() { return this.data.data.upgrades}
+    get craftsmanship() { return this.system.craftsmanship}
+    get description() { return this.system.description}
+    get availability() { return this.system.availability}
+    get weight() { return this.system.weight}
+    get quantity() { return this.system.quantity}
+    get effect() { return this.system.effect}
+    get weapon() { return this.system.weapon}
+    get source() { return this.system.source}
+    get subtype() { return this.system.type}
+    get part() { return this.system.part}
+    get maxAgility() { return this.system.maxAgility}
+    get installed() { return this.system.installed}
+    get shortDescription() { return this.system.shortDescription}
+    get protectionRating() { return this.system.protectionRating}
+    get overloadChance() { return this.system.overloadChance}
+    get cost() { return this.system.cost}
+    get prerequisite() { return this.system.prerequisite}
+    get action() { return this.system.action}
+    get focusPower() { return this.system.focusPower}
+    get range() { return this.system.range}
+    get sustained() { return this.system.sustained}
+    get psychicType() { return this.system.subtype}
+    get damage() { return this.system.damage}
+    get benefit() { return this.system.benefit}
+    get prerequisites() { return this.system.prerequisites}
+    get aptitudes() { return this.system.aptitudes}
+    get tier() { return this.system.tier}
+    get class() { return this.system.class}
+    get rateOfFire() { return this.system.rateOfFire}
+    get damageType() { return this.system.damageType || this.system?.damage?.type || this.system.effect?.damage?.type || this.system.type}
+    get penetration() { return this.system.penetration}
+    get clip() { return this.system.clip}
+    get reload() { return this.system.reload}
+    get special() { return this.system.special}
+    get attack() { return this.system.attack}
+    get upgrades() { return this.system.upgrades}
 
 }

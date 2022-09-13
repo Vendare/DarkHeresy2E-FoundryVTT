@@ -12,8 +12,8 @@
                 <div class="header-row">
                     <div class="flex row part">
                         <label>{{localize "CRITICAL_INJURY.PART"}}</label>
-                        <select name="data.part">
-                            {{#select data.part}}
+                        <select name="system.part">
+                            {{#select system.part}}
                             <option value="head">{{localize "ARMOUR.HEAD"}}</option>
                             <option value="leftArm">{{localize "ARMOUR.LEFT_ARM"}}</option>
                             <option value="rightArm">{{localize "ARMOUR.RIGHT_ARM"}}</option>
@@ -25,8 +25,8 @@
                     </div>
                     <div class="flex row type">
                         <label>{{localize "CRITICAL_INJURY.TYPE"}}</label>
-                        <select name="data.type">
-                            {{#select data.type}}
+                        <select name="system.type">
+                            {{#select system.type}}
                             <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
                             <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
                             <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
@@ -48,7 +48,7 @@
             <div class="notes-editor border">
                 <h1>{{localize "TITLE.NOTES"}}</h1>
                 <div style="height: 132px; width: 100%">
-                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror"  button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>

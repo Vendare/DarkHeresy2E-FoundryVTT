@@ -50,8 +50,8 @@ export async function prepareCombatRoll(rollData, actorRef) {
                 label: game.i18n.localize("BUTTON.ROLL"),
                 callback: async (html) => {
                     rollData.name = game.i18n.localize(rollData.name);
-                    rollData.baseTarget = parseInt(html.find("#target")[0].value, 10);
-                    rollData.modifier = html.find("#modifier")[0].value;
+                    rollData.baseTarget = parseInt(html.find("#target")[0]?.value, 10);
+                    rollData.modifier = html.find("#modifier")[0]?.value;
                     const range = html.find("#range")[0];
                     if (typeof range !== "undefined" && range !== null) {
                         rollData.range = range.value;
@@ -59,8 +59,8 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     }
                     rollData.attackType = { text: "None", name: "none", modifier: 0};
                     const attackType = html.find("#attackType")[0];
-                    rollData.attackType.name = attackType.value;
-                    rollData.attackType.text = attackType.options[attackType.selectedIndex].text;
+                    rollData.attackType.name = attackType?.value;
+                    rollData.attackType.text = attackType?.options[attackType.selectedIndex].text;
                     rollData.damageFormula = html.find("#damageFormula")[0].value.replace(' ', '');
                     rollData.damageType = html.find("#damageType")[0].value;
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
@@ -73,7 +73,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                                     return reportEmptyClip(rollData);
                                 } else {
                                     rollData.clip.value -= 1;
-                                    await rollData.item.update({"data.clip.value" : rollData.clip.value})
+                                    await rollData.item.update({"system.clip.value" : rollData.clip.value})
                                 }
                                 break;
                             }
@@ -82,7 +82,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                                     return reportEmptyClip(rollData);
                                 } else {
                                     rollData.clip.value -= rollData.rateOfFire.burst;
-                                    await rollData.item.update({"data.clip.value" : rollData.clip.value})
+                                    await rollData.item.update({"system.clip.value" : rollData.clip.value})
                                 }
                                 break;
                             }
@@ -91,7 +91,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                                     return reportEmptyClip(rollData);
                                 } else {
                                     rollData.clip.value -= rollData.rateOfFire.full;
-                                    await rollData.item.update({"data.clip.value" : rollData.clip.value})
+                                    await rollData.item.update({"system.clip.value" : rollData.clip.value})
                                 }
                                 break;
                             }

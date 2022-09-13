@@ -25,18 +25,18 @@
                 <div class="stats-row" style="justify-content: space-evenly">
                     <div class="stat protection-rating">
                         <label>{{localize "FORCE_FIELD.PROTECTION_RATING"}}</label>
-                        <input name="data.protectionRating" type="text" value="{{data.protectionRating}}" data-dtype="Number" />
+                        <input name="system.protectionRating" type="text" value="{{system.protectionRating}}" data-dtype="Number" />
                     </div>
                     <div class="stat overload-chance">
                         <label>{{localize "FORCE_FIELD.OVERLOAD_CHANCE"}}</label>
-                        <input name="data.overloadChance" type="number" value="{{data.overloadChance}}" data-dtype="Number" />
+                        <input name="system.overloadChance" type="number" value="{{system.overloadChance}}" data-dtype="Number" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat craftsmanship">
                         <label>{{localize "FORCE_FIELD.CRAFTSMANSHIP"}}</label>
-                        <select name="data.craftsmanship">
-                            {{#select data.craftsmanship}}
+                        <select name="system.craftsmanship">
+                            {{#select system.craftsmanship}}
                                 <option value="poor">{{localize "CRAFTSMANSHIP.POOR"}}</option>
                                 <option value="common">{{localize "CRAFTSMANSHIP.COMMON"}}</option>
                                 <option value="good">{{localize "CRAFTSMANSHIP.GOOD"}}</option>
@@ -46,8 +46,8 @@
                     </div>
                     <div class="stat availability">
                         <label>{{localize "FORCE_FIELD.AVAILABILITY"}}</label>
-                        <select name="data.availability">
-                            {{#select data.availability}}
+                        <select name="system.availability">
+                            {{#select system.availability}}
                                 <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
                                 <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
                                 <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="stat weight">
                         <label>{{localize "FORCE_FIELD.WEIGHT"}}</label>
-                        <input name="data.weight" type="number" value="{{data.weight}}" data-dtype="Number" />
+                        <input name="system.weight" type="number" value="{{system.weight}}" data-dtype="Number" />
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
             <div class="notes-editor border">
                 <h1>{{localize "TITLE.NOTES"}}</h1>
                 <div style="height: 132px; width: 100%">
-                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror"  button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>

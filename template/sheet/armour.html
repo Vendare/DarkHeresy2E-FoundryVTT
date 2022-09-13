@@ -25,8 +25,8 @@
                 <div class="stats-row">
                     <div class="stat type">
                         <label>{{localize "ARMOUR.TYPE"}}</label>
-                        <select name="data.type">
-                            {{#select data.type}}
+                        <select name="system.type">
+                            {{#select system.type}}
                                 <option value="basic">{{localize "ARMOUR_TYPE.BASIC"}}</option>
                                 <option value="flak">{{localize "ARMOUR_TYPE.FLAK"}}</option>
                                 <option value="mesh">{{localize "ARMOUR_TYPE.MESH"}}</option>
@@ -37,42 +37,42 @@
                     </div>
                     <div class="stat max-agility">
                         <label>{{localize "ARMOUR.MAX_AGILITY"}}</label>
-                        <input name="data.maxAgility" type="number" value="{{data.maxAgility}}" data-dtype="Number" />
+                        <input name="system.maxAgility" type="number" value="{{system.maxAgility}}" data-dtype="Number" />
                     </div>
                 </div>
                 <div class="stats-row" style="justify-content: space-evenly">
                     <div class="stat part">
                         <label>{{localize "ARMOUR.LEFT_ARM"}}</label>
-                        <input name="data.part.leftArm" type="number" value="{{data.part.leftArm}}" data-dtype="Number" />
+                        <input name="system.part.leftArm" type="number" value="{{system.part.leftArm}}" data-dtype="Number" />
                     </div>
                     <div class="stat part">
                         <label>{{localize "ARMOUR.HEAD"}}</label>
-                        <input name="data.part.head" type="number" value="{{data.part.head}}" data-dtype="Number" />
+                        <input name="system.part.head" type="number" value="{{system.part.head}}" data-dtype="Number" />
                     </div>
                     <div class="stat part">
                         <label>{{localize "ARMOUR.RIGHT_ARM"}}</label>
-                        <input name="data.part.rightArm" type="number" value="{{data.part.rightArm}}" data-dtype="Number" />
+                        <input name="system.part.rightArm" type="number" value="{{system.part.rightArm}}" data-dtype="Number" />
                     </div>
                 </div>
                 <div class="stats-row" style="justify-content: space-evenly">
                     <div class="stat part">
                         <label>{{localize "ARMOUR.LEFT_LEG"}}</label>
-                        <input name="data.part.leftLeg" type="number" value="{{data.part.leftLeg}}" data-dtype="Number" />
+                        <input name="system.part.leftLeg" type="number" value="{{system.part.leftLeg}}" data-dtype="Number" />
                     </div>
                     <div class="stat part">
                         <label>{{localize "ARMOUR.BODY"}}</label>
-                        <input name="data.part.body" type="number" value="{{data.part.body}}" data-dtype="Number" />
+                        <input name="system.part.body" type="number" value="{{system.part.body}}" data-dtype="Number" />
                     </div>
                     <div class="stat part">
                         <label>{{localize "ARMOUR.RIGHT_LEG"}}</label>
-                        <input name="data.part.rightLeg" type="number" value="{{data.part.rightLeg}}" data-dtype="Number" />
+                        <input name="system.part.rightLeg" type="number" value="{{system.part.rightLeg}}" data-dtype="Number" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat craftsmanship">
                         <label>{{localize "ARMOUR.CRAFTSMANSHIP"}}</label>
-                        <select name="data.craftsmanship">
-                            {{#select data.craftsmanship}}
+                        <select name="system.craftsmanship">
+                            {{#select system.craftsmanship}}
                                 <option value="poor">{{localize "CRAFTSMANSHIP.POOR"}}</option>
                                 <option value="common">{{localize "CRAFTSMANSHIP.COMMON"}}</option>
                                 <option value="good">{{localize "CRAFTSMANSHIP.GOOD"}}</option>
@@ -82,8 +82,8 @@
                     </div>
                     <div class="stat availability">
                         <label>{{localize "ARMOUR.AVAILABILITY"}}</label>
-                        <select name="data.availability">
-                            {{#select data.availability}}
+                        <select name="system.availability">
+                            {{#select system.availability}}
                                 <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
                                 <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
                                 <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
@@ -100,7 +100,7 @@
                     </div>
                     <div class="stat weight">
                         <label>{{localize "ARMOUR.WEIGHT"}}</label>
-                        <input name="data.weight" type="number" value="{{data.weight}}" data-dtype="Number" />
+                        <input name="system.weight" type="number" value="{{system.weight}}" data-dtype="Number" />
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
             <div class="notes-editor border">
                 <h1>{{localize "TITLE.NOTES"}}</h1>
                 <div style="height: 132px; width: 100%">
-                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror"  button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>

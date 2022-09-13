@@ -1,51 +1,55 @@
 <div class="dark-heresy chat roll">
     <div class="background border">
-        <h1>{{name}} ({{target}})</h1>
-        {{#if isSuccess}}
-        <h3><span style="color: var(--color-success)">{{localize "CHAT.SUCCESS"}}</span> ({{result}})</h3>
-        {{else}}
-        <h3><span style="color: var(--color-failure)">{{localize "CHAT.FAILURE"}}</span> ({{result}})</h3>
-        {{/if}}
-
-        <p><strong>{{localize "CHAT.TEST_MODIFIER"}}:</strong> {{modifier}}</p>
-
-        {{#if rolledWith}}
-            <p><strong>{{localize "CHAT.ROLLED_WITH"}}:</strong> {{rolledWith}}</p>
-        {{/if}}
-
-        {{#if rangeText}}
-            <p><strong>{{localize "CHAT.ATTACK_RANGE"}}:</strong> {{rangeText}}</p>
-        {{/if}}
-
-        {{#if attackType}}
-            <p><strong>{{localize "CHAT.ATTACK_TYPE"}}:</strong> {{attackType.text}}</p>
-        {{/if}}
-
-        {{#if isSuccess}}
-        <p><strong>{{localize "CHAT.DOS"}}:</strong> {{dos}}</p>
-        {{#if numberOfHit}}
-        <p><strong>{{localize "CHAT.NUMBER_OF_HIT"}}:</strong> {{numberOfHit}}</p>
-        {{/if}}
-        {{else}}
-        <p><strong>{{localize "CHAT.DOF"}}:</strong> {{dof}}</p>
-        {{/if}}
-        {{#if psy.display}}
-        {{#if psy.push}}
-        <p><strong>{{localize "CHAT.PSY_RATING"}}:</strong> {{psy.value}} ({{localize "CHAT.PSY_PUSH"}})</p>
-        {{else}}
-        <p><strong>{{localize "CHAT.PSY_RATING"}}:</strong> {{psy.value}}</p>
-        {{/if}}
-        {{#if psy.hasPhenomena}}
-            {{#if psy.warpConduit}}
-                <p><strong style="color: var(--color-failure)">{{localize "CHAT.HAS_PSYCHIC_PHENOMENA_WITH_WARPCONDUIT"}}</strong></p>
+        {{# unless weaponTraits.skipAttackRoll}}
+            <h1>{{name}} ({{target}})</h1>
+            {{#if isSuccess}}
+            <h3><span style="color: var(--color-success)">{{localize "CHAT.SUCCESS"}}</span> ({{result}})</h3>
             {{else}}
-                <p><strong style="color: var(--color-failure)">{{localize "CHAT.HAS_PSYCHIC_PHENOMENA"}}</strong></p>
+            <h3><span style="color: var(--color-failure)">{{localize "CHAT.FAILURE"}}</span> ({{result}})</h3>
             {{/if}}
-        {{/if}}
-        {{/if}}
+
+            <p><strong>{{localize "CHAT.TEST_MODIFIER"}}:</strong> {{modifier}}</p>
+
+            {{#if rolledWith}}
+                <p><strong>{{localize "CHAT.ROLLED_WITH"}}:</strong> {{rolledWith}}</p>
+            {{/if}}
+
+            {{#if rangeText}}
+                <p><strong>{{localize "CHAT.ATTACK_RANGE"}}:</strong> {{rangeText}}</p>
+            {{/if}}
+
+            {{#if attackType}}
+                <p><strong>{{localize "CHAT.ATTACK_TYPE"}}:</strong> {{attackType.text}}</p>
+            {{/if}}
+
+            {{#if isSuccess}}
+                <p><strong>{{localize "CHAT.DOS"}}:</strong> {{dos}}</p>
+                {{#if numberOfHit}}
+                <p><strong>{{localize "CHAT.NUMBER_OF_HIT"}}:</strong> {{numberOfHit}}</p>
+                {{/if}}
+            {{else}}
+                <p><strong>{{localize "CHAT.DOF"}}:</strong> {{dof}}</p>
+            {{/if}}
+            {{#if psy.display}}
+                {{#if psy.push}}
+                <p><strong>{{localize "CHAT.PSY_RATING"}}:</strong> {{psy.value}} ({{localize "CHAT.PSY_PUSH"}})</p>
+                {{else}}
+                <p><strong>{{localize "CHAT.PSY_RATING"}}:</strong> {{psy.value}}</p>
+                {{/if}}
+                {{#if psy.hasPhenomena}}
+                    {{#if psy.warpConduit}}
+                        <p><strong style="color: var(--color-failure)">{{localize "CHAT.HAS_PSYCHIC_PHENOMENA_WITH_WARPCONDUIT"}}</strong></p>
+                    {{else}}
+                        <p><strong style="color: var(--color-failure)">{{localize "CHAT.HAS_PSYCHIC_PHENOMENA"}}</strong></p>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        {{else}}
+            <h1>{{name}}</h1>
+        {{/unless}}
         {{#each damages as |damage|}}
             <h3 class="separator damage-location" data-location={{location}}>{{localize location}}</h3>
-            <div title="{{damage.formula}} = {{damage.result}}">
+            <div>
                 <p><strong>{{localize "CHAT.DAMAGE"}}:</strong> <span class="damage-total">{{damage.total}}</span> 
                    <strong class="damage-type">{{../item.DamageTypeShort}}</strong>
                 </p>
@@ -56,14 +60,16 @@
             {{/if}}
         {{/each}}
     </div>
+    
     <div class="dice-rolls" style="display:none">
-        <div class="dice-roll-render">
-            {{{render}}}
-        </div>
-
+        {{# unless weaponTraits.skipAttackRoll}}
+            <div class="dice-roll-render">
+                {{{render}}}
+            </div>
+        {{/unless}}
         {{#each damages as |damage|}}
             <div class="dice-roll-render">
-                {{{damage.damageRoll}}}
+                {{{damage.damageRender}}}
             </div>
         {{/each}}
     </div>

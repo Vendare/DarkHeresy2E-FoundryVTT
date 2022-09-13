@@ -6,8 +6,10 @@ export class DarkHeresyItemSheet extends ItemSheet {
 
   getData() {
     let data = super.getData()
-    data.data = data.data.data
-    return data;
+    return {
+      item: data.item,
+      system: data.data.system
+    };
   }
 
   _getHeaderButtons() {

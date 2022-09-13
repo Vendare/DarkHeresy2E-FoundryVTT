@@ -25,23 +25,23 @@
                 <div class="stats-row">
                     <div class="stat prerequisites">
                         <label>{{localize "TALENT.PREREQUISITES"}}</label>
-                        <input name="data.prerequisites" type="text" value="{{data.prerequisites}}" />
+                        <input name="system.prerequisites" type="text" value="{{system.prerequisites}}" />
                     </div>
                     <div class="stat tier">
                         <label>{{localize "TALENT.TIER"}}</label>
-                        <input name="data.tier" type="number" value="{{data.tier}}" data-dtype="Number" />
+                        <input name="system.tier" type="number" value="{{system.tier}}" data-dtype="Number" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat aptitudes">
                         <label>{{localize "TALENT.APTITUDES"}}</label>
-                        <input name="data.aptitudes" type="text" value="{{data.aptitudes}}" />
+                        <input name="system.aptitudes" type="text" value="{{system.aptitudes}}" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat benefit">
                         <label>{{localize "TALENT.BENEFIT"}}</label>
-                        <input name="data.benefit" type="text" value="{{data.benefit}}" />
+                        <input name="system.benefit" type="text" value="{{system.benefit}}" />
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
             <div class="notes-editor border">
                 <h1>{{localize "TITLE.NOTES"}}</h1>
                 <div style="height: 132px; width: 100%">
-                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror"  button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>

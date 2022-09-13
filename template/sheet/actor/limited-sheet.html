@@ -18,7 +18,7 @@
       <div class="flex wrap notes-editor border">
         <h1>{{localize "TITLE.NOTES"}}</h1>
         <div class="notes-editor-content">
-          {{editor content=data.bio.notes target="data.bio.notes" button=true owner=owner
+          {{editor enrichment.system.bio.notes target="system.bio.notes" engine="prosemirror" button=true owner=owner
           editable=editable}}
         </div>
       </div>

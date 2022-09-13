@@ -26,38 +26,38 @@
                 <div class="stats-row">
                     <div class="stat prerequisite">
                         <label>{{localize "PSYCHIC_POWER.PREREQUISITE"}}</label>
-                        <input name="data.prerequisite" type="text" value="{{data.prerequisite}}" />
+                        <input name="system.prerequisite" type="text" value="{{system.prerequisite}}" />
                     </div>
                     <div class="stat action">
                         <label>{{localize "PSYCHIC_POWER.ACTION"}}</label>
-                        <input name="data.action" type="text" value="{{data.action}}" />
+                        <input name="system.action" type="text" value="{{system.action}}" />
                     </div>
                     <div class="stat subtype">
                         <label>{{localize "PSYCHIC_POWER.SUBTYPE"}}</label>
-                        <input name="data.subtype" type="text" value="{{data.subtype}}" />
+                        <input name="system.subtype" type="text" value="{{system.subtype}}" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat focus-power">
                         <label>{{localize "PSYCHIC_POWER.FOCUS_POWER"}}</label>
-                        <input name="data.focusPower.difficulty" type="number" value="{{data.focusPower.difficulty}}" data-dtype="Number" />
-                        <input name="data.focusPower.test" type="text" value="{{data.focusPower.test}}" />
+                        <input name="system.focusPower.difficulty" type="number" value="{{system.focusPower.difficulty}}" data-dtype="Number" />
+                        <input name="system.focusPower.test" type="text" value="{{system.focusPower.test}}" />
                     </div>
                     <div class="stat range">
                         <label>{{localize "PSYCHIC_POWER.RANGE"}}</label>
-                        <input name="data.range" type="text" value="{{data.range}}" />
+                        <input name="system.range" type="text" value="{{system.range}}" />
                     </div>
                     <div class="stat sustained">
                         <label>{{localize "PSYCHIC_POWER.SUSTAINED"}}</label>
-                        <input name="data.sustained" type="text" value="{{data.sustained}}" />
+                        <input name="system.sustained" type="text" value="{{system.sustained}}" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat damage">
                         <label>{{localize "PSYCHIC_POWER.DAMAGE_FULL"}}</label>
-                        <input name="data.damage.formula" type="text" value="{{data.damage.formula}}" />
-                        <select name="data.damage.type">
-                            {{#select data.damage.type}}
+                        <input name="system.damage.formula" type="text" value="{{system.damage.formula}}" />
+                        <select name="system.damage.type">
+                            {{#select system.damage.type}}
                                 <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
                                 <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
                                 <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
@@ -67,12 +67,12 @@
                     </div>
                     <div class="stat penetration">
                         <label>{{localize "PSYCHIC_POWER.PENETRATION"}}</label>
-                        <input name="data.damage.penetration" type="text" value="{{data.damage.penetration}}" />
+                        <input name="system.damage.penetration" type="text" value="{{system.damage.penetration}}" />
                     </div>
                     <div class="stat zone">
                         <label>{{localize "PSYCHIC_POWER.ZONE"}}</label>
-                        <select name="data.damage.zone">
-                            {{#select data.damage.zone}}
+                        <select name="system.damage.zone">
+                            {{#select system.damage.zone}}
                                 <option value="none">{{localize "ATTACK_TYPE.NONE"}}</option>
                                 <option value="bolt">{{localize "PSYCHIC_POWER.BOLT"}}</option>
                                 <option value="barrage">{{localize "PSYCHIC_POWER.BARRAGE"}}</option>
@@ -85,13 +85,13 @@
                 <div class="stats-row">
                     <div class="stat special">
                         <label>{{localize "PSYCHIC_POWER.SPECIAL"}}</label>
-                        <input name="data.damage.special" type="text" value="{{data.damage.special}}" />
+                        <input name="system.damage.special" type="text" value="{{system.damage.special}}" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat short-description">
                         <label style="width: 90px">{{localize "PSYCHIC_POWER.SHORT_DESCRIPTION"}}</label>
-                        <input name="data.shortDescription" type="text" value="{{data.shortDescription}}" />
+                        <input name="system.shortDescription" type="text" value="{{system.shortDescription}}" />
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
             <div class="notes-editor border">
                 <h1>{{localize "TITLE.EFFECT"}}</h1>
                 <div style="height: 160px; width: 100%">
-                    {{editor content=data.effect target="data.effect" button=true owner=owner editable=editable}}
+                    {{editor enrichment.system.effect target="system.effect" engine="prosemirror" button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
             <div class="notes-editor border">
                 <h1>{{localize "TITLE.NOTES"}}</h1>
                 <div style="height: 160px; width: 100%">
-                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror"  button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>

@@ -41,8 +41,8 @@ export class DarkHeresyActor extends Actor {
             characteristic.advanceCharacteristic = this._getAdvanceCharacteristic(characteristic.advance)
             i++;
         }
-        this.data.data.insanityBonus = Math.floor(this.insanity / 10);
-        this.data.data.corruptionBonus = Math.floor(this.corruption / 10);
+        this.system.insanityBonus = Math.floor(this.insanity / 10);
+        this.system.corruptionBonus = Math.floor(this.corruption / 10);
         this.psy.currentRating = this.psy.rating - this.psy.sustained;
         this.initiative.bonus = this.characteristics[this.initiative.characteristic].bonus;
         // done as variables to make it easier to read & understand
@@ -111,7 +111,7 @@ export class DarkHeresyActor extends Actor {
             }
         }
         this.experience.totalSpent = this.experience.spentCharacteristics + this.experience.spentSkills + this.experience.spentTalents + this.experience.spentPsychicPowers;
-        this.experience.total = this.experience.value + this.experience.totalSpent;
+        this.experience.remaining = this.experience.value - this.experience.totalSpent;
     }
 
     _computeArmour() {
@@ -119,7 +119,7 @@ export class DarkHeresyActor extends Actor {
 
         let toughness = this.characteristics.toughness;
 
-        this.data.data.armour =
+        this.system.armour =
             Object.keys(locations)
                 .reduce((accumulator, location) =>
                     Object.assign(accumulator,
@@ -169,7 +169,7 @@ export class DarkHeresyActor extends Actor {
     _computeMovement() {
         let agility = this.characteristics.agility;
         let size = this.size;
-        this.data.data.movement = {
+        this.system.movement = {
             half: agility.bonus + size - 4,
             full: (agility.bonus + size - 4) * 2,
             charge: (agility.bonus  + size - 4) * 3,
@@ -188,7 +188,7 @@ export class DarkHeresyActor extends Actor {
 
     _computeEncumbrance(encumbrance) {
         const attributeBonus = this.characteristics.strength.bonus + this.characteristics.toughness.bonus;
-        this.data.data.encumbrance = {
+        this.system.encumbrance = {
             max: 0,
             value: encumbrance
         };
@@ -323,7 +323,7 @@ export class DarkHeresyActor extends Actor {
             // get the armour for the location and minus penetration, no negatives
             let armour = Math.max(this._getArmour(damage.location) - Number(damage.penetration), 0)
             // reduce damage by toughness bonus
-            const damageMinusToughness = Math.max(Number(damage.amount) - this.data.data.characteristics.toughness.bonus, 0)
+            const damageMinusToughness = Math.max(Number(damage.amount) - this.system.characteristics.toughness.bonus, 0)
 
             // calculate wounds to add, reducing damage by armour after pen
             let woundsToAdd = Math.max(damageMinusToughness - armour, 0)
@@ -358,8 +358,8 @@ export class DarkHeresyActor extends Actor {
 
         // Update the Actor
         const updates = {
-            "data.wounds.value": wounds,
-            "data.wounds.critical": criticalWounds
+            "system.wounds.value": wounds,
+            "system.wounds.critical": criticalWounds
         };
 
         // Delegate damage application to a hook
@@ -440,25 +440,25 @@ export class DarkHeresyActor extends Actor {
         ChatMessage.create({ content: html });
     }
 
-    get characteristics() {return this.data.data.characteristics}
-    get skills() {return this.data.data.skills}
-    get initiative() {return this.data.data.initiative}
-    get wounds() {return this.data.data.wounds}
-    get fatigue() {return this.data.data.fatigue}
-    get fate() {return this.data.data.fate}
-    get psy() {return this.data.data.psy}
-    get bio() {return this.data.data.bio}
-    get experience() {return this.data.data.experience}
-    get insanity() {return this.data.data.insanity}
-    get corruption() {return this.data.data.corruption}
-    get aptitudes() {return this.data.data.aptitudes}
-    get size() {return this.data.data.size}
-    get faction() {return this.data.data.faction}
-    get subfaction() {return this.data.data.subfaction}
-    get subtype() {return this.data.data.type}
-    get threatLevel() {return this.data.data.threatLevel}
-    get armour() {return this.data.data.armour}
-    get encumbrance() {return this.data.data.encumbrance}
-    get movement() {return this.data.data.movement}
+    get characteristics() {return this.system.characteristics}
+    get skills() {return this.system.skills}
+    get initiative() {return this.system.initiative}
+    get wounds() {return this.system.wounds}
+    get fatigue() {return this.system.fatigue}
+    get fate() {return this.system.fate}
+    get psy() {return this.system.psy}
+    get bio() {return this.system.bio}
+    get experience() {return this.system.experience}
+    get insanity() {return this.system.insanity}
+    get corruption() {return this.system.corruption}
+    get aptitudes() {return this.system.aptitudes}
+    get size() {return this.system.size}
+    get faction() {return this.system.faction}
+    get subfaction() {return this.system.subfaction}
+    get subtype() {return this.system.type}
+    get threatLevel() {return this.system.threatLevel}
+    get armour() {return this.system.armour}
+    get encumbrance() {return this.system.encumbrance}
+    get movement() {return this.system.movement}
 
 }

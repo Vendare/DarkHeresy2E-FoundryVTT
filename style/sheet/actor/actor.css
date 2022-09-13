@@ -181,12 +181,6 @@
     margin-right: 5px;
 }
 
-.dark-heresy.sheet .header {
-}
-
-.dark-heresy.sheet .header label {
-}
-
 .dark-heresy.sheet .header input,
 .dark-heresy.sheet .header span {
     flex-grow: 1;

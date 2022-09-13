@@ -25,8 +25,8 @@
                 <div class="stats-row">
                     <div class="stat craftsmanship">
                         <label>{{localize "TOOL.CRAFTSMANSHIP"}}</label>
-                        <select name="data.craftsmanship">
-                            {{#select data.craftsmanship}}
+                        <select name="system.craftsmanship">
+                            {{#select system.craftsmanship}}
                                 <option value="poor">{{localize "CRAFTSMANSHIP.POOR"}}</option>
                                 <option value="common">{{localize "CRAFTSMANSHIP.COMMON"}}</option>
                                 <option value="good">{{localize "CRAFTSMANSHIP.GOOD"}}</option>
@@ -36,8 +36,8 @@
                     </div>
                     <div class="stat availability">
                         <label>{{localize "TOOL.AVAILABILITY"}}</label>
-                        <select name="data.availability">
-                            {{#select data.availability}}
+                        <select name="system.availability">
+                            {{#select system.availability}}
                                 <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
                                 <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
                                 <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
@@ -54,13 +54,13 @@
                     </div>
                     <div class="stat weight">
                         <label>{{localize "TOOL.WEIGHT"}}</label>
-                        <input name="data.weight" type="number" value="{{data.weight}}" data-dtype="Number" />
+                        <input name="system.weight" type="number" value="{{system.weight}}" data-dtype="Number" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat short-description">
                         <label>{{localize "TOOL.SHORT_DESCRIPTION"}}</label>
-                        <input name="data.shortDescription" type="text" value="{{data.shortDescription}}" />
+                        <input name="system.shortDescription" type="text" value="{{system.shortDescription}}" />
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
             <div class="notes-editor border">
                 <h1>{{localize "TITLE.NOTES"}}</h1>
                 <div style="height: 132px; width: 100%">
-                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror"  button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>

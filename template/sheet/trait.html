@@ -25,7 +25,7 @@
                 <div class="stats-row">
                     <div class="stat benefit">
                         <label>{{localize "TRAIT.BENEFIT"}}</label>
-                        <input name="data.benefit" type="text" value="{{data.benefit}}" />
+                        <input name="system.benefit" type="text" value="{{system.benefit}}" />
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="notes-editor border">
                 <h1>{{localize "TITLE.NOTES"}}</h1>
                 <div style="height: 132px; width: 100%">
-                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror"  button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>

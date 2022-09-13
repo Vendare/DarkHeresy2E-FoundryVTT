@@ -1,9 +1,9 @@
 export const migrateWorld = async () => {
-    const schemaVersion = 4;
+    const schemaVersion = 5;
     const worldSchemaVersion = Number(game.settings.get("dark-heresy", "worldSchemaVersion"));
     if (worldSchemaVersion !== schemaVersion && game.user.isGM) {
         ui.notifications.info("Upgrading the world, please wait...");
-        for (let actor of game.actors.entities) {
+        for (let actor of game.actors.contents) {
             try {
                 const update = migrateActorData(actor, worldSchemaVersion);
                 if (!isObjectEmpty(update)) {
@@ -27,7 +27,7 @@ const migrateActorData = (actor, worldSchemaVersion) => {
     if (worldSchemaVersion < 1) {
         if (actor.data.type === "acolyte" || actor.data.type === "npc") {
             actor.data.skills.psyniscience.characteristics = ["Per", "WP"];
-            update["data.skills.psyniscience"] = actor.data.data.skills.psyniscience;
+            update["system.skills.psyniscience"] = actor.data.data.skills.psyniscience;
         }
     }
     if (worldSchemaVersion < 2) {
@@ -72,8 +72,9 @@ const migrateActorData = (actor, worldSchemaVersion) => {
                 "total": total,
                 "cost": 0
             }
-            update["data.skills.forbiddenLore"] = actor.data.data.skills.forbiddenLore;
+            update["system.skills.forbiddenLore"] = actor.data.data.skills.forbiddenLore;
         }
+    
     }
 
     // // migrate aptitudes
@@ -104,12 +105,23 @@ const migrateActorData = (actor, worldSchemaVersion) => {
                     actor.createEmbeddedDocuments("Item", [aptitudeItemsData])
                 }
             }
-            update["data.-=aptitudes"] = null
+            update["system.-=aptitudes"] = null
         }
     }
     if (worldSchemaVersion < 3) {
          actor.prepareData();
-         update["data.armour"] = actor.data.armour;
+         update["system.armour"] = actor.data.armour;
+    }
+
+    if(worldSchemaVersion < 5) {
+        actor.prepareData();
+        let  experience = actor.data.data?.experience;
+        let value = experience?.value + experience?.totalspent;
+        // In case of an Error in the calculation don't do anything loosing data is worse
+        // than doing nothing in this case since the user can easily do this himself
+        if(value !== NaN && value !== undefined) {
+            update["system.experience.value"] = value;
+        }
     }
     return update;
 };

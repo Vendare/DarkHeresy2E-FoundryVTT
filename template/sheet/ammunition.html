@@ -2,12 +2,12 @@
     <div class="header border">
         <div class="flex row">
             <div class="avatar">
-                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+                <img class="profile-img" src="{{item.img}}" data-edit="item.img" title="{{item.name}}" />
             </div>
             <div class="flex column grow justify-center">
                 <div class="name header-row">
                     <label>{{localize "AMMUNITION.NAME"}}</label>
-                    <input name="name" type="text" value="{{item.name}}" />
+                    <input name="item.name" type="text" value="{{item.name}}" />
                 </div>
             </div>
         </div>
@@ -25,19 +25,19 @@
                 <div class="stats-row">
                     <div class="stat weapon">
                         <label>{{localize "AMMUNITION.WEAPON"}}</label>
-                        <input name="data.weapon" type="text" value="{{data.weapon}}" />
+                        <input name="system.weapon" type="text" value="{{system.weapon}}" />
                     </div>
                     <div class="stat quantity">
                         <label>{{localize "AMMUNITION.QUANTITY"}}</label>
-                        <input name="data.quantity" type="number" value="{{data.quantity}}" data-dtype="Number" />
+                        <input name="system.quantity" type="number" value="{{system.quantity}}" data-dtype="Number" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat damage">
                         <label>{{localize "AMMUNITION.DAMAGE"}}</label>
-                        <input name="data.effect.damage.modifier" type="text" value="{{data.effect.damage.modifier}}" />
-                        <select name="data.effect.damage.type">
-                            {{#select data.effect.damage.type}}
+                        <input name="system.effect.damage.modifier" type="text" value="{{system.effect.damage.modifier}}" />
+                        <select name="system.effect.damage.type">
+                            {{#select system.effect.damage.type}}
                             <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
                             <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
                             <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
@@ -47,18 +47,18 @@
                     </div>
                     <div class="stat penetration">
                         <label>{{localize "AMMUNITION.PENETRATION"}}</label>
-                        <input name="data.effect.penetration" type="text" value="{{data.effect.penetration}}" />
+                        <input name="system.effect.penetration" type="text" value="{{system.effect.penetration}}" />
                     </div>
                     <div class="stat attack">
                         <label>{{localize "AMMUNITION.ATTACK"}}</label>
-                        <input name="data.effect.attack.modifier" type="number" value="{{data.effect.attack.modifier}}" data-dtype="Number" />
+                        <input name="system.effect.attack.modifier" type="number" value="{{system.effect.attack.modifier}}" data-dtype="Number" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat craftsmanship">
                         <label>{{localize "AMMUNITION.CRAFTSMANSHIP"}}</label>
-                        <select name="data.craftsmanship">
-                            {{#select data.craftsmanship}}
+                        <select name="system.craftsmanship">
+                            {{#select system.craftsmanship}}
                                 <option value="poor">{{localize "CRAFTSMANSHIP.POOR"}}</option>
                                 <option value="common">{{localize "CRAFTSMANSHIP.COMMON"}}</option>
                                 <option value="good">{{localize "CRAFTSMANSHIP.GOOD"}}</option>
@@ -68,8 +68,8 @@
                     </div>
                     <div class="stat availability">
                         <label>{{localize "AMMUNITION.AVAILABILITY"}}</label>
-                        <select name="data.availability">
-                            {{#select data.availability}}
+                        <select name="system.availability">
+                            {{#select system.availability}}
                                 <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
                                 <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
                                 <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
@@ -86,13 +86,13 @@
                     </div>
                     <div class="stat weight">
                         <label>{{localize "AMMUNITION.WEIGHT"}}</label>
-                        <input name="data.weight" type="number" value="{{data.weight}}" data-dtype="Number" />
+                        <input name="system.weight" type="number" value="{{system.weight}}" data-dtype="Number" />
                     </div>
                 </div>
                 <div class="stats-row">
                     <div class="stat special">
                         <label>{{localize "AMMUNITION.SPECIAL"}}</label>
-                        <input name="data.effect.special" type="text" value="{{data.effect.special}}" />
+                        <input name="system.effect.special" type="text" value="{{system.effect.special}}" />
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
             <div class="notes-editor border">
                 <h1>{{localize "TITLE.NOTES"}}</h1>
                 <div style="height: 132px; width: 100%">
-                    {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror"  button=true owner=owner editable=editable}}
                 </div>
             </div>
         </div>
