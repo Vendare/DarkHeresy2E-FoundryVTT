@@ -48,7 +48,7 @@
                     {{#unless skill.isSpecialist}}
                         <div class="skill">
                             <div class="name">
-                                <button class="roll-skill" data-skill="{{key}}">{{localize skill.label}}</button>
+                                <button class="roll-skill" data-skill="{{key}}" type="button">{{localize skill.label}}</button>
                             </div>
                             <input class="total" type="number" value="{{skill.total}}" data-dtype="Number" disabled />
                             <div class="information">
@@ -72,7 +72,7 @@
                                     {{#if speciality.isKnown}}
                                         <div class="speciality item flex row" data-skill="{{key}}">
                                             <div class="name">
-                                                <button class="roll-speciality" data-speciality="{{keySpe}}">{{speciality.label}}</button>
+                                                <button class="roll-speciality" data-speciality="{{keySpe}}" type="button">{{speciality.label}}</button>
                                             </div>
                                             <input class="total" type="number" value="{{speciality.total}}" data-dtype="Number" disabled />
                                             <div class="information">
