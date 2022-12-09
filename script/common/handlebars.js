@@ -71,10 +71,26 @@ function registerHandlebarsHelpers() {
         return game.i18n.localize("DAMAGE_TYPE.IMPACT");
       case "r":
         return game.i18n.localize("DAMAGE_TYPE.RENDING");
-      case "e":
+      case "x":
         return game.i18n.localize("DAMAGE_TYPE.EXPLOSIVE");
       default:
         return game.i18n.localize("DAMAGE_TYPE.IMPACT");
+    }
+  });
+
+  
+  Handlebars.registerHelper("damageTypeShort", function (damageType) {
+    switch (damageType) {
+      case "energy":
+        return game.i18n.localize("DAMAGE_TYPE.ENERGY_SHORT");
+      case "impact":
+        return game.i18n.localize("DAMAGE_TYPE.IMPACT_SHORT");
+      case "rending":
+        return game.i18n.localize("DAMAGE_TYPE.RENDING_SHORT");
+      case "explosive":
+        return game.i18n.localize("DAMAGE_TYPE.EXPLOSIVE_SHORT");
+      default:
+        return game.i18n.localize("DAMAGE_TYPE.IMPACT_SHORT");
     }
   });
 

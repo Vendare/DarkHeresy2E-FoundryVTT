@@ -62,7 +62,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     rollData.attackType.name = attackType?.value;
                     rollData.attackType.text = attackType?.options[attackType.selectedIndex].text;
                     rollData.damageFormula = html.find("#damageFormula")[0].value.replace(' ', '');
-                    rollData.damageType.long = html.find("#damageType")[0].value;
+                    rollData.damageType = html.find("#damageType")[0].value;
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
                     rollData.penetrationFormula = html.find("#penetration")[0].value;
                     if (rollData.isRange && rollData.clip.max > 0) {
@@ -128,7 +128,7 @@ export async function preparePsychicPowerRoll(rollData) {
                     rollData.psy.value = parseInt(html.find("#psy")[0].value, 10);
                     rollData.psy.warpConduit = html.find("#warpConduit")[0].checked
                     rollData.damageFormula = html.find("#damageFormula")[0].value;
-                    rollData.damageType.long = html.find("#damageType")[0].value;
+                    rollData.damageType = html.find("#damageType")[0].value;
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
                     rollData.penetrationFormula = html.find("#penetration")[0].value;
                     rollData.rateOfFire = { burst: rollData.psy.value, full: rollData.psy.value };

@@ -192,10 +192,7 @@ export class DarkHeresySheet extends ActorSheet {
       itemId: weapon.id,
       damageFormula: weapon.damage + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : ""),
       damageBonus: 0,
-      damageType: {
-        long: weapon.damageType,
-        short: weapon.damageTypeShort
-      }, 
+      damageType: weapon.damageType,
       penetrationFormula: weapon.penetration,
       weaponTraits : this._extractWeaponTraits(weapon.special),
       special: weapon.special,
@@ -217,10 +214,7 @@ export class DarkHeresySheet extends ActorSheet {
       modifier: psychicPower.focusPower.difficulty,
       attributeBoni: this._getAttributeBoni(),
       damageFormula: psychicPower.damage.formula,
-      damageType: {
-        long: weapon.damageType,
-        short: weapon.damageTypeShort
-      },
+      damageType: weapon.damageType,
       damageBonus: 0,
       ownerId: this.actor.id,
       itemId: psychicPower.id,
