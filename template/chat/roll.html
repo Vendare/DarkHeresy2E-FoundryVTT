@@ -1,5 +1,5 @@
 <div class="dark-heresy chat roll">
-    <div class="background border">
+    <div class="background border" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" >
         {{# unless weaponTraits.skipAttackRoll}}
             <h1>{{name}} ({{target}})</h1>
             {{#if isSuccess}}
@@ -51,7 +51,7 @@
             <h3 class="separator damage-location" data-location={{location}}>{{localize location}}</h3>
             <div>
                 <p><strong>{{localize "CHAT.DAMAGE"}}:</strong> <span class="damage-total">{{damage.total}}</span> 
-                   <strong class="damage-type">{{../item.DamageTypeShort}}</strong>
+                   <strong class="damage-type">{{damageType.short}}</strong>
                 </p>
             </div>
             <p><strong>{{localize "CHAT.PENETRATION"}}:</strong> <span class="damage-penetration">{{penetration}}</span></p>

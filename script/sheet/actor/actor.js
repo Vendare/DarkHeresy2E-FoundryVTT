@@ -181,7 +181,6 @@ export class DarkHeresySheet extends ActorSheet {
 
     let isMelee = weapon.class === "melee"
     let rollData = {
-      item: weapon,
       name: weapon.name,
       baseTarget: characteristic.total + weapon.attack,
       modifier: 0,
@@ -189,9 +188,14 @@ export class DarkHeresySheet extends ActorSheet {
       isMelee: isMelee,
       isRange: !isMelee,
       clip: weapon.clip,
+      ownerId: this.actor.id,
+      itemId: weapon.id,
       damageFormula: weapon.damage + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : ""),
       damageBonus: 0,
-      damageType: weapon.damageType,
+      damageType: {
+        long: weapon.damageType,
+        short: weapon.damageTypeShort
+      }, 
       penetrationFormula: weapon.penetration,
       weaponTraits : this._extractWeaponTraits(weapon.special),
       special: weapon.special,
@@ -213,8 +217,13 @@ export class DarkHeresySheet extends ActorSheet {
       modifier: psychicPower.focusPower.difficulty,
       attributeBoni: this._getAttributeBoni(),
       damageFormula: psychicPower.damage.formula,
-      damageType: psychicPower.damage.type,
+      damageType: {
+        long: weapon.damageType,
+        short: weapon.damageTypeShort
+      },
       damageBonus: 0,
+      ownerId: this.actor.id,
+      itemId: psychicPower.id,
       penetrationFormula: psychicPower.damage.penetration,
       attackType: { name: psychicPower.damage.zone, text: "" },
       weaponTraits : this._extractWeaponTraits(psychicPower.damage.special),
@@ -229,7 +238,7 @@ export class DarkHeresySheet extends ActorSheet {
         rfFace : this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
         proven : this._extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
         primitive : this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
-        razorSharp : this._hasNamedTrait(/Razor.*Sharp/gi, traits),
+        razorSharp : this._hasNamedTrait(/Razor *Sharp/gi, traits),
         skipAttackRoll : this._hasNamedTrait(/Spray/gi, traits),
         tearing : this._hasNamedTrait(/Tearing/gi, traits)
     }
