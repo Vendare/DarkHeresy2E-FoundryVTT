@@ -165,7 +165,7 @@ async function  _rollPenetration(rollData) {
             penetration = penetration.replace(/\d+.*\(\d+\)/gi, rsValue) // Replace construct BaseValue(RazorsharpValue) with the extracted data
         }
             
-    } else if(rollData.razorsharp) {
+    } else if(rollData.weaponTraits.razorSharp) {
         if(rollData.dos >= 3) {
             multiplier = 2;
         }
