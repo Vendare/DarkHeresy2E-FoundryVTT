@@ -66,34 +66,38 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
                     rollData.penetrationFormula = html.find("#penetration")[0].value;
                     if (rollData.isRange && rollData.clip.max > 0) {
-                        switch(rollData.attackType.name) {
-                            case 'standard':
-                            case 'called_shot': {
-                                if (rollData.clip.value < 1) {
-                                    return reportEmptyClip(rollData);
-                                } else {
-                                    rollData.clip.value -= 1;
-                                    await rollData.item.update({"system.clip.value" : rollData.clip.value})
+                        const weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
+                        if(weapon) {
+                            switch(rollData.attackType.name) {
+                                case 'standard':
+                                case 'called_shot': {
+                                    if (rollData.clip.value < 1) {
+                                        return reportEmptyClip(rollData);
+                                    } else {
+                                        rollData.clip.value -= 1;
+                                        
+                                        await rollData.item.update({"system.clip.value" : rollData.clip.value})
+                                    }
+                                    break;
                                 }
-                                break;
-                            }
-                            case 'semi_auto': {
-                                if (rollData.clip.value < rollData.rateOfFire.burst) {
-                                    return reportEmptyClip(rollData);
-                                } else {
-                                    rollData.clip.value -= rollData.rateOfFire.burst;
-                                    await rollData.item.update({"system.clip.value" : rollData.clip.value})
+                                case 'semi_auto': {
+                                    if (rollData.clip.value < rollData.rateOfFire.burst) {
+                                        return reportEmptyClip(rollData);
+                                    } else {
+                                        rollData.clip.value -= rollData.rateOfFire.burst;
+                                        await rollData.item.update({"system.clip.value" : rollData.clip.value})
+                                    }
+                                    break;
                                 }
-                                break;
-                            }
-                            case 'full_auto': {
-                                if (rollData.clip.value < rollData.rateOfFire.full) {
-                                    return reportEmptyClip(rollData);
-                                } else {
-                                    rollData.clip.value -= rollData.rateOfFire.full;
-                                    await rollData.item.update({"system.clip.value" : rollData.clip.value})
+                                case 'full_auto': {
+                                    if (rollData.clip.value < rollData.rateOfFire.full) {
+                                        return reportEmptyClip(rollData);
+                                    } else {
+                                        rollData.clip.value -= rollData.rateOfFire.full;
+                                        await rollData.item.update({"system.clip.value" : rollData.clip.value})
+                                    }
+                                    break;
                                 }
-                                break;
                             }
                         }
                     }
