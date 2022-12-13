@@ -5,7 +5,7 @@ export class DarkHeresyItemSheet extends ItemSheet {
   }
 
   getData() {
-    let data = super.getData()
+    let data = super.getData();
     return {
       item: data.item,
       system: data.data.system
@@ -19,7 +19,7 @@ export class DarkHeresyItemSheet extends ItemSheet {
         label: game.i18n.localize("BUTTON.POST_ITEM"),
         class: "item-post",
         icon: "fas fa-comment",
-        onclick: (ev) => this.item.sendToChat(),
+        onclick: ev => this.item.sendToChat()
       }
     ].concat(buttons);
     return buttons;
