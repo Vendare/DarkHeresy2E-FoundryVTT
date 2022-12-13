@@ -8,6 +8,18 @@ This repository leverages [gulp](https://gulpjs.com/) to run automated build tas
 
 Installs all dependencies needed to run developer tooling scripts.
 
+### `npm run build` / `gulp buildAll`
+
+Runs all relevant build scripts (listed below).
+
+### `npm run build:css` / `gulp buildCSS`
+
+Converts the LESS in `./less` to the final `dark-heresy.css`.
+
+### `npm run build:watch` / `gulp`
+
+Runs the LESS -> CSS builder in watch mode so that changes made to the LESS files will automatically compile to CSS.
+
 ## Code
 
 Here are some guidelines for contributing code to this project.
