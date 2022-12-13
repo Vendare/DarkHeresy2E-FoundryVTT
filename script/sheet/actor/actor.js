@@ -21,7 +21,7 @@ export class DarkHeresySheet extends ActorSheet {
     const data = super.getData();
     return {
       actor: data.actor,
-      system : data.data.system
+      system: data.data.system
     };
   }
 
@@ -42,7 +42,7 @@ export class DarkHeresySheet extends ActorSheet {
           label: game.i18n.localize("BUTTON.ROLL"),
           class: "custom-roll",
           icon: "fas fa-dice",
-          onclick: async (ev) => await this._prepareCustomRoll()
+          onclick: async ev => await this._prepareCustomRoll()
         }
       ].concat(buttons);
     }
@@ -51,14 +51,15 @@ export class DarkHeresySheet extends ActorSheet {
 
   _onItemCreate(event) {
     event.preventDefault();
-    let header = event.currentTarget.dataset
-    
+    let header = event.currentTarget.dataset;
+
     let data = {
-         name : `New ${game.i18n.localize("ITEM.Type" + header.type.toLowerCase().capitalize())}`,
-         type : header.type
+      name: `New ${game.i18n.localize(`ITEM.Type${header.type.toLowerCase().capitalize()}`)}`,
+      type: header.type
     };
     this.actor.createEmbeddedDocuments("Item", [data], { renderSheet: true });
-}
+  }
+
   _onItemEdit(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
@@ -98,29 +99,29 @@ export class DarkHeresySheet extends ActorSheet {
     await prepareCommonRoll(rollData);
   }
 
-  _getCharacteristicOptions (selected) {
-    const characteristics = []
+  _getCharacteristicOptions(selected) {
+    const characteristics = [];
     for (let char of Object.values(this.actor.characteristics)) {
       characteristics.push({
         label: char.label,
         target: char.total,
         selected: char.short === selected
-      })
+      });
     }
-    return characteristics
+    return characteristics;
   }
 
   async _prepareRollSkill(event) {
     event.preventDefault();
     const skillName = $(event.currentTarget).data("skill");
     const skill = this.actor.skills[skillName];
-    const defaultChar = skill.defaultCharacteristic || skill.characteristics[0]
+    const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
 
-    let characteristics = this._getCharacteristicOptions(defaultChar)
-    characteristics = characteristics.map((char) => {
-      char.target += skill.advance
-      return char
-    })
+    let characteristics = this._getCharacteristicOptions(defaultChar);
+    characteristics = characteristics.map(char => {
+      char.target += skill.advance;
+      return char;
+    });
 
     const rollData = {
       name: skill.label,
@@ -179,7 +180,7 @@ export class DarkHeresySheet extends ActorSheet {
       rateOfFire = {burst: weapon.rateOfFire.burst, full: weapon.rateOfFire.full};
     }
 
-    let isMelee = weapon.class === "melee"
+    let isMelee = weapon.class === "melee";
     let rollData = {
       name: weapon.name,
       baseTarget: characteristic.total + weapon.attack,
@@ -194,7 +195,7 @@ export class DarkHeresySheet extends ActorSheet {
       damageBonus: 0,
       damageType: weapon.damageType,
       penetrationFormula: weapon.penetration,
-      weaponTraits : this._extractWeaponTraits(weapon.special),
+      weaponTraits: this._extractWeaponTraits(weapon.special),
       special: weapon.special,
       rateOfFire: rateOfFire,
       psy: { value: this.actor.psy.rating, display: false}
@@ -206,7 +207,7 @@ export class DarkHeresySheet extends ActorSheet {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
     const psychicPower = this.actor.items.get(div.data("itemId"));
-    let focusPowerTarget = this._getFocusPowerTarget(psychicPower);  
+    let focusPowerTarget = this._getFocusPowerTarget(psychicPower);
 
     const rollData = {
       name: psychicPower.name,
@@ -220,40 +221,46 @@ export class DarkHeresySheet extends ActorSheet {
       itemId: psychicPower.id,
       penetrationFormula: psychicPower.damage.penetration,
       attackType: { name: psychicPower.damage.zone, text: "" },
-      weaponTraits : this._extractWeaponTraits(psychicPower.damage.special),
-      psy: { value: this.actor.psy.rating, rating: this.actor.psy.rating, max: this._getMaxPsyRating(), warpConduit:false, display: true}
+      weaponTraits: this._extractWeaponTraits(psychicPower.damage.special),
+      psy: {
+        value: this.actor.psy.rating,
+        rating: this.actor.psy.rating,
+        max: this._getMaxPsyRating(),
+        warpConduit: false,
+        display: true
+      }
     };
     await preparePsychicPowerRoll(rollData);
   }
 
   _extractWeaponTraits(traits) {
-    //These weapon traits never go above 9 or below 2 
+    // These weapon traits never go above 9 or below 2
     return {
-        rfFace : this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
-        proven : this._extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
-        primitive : this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
-        razorSharp : this._hasNamedTrait(/Razor *Sharp/gi, traits),
-        skipAttackRoll : this._hasNamedTrait(/Spray/gi, traits),
-        tearing : this._hasNamedTrait(/Tearing/gi, traits)
-    }
+      rfFace: this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
+      proven: this._extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
+      primitive: this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
+      razorSharp: this._hasNamedTrait(/Razor *Sharp/gi, traits),
+      skipAttackRoll: this._hasNamedTrait(/Spray/gi, traits),
+      tearing: this._hasNamedTrait(/Tearing/gi, traits)
+    };
   }
 
   _getMaxPsyRating() {
-    let base = this.actor.psy.rating
-    switch(this.actor.psy.class) {
-      case "bound" :
+    let base = this.actor.psy.rating;
+    switch (this.actor.psy.class) {
+      case "bound":
         return base + 2;
-      case "unbound" :
+      case "unbound":
         return base + 4;
-      case "daemonic" :
+      case "daemonic":
         return base + 3;
     }
   }
 
   _extractNumberedTrait(regex, traits) {
     let rfMatch = traits.match(regex);
-    if(rfMatch) {
-      regex = /\d+/gi
+    if (rfMatch) {
+      regex = /\d+/gi;
       return parseInt(rfMatch[0].match(regex)[0]);
     }
     return undefined;
@@ -261,7 +268,7 @@ export class DarkHeresySheet extends ActorSheet {
 
   _hasNamedTrait(regex, traits) {
     let rfMatch = traits.match(regex);
-    if(rfMatch) {
+    if (rfMatch) {
       return true;
     } else {
       return false;
@@ -293,19 +300,19 @@ export class DarkHeresySheet extends ActorSheet {
     const normalizeName = psychicPower.focusPower.test.toLowerCase();
     if (this.actor.characteristics.hasOwnProperty(normalizeName)) {
       return this.actor.characteristics[normalizeName];
-    } else if(this.actor.skills.hasOwnProperty(normalizeName)) {
+    } else if (this.actor.skills.hasOwnProperty(normalizeName)) {
       return this.actor.skills[normalizeName];
-    } else {      
+    } else {
       return this.actor.characteristics.willpower;
     }
   }
 
   _getAttributeBoni() {
     let boni = [];
-    for(let characteristic of Object.values(this.actor.characteristics)) {
-      boni.push( {regex: new RegExp(`${characteristic.short}B`,'gi'), value: characteristic.bonus} )
+    for (let characteristic of Object.values(this.actor.characteristics)) {
+      boni.push( {regex: new RegExp(`${characteristic.short}B`, "gi"), value: characteristic.bonus} );
     }
     return boni;
-    
+
   }
 }
