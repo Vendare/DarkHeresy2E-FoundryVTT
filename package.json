@@ -2,7 +2,7 @@
   "scripts": {
     "lint": "gulp lint",
     "lint:fix": "gulp lint --fix",
-    "test": "npm run gulp lint"
+    "test": "npm run lint:fix"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.4",
