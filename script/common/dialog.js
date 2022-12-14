@@ -76,7 +76,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                                     } else {
                                         rollData.clip.value -= 1;
                                         
-                                        await rollData.item.update({"system.clip.value" : rollData.clip.value})
+                                        await weapon.update({"system.clip.value" : rollData.clip.value})
                                     }
                                     break;
                                 }
@@ -85,7 +85,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                                         return reportEmptyClip(rollData);
                                     } else {
                                         rollData.clip.value -= rollData.rateOfFire.burst;
-                                        await rollData.item.update({"system.clip.value" : rollData.clip.value})
+                                        await weapon.update({"system.clip.value" : rollData.clip.value})
                                     }
                                     break;
                                 }
@@ -94,7 +94,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                                         return reportEmptyClip(rollData);
                                     } else {
                                         rollData.clip.value -= rollData.rateOfFire.full;
-                                        await rollData.item.update({"system.clip.value" : rollData.clip.value})
+                                        await weapon.update({"system.clip.value" : rollData.clip.value})
                                     }
                                     break;
                                 }
