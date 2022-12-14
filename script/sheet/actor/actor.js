@@ -215,7 +215,7 @@ export class DarkHeresySheet extends ActorSheet {
       modifier: psychicPower.focusPower.difficulty,
       attributeBoni: this._getAttributeBoni(),
       damageFormula: psychicPower.damage.formula,
-      damageType: weapon.damageType,
+      damageType: psychicPower.damageType,
       damageBonus: 0,
       ownerId: this.actor.id,
       itemId: psychicPower.id,

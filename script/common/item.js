@@ -265,6 +265,8 @@ export class DarkHeresyItem extends Item {
 
   get isAbilities() { return this.isTalent || this.isTrait || this.isSpecialAbility; }
 
+  get isAdditive() { return this.system.isAdditive; }
+
   get craftsmanship() { return this.system.craftsmanship;}
 
   get description() { return this.system.description;}

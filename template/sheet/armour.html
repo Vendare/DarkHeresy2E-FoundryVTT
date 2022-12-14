@@ -34,7 +34,11 @@
                                 <option value="power">{{localize "ARMOUR_TYPE.POWER"}}</option>
                             {{/select}}
                         </select>
-                    </div>
+                    </div> 
+                    <div class="stat part">
+					              <label>{{localize "ARMOUR.IS_ADDITIVE"}}</label>
+						            <input name="system.isAdditive" type="checkbox" {{checked system.isAdditive}} />
+                    </div>					
                     <div class="stat max-agility">
                         <label>{{localize "ARMOUR.MAX_AGILITY"}}</label>
                         <input name="system.maxAgility" type="number" value="{{system.maxAgility}}" data-dtype="Number" />

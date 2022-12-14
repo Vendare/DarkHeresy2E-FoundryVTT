@@ -118,12 +118,11 @@ export class DarkHeresyActor extends Actor {
   }
 
   _computeArmour() {
-    let locations = game.system.template.Item.armour.part;
+    let locations = Object.keys(game.system.template.Item.armour.part);
 
     let toughness = this.characteristics.toughness;
 
-    this.system.armour =
-            Object.keys(locations)
+    this.system.armour = locations
               .reduce((accumulator, location) =>
                 Object.assign(accumulator,
                   {
@@ -135,24 +134,31 @@ export class DarkHeresyActor extends Actor {
                   }), {});
 
     // Object for storing the max armour
-    let maxArmour = Object.keys(locations)
+    let maxArmour = locations
       .reduce((acc, location) =>
         Object.assign(acc, { [location]: 0 }), {});
 
     // For each item, find the maximum armour val per location
     this.items
-      .filter(item => item.type === "armour")
+      .filter(item => item.isArmour && !item.isAdditive)
       .reduce((acc, armour) => {
-        Object.keys(locations)
-          .forEach(location => {
+        locations.forEach(location => {
             let armourVal = armour.part[location] || 0;
             if (armourVal > acc[location]) {
               acc[location] = armourVal;
             }
-          }
-          );
+          });
         return acc;
       }, maxArmour);
+
+    this.items
+      .filter(item => item.isArmour && item.isAdditive)
+      .forEach(armour => {
+         locations.forEach(location =>{
+            let armourVal = armour.part[location] || 0;
+            maxArmour[location] += armourVal;
+         });
+      });  
 
     this.armour.head.value = maxArmour.head;
     this.armour.leftArm.value = maxArmour.leftArm;
