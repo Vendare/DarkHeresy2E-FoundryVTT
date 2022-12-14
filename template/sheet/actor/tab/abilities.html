@@ -8,21 +8,19 @@
                 <a class="button item-create" title="Add Talent" data-type="talent"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each actor.items as |item|}}
-                    {{#if item.isTalent}}
-                        <div class="talent item flex row" data-item-id="{{item.id}}">
-                        <div class="flex name item-edit">
-                            <div class="image-container">
-                                <div class="image" style="background-image: url('{{item.img}}')"></div>
-                            </div>
-                            <div>{{item.name}}</div>
+                {{#each items.talents as |item|}}                   
+                    <div class="talent item flex row" data-item-id="{{item.id}}">
+                    <div class="flex name item-edit">
+                        <div class="image-container">
+                            <div class="image" style="background-image: url('{{item.img}}')"></div>
                         </div>
-                        <div class="benefit">{{item.benefit}}</div>
-                        <div class="button">
-                            <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
-                        </div>
+                        <div>{{item.name}}</div>
                     </div>
-                    {{/if}}
+                    <div class="benefit">{{item.benefit}}</div>
+                    <div class="button">
+                        <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
+                    </div>
+                </div>                    
                 {{/each}}
             </div>
         </div>
@@ -36,21 +34,19 @@
                 <a class="button item-create" title="Add Trait" data-type="trait"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each actor.items as |item|}}
-                    {{#if item.isTrait}}
-                        <div class="trait item flex row" data-item-id="{{item.id}}">
-                            <div class="flex name item-edit">
-                                <div class="image-container">
-                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
-                                </div>
-                                <div>{{item.name}}</div>
+                {{#each items.traits as |item|}}                    
+                    <div class="trait item flex row" data-item-id="{{item.id}}">
+                        <div class="flex name item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
                             </div>
-                            <div class="benefit">{{item.benefit}}</div>
-                            <div class="button">
-                                <a class="item-control item-delete" title="Delete Trait"><i class="fas fa-trash"></i></a>
-                            </div>
+                            <div>{{item.name}}</div>
                         </div>
-                    {{/if}}
+                        <div class="benefit">{{item.benefit}}</div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Trait"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>                
                 {{/each}}
             </div>
         </div>
@@ -64,21 +60,19 @@
                 <a class="button item-create" title="Add Special Abilities" data-type="specialAbility"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each actor.items as |item|}}
-                    {{#if item.isSpecialAbility}}
-                        <div class="special-ability item flex row" data-item-id="{{item.id}}">
-                            <div class="flex name item-edit">
-                                <div class="image-container">
-                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
-                                </div>
-                                <div>{{item.name}}</div>
+                {{#each items.specialAbilities as |item|}}                    
+                    <div class="special-ability item flex row" data-item-id="{{item.id}}">
+                        <div class="flex name item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
                             </div>
-                            <div class="benefit">{{item.benefit}}</div>
-                            <div class="button">
-                                <a class="item-control item-delete" title="Delete Special Abilities"><i class="fas fa-trash"></i></a>
-                            </div>
+                            <div>{{item.name}}</div>
                         </div>
-                    {{/if}}
+                        <div class="benefit">{{item.benefit}}</div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Special Abilities"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>                    
                 {{/each}}
             </div>
         </div>

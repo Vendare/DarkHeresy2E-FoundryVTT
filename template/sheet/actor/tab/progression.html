@@ -7,8 +7,7 @@
                 <a class="button item-create" title="Add Aptitude" data-type="aptitude"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each actor.items as |item|}}
-                    {{#if item.isAptitude}}
+                {{#each items.aptitudes as |item|}}                    
                     <div class="aptitude item flex row" data-item-id="{{item.id}}">
                         <div class="flex aptitude-row item-edit" title="{{removeMarkup item.description}}">
                             <div class="image-container">
@@ -19,8 +18,7 @@
                         <div class="button">
                             <a class="item-control item-delete" title="Delete Aptitude"><i class="fas fa-trash"></i></a>
                         </div>
-                    </div>
-                    {{/if}}
+                    </div>                    
                 {{/each}}
             </div>
         </div>
@@ -34,21 +32,19 @@
                 <a class="button item-create" title="Add Talent" data-type="talent"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each actor.items as |item|}}
-                    {{#if item.isTalent}}
-                        <div class="talent item flex row" data-item-id="{{item.id}}">
-                            <div class="flex talent-row item-edit">
-                                <div class="image-container">
-                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
-                                </div>
-                                <div class="name">{{item.name}}</div>
+                {{#each items.talents as |item|}}                    
+                    <div class="talent item flex row" data-item-id="{{item.id}}">
+                        <div class="flex talent-row item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
                             </div>
-                            <input class="item-cost" type="number" value="{{item.cost}}" data-dtype="Number" />
-                            <div class="button">
-                                <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
-                            </div>
+                            <div class="name">{{item.name}}</div>
                         </div>
-                    {{/if}}
+                        <input class="item-cost" type="number" value="{{item.cost}}" data-dtype="Number" />
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
                 {{/each}}
             </div>
         </div>
@@ -148,21 +144,19 @@
                     <a class="button item-create" title="Add Psychic Power" data-type="psychicPower"><i class="fas fa-plus"></i></a>
                 </div>
                 <div class="items">
-                    {{#each actor.items as |item|}}
-                        {{#if item.isPsychicPower}}
-                            <div class="psychic-power item flex row" data-item-id="{{item.id}}">
-                                <div class="flex psychic-powers-row item-edit">
-                                    <div class="image-container">
-                                        <div class="image" style="background-image: url('{{item.img}}')"></div>
-                                    </div>
-                                    <div class="name">{{item.name}}</div>
+                    {{#each items.psychicPowers as |item|}}                        
+                        <div class="psychic-power item flex row" data-item-id="{{item.id}}">
+                            <div class="flex psychic-powers-row item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
                                 </div>
-                                <input class="item-cost" type="number" value="{{item.cost}}" data-dtype="Number" />
-                                <div class="button">
-                                    <a class="item-control item-delete" title="Delete Psychic Power"><i class="fas fa-trash"></i></a>
-                                </div>
+                                <div class="name">{{item.name}}</div>
                             </div>
-                        {{/if}}
+                            <input class="item-cost" type="number" value="{{item.cost}}" data-dtype="Number" />
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Psychic Power"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
                     {{/each}}
                 </div>
             </div>

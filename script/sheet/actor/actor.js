@@ -19,10 +19,9 @@ export class DarkHeresySheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    return {
-      actor: data.actor,
-      system: data.data.system
-    };
+    data.system = data.data.system;
+    data.items = this.constructItemLists(data)
+    return data;
   }
 
   /** @override */
@@ -236,6 +235,7 @@ export class DarkHeresySheet extends ActorSheet {
   _extractWeaponTraits(traits) {
     // These weapon traits never go above 9 or below 2
     return {
+      accurate: this._hasNamedTrait(/Accurate/gi, traits),
       rfFace: this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
       proven: this._extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
       primitive: this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
@@ -315,4 +315,50 @@ export class DarkHeresySheet extends ActorSheet {
     return boni;
 
   }
+
+  constructItemLists() {
+      let items = {}
+      let itemTypes = this.actor.itemTypes;
+      items.mentalDisorders = itemTypes["mentalDisorder"];
+      items.malignancies = itemTypes["malignancy"];
+      items.mutations = itemTypes["mutation"];
+      if (this.actor.type === "npc") {
+          items.abilities = itemTypes["talent"]
+          .concat(itemTypes["trait"])
+          .concat(itemTypes["specialAbility"]);
+
+      }
+      items.talents = itemTypes["talent"];
+      items.traits = itemTypes["trait"];
+      items.specialAbilities = itemTypes["specialAbility"];
+      items.aptitudes = itemTypes["aptitude"];
+
+      items.psychicPowers = itemTypes["psychicPower"];
+
+      items.criticalInjuries = itemTypes["criticalInjury"];
+
+      items.gear = itemTypes["gear"];
+      items.drugs = itemTypes["drug"];
+      items.tools = itemTypes["tool"];
+      items.cybernetics = itemTypes["cybernetic"];
+
+      items.armour = itemTypes["armour"];
+      items.forceFields = itemTypes["forceField"];
+
+      items.weapons = itemTypes["weapon"];
+      items.weaponMods = itemTypes["weaponModification"];
+      items.ammunitions = itemTypes["ammunition"];
+      this._sortItemLists(items)
+
+      return items;
+  }
+
+    _sortItemLists(items) {
+        for (let list in items) {
+            if (Array.isArray(items[list]))
+                items[list] = items[list].sort((a, b) => a.sort - b.sort)
+            else if (typeof items[list] == "object")
+                _sortItemLists(items[list])
+        }
+    }
 }

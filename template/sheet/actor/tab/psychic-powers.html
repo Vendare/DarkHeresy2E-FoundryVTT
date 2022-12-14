@@ -8,21 +8,19 @@
                 <a class="button item-create" title="Add Psychic Power" data-type="psychicPower"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each actor.items as |item|}}
-                    {{#if item.isPsychicPower}}
-                        <div class="psychic-power item flex row" data-item-id="{{item.id}}">
-                            <div class="flex name item-edit">
-                                <div class="image-container">
-                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
-                                </div>
-                                <div>{{item.name}}</div>
+                {{#each items.psychicPowers as |item|}}
+                    <div class="psychic-power item flex row" data-item-id="{{item.id}}">
+                        <div class="flex name item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
                             </div>
-                            <div class="short">{{item.shortDescription}}</div>
-                            <div class="button">
-                                <a class="item-control item-delete" title="Delete Psychic Power"><i class="fas fa-trash"></i></a>
-                            </div>
+                            <div>{{item.name}}</div>
                         </div>
-                    {{/if}}
+                        <div class="short">{{item.shortDescription}}</div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Psychic Power"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
                 {{/each}}
             </div>
         </div>

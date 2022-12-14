@@ -68,9 +68,16 @@
             </div>
         {{/unless}}
         {{#each damages as |damage|}}
+            <p><strong>{{localize "CHAT.DAMAGE_HEADER"}}</strong></p>
             <div class="dice-roll-render">
                 {{{damage.damageRender}}}
             </div>
+            {{#if damage.accurateRender}}
+                <p><strong>{{localize "CHAT.ACCURATE_HEADER"}}</strong></p>
+                <div class="dice-roll-render">
+                    {{{damage.accurateRender}}}
+                </div>
+            {{/if}}
         {{/each}}
     </div>
 </div>

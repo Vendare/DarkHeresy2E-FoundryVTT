@@ -19,9 +19,8 @@
                 <a class="button item-create" title="Add Critical Injury" data-type="criticalInjury"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each actor.items as |item|}}
-                    {{#if item.isCriticalInjury}}
-                        <div class="wound item flex row" data-item-id="{{item.id}}">
+                {{#each items.criticalInjuries as |item|}}
+                    <div class="wound item flex row" data-item-id="{{item.id}}">
                         <div class="flex wound-row item-edit">
                             <div class="image-container">
                                 <div class="image" style="background-image: url('{{item.img}}')"></div>
@@ -32,7 +31,6 @@
                             <a class="item-control item-delete" title="Delete Critical Injury"><i class="fas fa-trash"></i></a>
                         </div>
                     </div>
-                    {{/if}}
                 {{/each}}
             </div>
         </div>
@@ -144,26 +142,24 @@
                 <b class="special">{{localize "WEAPON.SPECIAL"}}</b>
             </div>
             <div class="items">
-                {{#each actor.items as |item|}}
-                    {{#if item.isWeapon}}
-                        <div class="weapon item flex row" data-item-id="{{item.id}}">
-                            <div class="flex name">
-                                <div class="image-container">
-                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
-                                </div>
-                                <button class="roll-weapon" type="button">{{item.name}}</button>
+                {{#each items.weapons as |item|}}                    
+                    <div class="weapon item flex row" data-item-id="{{item.id}}">
+                        <div class="flex name">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
                             </div>
-                            <div class="class">{{item.WeaponClass}}</div>
-                            <div class="range">{{item.range}}</div>
-                            <div class="rate-of-fire">{{item.RateOfFire}}</div>
-                            <div class="damage">{{item.damage}}</div>
-                            <div class="type">{{item.DamageTypeShort}}</div>
-                            <div class="penetration">{{item.penetration}}</div>
-                            <div class="clip">{{item.Clip}}</div>
-                            <div class="reload">{{item.reload}}</div>
-                            <div class="special">{{item.special}}</div>
+                            <button class="roll-weapon" type="button">{{item.name}}</button>
                         </div>
-                    {{/if}}
+                        <div class="class">{{item.WeaponClass}}</div>
+                        <div class="range">{{item.range}}</div>
+                        <div class="rate-of-fire">{{item.RateOfFire}}</div>
+                        <div class="damage">{{item.damage}}</div>
+                        <div class="type">{{item.DamageTypeShort}}</div>
+                        <div class="penetration">{{item.penetration}}</div>
+                        <div class="clip">{{item.Clip}}</div>
+                        <div class="reload">{{item.reload}}</div>
+                        <div class="special">{{item.special}}</div>
+                    </div>                    
                 {{/each}}
             </div>
         </div>
@@ -203,25 +199,23 @@
                 <b class="special">{{localize "PSYCHIC_POWER.SPECIAL"}}</b>
             </div>
             <div class="items">
-                {{#each actor.items as |item|}}
-                    {{#if item.isPsychicPower}}
-                        <div class="weapon item flex row" data-item-id="{{item.id}}">
-                            <div class="flex name">
-                                <div class="image-container">
-                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
-                                </div>
-                                <button class="roll-psychic-power" type="button">{{item.name}}</button>
+                {{#each items.psychicPowers as |item|}}                    
+                    <div class="weapon item flex row" data-item-id="{{item.id}}">
+                        <div class="flex name">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
                             </div>
-                            <div class="action">{{item.action}}</div>
-                            <div class="range">{{item.range}}</div>
-                            <div class="sustained">{{item.sustained}}</div>
-                            <div class="zone">{{item.PsychicPowerZone}}</div>
-                            <div class="damage">{{item.damage.formula}}</div>
-                            <div class="damage-type">{{item.DamageTypeShort}}</div>
-                            <div class="penetration">{{item.damage.penetration}}</div>
-                            <div class="special">{{item.damage.special}}</div>
+                            <button class="roll-psychic-power" type="button">{{item.name}}</button>
                         </div>
-                    {{/if}}
+                        <div class="action">{{item.action}}</div>
+                        <div class="range">{{item.range}}</div>
+                        <div class="sustained">{{item.sustained}}</div>
+                        <div class="zone">{{item.PsychicPowerZone}}</div>
+                        <div class="damage">{{item.damage.formula}}</div>
+                        <div class="damage-type">{{item.DamageTypeShort}}</div>
+                        <div class="penetration">{{item.damage.penetration}}</div>
+                        <div class="special">{{item.damage.special}}</div>
+                    </div>                    
                 {{/each}}
             </div>
         </div>
