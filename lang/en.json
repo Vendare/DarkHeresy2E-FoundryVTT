@@ -153,8 +153,10 @@
   "CHAT.HAS_PSYCHIC_PHENOMENA": "You must roll on the Psychic Phenomena table !",
   "CHAT.HAS_PSYCHIC_PHENOMENA_WITH_WARPCONDUIT": "You must roll on the Psychic Phenomena table at +30 !",
   "CHAT.CONTEXT.APPLY_DAMAGE": "Apply Damage",
+  "CHAT.CONTEXT.REROLL" : "Roll again with Fate",
   "CHAT.ACCURATE_HEADER": "Accurate Roll",
   "CHAT.DAMAGE_HEADER": "Damage Roll",
+  "CHAT.REROLL" : "Fate Reroll",
 
   "CORRUPTION.HEADER": "Corruption",
   "CORRUPTION.MALIGNANCY": "Malignancy",

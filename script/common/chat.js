@@ -1,3 +1,4 @@
+import { commonRoll, combatRoll } from "./roll.js";
 /**
  * This function is used to hook into the Chat Log context menu to add additional options to each message
  * These options make it easy to conveniently apply damage to controlled tokens based on the value of a Roll
@@ -10,7 +11,7 @@
 export const addChatMessageContextOptions = function(html, options) {
   let canApply = li => {
     const message = game.messages.get(li.data("messageId"));
-    return message.isRoll && message.isContentVisible && canvas.tokens.controlled.length;
+    return message.getRollData().isCombatTest && message.isContentVisible && canvas.tokens.controlled.length;
   };
   options.push(
     {
@@ -20,6 +21,24 @@ export const addChatMessageContextOptions = function(html, options) {
       callback: li => applyChatCardDamage(li)
     }
   );
+  
+  let canReroll = li => {
+      const message = game.messages.get(li.data("messageId"));
+      let actor = game.actors.get(message.getRollData()?.ownerId);
+      return message.isRoll && message.isContentVisible && actor?.fate.value > 0;
+  };
+  
+  options.push(
+      {
+          name: game.i18n.localize("CHAT.CONTEXT.REROLL"),
+          icon: '<i class="fa-solid fa-repeat"></i>',
+          condition: canReroll,
+          callback: li => {
+              const message = game.messages.get(li.data("messageId"));              
+              rerollTest(message.getRollData());
+          } 
+      }
+  )
   return options;
 };
 
@@ -56,6 +75,22 @@ function applyChatCardDamage(roll, multiplier) {
     const a = t.actor;
     return a.applyDamage(damages);
   }));
+}
+
+function rerollTest(rollData) {
+    let actor = game.actors.get(rollData.ownerId);    
+    actor.update({ "system.fate.value" : actor.fate.value -1 });
+    delete rollData.damages; //reset so no old data is shown on failure
+    
+    rollData.isReRoll = true;
+    if(rollData.isCombatTest) {
+        //All the regexes in this are broken once retrieved from the chatmessage
+        //No idea why this happens so we need to fetch them again so the roll works correctly
+        rollData.attributeBoni = actor.attributeBoni;
+        return combatRoll(rollData);
+    } else {
+        return commonRoll(rollData);
+    }
 }
 
 export const showRolls =html => {

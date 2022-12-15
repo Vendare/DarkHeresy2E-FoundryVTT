@@ -1,5 +1,8 @@
 <div class="dark-heresy chat roll">
     <div class="background border" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" >
+        {{#if isReRoll}}
+            <h1>{{localize "CHAT.REROLL"}}</h1>
+        {{/if}}
         {{# unless weaponTraits.skipAttackRoll}}
             <h1>{{name}} ({{target}})</h1>
             {{#if isSuccess}}

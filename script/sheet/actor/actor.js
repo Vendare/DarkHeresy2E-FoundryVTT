@@ -81,7 +81,8 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: "DIALOG.CUSTOM_ROLL",
       baseTarget: 50,
-      modifier: 0
+      modifier: 0,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -93,7 +94,8 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: characteristic.label,
       baseTarget: characteristic.total,
-      modifier: 0
+      modifier: 0,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -126,7 +128,8 @@ export class DarkHeresySheet extends ActorSheet {
       name: skill.label,
       baseTarget: skill.total,
       modifier: 0,
-      characteristics: characteristics
+      characteristics: characteristics,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -140,7 +143,8 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: speciality.label,
       baseTarget: speciality.total,
-      modifier: 0
+      modifier: 0,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -151,7 +155,8 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: "FEAR.HEADER",
       baseTarget: characteristic.total,
-      modifier: 0
+      modifier: 0,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -162,7 +167,8 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: "CORRUPTION.HEADER",
       baseTarget: characteristic.total,
-      modifier: this._getCorruptionModifier()
+      modifier: this._getCorruptionModifier(),
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -184,7 +190,7 @@ export class DarkHeresySheet extends ActorSheet {
       name: weapon.name,
       baseTarget: characteristic.total + weapon.attack,
       modifier: 0,
-      attributeBoni: this._getAttributeBoni(),
+      attributeBoni: this.actor.attributeBoni,
       isMelee: isMelee,
       isRange: !isMelee,
       clip: weapon.clip,
@@ -212,7 +218,7 @@ export class DarkHeresySheet extends ActorSheet {
       name: psychicPower.name,
       baseTarget: focusPowerTarget.total,
       modifier: psychicPower.focusPower.difficulty,
-      attributeBoni: this._getAttributeBoni(),
+      attributeBoni: this.actor.attributeBoni,
       damageFormula: psychicPower.damage.formula,
       damageType: psychicPower.damageType,
       damageBonus: 0,
@@ -307,15 +313,6 @@ export class DarkHeresySheet extends ActorSheet {
     }
   }
 
-  _getAttributeBoni() {
-    let boni = [];
-    for (let characteristic of Object.values(this.actor.characteristics)) {
-      boni.push( {regex: new RegExp(`${characteristic.short}B`, "gi"), value: characteristic.bonus} );
-    }
-    return boni;
-
-  }
-
   constructItemLists() {
       let items = {}
       let itemTypes = this.actor.itemTypes;
@@ -326,7 +323,6 @@ export class DarkHeresySheet extends ActorSheet {
           items.abilities = itemTypes["talent"]
           .concat(itemTypes["trait"])
           .concat(itemTypes["specialAbility"]);
-
       }
       items.talents = itemTypes["talent"];
       items.traits = itemTypes["trait"];

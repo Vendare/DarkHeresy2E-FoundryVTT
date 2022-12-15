@@ -56,13 +56,13 @@ async function _computeTarget(rollData) {
     psyModifier = (rollData.psy.rating - rollData.psy.value) * 10;
     rollData.psy.push = psyModifier < 0;
     if (rollData.psy.push && rollData.psy.warpConduit) {
-      let ratingBonus = await (new Roll("1d5").evaluate({async: false})).total;
+      let ratingBonus = await (new Roll("1d5").evaluate({ async: false })).total;
       rollData.psy.value += ratingBonus;
     }
   }
   const formula = `0 + ${rollData.modifier} + ${range} + ${attackType} + ${psyModifier}`;
   let r = new Roll(formula, {});
-  await r.evaluate({async: false});
+  await r.evaluate({ async: false });
   if (r.total > 60) {
     rollData.target = rollData.baseTarget + 60;
   } else if (r.total < -60) {
@@ -79,7 +79,7 @@ async function _computeTarget(rollData) {
  */
 async function _rollTarget(rollData) {
   let r = new Roll("1d100", {});
-  await r.evaluate({async: false});
+  await r.evaluate({ async: false });
   rollData.result = r.total;
   rollData.rollObject = r;
   rollData.isSuccess = rollData.result <= rollData.target;
@@ -113,7 +113,7 @@ async function _rollDamage(rollData) {
       formula = _appendNumberedDiceModifier(formula, "max", rollData.weaponTraits.primitive);
     }
 
-    formula =`${formula}+${rollData.damageBonus}`;
+    formula = `${formula}+${rollData.damageBonus}`;
     rollData.damageFormula = _replaceSymbols(formula, rollData);
   }
   let penetration = await _rollPenetration(rollData);
@@ -155,7 +155,7 @@ async function _rollDamage(rollData) {
  */
 async function _computeDamage(penetration, rollData) {
   let r = new Roll(rollData.damageFormula);
-  await r.evaluate({async: false});
+  await r.evaluate({ async: false });
   let damage = {
     total: r.total,
     righteousFury: 0,
@@ -167,12 +167,12 @@ async function _computeDamage(penetration, rollData) {
     damageRender: await r.render()
   };
 
-  if(rollData.weaponTraits.accurate) {
-    let numDice = ~~((rollData.dos -1) / 2); //-1 because each degree after the first counts
-    if(numDice >= 1) { 
-      if(numDice > 2) numDice = 2;    
+  if (rollData.weaponTraits.accurate) {
+    let numDice = ~~((rollData.dos - 1) / 2); //-1 because each degree after the first counts
+    if (numDice >= 1) {
+      if (numDice > 2) numDice = 2;
       let ar = new Roll(`${numDice}d10`);
-      await ar.evaluate({async: false});
+      await ar.evaluate({ async: false });
       damage.total += ar.total;
       ar.terms.flatMap(term => term.results).forEach(async die => {
         if (die.active && die.result < rollData.dos) damage.dices.push(die.result);
@@ -223,7 +223,7 @@ async function _rollPenetration(rollData) {
     }
   }
   let r = new Roll(penetration.toString());
-  await r.evaluate({async: false});
+  await r.evaluate({ async: false });
   return r.total * multiplier;
 }
 
@@ -233,7 +233,7 @@ async function _rollPenetration(rollData) {
  */
 async function _rollRighteousFury() {
   let r = new Roll("1d5");
-  await r.evaluate({async: false});
+  await r.evaluate({ async: false });
   return r.total;
 }
 
@@ -426,8 +426,7 @@ function _replaceSymbols(formula, rollData) {
  */
 function _appendNumberedDiceModifier(formula, modifier, value) {
   let diceRegex = /\d+d\d+/;
-  if (!formula.includes(modifier))
-  {
+  if (!formula.includes(modifier)) {
     let match = formula.match(diceRegex);
     if (match) {
       let dice = match[0];
@@ -460,24 +459,30 @@ function _appendTearing(formula) {
  * @param {object} rollData
  */
 async function _sendToChat(rollData) {
-  let chatData = {};
+
+  let chatData = {
+    user: game.user.id,
+    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    rollMode: game.settings.get("core", "rollMode"),
+    flags: {
+      "dark-heresy.rollData": rollData
+    }
+  };
 
   if (rollData.rollObject) {
     rollData.render = await rollData.rollObject.render();
     chatData.roll = rollData.rollObject;
   }
-  const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
 
-  chatData.user = game.user.id;
-  chatData.rollMode = game.settings.get("core", "rollMode");
+  const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
   chatData.content = html;
-  chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
 
   if (["gmroll", "blindroll"].includes(chatData.rollMode)) {
     chatData.whisper = ChatMessage.getWhisperRecipients("GM");
   } else if (chatData.rollMode === "selfroll") {
     chatData.whisper = [game.user];
   }
+
   ChatMessage.create(chatData);
 }
 

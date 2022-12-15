@@ -451,6 +451,14 @@ export class DarkHeresyActor extends Actor {
     });
     ChatMessage.create({ content: html });
   }
+  
+  get attributeBoni() {
+    let boni = [];
+    for (let characteristic of Object.values(this.characteristics)) {
+      boni.push( {regex: new RegExp(`${characteristic.short}B`, "gi"), value: characteristic.bonus} );
+    }
+    return boni;
+  }
 
   get characteristics() {return this.system.characteristics;}
 

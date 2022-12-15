@@ -18,6 +18,7 @@ export async function prepareCommonRoll(rollData) {
           rollData.baseTarget = parseInt(html.find("#target")[0].value, 10);
           rollData.rolledWith = html.find("[name=characteristic] :selected").text();
           rollData.modifier = html.find("#modifier")[0].value;
+          rollData.isCombatTest = false;
           await commonRoll(rollData);
         }
       },
@@ -74,6 +75,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     rollData.damageType = html.find("#damageType")[0].value;
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
                     rollData.penetrationFormula = html.find("#penetration")[0].value;
+                    rollData.isCombatTest = true;
                     if (rollData.isRange && rollData.clip.max > 0) {
                         const weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
                         if(weapon) {
@@ -152,6 +154,7 @@ export async function preparePsychicPowerRoll(rollData) {
           rollData.attackType.name = attackType.value;
           rollData.attackType.text = attackType.options[attackType.selectedIndex].text;
           rollData.psy.useModifier = true;
+          rollData.isCombatTest = true;
           await combatRoll(rollData);
         }
       },

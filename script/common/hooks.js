@@ -75,6 +75,9 @@ Hooks.once("init", () => {
 
 Hooks.once("ready", () => {
   migrateWorld();
+  CONFIG.ChatMessage.documentClass.prototype.getRollData = function() {
+      return this.getFlag("dark-heresy", "rollData") 
+  }
 });
 
 
