@@ -3,6 +3,11 @@ export const initializeHandlebars = () => {
   preloadHandlebarsTemplates();
 };
 
+/**
+ * Define a set of template paths to pre-load. Pre-loaded templates are compiled and cached for fast access when
+ * rendering. These paths will also be available as Handlebars partials by using the file name.
+ * @returns {Promise}
+ */
 function preloadHandlebarsTemplates() {
   const templatePaths = [
     "systems/dark-heresy/template/sheet/actor/acolyte.html",
@@ -52,17 +57,20 @@ function preloadHandlebarsTemplates() {
   return loadTemplates(templatePaths);
 }
 
+/**
+ * Add custom Handlerbars helpers.
+ */
 function registerHandlebarsHelpers() {
-  Handlebars.registerHelper("removeMarkup", function (text) {
+  Handlebars.registerHelper("removeMarkup", function(text) {
     const markup = /<(.*?)>/gi;
     return text.replace(markup, "");
-  })
+  });
 
-  Handlebars.registerHelper("enrich", function (string) {
-    return TextEditor.enrichHTML(string, {async: false})
-  })
+  Handlebars.registerHelper("enrich", function(string) {
+    return TextEditor.enrichHTML(string, {async: false});
+  });
 
-  Handlebars.registerHelper("damageTypeLong", function (damageType) {
+  Handlebars.registerHelper("damageTypeLong", function(damageType) {
     damageType = (damageType || "i").toLowerCase();
     switch (damageType) {
       case "e":
@@ -78,8 +86,8 @@ function registerHandlebarsHelpers() {
     }
   });
 
-  
-  Handlebars.registerHelper("damageTypeShort", function (damageType) {
+
+  Handlebars.registerHelper("damageTypeShort", function(damageType) {
     switch (damageType) {
       case "energy":
         return game.i18n.localize("DAMAGE_TYPE.ENERGY_SHORT");

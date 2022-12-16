@@ -1,5 +1,8 @@
 <div class="dark-heresy chat roll">
     <div class="background border" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" >
+        {{#if isReRoll}}
+            <h1>{{localize "CHAT.REROLL"}}</h1>
+        {{/if}}
         {{# unless weaponTraits.skipAttackRoll}}
             <h1>{{name}} ({{target}})</h1>
             {{#if isSuccess}}
@@ -68,9 +71,16 @@
             </div>
         {{/unless}}
         {{#each damages as |damage|}}
+            <p><strong>{{localize "CHAT.DAMAGE_HEADER"}}</strong></p>
             <div class="dice-roll-render">
                 {{{damage.damageRender}}}
             </div>
+            {{#if damage.accurateRender}}
+                <p><strong>{{localize "CHAT.ACCURATE_HEADER"}}</strong></p>
+                <div class="dice-roll-render">
+                    {{{damage.accurateRender}}}
+                </div>
+            {{/if}}
         {{/each}}
     </div>
 </div>

@@ -61,6 +61,7 @@
   "ARMOUR.TYPE": "Type",
   "ARMOUR.CRAFTSMANSHIP": "Craftsmanship",
   "ARMOUR.AVAILABILITY": "Availability",
+  "ARMOUR.IS_ADDITIVE": "Additive to other Armour",
 
   "ARMOUR_TYPE.BASIC": "Basic",
   "ARMOUR_TYPE.FLAK": "Flak",
@@ -152,6 +153,10 @@
   "CHAT.HAS_PSYCHIC_PHENOMENA": "You must roll on the Psychic Phenomena table !",
   "CHAT.HAS_PSYCHIC_PHENOMENA_WITH_WARPCONDUIT": "You must roll on the Psychic Phenomena table at +30 !",
   "CHAT.CONTEXT.APPLY_DAMAGE": "Apply Damage",
+  "CHAT.CONTEXT.REROLL" : "Roll again with Fate",
+  "CHAT.ACCURATE_HEADER": "Accurate Roll",
+  "CHAT.DAMAGE_HEADER": "Damage Roll",
+  "CHAT.REROLL" : "Fate Reroll",
 
   "CORRUPTION.HEADER": "Corruption",
   "CORRUPTION.MALIGNANCY": "Malignancy",
@@ -251,6 +256,8 @@
   "NPC_TYPE.TROOP": "Troop",
   "NPC_TYPE.MASTER": "Master",
   "NPC_TYPE.ELITE": "Elite",
+  
+  "NOTIFICATION.MACRO_ITEM_NOT_FOUND": "Couldn't find the Item. You may not have a Token selected or the Actor doesn't posses the item",
 
   "PSYCHIC_POWER.NAME": "Name",
   "PSYCHIC_POWER.COST": "Cost",

@@ -1,4 +1,5 @@
 import {prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll} from "../../common/dialog.js";
+import DarkHeresyUtil from "../../common/util.js";
 
 export class DarkHeresySheet extends ActorSheet {
   activateListeners(html) {
@@ -19,10 +20,9 @@ export class DarkHeresySheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData();
-    return {
-      actor: data.actor,
-      system : data.data.system
-    };
+    data.system = data.data.system;
+    data.items = this.constructItemLists(data)
+    return data;
   }
 
   /** @override */
@@ -42,7 +42,7 @@ export class DarkHeresySheet extends ActorSheet {
           label: game.i18n.localize("BUTTON.ROLL"),
           class: "custom-roll",
           icon: "fas fa-dice",
-          onclick: async (ev) => await this._prepareCustomRoll()
+          onclick: async ev => await this._prepareCustomRoll()
         }
       ].concat(buttons);
     }
@@ -51,14 +51,15 @@ export class DarkHeresySheet extends ActorSheet {
 
   _onItemCreate(event) {
     event.preventDefault();
-    let header = event.currentTarget.dataset
-    
+    let header = event.currentTarget.dataset;
+
     let data = {
-         name : `New ${game.i18n.localize("ITEM.Type" + header.type.toLowerCase().capitalize())}`,
-         type : header.type
+      name: `New ${game.i18n.localize(`ITEM.Type${header.type.toLowerCase().capitalize()}`)}`,
+      type: header.type
     };
     this.actor.createEmbeddedDocuments("Item", [data], { renderSheet: true });
-}
+  }
+
   _onItemEdit(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
@@ -81,7 +82,8 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: "DIALOG.CUSTOM_ROLL",
       baseTarget: 50,
-      modifier: 0
+      modifier: 0,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -93,40 +95,42 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: characteristic.label,
       baseTarget: characteristic.total,
-      modifier: 0
+      modifier: 0,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
 
-  _getCharacteristicOptions (selected) {
-    const characteristics = []
+  _getCharacteristicOptions(selected) {
+    const characteristics = [];
     for (let char of Object.values(this.actor.characteristics)) {
       characteristics.push({
         label: char.label,
         target: char.total,
         selected: char.short === selected
-      })
+      });
     }
-    return characteristics
+    return characteristics;
   }
 
   async _prepareRollSkill(event) {
     event.preventDefault();
     const skillName = $(event.currentTarget).data("skill");
     const skill = this.actor.skills[skillName];
-    const defaultChar = skill.defaultCharacteristic || skill.characteristics[0]
+    const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
 
-    let characteristics = this._getCharacteristicOptions(defaultChar)
-    characteristics = characteristics.map((char) => {
-      char.target += skill.advance
-      return char
-    })
+    let characteristics = this._getCharacteristicOptions(defaultChar);
+    characteristics = characteristics.map(char => {
+      char.target += skill.advance;
+      return char;
+    });
 
     const rollData = {
       name: skill.label,
       baseTarget: skill.total,
       modifier: 0,
-      characteristics: characteristics
+      characteristics: characteristics,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -140,7 +144,8 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: speciality.label,
       baseTarget: speciality.total,
-      modifier: 0
+      modifier: 0,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -151,7 +156,8 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: "FEAR.HEADER",
       baseTarget: characteristic.total,
-      modifier: 0
+      modifier: 0,
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -162,7 +168,8 @@ export class DarkHeresySheet extends ActorSheet {
     const rollData = {
       name: "CORRUPTION.HEADER",
       baseTarget: characteristic.total,
-      modifier: this._getCorruptionModifier()
+      modifier: this._getCorruptionModifier(),
+      ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
   }
@@ -171,89 +178,50 @@ export class DarkHeresySheet extends ActorSheet {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
     const weapon = this.actor.items.get(div.data("itemId"));
-    let characteristic = this._getWeaponCharacteristic(weapon);
-    let rateOfFire;
-    if (weapon.class === "melee") {
-      rateOfFire = {burst: characteristic.bonus, full: characteristic.bonus};
-    } else {
-      rateOfFire = {burst: weapon.rateOfFire.burst, full: weapon.rateOfFire.full};
-    }
-
-    let isMelee = weapon.class === "melee"
-    let rollData = {
-      name: weapon.name,
-      baseTarget: characteristic.total + weapon.attack,
-      modifier: 0,
-      attributeBoni: this._getAttributeBoni(),
-      isMelee: isMelee,
-      isRange: !isMelee,
-      clip: weapon.clip,
-      ownerId: this.actor.id,
-      itemId: weapon.id,
-      damageFormula: weapon.damage + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : ""),
-      damageBonus: 0,
-      damageType: weapon.damageType,
-      penetrationFormula: weapon.penetration,
-      weaponTraits : this._extractWeaponTraits(weapon.special),
-      special: weapon.special,
-      rateOfFire: rateOfFire,
-      psy: { value: this.actor.psy.rating, display: false}
-    };
-    await prepareCombatRoll(rollData, this.actor);
+    await prepareCombatRoll(
+      DarkHeresyUtil.createWeaponRollData(this.actor, weapon), 
+      this.actor
+    );
   }
 
   async _prepareRollPsychicPower(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
-    const psychicPower = this.actor.items.get(div.data("itemId"));
-    let focusPowerTarget = this._getFocusPowerTarget(psychicPower);  
-
-    const rollData = {
-      name: psychicPower.name,
-      baseTarget: focusPowerTarget.total,
-      modifier: psychicPower.focusPower.difficulty,
-      attributeBoni: this._getAttributeBoni(),
-      damageFormula: psychicPower.damage.formula,
-      damageType: psychicPower.damageType,
-      damageBonus: 0,
-      ownerId: this.actor.id,
-      itemId: psychicPower.id,
-      penetrationFormula: psychicPower.damage.penetration,
-      attackType: { name: psychicPower.damage.zone, text: "" },
-      weaponTraits : this._extractWeaponTraits(psychicPower.damage.special),
-      psy: { value: this.actor.psy.rating, rating: this.actor.psy.rating, max: this._getMaxPsyRating(), warpConduit:false, display: true}
-    };
-    await preparePsychicPowerRoll(rollData);
+    const psychicPower = this.actor.items.get(div.data("itemId"));    
+    await preparePsychicPowerRoll(
+      DarkHeresyUtil.createPsychicRollData(this.actor, psychicPower)
+    );
   }
 
   _extractWeaponTraits(traits) {
-    //These weapon traits never go above 9 or below 2 
+    // These weapon traits never go above 9 or below 2
     return {
-        rfFace : this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
-        proven : this._extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
-        primitive : this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
-        razorSharp : this._hasNamedTrait(/Razor *Sharp/gi, traits),
-        skipAttackRoll : this._hasNamedTrait(/Spray/gi, traits),
-        tearing : this._hasNamedTrait(/Tearing/gi, traits)
-    }
+      accurate: this._hasNamedTrait(/Accurate/gi, traits),
+      rfFace: this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
+      proven: this._extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
+      primitive: this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
+      razorSharp: this._hasNamedTrait(/Razor *Sharp/gi, traits),
+      skipAttackRoll: this._hasNamedTrait(/Spray/gi, traits),
+      tearing: this._hasNamedTrait(/Tearing/gi, traits)
+    };
   }
 
   _getMaxPsyRating() {
-    let base = this.actor.psy.rating
-    switch(this.actor.psy.class) {
-      case "bound" :
+    let base = this.actor.psy.rating;
+    switch (this.actor.psy.class) {
+      case "bound":
         return base + 2;
-      case "unbound" :
+      case "unbound":
         return base + 4;
-      case "daemonic" :
+      case "daemonic":
         return base + 3;
     }
   }
 
   _extractNumberedTrait(regex, traits) {
     let rfMatch = traits.match(regex);
-    if(rfMatch) {
-      regex = /\d+/gi
+    if (rfMatch) {
+      regex = /\d+/gi;
       return parseInt(rfMatch[0].match(regex)[0]);
     }
     return undefined;
@@ -261,7 +229,7 @@ export class DarkHeresySheet extends ActorSheet {
 
   _hasNamedTrait(regex, traits) {
     let rfMatch = traits.match(regex);
-    if(rfMatch) {
+    if (rfMatch) {
       return true;
     } else {
       return false;
@@ -293,19 +261,55 @@ export class DarkHeresySheet extends ActorSheet {
     const normalizeName = psychicPower.focusPower.test.toLowerCase();
     if (this.actor.characteristics.hasOwnProperty(normalizeName)) {
       return this.actor.characteristics[normalizeName];
-    } else if(this.actor.skills.hasOwnProperty(normalizeName)) {
+    } else if (this.actor.skills.hasOwnProperty(normalizeName)) {
       return this.actor.skills[normalizeName];
-    } else {      
+    } else {
       return this.actor.characteristics.willpower;
     }
   }
 
-  _getAttributeBoni() {
-    let boni = [];
-    for(let characteristic of Object.values(this.actor.characteristics)) {
-      boni.push( {regex: new RegExp(`${characteristic.short}B`,'gi'), value: characteristic.bonus} )
-    }
-    return boni;
-    
+  constructItemLists() {
+      let items = {}
+      let itemTypes = this.actor.itemTypes;
+      items.mentalDisorders = itemTypes["mentalDisorder"];
+      items.malignancies = itemTypes["malignancy"];
+      items.mutations = itemTypes["mutation"];
+      if (this.actor.type === "npc") {
+          items.abilities = itemTypes["talent"]
+          .concat(itemTypes["trait"])
+          .concat(itemTypes["specialAbility"]);
+      }
+      items.talents = itemTypes["talent"];
+      items.traits = itemTypes["trait"];
+      items.specialAbilities = itemTypes["specialAbility"];
+      items.aptitudes = itemTypes["aptitude"];
+
+      items.psychicPowers = itemTypes["psychicPower"];
+
+      items.criticalInjuries = itemTypes["criticalInjury"];
+
+      items.gear = itemTypes["gear"];
+      items.drugs = itemTypes["drug"];
+      items.tools = itemTypes["tool"];
+      items.cybernetics = itemTypes["cybernetic"];
+
+      items.armour = itemTypes["armour"];
+      items.forceFields = itemTypes["forceField"];
+
+      items.weapons = itemTypes["weapon"];
+      items.weaponMods = itemTypes["weaponModification"];
+      items.ammunitions = itemTypes["ammunition"];
+      this._sortItemLists(items)
+
+      return items;
   }
+
+    _sortItemLists(items) {
+        for (let list in items) {
+            if (Array.isArray(items[list]))
+                items[list] = items[list].sort((a, b) => a.sort - b.sort)
+            else if (typeof items[list] == "object")
+                _sortItemLists(items[list])
+        }
+    }
 }
