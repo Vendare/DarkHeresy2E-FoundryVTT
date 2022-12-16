@@ -35,7 +35,6 @@ Hooks.once("init", () => {
   CONFIG.Item.documentClass = DarkHeresyItem;
   CONFIG.fontDefinitions["Caslon Antique"] = {editor: true, fonts: []};
   game.darkHeresy = {
-    config: darkHeresy,
     testInit: {
       prepareCommonRoll,
       prepareCombatRoll,
