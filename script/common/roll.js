@@ -56,13 +56,13 @@ async function _computeTarget(rollData) {
     psyModifier = (rollData.psy.rating - rollData.psy.value) * 10;
     rollData.psy.push = psyModifier < 0;
     if (rollData.psy.push && rollData.psy.warpConduit) {
-      let ratingBonus = await (new Roll("1d5").evaluate({ async: false })).total;
+      let ratingBonus = new Roll("1d5").evaluate({ async: false }).total;
       rollData.psy.value += ratingBonus;
     }
   }
   const formula = `0 + ${rollData.modifier} + ${range} + ${attackType} + ${psyModifier}`;
   let r = new Roll(formula, {});
-  await r.evaluate({ async: false });
+  r.evaluate({ async: false });
   if (r.total > 60) {
     rollData.target = rollData.baseTarget + 60;
   } else if (r.total < -60) {
@@ -79,7 +79,7 @@ async function _computeTarget(rollData) {
  */
 async function _rollTarget(rollData) {
   let r = new Roll("1d100", {});
-  await r.evaluate({ async: false });
+  r.evaluate({ async: false });
   rollData.result = r.total;
   rollData.rollObject = r;
   rollData.isSuccess = rollData.result <= rollData.target;
@@ -114,14 +114,13 @@ async function _rollDamage(rollData) {
     }
 
     formula = `${formula}+${rollData.damageBonus}`;
-    rollData.damageFormula = _replaceSymbols(formula, rollData);
+    formula = _replaceSymbols(formula, rollData);
   }
-  let penetration = await _rollPenetration(rollData);
-  let firstHit = await _computeDamage(penetration, rollData);
+  let penetration = _rollPenetration(rollData);
+  let firstHit = await _computeDamage(formula, penetration, rollData.dos, rollData.weaponTraits);
   if (firstHit.total !== 0) {
     const firstLocation = _getLocation(rollData.result);
     firstHit.location = firstLocation;
-    firstHit.formula = rollData.damageFormula; // For Tooltip
     rollData.damages.push(firstHit);
     if (rollData.attackType.hitMargin > 0) {
       let maxAdditionalHit = Math.floor((rollData.dos - 1) / rollData.attackType.hitMargin);
@@ -130,9 +129,8 @@ async function _rollDamage(rollData) {
       }
       rollData.numberOfHit = maxAdditionalHit + 1;
       for (let i = 0; i < maxAdditionalHit; i++) {
-        let additionalHit = await _computeDamage(penetration, rollData);
+        let additionalHit = await _computeDamage(formula, penetration, rollData.dos, rollData.weaponTraits);
         additionalHit.location = _getAdditionalLocation(firstLocation, i);
-        additionalHit.formula = rollData.damageFormula;
         rollData.damages.push(additionalHit);
       }
     } else {
@@ -153,29 +151,29 @@ async function _rollDamage(rollData) {
  * @param {object} rollData
  * @returns {object}
  */
-async function _computeDamage(penetration, rollData) {
-  let r = new Roll(rollData.damageFormula);
-  await r.evaluate({ async: false });
+async function _computeDamage(damageFormula, penetration, dos, weaponTraits) {
+  let r = new Roll(damageFormula);
+  r.evaluate({ async: false });
   let damage = {
     total: r.total,
     righteousFury: 0,
     dices: [],
     penetration: penetration,
-    dos: rollData.dos,
-    formula: rollData.damageFormula,
+    dos: dos,
+    formula: damageFormula,
     replaced: false,
     damageRender: await r.render()
   };
 
-  if (rollData.weaponTraits.accurate) {
-    let numDice = ~~((rollData.dos - 1) / 2); //-1 because each degree after the first counts
+  if (weaponTraits.accurate) {
+    let numDice = ~~((dos - 1) / 2); //-1 because each degree after the first counts
     if (numDice >= 1) {
       if (numDice > 2) numDice = 2;
       let ar = new Roll(`${numDice}d10`);
-      await ar.evaluate({ async: false });
+      ar.evaluate({ async: false });
       damage.total += ar.total;
       ar.terms.flatMap(term => term.results).forEach(async die => {
-        if (die.active && die.result < rollData.dos) damage.dices.push(die.result);
+        if (die.active && die.result < dos) damage.dices.push(die.result);
         if (die.active && (typeof damage.minDice === "undefined" || die.result < damage.minDice)) damage.minDice = die.result;
       });
       damage.accurateRender = await ar.render();
@@ -183,17 +181,17 @@ async function _computeDamage(penetration, rollData) {
   }
 
   // Without a To Hit we a roll to associate the chat message with
-  if (rollData.weaponTraits.skipAttackRoll) {
+  if (weaponTraits.skipAttackRoll) {
     damage.damageRoll = r;
   }
 
   r.terms.forEach(term => {
     if (typeof term === "object" && term !== null) {
-      let rfFace = rollData.weaponTraits.rfFace ? rollData.weaponTraits.rfFace : term.faces; // Without the Vengeful weapon trait rfFace is undefined
+      let rfFace = weaponTraits.rfFace ? weaponTraits.rfFace : term.faces; // Without the Vengeful weapon trait rfFace is undefined
       term.results?.forEach(async result => {
         let dieResult = result.count ? result.count : result.result; // Result.count = actual value if modified by term
-        if (result.active && dieResult >= rfFace) damage.righteousFury = await _rollRighteousFury();
-        if (result.active && dieResult < rollData.dos) damage.dices.push(dieResult);
+        if (result.active && dieResult >= rfFace) damage.righteousFury = _rollRighteousFury();
+        if (result.active && dieResult < dos) damage.dices.push(dieResult);
         if (result.active && (typeof damage.minDice === "undefined" || dieResult < damage.minDice)) damage.minDice = dieResult;
       });
     }
@@ -206,7 +204,7 @@ async function _computeDamage(penetration, rollData) {
  * @param {object} rollData
  * @returns {number}
  */
-async function _rollPenetration(rollData) {
+function _rollPenetration(rollData) {
   let penetration = (rollData.penetrationFormula) ? _replaceSymbols(rollData.penetrationFormula, rollData) : "0";
   let multiplier = 1;
 
@@ -223,7 +221,7 @@ async function _rollPenetration(rollData) {
     }
   }
   let r = new Roll(penetration.toString());
-  await r.evaluate({ async: false });
+  r.evaluate({ async: false });
   return r.total * multiplier;
 }
 
@@ -233,7 +231,7 @@ async function _rollPenetration(rollData) {
  */
 async function _rollRighteousFury() {
   let r = new Roll("1d5");
-  await r.evaluate({ async: false });
+  r.evaluate({ async: false });
   return r.total;
 }
 

@@ -1,4 +1,5 @@
 import {prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll} from "../../common/dialog.js";
+import DarkHeresyUtil from "../../common/util.js";
 
 export class DarkHeresySheet extends ActorSheet {
   activateListeners(html) {
@@ -177,65 +178,19 @@ export class DarkHeresySheet extends ActorSheet {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
     const weapon = this.actor.items.get(div.data("itemId"));
-    let characteristic = this._getWeaponCharacteristic(weapon);
-    let rateOfFire;
-    if (weapon.class === "melee") {
-      rateOfFire = {burst: characteristic.bonus, full: characteristic.bonus};
-    } else {
-      rateOfFire = {burst: weapon.rateOfFire.burst, full: weapon.rateOfFire.full};
-    }
-
-    let isMelee = weapon.class === "melee";
-    let rollData = {
-      name: weapon.name,
-      baseTarget: characteristic.total + weapon.attack,
-      modifier: 0,
-      attributeBoni: this.actor.attributeBoni,
-      isMelee: isMelee,
-      isRange: !isMelee,
-      clip: weapon.clip,
-      ownerId: this.actor.id,
-      itemId: weapon.id,
-      damageFormula: weapon.damage + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : ""),
-      damageBonus: 0,
-      damageType: weapon.damageType,
-      penetrationFormula: weapon.penetration,
-      weaponTraits: this._extractWeaponTraits(weapon.special),
-      special: weapon.special,
-      rateOfFire: rateOfFire,
-      psy: { value: this.actor.psy.rating, display: false}
-    };
-    await prepareCombatRoll(rollData, this.actor);
+    await prepareCombatRoll(
+      DarkHeresyUtil.createWeaponRollData(this.actor, weapon), 
+      this.actor
+    );
   }
 
   async _prepareRollPsychicPower(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
-    const psychicPower = this.actor.items.get(div.data("itemId"));
-    let focusPowerTarget = this._getFocusPowerTarget(psychicPower);
-
-    const rollData = {
-      name: psychicPower.name,
-      baseTarget: focusPowerTarget.total,
-      modifier: psychicPower.focusPower.difficulty,
-      attributeBoni: this.actor.attributeBoni,
-      damageFormula: psychicPower.damage.formula,
-      damageType: psychicPower.damageType,
-      damageBonus: 0,
-      ownerId: this.actor.id,
-      itemId: psychicPower.id,
-      penetrationFormula: psychicPower.damage.penetration,
-      attackType: { name: psychicPower.damage.zone, text: "" },
-      weaponTraits: this._extractWeaponTraits(psychicPower.damage.special),
-      psy: {
-        value: this.actor.psy.rating,
-        rating: this.actor.psy.rating,
-        max: this._getMaxPsyRating(),
-        warpConduit: false,
-        display: true
-      }
-    };
-    await preparePsychicPowerRoll(rollData);
+    const psychicPower = this.actor.items.get(div.data("itemId"));    
+    await preparePsychicPowerRoll(
+      DarkHeresyUtil.createPsychicRollData(this.actor, psychicPower)
+    );
   }
 
   _extractWeaponTraits(traits) {

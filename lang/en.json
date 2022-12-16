@@ -256,6 +256,8 @@
   "NPC_TYPE.TROOP": "Troop",
   "NPC_TYPE.MASTER": "Master",
   "NPC_TYPE.ELITE": "Elite",
+  
+  "NOTIFICATION.MACRO_ITEM_NOT_FOUND": "Couldn't find the Item. You may not have a Token selected or the Actor doesn't posses the item",
 
   "PSYCHIC_POWER.NAME": "Name",
   "PSYCHIC_POWER.COST": "Cost",

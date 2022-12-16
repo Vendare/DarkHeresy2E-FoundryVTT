@@ -24,6 +24,7 @@ import { initializeHandlebars } from "./handlebars.js";
 import { migrateWorld } from "./migration.js";
 import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "./dialog.js";
 import { commonRoll, combatRoll } from "./roll.js";
+import DhMacroUtil from "./macro.js";
 
 // Import Helpers
 import * as chat from "./chat.js";
@@ -34,12 +35,18 @@ Hooks.once("init", () => {
   CONFIG.Item.documentClass = DarkHeresyItem;
   CONFIG.fontDefinitions["Caslon Antique"] = {editor: true, fonts: []};
   game.darkHeresy = {
-    prepareCommonRoll,
-    prepareCombatRoll,
-    preparePsychicPowerRoll,
-    commonRoll,
-    combatRoll
+    config: darkHeresy,
+    testInit: {
+      prepareCommonRoll,
+      prepareCombatRoll,
+      preparePsychicPowerRoll,
+    },
+    tests:{
+      commonRoll,
+      combatRoll
+    }
   };
+  game.macro = DhMacroUtil; 
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("dark-heresy", AcolyteSheet, { types: ["acolyte"], makeDefault: true });
   Actors.registerSheet("dark-heresy", NpcSheet, { types: ["npc"], makeDefault: true });
@@ -87,3 +94,14 @@ Hooks.once("ready", () => {
 
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
 Hooks.on("getChatLogEntryContext", chat.showRolls);
+/**
+ * Create a macro when dropping an entity on the hotbar
+ * Item      - open roll dialog for item
+ */
+Hooks.on("hotbarDrop", (bar, data, slot) => {
+  if (data.type == "Item" || data.type == "Actor")
+  {
+      DhMacroUtil.createMacro(data, slot)
+      return false
+  }
+});
