@@ -4,13 +4,9 @@ export class DarkHeresyActor extends Actor {
     let initData = {
       "token.bar1": { attribute: "combat.wounds" },
       "token.bar2": { attribute: "combat.shock" },
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
       "token.name": data.name
     };
-    if (data.type === "agent") {
-      initData["token.vision"] = true;
+    if (data.type === "acolyte") {
       initData["token.actorLink"] = true;
     }
     this.system.update(initData);

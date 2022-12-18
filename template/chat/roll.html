@@ -1,5 +1,5 @@
-<div class="dark-heresy chat roll">
-    <div class="background border" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" >
+<div class="dark-heresy chat roll" data-actor-id="{{ownerId}}" data-item-id="{{itemId}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <div class="background border">
         {{#if isReRoll}}
             <h1>{{localize "CHAT.REROLL"}}</h1>
         {{/if}}
