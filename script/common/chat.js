@@ -11,7 +11,7 @@ import { commonRoll, combatRoll } from "./roll.js";
 export const addChatMessageContextOptions = function(html, options) {
   let canApply = li => {
     const message = game.messages.get(li.data("messageId"));
-    return message.getRollData().isCombatTest && message.isContentVisible && canvas.tokens.controlled.length;
+    return message.getRollData()?.isCombatTest && message.isContentVisible && canvas.tokens.controlled.length;
   };
   options.push(
     {
