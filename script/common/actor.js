@@ -1,19 +1,20 @@
 export class DarkHeresyActor extends Actor {
 
   async _preCreate(data, options, user) {
+    
     let initData = {
-      "token.bar1": { attribute: "combat.wounds" },
-      "token.bar2": { attribute: "combat.shock" },
-      "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,
-      "token.name": data.name
+      "prototypeToken.bar1": { attribute: "wounds" },
+      "prototypeToken.bar2": { attribute: "fate" },
+      "prototypeToken.name": data.name,
+      "prototypeToken.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "prototypeToken.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+            
     };
-    if (data.type === "agent") {
-      initData["token.vision"] = true;
-      initData["token.actorLink"] = true;
+    if (data.type === "acolyte") {
+      initData["prototypeToken.actorLink"] = true;      
+      initData["prototypeToken.disposition"] = CONST.TOKEN_DISPOSITIONS.FRIENDLY
     }
-    this.system.update(initData);
+    this.updateSource(initData);
   }
 
   prepareData() {

@@ -457,15 +457,20 @@ function _appendTearing(formula) {
  * @param {object} rollData
  */
 async function _sendToChat(rollData) {
-
+  let speaker = ChatMessage.getSpeaker();
   let chatData = {
     user: game.user.id,
     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
     rollMode: game.settings.get("core", "rollMode"),
+    speaker: speaker,
     flags: {
       "dark-heresy.rollData": rollData
     }
   };
+  
+  if(speaker.token) {
+    rollData.tokenId = speaker.token;
+  }
 
   if (rollData.rollObject) {
     rollData.render = await rollData.rollObject.render();
