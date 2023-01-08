@@ -60,7 +60,8 @@ async function _computeTarget(rollData) {
       rollData.psy.value += ratingBonus;
     }
   }
-  const formula = `0 + ${rollData.modifier} + ${range} + ${attackType} + ${psyModifier}`;
+  let aim = rollData.aim?.val ? rollData.aim.val : 0;
+  const formula = `0 + ${rollData.modifier} + ${aim} + ${range} + ${attackType} + ${psyModifier}`;
   let r = new Roll(formula, {});
   r.evaluate({ async: false });
   if (r.total > 60) {
@@ -117,7 +118,7 @@ async function _rollDamage(rollData) {
     formula = _replaceSymbols(formula, rollData);
   }
   let penetration = _rollPenetration(rollData);
-  let firstHit = await _computeDamage(formula, penetration, rollData.dos, rollData.weaponTraits);
+  let firstHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
   if (firstHit.total !== 0) {
     const firstLocation = _getLocation(rollData.result);
     firstHit.location = firstLocation;
@@ -129,7 +130,7 @@ async function _rollDamage(rollData) {
       }
       rollData.numberOfHit = maxAdditionalHit + 1;
       for (let i = 0; i < maxAdditionalHit; i++) {
-        let additionalHit = await _computeDamage(formula, penetration, rollData.dos, rollData.weaponTraits);
+        let additionalHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
         additionalHit.location = _getAdditionalLocation(firstLocation, i);
         rollData.damages.push(additionalHit);
       }
@@ -151,7 +152,7 @@ async function _rollDamage(rollData) {
  * @param {object} rollData
  * @returns {object}
  */
-async function _computeDamage(damageFormula, penetration, dos, weaponTraits) {
+async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponTraits) {
   let r = new Roll(damageFormula);
   r.evaluate({ async: false });
   let damage = {
@@ -165,7 +166,7 @@ async function _computeDamage(damageFormula, penetration, dos, weaponTraits) {
     damageRender: await r.render()
   };
 
-  if (weaponTraits.accurate) {
+  if (weaponTraits.accurate && isAiming) {
     let numDice = ~~((dos - 1) / 2); //-1 because each degree after the first counts
     if (numDice >= 1) {
       if (numDice > 2) numDice = 2;
@@ -229,7 +230,7 @@ function _rollPenetration(rollData) {
  * Roll a Righteous Fury dice, and return the value.
  * @returns {number}
  */
-async function _rollRighteousFury() {
+function _rollRighteousFury() {
   let r = new Roll("1d5");
   r.evaluate({ async: false });
   return r.total;

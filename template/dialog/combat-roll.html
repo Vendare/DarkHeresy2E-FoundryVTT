@@ -10,6 +10,16 @@
                 <label>{{localize "DIALOG.MODIFIER"}}</label>
                 <input id="modifier" type="text" value="{{modifier}}"/>
             </div>
+            <div class="wrapper">
+                <label>{{localize "DIALOG.AIM"}}</label>
+                <select id="aim">
+                    {{#select aim}}
+                        <option value="0" selected>{{localize "AIMING.NONE"}}</option>
+                        <option value="10">{{localize "AIMING.HALF"}}</option>
+                        <option value="20">{{localize "AIMING.FULL"}}</option>
+                    {{/select}}
+                </select>
+            </div>
             {{#if isMelee}}
             <div class="wrapper">
                 <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>

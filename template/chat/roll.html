@@ -17,6 +17,9 @@
                 <p><strong>{{localize "CHAT.ROLLED_WITH"}}:</strong> {{rolledWith}}</p>
             {{/if}}
 
+            {{#if aim}}
+                <p><strong>{{localize "CHAT.AIMING"}}:</strong> {{aim.text}}</p>
+            {{/if}}
             {{#if rangeText}}
                 <p><strong>{{localize "CHAT.ATTACK_RANGE"}}:</strong> {{rangeText}}</p>
             {{/if}}
