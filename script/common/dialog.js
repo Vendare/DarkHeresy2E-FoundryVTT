@@ -67,10 +67,18 @@ export async function prepareCombatRoll(rollData, actorRef) {
                         rollData.range = range.value;
                         rollData.rangeText = range.options[range.selectedIndex].text;
                     }
-                    rollData.attackType = { text: "None", name: "none", modifier: 0};
                     const attackType = html.find("#attackType")[0];
-                    rollData.attackType.name = attackType?.value;
-                    rollData.attackType.text = attackType?.options[attackType.selectedIndex].text;
+                    rollData.attackType = { 
+                      name : attackType?.value,
+                      text : attackType?.options[attackType.selectedIndex].text,
+                      modifier : 0
+                    };
+                    const aim = html.find("#aim")[0]
+                    rollData.aim = {
+                      val : aim.value,
+                      isAiming : aim.value !== "0",
+                      text : aim?.options[aim.selectedIndex].text
+                    };
                     rollData.damageFormula = html.find("#damageFormula")[0].value.replace(' ', '');
                     rollData.damageType = html.find("#damageType")[0].value;
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
