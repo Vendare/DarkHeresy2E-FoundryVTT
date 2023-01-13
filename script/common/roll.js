@@ -61,7 +61,8 @@ async function _computeTarget(rollData) {
     }
   }
   let aim = rollData.aim?.val ? rollData.aim.val : 0;
-  const formula = `0 + ${rollData.modifier} + ${aim} + ${range} + ${attackType} + ${psyModifier}`;
+  let acquire = rollData.acquire? rollData.acquire:0;
+  const formula = `0 + ${rollData.modifier} + ${aim} + ${range} + ${attackType} + ${psyModifier} +${acquire}`;
   let r = new Roll(formula, {});
   r.evaluate({ async: false });
   if (r.total > 60) {
@@ -73,6 +74,7 @@ async function _computeTarget(rollData) {
   }
   rollData.rollObject = r;
 }
+
 
 /**
  * Roll a d100 against a target, and apply the result to the rollData.
@@ -123,20 +125,45 @@ async function _rollDamage(rollData) {
     const firstLocation = _getLocation(rollData.result);
     firstHit.location = firstLocation;
     rollData.damages.push(firstHit);
-    if (rollData.attackType.hitMargin > 0) {
-      let maxAdditionalHit = Math.floor((rollData.dos - 1) / rollData.attackType.hitMargin);
-      if (typeof rollData.maxAdditionalHit !== "undefined" && maxAdditionalHit > rollData.maxAdditionalHit) {
-        maxAdditionalHit = rollData.maxAdditionalHit;
+    if(rollData.weaponTraits.twinLinked&&rollData.dos >=2) {
+      let twinHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
+      twinHit.location = _getAdditionalLocation(firstLocation, 1);
+      rollData.damages.push(twinHit);}
+      
+      if (rollData.weaponTraits.storm)
+      {
+        if (rollData.attackType.hitMargin > 0) {
+          let maxAdditionalHit = Math.floor((rollData.dos * 2 - 1) / rollData.attackType.hitMargin);
+          if (typeof rollData.maxAdditionalHit !== "undefined" && maxAdditionalHit > rollData.maxAdditionalHit) {
+            maxAdditionalHit = rollData.maxAdditionalHit;
+          }
+          rollData.numberOfHit = maxAdditionalHit + 1;
+          for (let i = 0; i < maxAdditionalHit; i++) {
+            let additionalHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
+            additionalHit.location = _getAdditionalLocation(firstLocation, i);
+            rollData.damages.push(additionalHit);
+          }
+        } else {
+          rollData.numberOfHit = 1;
+        }
       }
-      rollData.numberOfHit = maxAdditionalHit + 1;
-      for (let i = 0; i < maxAdditionalHit; i++) {
-        let additionalHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
-        additionalHit.location = _getAdditionalLocation(firstLocation, i);
-        rollData.damages.push(additionalHit);
+      else
+      {
+        if (rollData.attackType.hitMargin > 0) {
+          let maxAdditionalHit = Math.floor((rollData.dos - 1) / rollData.attackType.hitMargin);
+          if (typeof rollData.maxAdditionalHit !== "undefined" && maxAdditionalHit > rollData.maxAdditionalHit) {
+            maxAdditionalHit = rollData.maxAdditionalHit;
+          }
+          rollData.numberOfHit = maxAdditionalHit + 1;
+          for (let i = 0; i < maxAdditionalHit; i++) {
+            let additionalHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
+            additionalHit.location = _getAdditionalLocation(firstLocation, i);
+            rollData.damages.push(additionalHit);
+          }
+        } else {
+          rollData.numberOfHit = 1;
+        }
       }
-    } else {
-      rollData.numberOfHit = 1;
-    }
     let minDamage = rollData.damages.reduce(
       (min, damage) => min.minDice < damage.minDice ? min : damage, rollData.damages[0]
     );
@@ -165,7 +192,8 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
     replaced: false,
     damageRender: await r.render()
   };
-
+  if(weaponTraits.inaccurate){}
+  else
   if (weaponTraits.accurate && isAiming) {
     let numDice = ~~((dos - 1) / 2); //-1 because each degree after the first counts
     if (numDice >= 1) {
@@ -293,7 +321,10 @@ function _computeRateOfFire(rollData) {
   switch (rollData.attackType.name) {
     case "standard":
       rollData.attackType.modifier = 10;
-      rollData.attackType.hitMargin = 0;
+      if (rollData.weaponTraits.storm) 
+      {rollData.maxAdditionalHit = rollData.rateOfFire.burst *2 - 1;}
+      else
+      {rollData.maxAdditionalHit = rollData.rateOfFire.burst - 1;}
       break;
 
     case "bolt":
@@ -307,14 +338,19 @@ function _computeRateOfFire(rollData) {
     case "barrage":
       rollData.attackType.modifier = 0;
       rollData.attackType.hitMargin = 2;
-      rollData.maxAdditionalHit = rollData.rateOfFire.burst - 1;
+      if (rollData.weaponTraits.storm) 
+      {rollData.maxAdditionalHit = rollData.rateOfFire.burst *2 - 1;}
+      else
+      {rollData.maxAdditionalHit = rollData.rateOfFire.burst - 1;}
       break;
 
     case "lightning":
     case "full_auto":
       rollData.attackType.modifier = -10;
       rollData.attackType.hitMargin = 1;
-      rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;
+      if (rollData.weaponTraits.storm) 
+      {rollData.maxAdditionalHit = rollData.rateOfFire.full *2 - 1;}
+      else {rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;}
       break;
 
     case "storm":
@@ -343,6 +379,7 @@ function _computeRateOfFire(rollData) {
       rollData.attackType.hitMargin = 0;
       break;
   }
+  if (rollData.weaponTraits.twinLinked) {rollData.attackType.modifier = rollData.attackType.modifier + 20}
 }
 
 const additionalHit = {
@@ -505,5 +542,136 @@ async function _emptyClipToChat(rollData) {
           </div>
         `
   };
+  ChatMessage.create(chatData);
+}
+
+export async function shipCombatRoll(rollData) {
+  await _computeShipTarget(rollData);
+    await _rollTarget(rollData);
+    if (rollData.isSuccess) {
+      await _rollShipDamage(rollData);
+    }
+  await _sendToChatShip(rollData);
+}
+
+async function _rollShipDamage(rollData) {
+  let formula = "0";
+  rollData.damages = [];
+  if (rollData.damageFormula) {
+    formula = rollData.damageFormula;
+
+    formula = `${formula}+${rollData.damageBonus}`;
+    formula = _replaceSymbols(formula, rollData);
+  }
+  let penetration;
+  let firstHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
+  if (firstHit.total !== 0) {
+    rollData.damages.push(firstHit);
+      
+        if (rollData.attackType.hitMargin > 0) {
+          let maxAdditionalHit = Math.floor((rollData.dos - 1) / rollData.attackType.hitMargin);
+          if (typeof rollData.maxAdditionalHit !== "undefined" && maxAdditionalHit > rollData.maxAdditionalHit) {
+            maxAdditionalHit = rollData.maxAdditionalHit;
+          }
+          rollData.numberOfHit = maxAdditionalHit + 1;
+          for (let i = 0; i < maxAdditionalHit; i++) {
+            let additionalHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
+            rollData.damages.push(additionalHit);
+          }
+        } 
+        
+        else if(rollData.isNova) {
+          let novaRoll = _rollNova();
+          if (rollData.dos>2) {novaRoll=novaRoll+2;}
+          let maxAdditionalHit = novaRoll;
+          rollData.numberOfHit = maxAdditionalHit;
+          for (let i = 0; i < maxAdditionalHit; i++) {
+            let additionalHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
+            rollData.damages.push(additionalHit);
+          }
+        } 
+        
+        else {
+          rollData.numberOfHit = 1;
+        }
+  }
+}
+function _rollNova() {
+  let r = new Roll("1d5");
+  r.evaluate({ async: false });
+  return r.total
+}
+
+function _computeShipRateOfFire(rollData) {
+  rollData.maxAdditionalHit = 0;
+
+  switch (rollData.attackType.name) {
+
+    case "lance":
+      rollData.attackType.modifier = 0;
+      rollData.attackType.hitMargin = 3;
+      rollData.maxAdditionalHit = rollData.rateOfFire - 1;
+      break;
+
+    case "macro":
+    case "torpedo":
+      rollData.attackType.modifier = 0;
+      rollData.attackType.hitMargin = 1;
+      rollData.maxAdditionalHit = rollData.rateOfFire - 1;
+      break;
+
+  }
+}
+
+async function _computeShipTarget(rollData) {
+  const range = (rollData.range) ? rollData.range : "0";
+  let attackType = 0;
+  if (typeof rollData.attackType !== "undefined" && rollData.attackType != null) {
+    _computeShipRateOfFire(rollData);
+    attackType = rollData.attackType.modifier;
+  }
+  const formula = `0 + ${rollData.modifier} + ${range} + ${attackType}`;
+  let r = new Roll(formula, {});
+  r.evaluate({ async: false });
+  if (r.total > 60) {
+    rollData.target = rollData.baseTarget + 60;
+  } else if (r.total < -60) {
+    rollData.target = rollData.baseTarget + -60;
+  } else {
+    rollData.target = rollData.baseTarget + r.total;
+  }
+  rollData.rollObject = r;
+}
+
+async function _sendToChatShip(rollData) {
+  let speaker = ChatMessage.getSpeaker();
+  let chatData = {
+    user: game.user.id,
+    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    rollMode: game.settings.get("core", "rollMode"),
+    speaker: speaker,
+    flags: {
+      "dark-heresy.rollData": rollData
+    }
+  };
+  
+  if(speaker.token) {
+    rollData.tokenId = speaker.token;
+  }
+
+  if (rollData.rollObject) {
+    rollData.render = await rollData.rollObject.render();
+    chatData.roll = rollData.rollObject;
+  }
+
+  const html = await renderTemplate("systems/dark-heresy/template/chat/shiproll.html", rollData);
+  chatData.content = html;
+
+  if (["gmroll", "blindroll"].includes(chatData.rollMode)) {
+    chatData.whisper = ChatMessage.getWhisperRecipients("GM");
+  } else if (chatData.rollMode === "selfroll") {
+    chatData.whisper = [game.user];
+  }
+
   ChatMessage.create(chatData);
 }

@@ -2,7 +2,10 @@
   "Actor": {
     "types": [
       "acolyte",
-      "npc"
+      "npc",
+      "vehicle",
+      "aircraft",
+      "starship"
     ],
     "templates": {
       "characteristics": {
@@ -13,7 +16,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           },
           "ballisticSkill": {
             "label": "CHARACTERISTIC.BALLISTIC_SKILL",
@@ -21,7 +25,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           },
           "strength": {
             "label": "CHARACTERISTIC.STRENGTH",
@@ -29,7 +34,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           },
           "toughness": {
             "label": "CHARACTERISTIC.TOUGHNESS",
@@ -37,7 +43,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           },
           "agility": {
             "label": "CHARACTERISTIC.AGILITY",
@@ -45,7 +52,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           },
           "intelligence": {
             "label": "CHARACTERISTIC.INTELLIGENCE",
@@ -53,7 +61,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           },
           "perception": {
             "label": "CHARACTERISTIC.PERCEPTION",
@@ -61,7 +70,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           },
           "willpower": {
             "label": "CHARACTERISTIC.WILLPOWER",
@@ -69,7 +79,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           },
           "fellowship": {
             "label": "CHARACTERISTIC.FELLOWSHIP",
@@ -77,7 +88,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           },
           "influence": {
             "label": "CHARACTERISTIC.INFLUENCE",
@@ -85,7 +97,8 @@
             "base": 0,
             "advance": 0,
             "unnatural": 0,
-            "cost": 0
+            "cost": 0,
+            "damage": 0
           }
         }
       },
@@ -863,6 +876,23 @@
           "class": "bound",
           "cost": 0
         }
+      },
+      "vehiclestats": {
+        "vehiclestats": {
+          "tacticalspeed": 0,
+          "vehiclemaneuver": 0,
+          "vehiclecruise": 0,
+          "vehiclecapacity": 0,
+          "vehicleavailability": "rare",
+          "threatlevel": 0,
+          "armourfront": 0,
+          "armourside": 0,
+          "armourleft": 0,
+          "armourright": 0,
+          "armourrear": 0,
+          "crewsize": "",
+          "vehicletype": ""
+        }
       }
     },
     "acolyte": {
@@ -916,7 +946,112 @@
       "subfaction": "",
       "type": "troop",
       "threatLevel": 0,
-      "size": 4
+      "size": 4,
+      "bio": {
+        "notes": ""
+      }
+    },
+    "vehicle": {
+      "templates": [
+        "characteristics",
+        "skills",
+        "initiative",
+        "wounds",
+        "fatigue",
+        "fate",
+        "psy",
+        "vehiclestats"
+      ],
+      "experience": {
+        "value": 0
+      },
+      "faction": "",
+      "subfaction": "",
+      "type": "troop",
+      "size": 4,
+      "bio": {
+        "notes": ""
+      }
+    },
+    "aircraft": {
+      "templates": [
+        "characteristics",
+        "skills",
+        "initiative",
+        "wounds",
+        "fatigue",
+        "fate",
+        "psy",
+        "vehiclestats"
+      ],
+      "experience": {
+        "value": 0
+      },
+      "faction": "",
+      "subfaction": "",
+      "type": "troop",
+      "size": 4,
+      "airunits": 0,
+      "voidunits": 0,
+      "bio": {
+        "notes": ""
+      }
+    },
+    "starship": {
+      "templates": [
+        "characteristics",
+        "skills",
+        "initiative",
+        "wounds",
+        "fatigue",
+        "fate",
+        "psy",
+        "vehiclestats"
+      ],
+      "experience": {
+        "value": 0
+      },
+      "faction": "",
+      "subfaction": "",
+      "shiptype": "Cruiser",
+      "shipclass": "",
+      "spcost": 0,
+      "size": 4,
+      "voidunits": 0,
+      "shipdetection": 0,
+      "voidshield": 0,
+      "weapondorsal": 0,
+      "weaponkeel": 0,
+      "weaponprow": 0,
+      "weaponport": 0,
+      "weaponstar": 0,
+      "shippower": 0,
+      "shipspace": 0,
+      "shiparmour": 0,
+      "crewmorale": {
+        "value": 0,
+        "max": 0
+      },
+      "crewpop": {
+        "value": 0,
+        "max": 0
+      },
+      "turretrating": 0,
+      "squadcap": 0,
+      "supplies": 0,
+      "shipspirit": "",
+      "shiphistory": "",
+      "objectivebonus": {
+        "military": 0,
+        "criminal": 0,
+        "exploration": 0,
+        "trade": 0,
+        "creed": 0,
+        "other": 0
+      },
+      "bio": {
+        "notes": ""
+      }
     }
   },
   "Item": {
@@ -938,7 +1073,12 @@
       "tool",
       "trait",
       "weapon",
-      "weaponModification"
+      "weaponModification",
+      "starshipCore",
+      "starshipSupplementary",
+      "starshipWeapon",
+      "squadrons",
+      "groundTroops"
     ],
     "templates": {
       "equipment": {
@@ -950,6 +1090,14 @@
       "itemDescription": {
         "description": "",
         "source": ""
+      },
+      "shipequipment": {
+        "powerUse": 0,
+        "spaceUse": 0,
+        "spcost": 0,
+        "comptype": "",
+        "hullavail": "",
+        "description": ""
       }
     },
     "ammunition": {
@@ -1083,6 +1231,40 @@
     },
     "aptitude" : {
       "templates": ["itemDescription"]
+    },
+    "starshipCore" : {
+      "templates": ["shipequipment"]
+    },
+    "starshipSupplementary" : {
+      "templates": ["shipequipment"]
+    },
+    "starshipWeapon" : {
+      "templates": ["shipequipment"],
+      "shipStrength": 0,
+      "damage": "",
+      "shipCritical": 0,
+      "range": 0,
+      "special": "",
+      "slot": ""
+    },
+    "squadrons": {
+      "templates": [ "equipment" ],
+      "strength": {
+        "current": 0,
+        "max": 0
+      },
+      "count": 0,
+      "squadclass": ""
+    },
+    "troop": {
+      "templates": [ "equipment" ],
+      "strength": 0,
+      "morale": 0,
+      "movement": 0,
+      "power": 0,
+      "unitclass": "",
+      "designation": "",
+      "techlevel": ""
     }
   }
 }

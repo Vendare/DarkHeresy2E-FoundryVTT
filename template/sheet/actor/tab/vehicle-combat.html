@@ -1,0 +1,155 @@
+<div class="flex wrap combat">
+    <div class="wounds border">
+        <h1>{{localize "TITLE.INTEGRITY"}}</h1>
+        <div class="information">
+            <label>{{localize "WOUND.TOTAL"}}</label>
+            <input name="system.wounds.max" type="number" value="{{system.wounds.max}}" data-dtype="Number" />
+        </div>
+        <div class="information">
+            <label>{{localize "WOUND.CURRENT"}}</label>
+            <input name="system.wounds.value" type="number" value="{{system.wounds.value}}" data-dtype="Number" />
+        </div>
+        <div class="information">
+            <label>{{localize "WOUND.CRITICAL_DAMAGE"}}</label>
+            <input name="system.wounds.critical" type="number" value="{{system.wounds.critical}}" data-dtype="Number" />
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "VEHICLE.CRIT"}}</b>
+                <a class="button item-create" title="Add Critical Injury" data-type="criticalInjury"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isCriticalInjury}}
+                        <div class="wound item flex row" data-item-id="{{item.id}}">
+                        <div class="flex wound-row item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
+                            </div>
+                            <div class="name">{{item.name}}</div>
+                        </div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Critical Injury"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="armour border">
+        <h1>{{localize "TITLE.ARMOUR"}}</h1>
+        <div class="armour-row">
+            <div class="part" style="margin-right: 25px">
+                <div class="name">{{localize "VEHICLE.ARMOUR.FRONT"}}</div>
+                <input class="total" type="number" value="{{system.armourfront}}" data-dtype="Number" disabled />
+                <div class="information">
+                    <input type="number" value="{{system.armour.head.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.head.value}}" data-dtype="Number" disabled />
+                </div>
+            </div>
+        </div>
+        <div class="armour-row">
+            <div class="part">
+                <div class="name">{{localize "VEHICLE.ARMOUR.LEFT"}}</div>
+                <input class="total" type="number" value="{{system.armourside}}" data-dtype="Number" disabled />
+                <div class="information">
+                    <input type="number" value="{{system.armour.leftArm.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.leftArm.value}}" data-dtype="Number" disabled />
+                </div>
+                <div class="information">
+                    <input type="number" value="{{system.armour.rightArm.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.rightArm.value}}" data-dtype="Number" disabled />
+                </div>
+                <input class="total" type="number" value="{{system.armourside}}" data-dtype="Number" disabled />
+                <div class="name">{{localize "VEHICLE.ARMOUR.RIGHT"}}</div>
+            </div>
+        </div>
+        <div class="armour-row">
+            <div class="part" style="margin-right: 25px">
+                <div class="name">{{localize "VEHICLE.ARMOUR.REAR"}}</div>
+                <input class="total" type="number" value="{{system.armourrear}}" data-dtype="Number" disabled />
+                <div class="information">
+                    <input type="number" value="{{system.armour.body.toughnessBonus}}" data-dtype="Number" disabled />
+                    <input type="number" value="{{system.armour.body.value}}" data-dtype="Number" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="movement border">
+        <h1>{{localize "TITLE.MOVEMENT"}}</h1>
+        <div class="information">
+            <label>{{localize "MOVEMENT.TACTICAL"}}</label>
+            <input  type="number" value="{{system.tacticalspeed}}" data-dtype="Number" disabled/>
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.FULLTACTICAL"}}</label>
+            <input type="number" value="{{system.movement.fulltactical}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.EMSTACTICALHALF"}}</label>
+            <input type="number" value="{{system.movement.fulltactical}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "MOVEMENT.EMSTACTICALFULL"}}</label>
+            <input type="number" value="{{system.movement.emsfull}}" data-dtype="Number" disabled />
+        </div>
+        <h1 style="margin-top: 5px">{{localize "TITLE.OTHER"}}</h1>
+        <div class="information initiative">
+            <label>{{localize "INITIATIVE"}}</label>
+            <input name="system.initiative.base" type="text" value="{{system.initiative.base}}" />
+            +
+            <select name="system.initiative.characteristic">
+                {{#select system.initiative.characteristic}}
+                    {{#each system.characteristics as |characteristic key|}}
+                        <option value="{{key}}">{{localize characteristic.label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        <div class="information">
+            <label>{{localize "SIZE"}}</label>
+            <input name="system.size" type="number" value="{{system.size}}" data-dtype="Number" />
+        </div>
+    </div>
+    <div class="vehicleweapons border">
+        <h1>{{localize "TITLE.WEAPONS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "WEAPON.NAME"}}</b>
+                <b class="class">{{localize "WEAPON.CLASS"}}</b>
+                <b class="range">{{localize "WEAPON.RANGE"}}</b>
+                <b class="rate-of-fire">{{localize "WEAPON.RATE_OF_FIRE"}}</b>
+                <b class="damage">{{localize "WEAPON.DAMAGE"}}</b>
+                <b class="type">{{localize "WEAPON.DAMAGE_TYPE"}}</b>
+                <b class="penetration">{{localize "WEAPON.PENETRATION"}}</b>
+                <b class="clip">{{localize "WEAPON.CLIP"}}</b>
+                <b class="reload">{{localize "WEAPON.RELOAD"}}</b>
+                <b class="special">{{localize "WEAPON.SPECIAL"}}</b>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isWeapon}}
+                        <div class="weapon item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <button class="roll-weapon">{{item.name}}</button>
+                            </div>
+                            <div class="class">{{item.WeaponClass}}</div>
+                            <div class="range">{{item.range}}</div>
+                            <div class="rate-of-fire">{{item.RateOfFire}}</div>
+                            <div class="damage">{{item.damage}}</div>
+                            <div class="type">{{item.DamageTypeShort}}</div>
+                            <div class="penetration">{{item.penetration}}</div>
+                            <div class="clip">{{item.Clip}}</div>
+                            <div class="reload">{{item.reload}}</div>
+                            <div class="special">{{item.special}}</div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

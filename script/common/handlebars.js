@@ -13,6 +13,9 @@ function preloadHandlebarsTemplates() {
     "systems/dark-heresy/template/sheet/actor/acolyte.html",
     "systems/dark-heresy/template/sheet/actor/npc.html",
     "systems/dark-heresy/template/sheet/actor/limited-sheet.html",
+    "systems/dark-heresy/template/sheet/actor/vehicle.html",
+    "systems/dark-heresy/template/sheet/actor/aircraft.html",
+    "systems/dark-heresy/template/sheet/actor/starship.html",
 
     "systems/dark-heresy/template/sheet/actor/tab/abilities.html",
     "systems/dark-heresy/template/sheet/actor/tab/combat.html",
@@ -23,6 +26,15 @@ function preloadHandlebarsTemplates() {
     "systems/dark-heresy/template/sheet/actor/tab/progression.html",
     "systems/dark-heresy/template/sheet/actor/tab/psychic-powers.html",
     "systems/dark-heresy/template/sheet/actor/tab/stats.html",
+    "systems/dark-heresy/template/sheet/actor/tab/vehicle-combat.html",
+    "systems/dark-heresy/template/sheet/actor/tab/vehicle-progression.html",
+    "systems/dark-heresy/template/sheet/actor/tab/vehicle-notes.html",
+    "systems/dark-heresy/template/sheet/actor/tab/aircraft-combat.html",
+    "systems/dark-heresy/template/sheet/actor/tab/aircraft-progression.html",
+    "systems/dark-heresy/template/sheet/actor/tab/starship-combat.html",
+    "systems/dark-heresy/template/sheet/actor/tab/starship-components.html",
+    "systems/dark-heresy/template/sheet/actor/tab/starship-progression.html",
+    "systems/dark-heresy/template/sheet/actor/tab/starship-notes.html",
 
     "systems/dark-heresy/template/sheet/mental-disorder.html",
     "systems/dark-heresy/template/sheet/aptitude.html",
@@ -47,12 +59,19 @@ function preloadHandlebarsTemplates() {
     "systems/dark-heresy/template/sheet/characteristics/name.html",
     "systems/dark-heresy/template/sheet/characteristics/right.html",
     "systems/dark-heresy/template/sheet/characteristics/total.html",
+    "systems/dark-heresy/template/sheet/starship-equipment.html",
+    "systems/dark-heresy/template/sheet/starship-weapon.html",
+    "systems/dark-heresy/template/sheet/squadrons.html",
+    "systems/dark-heresy/template/sheet/groundtroops.html",
     "systems/dark-heresy/template/chat/item.html",
     "systems/dark-heresy/template/chat/roll.html",
     "systems/dark-heresy/template/chat/critical.html",
+    "systems/dark-heresy/template/chat/shiproll.html",
     "systems/dark-heresy/template/dialog/common-roll.html",
     "systems/dark-heresy/template/dialog/combat-roll.html",
-    "systems/dark-heresy/template/dialog/psychic-power-roll.html"
+    "systems/dark-heresy/template/dialog/psychic-power-roll.html",
+    "systems/dark-heresy/template/dialog/acquire-roll.html",
+    "systems/dark-heresy/template/dialog/shipcombat-roll.html"
   ];
   return loadTemplates(templatePaths);
 }
@@ -66,9 +85,9 @@ function registerHandlebarsHelpers() {
     return text.replace(markup, "");
   });
 
-  Handlebars.registerHelper("enrich", function(string) {
-    return TextEditor.enrichHTML(string, {async: false});
-  });
+//  Handlebars.registerHelper("enrich", function(string) {
+//    return TextEditor.enrichHTML(string, {async: false});
+//  });
 
   Handlebars.registerHelper("damageTypeLong", function(damageType) {
     damageType = (damageType || "i").toLowerCase();
@@ -103,4 +122,3 @@ function registerHandlebarsHelpers() {
   });
 
 }
-

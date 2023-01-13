@@ -12,24 +12,29 @@
                     </div>
                     <div class="header-row" style="height: 22px">
                         <div class="type">
-                            <label>{{localize "BIO.TYPE"}}</label>
-                            <select name="system.type" style="margin-left: 14px">
-                                {{#select system.type}}
-                                    <option value="troop">{{localize "NPC_TYPE.TROOP"}}</option>
-                                    <option value="master">{{localize "NPC_TYPE.MASTER"}}</option>
-                                    <option value="elite">{{localize "NPC_TYPE.ELITE"}}</option>
+                            <label>{{localize "SHIP.BIO.SHIPTYPE"}}</label>
+                            <select name="system.shiptype" style="margin-left: 14px">
+                                {{#select system.shiptype}}
+                                    <option value="raider">{{localize "SHIP.RAIDER"}}</option>
+                                    <option value="transport">{{localize "SHIP.TRANSPORT"}}</option>
+                                    <option value="frigate">{{localize "SHIP.FRIGATE"}}</option>
+                                    <option value="lightcruiser">{{localize "SHIP.LIGHT"}}</option>
+                                    <option value="cruiser">{{localize "SHIP.CRUISER"}}</option>
+                                    <option value="battlecruiser">{{localize "SHIP.BATTLECRUISER"}}</option>
+                                    <option value="grandcruiser">{{localize "SHIP.GRAND"}}</option>
+                                    <option value="battleship">{{localize "SHIP.BATTLESHIP"}}</option>
                                 {{/select}}
                             </select>
                         </div>
                         <div class="threat-level">
-                            <label>{{localize "BIO.THREAT_LEVEL"}}</label>
-                            <input style="margin-left: 8px" name="system.threatLevel" type="number" value="{{system.threatLevel}}" data-dtype="Number" />
+                            <label>{{localize "SHIP.BIO.SHIPCLASS"}}</label>
+                            <input style="margin-left: 43px" name="system.shipclass" type="text" value="{{system.shipclass}}" />
                         </div>
                         <div class="fate">
-                            <label>{{localize "FATE"}}</label>
-                            <input style="margin-left: 20px" name="system.fate.value" type="number" value="{{system.fate.value}}" data-dtype="Number" />
+                            <label>{{localize "SHIP.POP"}}</label>
+                            <input style="margin-left: 20px" name="system.crewpop.value" type="number" value="{{system.crewpop.value}}" data-dtype="Number" />
                             /
-                            <input name="system.fate.max" type="number" value="{{system.fate.max}}" data-dtype="Number" />
+                            <input name="system.crewpop.max" type="number" value="{{system.crewpop.max}}" data-dtype="Number" />
                         </div>
                     </div>
                     <div class="header-row">
@@ -42,10 +47,10 @@
                             <input style="margin-left: 17px" name="system.subfaction" type="text" value="{{system.subfaction}}" />
                         </div>
                         <div class="fatigue">
-                            <label>{{localize "FATIGUE"}}</label>
-                            <input name="system.fatigue.value" type="number" value="{{system.fatigue.value}}" data-dtype="Number" />
+                            <label>{{localize "SHIP.MORALE"}}</label>
+                            <input name="system.crewmorale.value" type="number" value="{{system.crewmorale.value}}" data-dtype="Number" />
                             /
-                            <input name="system.fatigue.max" type="number" value="{{system.fatigue.max}}" data-dtype="Number" />
+                            <input name="system.crewmorale.max" type="number" value="{{system.crewmorale.max}}" data-dtype="Number" />
                         </div>
                     </div>
                 </div>
@@ -56,8 +61,7 @@
             <b class="item" data-tab="stats">{{localize "TAB.STATS"}}</b>
             <b class="item" data-tab="combat">{{localize "TAB.COMBAT"}}</b>
             <b class="item" data-tab="abilities">{{localize "TAB.ABILITIES"}}</b>
-            <b class="item" data-tab="psychic-powers">{{localize "TAB.PSYCHIC_POWERS"}}</b>
-            <b class="item" data-tab="gear">{{localize "TAB.GEAR"}}</b>
+            <b class="item" data-tab="gear">{{localize "TAB.COMPONENTS"}}</b>
             <b class="item" data-tab="progression">{{localize "TAB.ADVANCES"}}</b>
             <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
         </div>
@@ -67,22 +71,19 @@
                 {{> systems/dark-heresy/template/sheet/actor/tab/npc-stats.html}}
             </div>
             <div class="tab" data-group="primary" data-tab="combat">
-                {{> systems/dark-heresy/template/sheet/actor/tab/combat.html}}
+                {{> systems/dark-heresy/template/sheet/actor/tab/starship-combat.html}}
             </div>
             <div class="tab" data-group="primary" data-tab="abilities">
                 {{> systems/dark-heresy/template/sheet/actor/tab/abilities.html}}
             </div>
-            <div class="tab" data-group="primary" data-tab="psychic-powers">
-                {{> systems/dark-heresy/template/sheet/actor/tab/psychic-powers.html}}
-            </div>
             <div class="tab" data-group="primary" data-tab="gear">
-                {{> systems/dark-heresy/template/sheet/actor/tab/gear.html}}
+                {{> systems/dark-heresy/template/sheet/actor/tab/starship-components.html}}
             </div>
             <div class="tab" data-group="primary" data-tab="progression">
-                {{> systems/dark-heresy/template/sheet/actor/tab/progression.html}}
+                {{> systems/dark-heresy/template/sheet/actor/tab/starship-progression.html}}
             </div>
             <div class="tab" data-group="primary" data-tab="notes">
-                {{> systems/dark-heresy/template/sheet/actor/tab/npc-notes.html}}
+                {{> systems/dark-heresy/template/sheet/actor/tab/starship-notes.html}}
             </div>
         </div>
     </div>

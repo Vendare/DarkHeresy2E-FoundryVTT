@@ -1012,6 +1012,7 @@ li.folder.collapsed > .folder-header {
 .dark-heresy .npc .header .type select,
 .dark-heresy .npc .header .faction input,
 .dark-heresy .npc .header .threat-level input,
+.dark-heresy .npc .header .threat-level select,
 .dark-heresy .npc .header .subfaction input {
   width: 11em;
   height: 22px;
@@ -1841,18 +1842,19 @@ li.folder.collapsed > .folder-header {
   margin-top: 5px;
 }
 .dark-heresy .progression .characteristics .item-list .header .name {
-  flex-basis: 29%;
+  flex-basis: 28%;
 }
 .dark-heresy .progression .characteristics .item-list .header .advance {
-  flex-basis: 25%;
+  flex-basis: 18%;
   margin-right: 5px;
 }
 .dark-heresy .progression .characteristics .item-list .header .unnatural {
-  flex-basis: 13%;
+  flex-basis: 17%;
   margin: 1px;
+  text-align: left;
 }
 .dark-heresy .progression .characteristics .item-list .header .base {
-  flex-basis: 11%;
+  flex-basis: 10%;
   margin: 1px;
 }
 .dark-heresy .progression .characteristics .item-list .header .cost {
@@ -1890,8 +1892,8 @@ li.folder.collapsed > .folder-header {
 .dark-heresy .progression .characteristics .item-list .items .item .cost {
   flex-basis: 15%;
   text-align: center;
-  height: 22px;
-  margin-left: 5px;
+  height: 24px;
+  margin-left: 1px;
 }
 .dark-heresy .progression .psychic-powers {
   display: flex;
@@ -2050,4 +2052,532 @@ li.folder.collapsed > .folder-header {
 .dark-heresy .notes-tab .information .information-row .superstition label,
 .dark-heresy .notes-tab .information .information-row .momentos label {
   flex-basis: 10%;
+}
+
+
+.dark-heresy .combat .vehicleweapons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 2px;
+  flex-basis: 100%;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .header {
+  margin-top: 5px;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .name {
+  flex-basis: 20%;
+  text-align: center;
+  align-items: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .class {
+  flex-basis: 10%;
+  text-align: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .range {
+  flex-basis: 5%;
+  text-align: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .rate-of-fire {
+  flex-basis: 10%;
+  text-align: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .damage {
+  flex-basis: 10%;
+  text-align: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .type {
+  flex-basis: 5%;
+  text-align: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .penetration {
+  flex-basis: 5%;
+  text-align: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .clip {
+  flex-basis: 5%;
+  text-align: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .reload {
+  flex-basis: 10%;
+  text-align: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .special {
+  flex-basis: 20%;
+  text-align: center;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .items .weapon {
+  width: 100%;
+}
+
+.dark-heresy .combat .vehicleweapons .item-list .items {
+  max-height: 300px;
+  height: 300px;
+}
+
+.dark-heresy .combat .starshipweapons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 2px;
+  flex-basis: 100%;
+}
+
+.dark-heresy .combat .starshipweapons .item-list .header {
+  margin-top: 5px;
+}
+
+.dark-heresy .combat .starshipweapons .item-list .name {
+  flex-basis: 20%;
+  text-align: center;
+  align-items: center;
+}
+
+.dark-heresy .combat .starshipweapons .item-list .weaponslot {
+  flex-basis: 15%;
+  text-align: center;
+}
+
+.dark-heresy .combat .starshipweapons .item-list .class {
+  flex-basis: 15%;
+  text-align: center;
+}
+
+.dark-heresy .combat .starshipweapons .item-list .range {
+  flex-basis: 5%;
+  text-align: center;
+}
+
+.dark-heresy .combat .starshipweapons .item-list .rate-of-fire {
+  flex-basis: 10%;
+  text-align: center;
+}
+
+.dark-heresy .combat .starshipweapons .item-list .damage {
+  flex-basis: 10%;
+  text-align: center;
+}
+
+
+.dark-heresy .combat .starshipweapons .item-list .penetration {
+  flex-basis: 5%;
+  text-align: center;
+}
+
+
+.dark-heresy .combat .starshipweapons .item-list .special {
+  flex-basis: 20%;
+  text-align: center;
+}
+
+.dark-heresy .combat .starshipweapons .item-list .items .weapon {
+  width: 100%;
+}
+
+.dark-heresy .combat .starshipweapons .item-list .items {
+  max-height: 300px;
+  height: 300px;
+}
+
+.dark-heresy .progression .airexperience {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-basis: 33%;
+}
+
+.dark-heresy .progression .airexperience .information {
+  display: flex;
+  margin-top: 5px;
+}
+
+.dark-heresy .progression .airexperience .information label {
+  flex-basis: 75%;
+}
+
+.dark-heresy .progression .airexperience .information input {
+  flex-basis: 25%;
+}
+
+.dark-heresy .vehiclegrid {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+      "airtop"
+      "airbot";
+  grid-row-gap: 3px;
+}
+
+.dark-heresy .vehiclegrid .airtop {
+  grid-area: airtop;
+  gap:3px;
+}
+
+.dark-heresy .vehiclegrid .airbot {
+  grid-area: airbot;
+}
+
+.dark-heresy .vehiclegrid .airbot .vehiclegrid2{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+      "vehicleleft1 vehicleright"
+      "vehicleleft2 vehicleright"
+}
+
+.dark-heresy .vehiclegrid .airbot .vehiclegrid2 .vehicleleft{
+  grid-area: vehicleleft1;
+}
+
+.dark-heresy .vehiclegrid .airbot .vehiclegrid2 .vehicleleft{
+  grid-area: vehicleleft2;
+}
+
+.dark-heresy .vehiclegrid .airbot .vehiclegrid2 .vehicleright{
+  grid-area: vehicleright;
+}
+
+.dark-heresy .progression .stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-basis: 25%;
+}
+
+.dark-heresy .progression .stats .information {
+  display: flex;
+  margin-top: 5px;
+}
+
+.dark-heresy .progression .stats .information label {
+  flex-basis: 75%;
+}
+
+.dark-heresy .progression .stats .information input {
+  flex-basis: 25%;
+}
+
+
+.dark-heresy .progression .stats .item-list .header {
+  margin-top: 5px;
+}
+
+.dark-heresy .progression .stats .item-list .header .name {
+  flex-basis: 89%;
+}
+
+.dark-heresy .progression .stats .item-list .items .aptitude {
+  width: 100%;
+}
+
+.dark-heresy .progression .stats .item-list .items {
+  max-height: 160px;
+  height: 160px;
+}
+
+.dark-heresy .progression .stats .item-list .items .item .name {
+  flex-basis: 90%;
+  align-items: center;
+  background: none;
+  border: none;
+  box-shadow: none;
+  font-size: 16px;
+  padding: 0;
+}
+
+.dark-heresy .progression .stats .item-list .items .item .name:focus {
+  background: #d0d0d0;
+  border-radius: 3px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 0 10px var(--color-shadow);
+  outline: none;
+  color: var(--color-text);
+  font-family: var(--font-text);
+  font-size: 12px;
+  padding: 2px 4px;
+}
+
+
+.dark-heresy .gear .all-gear .item-list .component {
+  flex-basis: 20%;
+  text-align: center;
+  align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .shippart {
+  flex-basis: 15%;
+  text-align: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .squadron {
+  flex-basis: 20%;
+  text-align: center;
+  align-items: center;
+}
+
+.dark-heresy .gear .all-gear .item-list .ground {
+  flex-basis: 12%;
+  text-align: center;
+}
+
+.dark-heresy .progression .characteristics .item-list .header .characteristicdamage {
+  flex-basis: 13%;
+  text-align: center;
+  margin: 1px;
+}
+
+.dark-heresy .progression .characteristics .item-list .items .item .characteristicdamage {
+  font-size: 12px;
+  height: 24px;
+  width: 40px;
+  margin: 1px;
+}
+
+.dark-heresy .gear .encumbrance .component .information .max,
+.dark-heresy .gear .encumbrance .component .information .current {
+display: flex;
+align-self: center;
+text-align: center;
+align-items: center;
+}
+
+.dark-heresy .gear .encumbrance .component .information .max label,
+.dark-heresy .gear .encumbrance .component .information .current label {
+flex-basis: 30%;
+font-size: 22px;
+font-weight: bold;
+}
+
+.dark-heresy .gear .encumbrance .component .information .max input,
+.dark-heresy .gear .encumbrance .component .information .current input {
+font-size: 24px;
+height: 50px;
+width: 100px;
+margin-left: 10px;
+}
+
+.dark-heresy .gear .encumbrance .component{
+  width:100%;
+}
+
+.dark-heresy .gear .encumbrance .component .comp {
+  display: flex;
+  flex-direction: row;
+}
+
+.dark-heresy .gear .encumbrance .component .comp .row{
+  display: flex;
+  align-self: center;
+  text-align: center;
+  align-items: center;
+  flex-basis: 33.3333333%;
+}
+
+.dark-heresy .gear .encumbrance .component .comp .row label{
+  font-size: 20px;
+  height: 25px;
+  width: 100px;
+}
+
+.dark-heresy .gear .encumbrance .component .comp .row input{
+  font-size: 20px;
+  height: 25px;
+  width: 50px;
+  margin-left: 10px;
+  align-self: right;
+}
+
+.dark-heresy.chat .ship {
+  padding: 1px;
+  border-bottom: 1px var(--color-border);
+}
+
+.dark-heresy .gear .encumbrance .information .acquisition  {
+  display: flex;
+  align-self: center;
+  text-align: center;
+  align-items: center;
+}
+.dark-heresy .gear .encumbrance .information .acquisition label {
+  flex-basis: 30%;
+  font-size: 22px;
+  font-weight: bold;
+}
+.dark-heresy .gear .encumbrance .information .acquisition .acquire:hover {
+  cursor: pointer;
+  text-shadow: 0 0 8px var(--color-highlight);
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.class select {
+  width: 8em;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.weaponslot select {
+  width: 6em;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.power input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.space input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.spcost input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.damage input {
+  width: 6em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.range input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.crit input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.strength input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.attack input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.shipweapon .stat.special input {
+  width: 35em;
+}
+
+.dark-heresy .stats .stats-row.ship .stat select {
+  width: 8em;
+}
+
+.dark-heresy .stats .stats-row.ship .stat.class input {
+  width: 8em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.ship .stat.power input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.ship .stat.space input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.ship .stat.spcost input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.ship .stat.special input {
+  width: 35em;
+}
+
+.dark-heresy .stats .stats-row.squadron .stat.availability select {
+  width: 8em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.squadron .stat.type select {
+  width: 8em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.squadron .stat.strength input {
+  width: 3em;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.dark-heresy .stats .stats-row.squadron .stat.count input {
+  width: 3em;
+  text-align: center;
+}
+
+.dark-heresy .stats .stats-row.squadron .stat.short-description input {
+  width: 30em;
+}
+
+.dark-heresy .stats .stats-row.ground .stat.class select {
+  width: 7em;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.dark-heresy .stats .stats-row.ground .stat.availability select {
+  width: 8em;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.dark-heresy .stats .stats-row.ground .stat.designation select {
+  width: 7em;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.dark-heresy .stats .stats-row.ground .stat.tech select {
+  width: 7em;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.dark-heresy .stats .stats-row.ground .stat.strength input {
+  width: 3em;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.dark-heresy .stats .stats-row.ground .stat.power input {
+  width: 3em;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.dark-heresy .stats .stats-row.ground .stat.movement input {
+  width: 3em;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.dark-heresy .stats .stats-row.ground .stat.morale input {
+  width: 3em;
+  text-align: center;
+  margin: 0 2px;
+}
+
+.dark-heresy .stats .stats-row.ground .stat.short-description input {
+  width: 30em;
+}
+
+.dark-heresy .notes-tab .information .information-row .bonus input {
+  width: 4em;
 }

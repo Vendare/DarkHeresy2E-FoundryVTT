@@ -25,13 +25,16 @@ export class DarkHeresyActor extends Actor {
     this._computeExperience();
     this._computeArmour();
     this._computeMovement();
+    this._computePower();
+    this._computeSpace();
+    this._computeSquadrons();
   }
 
   _computeCharacteristics() {
     let middle = Object.values(this.characteristics).length / 2;
     let i = 0;
     for (let characteristic of Object.values(this.characteristics)) {
-      characteristic.total = characteristic.base + characteristic.advance;
+      characteristic.total = characteristic.base + characteristic.advance + characteristic.damage;
       characteristic.bonus = Math.floor(characteristic.total / 10) + characteristic.unnatural;
       if (this.fatigue.value > characteristic.bonus) {
         characteristic.total = Math.ceil(characteristic.total / 2);
@@ -45,7 +48,8 @@ export class DarkHeresyActor extends Actor {
     this.system.insanityBonus = Math.floor(this.insanity / 10);
     this.system.corruptionBonus = Math.floor(this.corruption / 10);
     this.psy.currentRating = this.psy.rating - this.psy.sustained;
-    this.initiative.bonus = this.characteristics[this.initiative.characteristic].bonus;
+    if (this.type == "starship") {this.initiative.bonus = this.shipdetection;}
+    else {this.initiative.bonus = this.characteristics[this.initiative.characteristic].bonus;}
     // Done as variables to make it easier to read & understand
     let tb = Math.floor(
       ( this.characteristics.toughness.base
@@ -105,12 +109,9 @@ export class DarkHeresyActor extends Actor {
       }
     }
     for (let item of this.items) {
-      if (item.isTalent) {
-        this.experience.spentTalents += parseInt(item.cost, 10);
-      } else if (item.isPsychicPower) {
-        this.experience.spentPsychicPowers += parseInt(item.cost, 10);
-      }
-    }
+      if (item.isTalent) {this.experience.spentTalents += parseInt(item.cost, 10);}}
+    for (let item of this.items) {  
+      if (item.isPsychicPower) {this.experience.spentPsychicPowers += parseInt(item.cost, 10);}}
     this.experience.totalSpent = this.experience.spentCharacteristics
       + this.experience.spentSkills
       + this.experience.spentTalents
@@ -179,11 +180,14 @@ export class DarkHeresyActor extends Actor {
   _computeMovement() {
     let agility = this.characteristics.agility;
     let size = this.size;
+    let tacticalspeed = this.tacticalspeed;
     this.system.movement = {
       half: agility.bonus + size - 4,
       full: (agility.bonus + size - 4) * 2,
       charge: (agility.bonus + size - 4) * 3,
-      run: (agility.bonus + size - 4) * 6
+      run: (agility.bonus + size - 4) * 6,
+      fulltactical: tacticalspeed * 2,
+      emsfull: tacticalspeed *3
     };
   }
 
@@ -461,6 +465,36 @@ export class DarkHeresyActor extends Actor {
     return boni;
   }
 
+  _computePower() {
+    this.system.powerUsed = 0;
+    for (let item of this.items) {
+    if (item.isStarshipCore) 
+      {this.system.powerUsed += parseInt(item.powerUse, 0);}
+    if (item.isStarshipSupplementary) 
+      {this.system.powerUsed += parseInt(item.powerUse, 0);}
+    if (item.isStarshipWeapon) 
+      {this.system.powerUsed += parseInt(item.powerUse, 0);}
+    if (item.comptype=="plasmadrive") {this.system.powerUsed -= parseInt(item.powerUse)}
+    }};
+
+  _computeSpace() {
+    this.system.spaceUsed = 0;
+    for (let item of this.items) 
+    {if (item.isStarshipCore) 
+      {this.system.spaceUsed += parseInt(item.spaceUse, 0);}
+    if (item.isStarshipSupplementary) 
+      {this.system.spaceUsed += parseInt(item.spaceUse, 0);}
+    if (item.isStarshipWeapon) 
+      {this.system.spaceUsed += parseInt(item.spaceUse, 0);}
+    }};
+
+    _computeSquadrons() {
+      this.system.squadCount = 0;
+      for (let item of this.items) 
+      {if (item.isSquadrons) 
+        {this.system.squadCount += parseInt(item.squadcount, 0);}
+      }};
+
   get characteristics() {return this.system.characteristics;}
 
   get skills() {return this.system.skills;}
@@ -501,4 +535,12 @@ export class DarkHeresyActor extends Actor {
 
   get movement() {return this.system.movement;}
 
+  get shipdetection() {return this.system.shipdetection}
+  get tacticalspeed() {return this.system.tacticalspeed}
+  get compspace() {return this.system.shipspace;}
+  get powerUse() {return this.system.powerUse;}
+  get spaceUse() {return this.system.spaceUse;}
+  get powerUsed() {return this.system.powerUsed;}
+  get spaceUsed() {return this.system.spaceUsed;}
+  get squadCount() {return this.system.count;}
 }

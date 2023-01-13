@@ -28,9 +28,13 @@ export default class DarkHeresyUtil {
     rollData.isRange= !isMelee;
     rollData.clip= weapon.clip;
     rollData.rateOfFire= rateOfFire;
-    rollData.damageFormula= weapon.damage + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");
-    rollData.penetrationFormula= weapon.penetration;
-    rollData.weaponTraits= this.extractWeaponTraits(weapon.special);    
+    rollData.weaponTraits= this.extractWeaponTraits(weapon.special); 
+    if (rollData.weaponTraits.rabbit && rollData.weaponTraits.force) {rollData.damageFormula= weapon.damage + "+" +actor.psy.rating + (isMelee && !weapon.damage.match(/AgB/gi) ? "+AgB" : "");}
+    else if (rollData.weaponTraits.force) {rollData.damageFormula= weapon.damage + "+" +actor.psy.rating + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");}
+    else if (rollData.weaponTraits.rabbit) {rollData.damageFormula= weapon.damage + (isMelee && !weapon.damage.match(/AgB/gi) ? "+AgB" : "");}
+    else {rollData.damageFormula= weapon.damage + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");}
+    if (rollData.weaponTraits.force) {rollData.penetrationFormula= weapon.penetration + "+" +actor.psy.rating;}
+    else {rollData.penetrationFormula= weapon.penetration;}  
     rollData.special= weapon.special;
     rollData.psy= { value: actor.psy.rating, display: false};
     return rollData;
@@ -66,7 +70,12 @@ export default class DarkHeresyUtil {
       primitive: this.extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
       razorSharp: this.hasNamedTrait(/Razor *Sharp/gi, traits),
       skipAttackRoll: this.hasNamedTrait(/Spray/gi, traits),
-      tearing: this.hasNamedTrait(/Tearing/gi, traits)
+      tearing: this.hasNamedTrait(/Tearing/gi, traits),
+      storm: this.hasNamedTrait(/Storm/gi, traits),
+      twinLinked: this.hasNamedTrait(/Twin-Linked/gi, traits),
+      rabbit: this.hasNamedTrait(/Rabbit *Punch/gi, traits),
+      force: this.hasNamedTrait(/Force/gi, traits),
+      inaccurate: this.hasNamedTrait(/Inaccurate/gi, traits)
     };
   }
 
@@ -118,6 +127,28 @@ export default class DarkHeresyUtil {
       return actor.characteristics.willpower;
     }
   }
-    
+   
+  static createShipWeaponRollData(actor, starshipWeapon) {
+    let characteristic = this.getWeaponCharacteristic(actor, starshipWeapon);
+    let isCannon = starshipWeapon.comptype === "macro";
+    let isLance = starshipWeapon.comptype === "lance";
+    let isNova = starshipWeapon.comptype === "nova";
+    let isTorpedo = starshipWeapon.comptype === "torpedo";
+
+    let rollData = this.createCommonAttackRollData(actor, starshipWeapon);
+    rollData.isCannon = isCannon
+    rollData.isLance = isLance
+    rollData.isNova = isNova
+    rollData.isTorpedo = isTorpedo
+    rollData.baseTarget= characteristic.total,
+    rollData.modifier= 0,
+    rollData.isRange= true
+    rollData.rateOfFire= starshipWeapon.shipStrength;
+    rollData.damageFormula= starshipWeapon.damage;
+    rollData.critical= starshipWeapon.shipCritical;
+    rollData.weaponTraits= this.extractWeaponTraits(starshipWeapon.special);    
+    rollData.special= starshipWeapon.special;
+    return rollData;
+  }
 }
 
