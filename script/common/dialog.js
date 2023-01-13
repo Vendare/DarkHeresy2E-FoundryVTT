@@ -75,8 +75,8 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     };
                     const aim = html.find("#aim")[0]
                     rollData.aim = {
-                      val : aim.value,
-                      isAiming : aim.value !== "0",
+                      val : aim?.value,
+                      isAiming : aim?.value !== "0",
                       text : aim?.options[aim.selectedIndex].text
                     };
                     rollData.damageFormula = html.find("#damageFormula")[0].value.replace(' ', '');
