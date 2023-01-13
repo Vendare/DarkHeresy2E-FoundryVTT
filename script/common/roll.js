@@ -75,7 +75,6 @@ async function _computeTarget(rollData) {
   rollData.rollObject = r;
 }
 
-
 /**
  * Roll a d100 against a target, and apply the result to the rollData.
  * @param {object} rollData
@@ -321,6 +320,7 @@ function _computeRateOfFire(rollData) {
   switch (rollData.attackType.name) {
     case "standard":
       rollData.attackType.modifier = 10;
+      rollData.attackType.hitMargin = 0;
       if (rollData.weaponTraits.storm) 
       {rollData.maxAdditionalHit = rollData.rateOfFire.burst *2 - 1;}
       else
