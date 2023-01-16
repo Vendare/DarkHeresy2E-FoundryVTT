@@ -320,11 +320,10 @@ function _computeRateOfFire(rollData) {
   switch (rollData.attackType.name) {
     case "standard":
       rollData.attackType.modifier = 10;
-      rollData.attackType.hitMargin = 0;
       if (rollData.weaponTraits.storm) 
-      {rollData.maxAdditionalHit = rollData.rateOfFire.burst *2 - 1;}
+      {rollData.maxAdditionalHit = 1; rollData.attackType.hitMargin = 1;}
       else
-      {rollData.maxAdditionalHit = rollData.rateOfFire.burst - 1;}
+      {rollData.attackType.hitMargin = 0;}
       break;
 
     case "bolt":
