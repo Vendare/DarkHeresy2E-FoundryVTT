@@ -48,7 +48,7 @@ export class DarkHeresyActor extends Actor {
     this.system.insanityBonus = Math.floor(this.insanity / 10);
     this.system.corruptionBonus = Math.floor(this.corruption / 10);
     this.psy.currentRating = this.psy.rating - this.psy.sustained;
-    if (this.type == "starship") {this.initiative.bonus = this.shipdetection;}
+    if (this.type === "starship") {this.initiative.bonus = this.shipdetection;}
     else {this.initiative.bonus = this.characteristics[this.initiative.characteristic].bonus;}
     // Done as variables to make it easier to read & understand
     let tb = Math.floor(
@@ -109,9 +109,12 @@ export class DarkHeresyActor extends Actor {
       }
     }
     for (let item of this.items) {
-      if (item.isTalent) {this.experience.spentTalents += parseInt(item.cost, 10);}}
-    for (let item of this.items) {  
-      if (item.isPsychicPower) {this.experience.spentPsychicPowers += parseInt(item.cost, 10);}}
+      if (item.isTalent) {
+        this.experience.spentTalents += parseInt(item.cost, 10);
+      } else if (item.isPsychicPower) {
+        this.experience.spentPsychicPowers += parseInt(item.cost, 10);
+      }
+    }
     this.experience.totalSpent = this.experience.spentCharacteristics
       + this.experience.spentSkills
       + this.experience.spentTalents

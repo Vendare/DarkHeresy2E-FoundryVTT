@@ -45,7 +45,7 @@ async function _computeTarget(rollData) {
   let attackType = 0;
   if (typeof rollData.attackType !== "undefined" && rollData.attackType != null) {
     _computeRateOfFire(rollData);
-    attackType = rollData.attackType.modifier;
+    attackType = rollData.attackType.modifier + (rollData.weaponTraits.twinLinked ? 20: 0);
   }
   let psyModifier = 0;
   if (typeof rollData.psy !== "undefined" && typeof rollData.psy.useModifier !== "undefined" && rollData.psy.useModifier) {
@@ -124,15 +124,20 @@ async function _rollDamage(rollData) {
     const firstLocation = _getLocation(rollData.result);
     firstHit.location = firstLocation;
     rollData.damages.push(firstHit);
+        
+    let potentialHits = rollData.dos;
+    let stormMod = (rollData.weaponTraits.storm ? 2: 1);
+
     if(rollData.weaponTraits.twinLinked&&rollData.dos >=2) {
-      let twinHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
-      twinHit.location = _getAdditionalLocation(firstLocation, 1);
-      rollData.damages.push(twinHit);}
-      
-      if (rollData.weaponTraits.storm)
-      {
+      if (rollData.attackType.hitMargin ===0) {
+        rollData.attackType.hitMargin = 1;
+      }
+      rollData.maxAdditionalHit +=1;
+      potentialHits += rollData.attackType.hitMargin;
+    }
+    
         if (rollData.attackType.hitMargin > 0) {
-          let maxAdditionalHit = Math.floor((rollData.dos * 2 - 1) / rollData.attackType.hitMargin);
+          let maxAdditionalHit = Math.floor((potentialHits * stormMod - 1) / rollData.attackType.hitMargin);
           if (typeof rollData.maxAdditionalHit !== "undefined" && maxAdditionalHit > rollData.maxAdditionalHit) {
             maxAdditionalHit = rollData.maxAdditionalHit;
           }
@@ -145,24 +150,6 @@ async function _rollDamage(rollData) {
         } else {
           rollData.numberOfHit = 1;
         }
-      }
-      else
-      {
-        if (rollData.attackType.hitMargin > 0) {
-          let maxAdditionalHit = Math.floor((rollData.dos - 1) / rollData.attackType.hitMargin);
-          if (typeof rollData.maxAdditionalHit !== "undefined" && maxAdditionalHit > rollData.maxAdditionalHit) {
-            maxAdditionalHit = rollData.maxAdditionalHit;
-          }
-          rollData.numberOfHit = maxAdditionalHit + 1;
-          for (let i = 0; i < maxAdditionalHit; i++) {
-            let additionalHit = await _computeDamage(formula, penetration, rollData.dos, rollData.aim?.isAiming, rollData.weaponTraits);
-            additionalHit.location = _getAdditionalLocation(firstLocation, i);
-            rollData.damages.push(additionalHit);
-          }
-        } else {
-          rollData.numberOfHit = 1;
-        }
-      }
     let minDamage = rollData.damages.reduce(
       (min, damage) => min.minDice < damage.minDice ? min : damage, rollData.damages[0]
     );
@@ -316,14 +303,13 @@ function _getLocation(result) {
  */
 function _computeRateOfFire(rollData) {
   rollData.maxAdditionalHit = 0;
+  let stormMod = rollData.weaponTraits.storm ? 2:1;
 
   switch (rollData.attackType.name) {
     case "standard":
       rollData.attackType.modifier = 10;
-      if (rollData.weaponTraits.storm) 
-      {rollData.maxAdditionalHit = 1; rollData.attackType.hitMargin = 1;}
-      else
-      {rollData.attackType.hitMargin = 0;}
+      rollData.attackType.hitMargin = rollData.weaponTraits.storm ? 1: 0;
+      rollData.maxAdditionalHit = rollData.weaponTraits.storm ? 1: 0;
       break;
 
     case "bolt":
@@ -337,19 +323,14 @@ function _computeRateOfFire(rollData) {
     case "barrage":
       rollData.attackType.modifier = 0;
       rollData.attackType.hitMargin = 2;
-      if (rollData.weaponTraits.storm) 
-      {rollData.maxAdditionalHit = rollData.rateOfFire.burst *2 - 1;}
-      else
-      {rollData.maxAdditionalHit = rollData.rateOfFire.burst - 1;}
+      rollData.maxAdditionalHit = rollData.rateOfFire.burst * stormMod - 1;
       break;
 
     case "lightning":
     case "full_auto":
       rollData.attackType.modifier = -10;
       rollData.attackType.hitMargin = 1;
-      if (rollData.weaponTraits.storm) 
-      {rollData.maxAdditionalHit = rollData.rateOfFire.full *2 - 1;}
-      else {rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;}
+      rollData.maxAdditionalHit = rollData.rateOfFire.full * stormMod - 1;
       break;
 
     case "storm":
@@ -378,7 +359,6 @@ function _computeRateOfFire(rollData) {
       rollData.attackType.hitMargin = 0;
       break;
   }
-  if (rollData.weaponTraits.twinLinked) {rollData.attackType.modifier = rollData.attackType.modifier + 20}
 }
 
 const additionalHit = {

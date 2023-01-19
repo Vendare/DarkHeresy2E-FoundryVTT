@@ -112,7 +112,7 @@
             <input name="system.size" type="number" value="{{system.size}}" data-dtype="Number" />
         </div>
     </div>
-    <div class="vehicleweapons border">
+    <div class="weapons border">
         <h1>{{localize "TITLE.WEAPONS"}}</h1>
         <div class="item-list">
             <div class="flex header">
@@ -127,7 +127,7 @@
                 <b class="reload">{{localize "WEAPON.RELOAD"}}</b>
                 <b class="special">{{localize "WEAPON.SPECIAL"}}</b>
             </div>
-            <div class="items">
+            <div class="items vehicle">
                 {{#each actor.items as |item|}}
                     {{#if item.isWeapon}}
                         <div class="weapon item flex row" data-item-id="{{item.id}}">

@@ -118,15 +118,14 @@ export async function prepareCombatRoll(rollData, actorRef) {
                       modifier : 0
                     };
                     const aim = html.find("#aim")[0]
-                    if(rollData.weaponTraits.skipAttackRoll) {}
-                    else {
                       rollData.aim = {
-                        val : aim.value,
-                        isAiming : aim.value !== "0",
+                        val : aim?.value,
+                        isAiming : aim?.value !== "0",
                         text : aim?.options[aim.selectedIndex].text
                       };
                       if (rollData.weaponTraits.inaccurate) {rollData.aim.val=0;} else
-                      if (rollData.weaponTraits.accurate&&rollData.aim.val>0) {rollData.aim.val=rollData.aim.val+"+"+10;}
+                      if (rollData.weaponTraits.accurate && rollData.aim.isAiming) {
+                        rollData.aim.val=rollData.aim.val + "+10";
                     }
                     rollData.damageFormula = html.find("#damageFormula")[0].value.replace(' ', '');
                     rollData.damageType = html.find("#damageType")[0].value;

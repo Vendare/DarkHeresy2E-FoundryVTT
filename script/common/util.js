@@ -29,12 +29,14 @@ export default class DarkHeresyUtil {
     rollData.clip= weapon.clip;
     rollData.rateOfFire= rateOfFire;
     rollData.weaponTraits= this.extractWeaponTraits(weapon.special); 
-    if (rollData.weaponTraits.rabbit && rollData.weaponTraits.force) {rollData.damageFormula= weapon.damage + "+" +actor.psy.rating + (isMelee && !weapon.damage.match(/AgB/gi) ? "+AgB" : "");}
-    else if (rollData.weaponTraits.force) {rollData.damageFormula= weapon.damage + "+" +actor.psy.rating + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");}
-    else if (rollData.weaponTraits.rabbit) {rollData.damageFormula= weapon.damage + (isMelee && !weapon.damage.match(/AgB/gi) ? "+AgB" : "");}
-    else {rollData.damageFormula= weapon.damage + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");}
-    if (rollData.weaponTraits.force) {rollData.penetrationFormula= weapon.penetration + "+" +actor.psy.rating;}
-    else {rollData.penetrationFormula= weapon.penetration;}  
+    let attributeMod;
+    if(rollData.weaponTraits.rabbit) {
+      attributeMod = (isMelee && !weapon.damage.match(/AG/gi) ? "+AG" : "");
+   } else {
+      attributeMod = (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");
+   }	
+    rollData.damageFormula= weapon.damage + attributeMod + (rollData.weaponTraits.force ? "+PR": "");
+    rollData.penetrationFormula = weapon.penetration + (rollData.weaponTraits.force ? "+PR" : "");
     rollData.special= weapon.special;
     rollData.psy= { value: actor.psy.rating, display: false};
     return rollData;
@@ -130,16 +132,12 @@ export default class DarkHeresyUtil {
    
   static createShipWeaponRollData(actor, starshipWeapon) {
     let characteristic = this.getWeaponCharacteristic(actor, starshipWeapon);
-    let isCannon = starshipWeapon.comptype === "macro";
-    let isLance = starshipWeapon.comptype === "lance";
-    let isNova = starshipWeapon.comptype === "nova";
-    let isTorpedo = starshipWeapon.comptype === "torpedo";
 
     let rollData = this.createCommonAttackRollData(actor, starshipWeapon);
-    rollData.isCannon = isCannon
-    rollData.isLance = isLance
-    rollData.isNova = isNova
-    rollData.isTorpedo = isTorpedo
+    rollData.isCannon = starshipWeapon.comptype === "macro";
+    rollData.isLance = starshipWeapon.comptype === "lance";
+    rollData.isNova = starshipWeapon.comptype === "nova";
+    rollData.isTorpedo = starshipWeapon.comptype === "torpedo";
     rollData.baseTarget= characteristic.total,
     rollData.modifier= 0,
     rollData.isRange= true

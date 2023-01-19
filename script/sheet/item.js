@@ -10,11 +10,6 @@ export class DarkHeresyItemSheet extends ItemSheet {
     data.system = data.data.system;
     return data
   }
-  //  return {
-  //    item: data.item, 
- //     system: data.data.system
-  //  };
-//  }
 
 async _handleEnrichment() {
   let enrichment ={};

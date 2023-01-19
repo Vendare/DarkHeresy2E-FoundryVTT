@@ -1,6 +1,6 @@
 <div class="vehiclegrid progression">
-    <div class="airtop flex wrap">
-        <div class="airexperience border">
+    <div class="vehicletop flex wrap">
+        <div class="vehicleprog border">
             <h1>{{localize "TITLE.VEHICLESTATS"}}</h1>
             <div class="item-list">
                 <div class="information">
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="airexperience border">
+        <div class="vehicleprog border">
             <h1>{{localize "TITLE.MOVEMENT"}}</h1>
             <div class="information">
                 <label>{{localize "TITLE.TACTICALSPEED"}}</label>
@@ -36,7 +36,7 @@
                 <input name="system.vehiclecruise" type="number" value="{{system.vehiclecruise}}" data-dtype="Number" />
             </div>
         </div>
-        <div class="airexperience border">
+        <div class="vehicleprog border">
             <h1>{{localize "TITLE.EXPERIENCE"}}</h1>
             <div class="information">
                 <label>{{localize "EXPERIENCE.SPENT_CHARACTERISTICS"}}</label>
@@ -56,8 +56,8 @@
             </div>
         </div>
     </div>
-    <div class="airbot">
-        <div class="vehiclegrid2 flex wrap">
+    <div class="vehiclebot">
+        <div class="vehiclelower flex wrap">
             <div class="talents border vehicleleft1">
                 <h1>{{localize "TITLE.TALENTS"}}</h1>
                 <div class="item-list">
@@ -94,7 +94,7 @@
                             <b class="name">{{localize "CHARACTERISTIC.NAME"}}</b>
                             <b class="advance">{{localize "CHARACTERISTIC.ADVANCE"}}</b>
                             <b class="unnatural">{{localize "CHARACTERISTIC.UNNATURAL"}}</b>
-                            <b class="characteristicdamage">{{localize "CHARACTERISTIC.DAMAGE"}}</b>
+                            <b class="modifystat">{{localize "CHARACTERISTIC.DAMAGE"}}</b>
                             <b class="base">{{localize "CHARACTERISTIC.BASE"}}</b>
                             <b class="cost">{{localize "CHARACTERISTIC.COST"}}</b>
                         </div>
@@ -113,7 +113,7 @@
                                         {{/select}}
                                     </select>
                                     <input class="unnatural" name="system.characteristics.{{key}}.unnatural" type="number" value="{{characteristic.unnatural}}" data-dtype="Number" />
-                                    <input class="characteristicdamage" name="system.characteristics.{{key}}.damage" type="number" value="{{characteristic.damage}}" data-dtype="Number" />
+                                    <input class="modifystat" name="system.characteristics.{{key}}.damage" type="number" value="{{characteristic.damage}}" data-dtype="Number" />
                                     <input class="base" name="system.characteristics.{{key}}.base" type="number" value="{{characteristic.base}}" data-dtype="Number" />
                                     <input class="cost" name="system.characteristics.{{key}}.cost" type="number" value="{{characteristic.cost}}" data-dtype="Number" />
                                 </div>

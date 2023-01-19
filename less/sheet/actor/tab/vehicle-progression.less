@@ -1,0 +1,60 @@
+.dark-heresy .progression .vehicleprog {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: 33%;
+  }
+  
+  .dark-heresy .progression .vehicleprog .information {
+    display: flex;
+    margin-top: 5px;
+  }
+  
+  .dark-heresy .progression .vehicleprog .information label {
+    flex-basis: 75%;
+  }
+  
+  .dark-heresy .progression .vehicleprog .information input {
+    flex-basis: 25%;
+  }
+
+  .dark-heresy .vehiclegrid {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+        "airtop"
+        "airbot";
+    grid-row-gap: 3px;
+  }
+  
+  .dark-heresy .vehiclegrid .vehicletop {
+    grid-area: airtop;
+    gap:3px;
+  }
+  
+  .dark-heresy .vehiclegrid .vehiclebot {
+    grid-area: airbot;
+  }
+  
+  .dark-heresy .vehiclegrid .vehiclebot .vehiclelower{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+        "vehicleleft1 vehicleright"
+        "vehicleleft2 vehicleright"
+  }
+  
+  .dark-heresy .vehiclegrid .vehiclebot .vehiclelower .vehicleleft{
+    grid-area: vehicleleft1;
+  }
+  
+  .dark-heresy .vehiclegrid .vehiclebot .vehiclelower .vehicleleft{
+    grid-area: vehicleleft2;
+  }
+  
+  .dark-heresy .vehiclegrid .vehiclebot .vehiclelower .vehicleright{
+    grid-area: vehicleright;
+  }
+
+  
