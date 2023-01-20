@@ -1012,6 +1012,7 @@ li.folder.collapsed > .folder-header {
 .dark-heresy .npc .header .type select,
 .dark-heresy .npc .header .faction input,
 .dark-heresy .npc .header .threat-level input,
+.dark-heresy .npc .header .threat-level select,
 .dark-heresy .npc .header .subfaction input {
   width: 11em;
   height: 22px;
@@ -1841,18 +1842,19 @@ li.folder.collapsed > .folder-header {
   margin-top: 5px;
 }
 .dark-heresy .progression .characteristics .item-list .header .name {
-  flex-basis: 29%;
+  flex-basis: 28%;
 }
 .dark-heresy .progression .characteristics .item-list .header .advance {
-  flex-basis: 25%;
+  flex-basis: 18%;
   margin-right: 5px;
 }
 .dark-heresy .progression .characteristics .item-list .header .unnatural {
-  flex-basis: 13%;
+  flex-basis: 17%;
   margin: 1px;
+  text-align: left;
 }
 .dark-heresy .progression .characteristics .item-list .header .base {
-  flex-basis: 11%;
+  flex-basis: 10%;
   margin: 1px;
 }
 .dark-heresy .progression .characteristics .item-list .header .cost {
@@ -1890,8 +1892,8 @@ li.folder.collapsed > .folder-header {
 .dark-heresy .progression .characteristics .item-list .items .item .cost {
   flex-basis: 15%;
   text-align: center;
-  height: 22px;
-  margin-left: 5px;
+  height: 24px;
+  margin-left: 1px;
 }
 .dark-heresy .progression .psychic-powers {
   display: flex;

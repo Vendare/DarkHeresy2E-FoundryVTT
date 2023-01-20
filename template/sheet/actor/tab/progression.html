@@ -88,6 +88,7 @@
                     <b class="name">{{localize "CHARACTERISTIC.NAME"}}</b>
                     <b class="advance">{{localize "CHARACTERISTIC.ADVANCE"}}</b>
                     <b class="unnatural">{{localize "CHARACTERISTIC.UNNATURAL"}}</b>
+                    <b class="modifystat">{{localize "CHARACTERISTIC.DAMAGE"}}</b>
                     <b class="base">{{localize "CHARACTERISTIC.BASE"}}</b>
                     <b class="cost">{{localize "CHARACTERISTIC.COST"}}</b>
                 </div>
@@ -106,6 +107,7 @@
                                 {{/select}}
                             </select>
                             <input class="unnatural" name="system.characteristics.{{key}}.unnatural" type="number" value="{{characteristic.unnatural}}" data-dtype="Number" />
+                            <input class="modifystat" name="system.characteristics.{{key}}.damage" type="number" value="{{characteristic.damage}}" data-dtype="Number" />
                             <input class="base" name="system.characteristics.{{key}}.base" type="number" value="{{characteristic.base}}" data-dtype="Number" />
                             <input class="cost" name="system.characteristics.{{key}}.cost" type="number" value="{{characteristic.cost}}" data-dtype="Number" />
                         </div>

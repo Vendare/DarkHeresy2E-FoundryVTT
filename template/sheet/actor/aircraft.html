@@ -13,17 +13,30 @@
                     <div class="header-row" style="height: 22px">
                         <div class="type">
                             <label>{{localize "BIO.TYPE"}}</label>
-                            <select name="system.type" style="margin-left: 14px">
-                                {{#select system.type}}
-                                    <option value="troop">{{localize "NPC_TYPE.TROOP"}}</option>
-                                    <option value="master">{{localize "NPC_TYPE.MASTER"}}</option>
-                                    <option value="elite">{{localize "NPC_TYPE.ELITE"}}</option>
+                            <select name="system.vehicletype" style="margin-left: 14px">
+                                {{#select system.vehicletype}}
+                                <option value="aircraft">{{localize "VEHICLE.TYPE.AIR"}}</option>
+                                <option value="spacecraft">{{localize "VEHICLE.TYPE.SPACE"}}</option>
                                 {{/select}}
                             </select>
                         </div>
-                        <div class="threat-level">
-                            <label>{{localize "BIO.THREAT_LEVEL"}}</label>
-                            <input style="margin-left: 8px" name="system.threatLevel" type="number" value="{{system.threatLevel}}" data-dtype="Number" />
+                        <div class="available">
+                            <label>{{localize "BIO.AVAILABILITY"}}</label>
+                            <select name="system.vehicleavailability" style="margin-left: 32px">
+                                {{#select system.vehicleavailability}}
+                                <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
+                                <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
+                                <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
+                                <option value="common">{{localize "AVAILABILITY.COMMON"}}</option>
+                                <option value="average">{{localize "AVAILABILITY.AVERAGE"}}</option>
+                                <option value="scarce">{{localize "AVAILABILITY.SCARCE"}}</option>
+                                <option value="rare">{{localize "AVAILABILITY.RARE"}}</option>
+                                <option value="very-rare">{{localize "AVAILABILITY.VERY_RARE"}}</option>
+                                <option value="extremely-rare">{{localize "AVAILABILITY.EXTREMELY_RARE"}}</option>
+                                <option value="near-unique">{{localize "AVAILABILITY.NEAR_UNIQUE"}}</option>
+                                <option value="unique">{{localize "AVAILABILITY.UNIQUE"}}</option>
+                                {{/select}}
+                            </select>
                         </div>
                         <div class="fate">
                             <label>{{localize "FATE"}}</label>
@@ -56,7 +69,6 @@
             <b class="item" data-tab="stats">{{localize "TAB.STATS"}}</b>
             <b class="item" data-tab="combat">{{localize "TAB.COMBAT"}}</b>
             <b class="item" data-tab="abilities">{{localize "TAB.ABILITIES"}}</b>
-            <b class="item" data-tab="psychic-powers">{{localize "TAB.PSYCHIC_POWERS"}}</b>
             <b class="item" data-tab="gear">{{localize "TAB.GEAR"}}</b>
             <b class="item" data-tab="progression">{{localize "TAB.ADVANCES"}}</b>
             <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
@@ -67,22 +79,19 @@
                 {{> systems/dark-heresy/template/sheet/actor/tab/npc-stats.html}}
             </div>
             <div class="tab" data-group="primary" data-tab="combat">
-                {{> systems/dark-heresy/template/sheet/actor/tab/combat.html}}
+                {{> systems/dark-heresy/template/sheet/actor/tab/aircraft-combat.html}}
             </div>
             <div class="tab" data-group="primary" data-tab="abilities">
                 {{> systems/dark-heresy/template/sheet/actor/tab/abilities.html}}
-            </div>
-            <div class="tab" data-group="primary" data-tab="psychic-powers">
-                {{> systems/dark-heresy/template/sheet/actor/tab/psychic-powers.html}}
             </div>
             <div class="tab" data-group="primary" data-tab="gear">
                 {{> systems/dark-heresy/template/sheet/actor/tab/gear.html}}
             </div>
             <div class="tab" data-group="primary" data-tab="progression">
-                {{> systems/dark-heresy/template/sheet/actor/tab/progression.html}}
+                {{> systems/dark-heresy/template/sheet/actor/tab/aircraft-progression.html}}
             </div>
             <div class="tab" data-group="primary" data-tab="notes">
-                {{> systems/dark-heresy/template/sheet/actor/tab/npc-notes.html}}
+                {{> systems/dark-heresy/template/sheet/actor/tab/vehicle-notes.html}}
             </div>
         </div>
     </div>
