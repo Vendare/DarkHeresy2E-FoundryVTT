@@ -8,15 +8,15 @@ export class DarkHeresyItemSheet extends ItemSheet {
     const data = await super.getData();
     data.enrichment = await this._handleEnrichment();
     data.system = data.data.system;
-    return data
+    return data;
   }
 
-async _handleEnrichment() {
-  let enrichment ={};
-  enrichment["system.description"] = await TextEditor.enrichHTML(this.item.system.description, {async: true});
-  enrichment["system.effect"] = await TextEditor.enrichHTML(this.item.system.effect, {async: true});
-  return expandObject(enrichment)
-}
+  async _handleEnrichment() {
+    let enrichment ={};
+    enrichment["system.description"] = await TextEditor.enrichHTML(this.item.system.description, {async: true});
+    enrichment["system.effect"] = await TextEditor.enrichHTML(this.item.system.effect, {async: true});
+    return expandObject(enrichment);
+  }
 
   _getHeaderButtons() {
     let buttons = super._getHeaderButtons();
