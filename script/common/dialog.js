@@ -74,11 +74,13 @@ export async function prepareCombatRoll(rollData, actorRef) {
                       modifier : 0
                     };
                     const aim = html.find("#aim")[0]
-                    rollData.aim = {
-                      val : aim.value,
-                      isAiming : aim.value !== "0",
-                      text : aim?.options[aim.selectedIndex].text
-                    };
+                    if (aim) {
+                      rollData.aim = {
+                        val : aim.value,
+                        isAiming : aim.value !== "0",
+                        text : aim?.options[aim.selectedIndex].text
+                      };
+                    }
                     rollData.damageFormula = html.find("#damageFormula")[0].value.replace(' ', '');
                     rollData.damageType = html.find("#damageType")[0].value;
                     rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
