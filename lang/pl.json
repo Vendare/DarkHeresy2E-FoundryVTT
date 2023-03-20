@@ -318,6 +318,7 @@
   "SKILL.ADVANCE": "Rozwinięcie",
   "SKILL.TOTAL": "Całość",
   "SKILL.COST": "Koszt",
+  "SKILL.STARTER": "I",
 
   "SIZE": "Wielkość",
 
@@ -337,6 +338,7 @@
   "TALENT.NAME": "Nazwa",
   "TALENT.BENEFIT": "Benefity",
   "TALENT.COST": "Koszt",
+  "TALENT.STARTER": "I",
   "TALENT.PREREQUISITES": "Predyspozycje",
   "TALENT.TIER": "Stopień",
   "TALENT.APTITUDES": "Zdolności",

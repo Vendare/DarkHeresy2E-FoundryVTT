@@ -270,6 +270,7 @@
   "SKILL.ADVANCE": "Mejoras",
   "SKILL.TOTAL": "Total",
   "SKILL.COST": "Coste",
+  "SKILL.STARTER": "I",
 
   "SIZE": "Tamaño",
 
@@ -289,6 +290,7 @@
   "TALENT.NAME": "Nombre",
   "TALENT.BENEFIT": "Beneficio",
   "TALENT.COST": "Coste",
+  "TALENT.STARTER": "I",
   "TALENT.PREREQUISITES": "Prerrequisitos",
   "TALENT.TIER": "Rango",
   "TALENT.APTITUDES": "Aptitudes",

@@ -77,6 +77,14 @@ Hooks.once("init", () => {
     default: 0,
     type: Number
   });
+  game.settings.register("dark-heresy", "autoCalcXPCosts", {
+    name: "Calculate XP Costs",
+    hint: "If enabled, calculate XP costs automatically.",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
 });
 
 Hooks.once("ready", () => {
