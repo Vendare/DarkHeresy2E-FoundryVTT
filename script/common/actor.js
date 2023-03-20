@@ -89,6 +89,8 @@ export class DarkHeresyActor extends Actor {
 
   static _characteristicCosts = [[0,0,0],[100,250,500],[250,500,750],[500,750,1000],[750,1000,1500],[1250,1500,2500]];
 
+  static _talentCosts = [[200,300,600],[300,450,900],[400,600,1200]];
+
   _computeExperience_auto() {
     let characterAptitudes = this.items.filter(it=>it.isAptitude).map(it=>it.name.trim());
     if (!characterAptitudes.includes("General"))
@@ -131,7 +133,10 @@ export class DarkHeresyActor extends Actor {
       if (item.isTalent) {
           let talentAptitudes = item.aptitudes.split(',').map(it=>it.trim());
           let matchedAptitudes = characterAptitudes.filter(it => talentAptitudes.includes(it)).length;
-          let cost = item.system.starter ? 0 : (parseInt(item.tier) * 100 + 100) * (3 - matchedAptitudes);
+          let cost = 0;
+          let tier = parseInt(item.tier);
+          if (!item.system.starter && tier >= 1 && tier <= 3)
+            cost = DarkHeresyActor._talentCosts[tier-1][2-matchedAptitudes];
           item.system.cost = cost.toString();
           this.experience.spentTalents += cost;
       } else if (item.isPsychicPower) {
