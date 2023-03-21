@@ -137,7 +137,7 @@
             "advance": -20,
             "isSpecialist": false,
             "specialities": {},
-            "aptitudes": ["Awareness", "Fieldcraft"],
+            "aptitudes": ["Perception", "Fieldcraft"],
             "starter": false,
             "cost": 0
           },
