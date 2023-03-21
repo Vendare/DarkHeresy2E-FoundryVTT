@@ -112,3 +112,7 @@ Hooks.on("hotbarDrop", (bar, data, slot) => {
       return false
   }
 });
+
+Hooks.on("renderDarkHeresySheet", (sheet, html, data) => {
+  html.find("input.cost").attr('readonly', game.settings.get("dark-heresy", "autoCalcXPCosts"));
+});
