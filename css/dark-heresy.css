@@ -1814,6 +1814,8 @@ li.folder.collapsed > .folder-header {
   flex-basis: 7%;
   margin: 1px;
   margin-right: 4px;
+  width: 15px;
+  height: 15px;
 }
 .dark-heresy .progression .aptitudes .item-list .items .item .aptitude-row {
   flex-basis: 90%;
@@ -1973,7 +1975,7 @@ li.folder.collapsed > .folder-header {
   margin-top: 5px;
 }
 .dark-heresy .progression .skills .item-list .header .name {
-  flex-basis: 40%;
+  flex-basis: 35%;
 }
 .dark-heresy .progression .skills .item-list .header .advance {
   flex-basis: 25%;
@@ -1986,6 +1988,9 @@ li.folder.collapsed > .folder-header {
 .dark-heresy .progression .skills .item-list .header .cost {
   flex-basis: 15%;
   margin-left: 5px;
+}
+.dark-heresy .progression .skills .item-list .header .starter {
+  flex-grow: 1;
 }
 .dark-heresy .progression .skills .item-list .items {
   max-height: 382px;
@@ -2014,6 +2019,10 @@ li.folder.collapsed > .folder-header {
   text-align: center;
   height: 22px;
   margin-left: 5px;
+}
+.dark-heresy .progression .skills .item-list .items .item .starter {
+  width: 15px;
+  height: 15px;
 }
 .dark-heresy .notes-tab .notes-editor {
   margin-top: 2px;
