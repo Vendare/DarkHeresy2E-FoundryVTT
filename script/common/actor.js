@@ -98,6 +98,8 @@ export class DarkHeresyActor extends Actor {
     this.experience.spentCharacteristics = 0;
     this.experience.spentSkills = 0;
     this.experience.spentTalents = 0;
+    if (this.experience.spentOther == null)
+      this.experience.spentOther = 0;
     this.experience.spentPsychicPowers = 0;
     let psyRatingCost = 0;
     for (let i = 2; i <= this.psy.rating; i++)
@@ -146,7 +148,8 @@ export class DarkHeresyActor extends Actor {
     this.experience.totalSpent = this.experience.spentCharacteristics
       + this.experience.spentSkills
       + this.experience.spentTalents
-      + this.experience.spentPsychicPowers;
+      + this.experience.spentPsychicPowers
+      + this.experience.spentOther;
     this.experience.remaining = this.experience.value - this.experience.totalSpent;
   }
 
@@ -154,6 +157,8 @@ export class DarkHeresyActor extends Actor {
     this.experience.spentCharacteristics = 0;
     this.experience.spentSkills = 0;
     this.experience.spentTalents = 0;
+    if (this.experience.spentOther == null)
+      this.experience.spentOther = 0;
     this.experience.spentPsychicPowers = this.psy.cost;
     for (let characteristic of Object.values(this.characteristics)) {
       this.experience.spentCharacteristics += parseInt(characteristic.cost, 10);
@@ -177,7 +182,8 @@ export class DarkHeresyActor extends Actor {
     this.experience.totalSpent = this.experience.spentCharacteristics
       + this.experience.spentSkills
       + this.experience.spentTalents
-      + this.experience.spentPsychicPowers;
+      + this.experience.spentPsychicPowers
+      + this.experience.spentOther;
     this.experience.remaining = this.experience.value - this.experience.totalSpent;
   }
 

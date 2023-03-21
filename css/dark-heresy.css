@@ -1833,7 +1833,7 @@ li.folder.collapsed > .folder-header {
 }
 .dark-heresy .progression .experience .information {
   display: flex;
-  margin-top: 5px;
+  margin-top: 1px;
 }
 .dark-heresy .progression .experience .information label {
   flex-basis: 75%;
