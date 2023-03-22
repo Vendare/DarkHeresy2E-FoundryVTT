@@ -1790,10 +1790,15 @@ li.folder.collapsed > .folder-header {
 }
 .dark-heresy .progression .talents .item-list .header .cost {
   flex-basis: 25%;
+  padding-right: 20px;
 }
 .dark-heresy .progression .talents .item-list .header .starter {
   flex-basis: 9%;
-  margin-left: 1px;
+  padding-right: 11px;
+}
+.dark-heresy .progression .talents .item-list .header .button {
+  flex-basis: 6%;
+  padding-right: 5px;
 }
 .dark-heresy .progression .talents .item-list .items .talent {
   width: 100%;
@@ -1807,15 +1812,18 @@ li.folder.collapsed > .folder-header {
   align-items: center;
 }
 .dark-heresy .progression .talents .item-list .items .item input {
-  flex-basis: 23%;
+  flex-basis: 25%;
   margin: 1px 5px;
 }
 .dark-heresy .progression .talents .item-list .items .item input.item-starter {
-  flex-basis: 7%;
+  flex-basis: 9%;
   margin: 1px;
   margin-right: 4px;
   width: 15px;
   height: 15px;
+}
+.dark-heresy .progression .talents .item-list .items .item .button {
+  flex-basis: 6%;
 }
 .dark-heresy .progression .aptitudes .item-list .items .item .aptitude-row {
   flex-basis: 90%;

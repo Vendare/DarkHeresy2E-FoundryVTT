@@ -59,11 +59,22 @@
 }
 
 .dark-heresy .progression .talents .item-list .header .name {
-    flex-basis: 64%;
+    flex-basis: 60%;
 }
 
 .dark-heresy .progression .talents .item-list .header .cost {
-    flex-basis: 30%;
+    flex-basis: 25%;
+    padding-right: 20px;
+}
+
+.dark-heresy .progression .talents .item-list .header .starter {
+    flex-basis: 9%;
+    padding-right: 11px;
+}
+
+.dark-heresy .progression .talents .item-list .header .button {
+    flex-basis: 6%;
+    padding-right: 5px;
 }
 
 .dark-heresy .progression .talents .item-list .items .talent {
@@ -76,13 +87,24 @@
 }
 
 .dark-heresy .progression .talents .item-list .items .item .talent-row {
-    flex-basis: 64%;
+    flex-basis: 60%;
     align-items: center;
 }
 
 .dark-heresy .progression .talents .item-list .items .item input {
-    flex-basis: 28%;
+    flex-basis: 25%;
     margin: 1px 5px;
+}
+.dark-heresy .progression .talents .item-list .items .item input.item-starter {
+    flex-basis: 9%;
+    margin: 1px;
+    margin-right: 4px;
+    width: 15px;
+    height: 15px;
+}
+
+.dark-heresy .progression .talents .item-list .items .item .button {
+    flex-basis: 6%;
 }
 
 .dark-heresy .progression .aptitudes .item-list .items .item .aptitude-row {
@@ -104,7 +126,7 @@
 
 .dark-heresy .progression .experience .information {
     display: flex;
-    margin-top: 5px;
+    margin-top: 1px;
 }
 
 .dark-heresy .progression .experience .information label {
@@ -279,7 +301,7 @@
 }
 
 .dark-heresy .progression .skills .item-list .header .name {
-    flex-basis: 40%;
+    flex-basis: 35%;
 }
 
 .dark-heresy .progression .skills .item-list .header .advance {
@@ -295,6 +317,10 @@
 .dark-heresy .progression .skills .item-list .header .cost {
     flex-basis: 15%;
     margin-left: 5px;
+}
+
+.dark-heresy .progression .skills .item-list .header .starter {
+    flex-grow: 1;
 }
 
 .dark-heresy .progression .skills .item-list .items {
@@ -328,4 +354,9 @@
     text-align: center;
     height: 22px;
     margin-left: 5px;
+}
+
+.dark-heresy .progression .skills .item-list .items .item .starter {
+    width: 15px;
+    height: 15px;
 }
