@@ -115,5 +115,5 @@ Hooks.on("hotbarDrop", (bar, data, slot) => {
 
 Hooks.on("renderDarkHeresySheet", (sheet, html, data) => {
   html.find("input.cost").prop('disabled', game.settings.get("dark-heresy", "autoCalcXPCosts"));
-  html.find("input.item-cost").prop('disabled', game.settings.get("dark-heresy", "autoCalcXPCosts"));
+  html.find(":not(.psychic-power) > input.item-cost").prop('disabled', game.settings.get("dark-heresy", "autoCalcXPCosts"));
 });
