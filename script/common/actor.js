@@ -1,18 +1,18 @@
 export class DarkHeresyActor extends Actor {
 
   async _preCreate(data, options, user) {
-    
+
     let initData = {
       "prototypeToken.bar1": { attribute: "wounds" },
       "prototypeToken.bar2": { attribute: "fate" },
       "prototypeToken.name": data.name,
-      "prototypeToken.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "prototypeToken.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-            
+      "prototypeToken.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "prototypeToken.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+
     };
     if (data.type === "acolyte") {
-      initData["prototypeToken.actorLink"] = true;      
-      initData["prototypeToken.disposition"] = CONST.TOKEN_DISPOSITIONS.FRIENDLY
+      initData["prototypeToken.actorLink"] = true;
+      initData["prototypeToken.disposition"] = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
     }
     this.updateSource(initData);
   }
@@ -128,15 +128,15 @@ export class DarkHeresyActor extends Actor {
     let toughness = this.characteristics.toughness;
 
     this.system.armour = locations
-              .reduce((accumulator, location) =>
-                Object.assign(accumulator,
-                  {
-                    [location]: {
-                      total: toughness.bonus,
-                      toughnessBonus: toughness.bonus,
-                      value: 0
-                    }
-                  }), {});
+      .reduce((accumulator, location) =>
+        Object.assign(accumulator,
+          {
+            [location]: {
+              total: toughness.bonus,
+              toughnessBonus: toughness.bonus,
+              value: 0
+            }
+          }), {});
 
     // Object for storing the max armour
     let maxArmour = locations
@@ -148,22 +148,22 @@ export class DarkHeresyActor extends Actor {
       .filter(item => item.isArmour && !item.isAdditive)
       .reduce((acc, armour) => {
         locations.forEach(location => {
-            let armourVal = armour.part[location] || 0;
-            if (armourVal > acc[location]) {
-              acc[location] = armourVal;
-            }
-          });
+          let armourVal = armour.part[location] || 0;
+          if (armourVal > acc[location]) {
+            acc[location] = armourVal;
+          }
+        });
         return acc;
       }, maxArmour);
 
     this.items
       .filter(item => item.isArmour && item.isAdditive)
       .forEach(armour => {
-         locations.forEach(location =>{
-            let armourVal = armour.part[location] || 0;
-            maxArmour[location] += armourVal;
-         });
-      });  
+        locations.forEach(location => {
+          let armourVal = armour.part[location] || 0;
+          maxArmour[location] += armourVal;
+        });
+      });
 
     this.armour.head.value = maxArmour.head;
     this.armour.leftArm.value = maxArmour.leftArm;
@@ -459,7 +459,7 @@ export class DarkHeresyActor extends Actor {
     });
     ChatMessage.create({ content: html });
   }
-  
+
   get attributeBoni() {
     let boni = [];
     for (let characteristic of Object.values(this.characteristics)) {
@@ -471,32 +471,32 @@ export class DarkHeresyActor extends Actor {
   _computePower() {
     this.system.powerUsed = 0;
     for (let item of this.items) {
-    if (item.isStarshipCore) 
+      if (item.isStarshipCore)
       {this.system.powerUsed += parseInt(item.powerUse, 0);}
-    if (item.isStarshipSupplementary) 
+      if (item.isStarshipSupplementary)
       {this.system.powerUsed += parseInt(item.powerUse, 0);}
-    if (item.isStarshipWeapon) 
+      if (item.isStarshipWeapon)
       {this.system.powerUsed += parseInt(item.powerUse, 0);}
-    if (item.comptype=="plasmadrive") {this.system.powerUsed -= parseInt(item.powerUse)}
-    }};
+      if (item.comptype === "plasmadrive") {this.system.powerUsed -= parseInt(item.powerUse);}
+    }}
 
   _computeSpace() {
     this.system.spaceUsed = 0;
-    for (let item of this.items) 
-    {if (item.isStarshipCore) 
-      {this.system.spaceUsed += parseInt(item.spaceUse, 0);}
-    if (item.isStarshipSupplementary) 
-      {this.system.spaceUsed += parseInt(item.spaceUse, 0);}
-    if (item.isStarshipWeapon) 
-      {this.system.spaceUsed += parseInt(item.spaceUse, 0);}
-    }};
+    for (let item of this.items)
+    {if (item.isStarshipCore)
+    {this.system.spaceUsed += parseInt(item.spaceUse, 0);}
+    if (item.isStarshipSupplementary)
+    {this.system.spaceUsed += parseInt(item.spaceUse, 0);}
+    if (item.isStarshipWeapon)
+    {this.system.spaceUsed += parseInt(item.spaceUse, 0);}
+    }}
 
-    _computeSquadrons() {
-      this.system.squadCount = 0;
-      for (let item of this.items) 
-      {if (item.isSquadrons) 
-        {this.system.squadCount += parseInt(item.squadcount, 0);}
-      }};
+  _computeSquadrons() {
+    this.system.squadCount = 0;
+    for (let item of this.items)
+    {if (item.isSquadrons)
+    {this.system.squadCount += parseInt(item.squadcount, 0);}
+    }}
 
   get characteristics() {return this.system.characteristics;}
 
@@ -538,12 +538,19 @@ export class DarkHeresyActor extends Actor {
 
   get movement() {return this.system.movement;}
 
-  get shipdetection() {return this.system.shipdetection}
-  get tacticalspeed() {return this.system.tacticalspeed}
+  get shipdetection() {return this.system.shipdetection;}
+
+  get tacticalspeed() {return this.system.tacticalspeed;}
+
   get compspace() {return this.system.shipspace;}
+
   get powerUse() {return this.system.powerUse;}
+
   get spaceUse() {return this.system.spaceUse;}
+
   get powerUsed() {return this.system.powerUsed;}
+
   get spaceUsed() {return this.system.spaceUsed;}
+
   get squadCount() {return this.system.count;}
 }

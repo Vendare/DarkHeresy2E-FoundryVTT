@@ -345,42 +345,71 @@ export class DarkHeresyItem extends Item {
   get upgrades() { return this.system.upgrades;}
 
   get isStarshipCore() { return this.type === "starshipCore"; }
+
   get isStarshipSupplementary() { return this.type === "starshipSupplementary"; }
+
   get isStarshipWeapon() { return this.type === "starshipWeapon"; }
+
   get isGroundTroops() { return this.type === "groundTroops"; }
+
   get isSquadrons() { return this.type === "squadrons"; }
 
-  get powerUse () { return this.system.powerUse;}
-  get spaceUse () { return this.system.spaceUse;}
-  get powerUsed () { return this.system.powerUse;}
-  get spaceUse () { return this.system.spaceUse;}
-  get spcost () { return this.system.spcost;}
-  get shipStrength () { return this.system.shipStrength;}
-  get shipCritical () { return this.system.shipCritical;}
-  get squadStrengthMax () {return this.system.squadron.strength.max;}
-  get squadStrengthCurrent () {return this.system.squadron.strength.current;}
-  get troopStrength () {return this.system.strength;}
-  get troopMorale ()  {return this.system.morale;}
-  get troopMovement () {return this.system.movement;}
-  get troopPower () {return this.system.power;}
-  get squadmax () {return this.system.strength.max;}
+  get powerUse() { return this.system.powerUse;}
+
+  get spaceUse() { return this.system.spaceUse;}
+
+  get powerUsed() { return this.system.powerUse;}
+
+  get spcost() { return this.system.spcost;}
+
+  get shipStrength() { return this.system.shipStrength;}
+
+  get shipCritical() { return this.system.shipCritical;}
+
+  get squadStrengthMax() {return this.system.squadron.strength.max;}
+
+  get squadStrengthCurrent() {return this.system.squadron.strength.current;}
+
+  get troopStrength() {return this.system.strength;}
+
+  get troopMorale() {return this.system.morale;}
+
+  get troopMovement() {return this.system.movement;}
+
+  get troopPower() {return this.system.power;}
+
+  get squadmax() {return this.system.strength.max;}
+
   get squadcurrent() {return this.system.strength.current;}
-  get squadcount () {return this.system.count;}
+
+  get squadcount() {return this.system.count;}
 
   get rarity() { return this.system.rarity;}
+
   get quality() { return this.system.quality;}
+
   get scale() { return this.system.scale;}
 
   get comptype() { return this.system.comptype;}
+
   get slot() { return this.system.slot;}
+
   get squadclass() { return this.system.squadclass;}
+
   get strength() {return this.system.strength;}
+
   get morale() {return this.system.morale;}
+
   get power() {return this.system.power;}
+
   get movement() {return this.system.movement;}
+
   get unitclass() {return this.system.unitclass;}
+
   get designation() {return this.system.designation;}
+
   get techlevel() {return this.system.techlevel;}
+
   get ShipWeaponClass() {
 
     switch (this.comptype) {
@@ -398,6 +427,7 @@ export class DarkHeresyItem extends Item {
         return game.i18n.localize("SHIP.WEAPON.MACRO");
     }
   }
+
   get ShipCompType() {
 
     switch (this.comptype) {
@@ -420,13 +450,14 @@ export class DarkHeresyItem extends Item {
       case "augment":
         return game.i18n.localize("SHIP.SUPP.AUGMENT");
       case "additional":
-        return game.i18n.localize("SHIP.SUPP.ADDITIONAL");   
+        return game.i18n.localize("SHIP.SUPP.ADDITIONAL");
       case "cargo":
-        return game.i18n.localize("SHIP.SUPP.CARGO");     
+        return game.i18n.localize("SHIP.SUPP.CARGO");
       default:
         return game.i18n.localize("SHIP.CORE.DRIVE");
     }
   }
+
   get ShipSlot() {
 
     switch (this.slot) {
@@ -439,11 +470,12 @@ export class DarkHeresyItem extends Item {
       case "keel":
         return game.i18n.localize("SHIP.KEEL");
       case "dorsal":
-        return game.i18n.localize("SHIP.DORSAL"); 
+        return game.i18n.localize("SHIP.DORSAL");
       default:
         return game.i18n.localize("SHIP.PROW");
     }
   }
+
   get SquadronClass() {
     switch (this.squadclass) {
       case "fighter":
@@ -455,7 +487,7 @@ export class DarkHeresyItem extends Item {
       case "aeronautica":
         return game.i18n.localize("SHIP.SQUADRON.AERO");
       case "shuttle":
-        return game.i18n.localize("SHIP.SQUADRON.SHUTTLE"); 
+        return game.i18n.localize("SHIP.SQUADRON.SHUTTLE");
       default:
         return game.i18n.localize("SHIP.SQUADRON.FIGHTER");
     }
@@ -472,13 +504,14 @@ export class DarkHeresyItem extends Item {
       case "armour":
         return game.i18n.localize("GROUND.ARMOUR");
       case "artillery":
-        return game.i18n.localize("GROUND.ART"); 
+        return game.i18n.localize("GROUND.ART");
       case "air":
-        return game.i18n.localize("GROUND.AIR"); 
+        return game.i18n.localize("GROUND.AIR");
       default:
         return game.i18n.localize("GROUND.INFANTRY");
     }
   }
+
   get Desgination() {
     switch (this.designation) {
       case "light":
@@ -491,6 +524,7 @@ export class DarkHeresyItem extends Item {
         return game.i18n.localize("GROUND.MEDIUM");
     }
   }
+
   get TechLevel() {
     switch (this.techlevel) {
       case "feral":
@@ -502,7 +536,7 @@ export class DarkHeresyItem extends Item {
       case "techno":
         return game.i18n.localize("GROUND.TECHNO");
       case "modern":
-        return game.i18n.localize("GROUND.MODERN"); 
+        return game.i18n.localize("GROUND.MODERN");
       default:
         return game.i18n.localize("GROUND.MODERN");
     }
