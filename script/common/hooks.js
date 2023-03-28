@@ -95,6 +95,14 @@ Hooks.once("init", () => {
     default: 0,
     type: Number
   });
+  game.settings.register("dark-heresy", "autoCalcXPCosts", {
+    name: "Calculate XP Costs",
+    hint: "If enabled, calculate XP costs automatically.",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
 });
 
 Hooks.once("ready", () => {
@@ -121,4 +129,9 @@ Hooks.on("hotbarDrop", (bar, data, slot) => {
     DhMacroUtil.createMacro(data, slot);
     return false;
   }
+});
+
+Hooks.on("renderDarkHeresySheet", (sheet, html, data) => {
+  html.find("input.cost").prop("disabled", game.settings.get("dark-heresy", "autoCalcXPCosts"));
+  html.find(":not(.psychic-power) > input.item-cost").prop("disabled", game.settings.get("dark-heresy", "autoCalcXPCosts"));
 });
