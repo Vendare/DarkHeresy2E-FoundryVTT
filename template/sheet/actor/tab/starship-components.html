@@ -1,0 +1,195 @@
+<div class="flex wrap gear">
+    <div class="encumbrance border">
+        <h1>{{localize "SHIP.TITLE.LIMIT"}}</h1>
+        <div class="component" >
+            <div class="comp information">
+                <div class="row power">
+                    <label>{{localize "SHIP.POWERCAP"}}</label>
+                    <input type="number" value="{{system.shippower}}" data-dtype="Number" disabled />
+                </div>
+                <div class="row space">
+                    <label>{{localize "SHIP.SPACECAP"}}</label>
+                    <input type="number" value="{{system.shipspace}}" data-dtype="Number" disabled />
+                </div>
+                <div class="row squad">
+                    <label>{{localize "SHIP.SQUADCAP"}}</label>
+                    <input type="number" value="{{system.squadcap}}" data-dtype="Number" disabled />
+                </div>
+            </div>
+            <div class="comp information">
+                <div class="row power">
+                    <label>{{localize "SHIP.POWER"}}</label>
+                    <input type="number" value="{{system.powerUsed}}" data-dtype="Number" disabled />
+                </div>
+                <div class="row space">
+                    <label>{{localize "SHIP.SPACE"}}</label>
+                    <input type="number" value="{{system.spaceUsed}}" data-dtype="Number" disabled />
+                </div>
+                <div class="row squad">
+                    <label>{{localize "SHIP.SQUADRONS"}}</label>
+                    <input type="number" value="{{system.squadCount}}" data-dtype="Number" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="all-gear border">
+        <h1>{{localize "TAB.COMPONENTS"}}</h1>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "SHIP.CORE.HEADER"}}</b>
+                <b class="component">{{localize "WEAPON.TYPE"}}</b>
+                <b class="shippart">{{localize "SHIP.POWERUSE"}}</b>
+                <b class="shippart">{{localize "SHIP.SPACEUSE"}}</b>
+                <b class="shippart">{{localize "SHIP.PARTCOST"}}</b>
+                <a class="button item-create" title="Add starshipCore" data-type="starshipCore"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isStarshipCore}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="component">{{item.ShipCompType}}</div>
+                            <div class="shippart">{{item.powerUse}}</div>
+                            <div class="shippart">{{item.spaceUse}}</div>
+                            <div class="shippart">{{item.spcost}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete starshipCore"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "SHIP.SUPP.HEADER"}}</b>
+                <b class="component">{{localize "WEAPON.TYPE"}}</b>
+                <b class="shippart">{{localize "SHIP.POWERUSE"}}</b>
+                <b class="shippart">{{localize "SHIP.SPACEUSE"}}</b>
+                <b class="shippart">{{localize "SHIP.PARTCOST"}}</b>
+                <a class="button item-create" title="Add starshipSupplementary" data-type="starshipSupplementary"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isStarshipSupplementary}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="component">{{item.ShipCompType}}</div>
+                            <div class="shippart">{{item.powerUse}}</div>
+                            <div class="shippart">{{item.spaceUse}}</div>
+                            <div class="shippart">{{item.spcost}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete starshipSupplementary"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "SHIP.WEAPON.HEADER"}}</b>
+                <b class="component">{{localize "WEAPON.TYPE"}}</b>
+                <b class="shippart">{{localize "SHIP.POWERUSE"}}</b>
+                <b class="shippart">{{localize "SHIP.SPACEUSE"}}</b>
+                <b class="shippart">{{localize "SHIP.PARTCOST"}}</b>
+                <a class="button item-create" title="Add starshipWeapon" data-type="starshipWeapon"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isStarshipWeapon}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="component">{{item.ShipWeaponClass}}</div>
+                            <div class="shippart">{{item.powerUse}}</div>
+                            <div class="shippart">{{item.spaceUse}}</div>
+                            <div class="shippart">{{item.spcost}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete starshipWeapon"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "SHIP.TITLE.SQUADRON"}}</b>
+                <b class="component">{{localize "WEAPON.TYPE"}}</b>
+                <b class="squadron">{{localize "SHIP.SQUADRON.CURRENT"}}</b>
+                <b class="squadron">{{localize "SHIP.SQUADRON.MAX"}}</b>
+                <b class="squadron">{{localize "SHIP.SQUADRON.QUANTITY"}}</b>
+                <a class="button item-create" title="Add squadrons" data-type="squadrons"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isSquadrons}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="component">{{item.SquadronClass}}</div>
+                            <div class="squadron">{{item.squadcurrent}}</div>
+                            <div class="squadron">{{item.squadmax}}</div>
+                            <div class="squadron">{{item.squadcount}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete squadrons"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="item-list">
+            <div class="flex header">
+                <b class="name">{{localize "SHIP.TITLE.GROUND"}}</b>
+                <b class="component">{{localize "WEAPON.TYPE"}}</b>
+                <b class="ground">{{localize "SHIP.TROOP.STRENGTH"}}</b>
+                <b class="ground">{{localize "SHIP.TROOP.POWER"}}</b>
+                <b class="ground">{{localize "SHIP.TROOP.MORALE"}}</b>
+                <b class="ground">{{localize "SHIP.TROOP.MOVEMENT"}}</b>
+                <a class="button item-create" title="Add groundTroops" data-type="groundTroops"><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="items">
+                {{#each actor.items as |item|}}
+                    {{#if item.isGroundTroops}}
+                        <div class="gear item flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
+                            </div>
+                            <div class="component">{{item.GroundClass}}</div>
+                            <div class="ground">{{item.strength}}</div>
+                            <div class="ground">{{item.power}}</div>
+                            <div class="ground">{{item.morale}}</div>
+                            <div class="ground">{{item.movement}}km</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete groundTroops"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

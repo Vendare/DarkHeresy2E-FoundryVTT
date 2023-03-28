@@ -336,6 +336,10 @@ li.folder.collapsed > .folder-header {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+.dark-heresy.chat .ship {
+  padding: 1px;
+  border-bottom: 1px var(--color-border);
+}
 .dark-heresy.dialog {
   display: flex;
   flex-direction: row;
@@ -1635,6 +1639,19 @@ li.folder.collapsed > .folder-header {
   width: 50px;
   margin-left: 10px;
 }
+.dark-heresy .gear .encumbrance .information .acquisition label {
+  flex-basis: 30%;
+  font-size: 22px;
+  height: 50px;
+  font-weight: bold;
+  align-self: center;
+  text-align: center;
+  align-items: center;
+}
+.dark-heresy .gear .encumbrance .information .acquisition .acquire:hover {
+  cursor: pointer;
+  text-shadow: 0 0 8px var(--color-highlight);
+}
 .dark-heresy .gear .all-gear {
   display: flex;
   flex-direction: row;
@@ -1860,18 +1877,24 @@ li.folder.collapsed > .folder-header {
   margin-top: 5px;
 }
 .dark-heresy .progression .characteristics .item-list .header .name {
-  flex-basis: 29%;
+  flex-basis: 28%;
 }
 .dark-heresy .progression .characteristics .item-list .header .advance {
-  flex-basis: 25%;
+  flex-basis: 18%;
   margin-right: 5px;
 }
 .dark-heresy .progression .characteristics .item-list .header .unnatural {
+  flex-basis: 17%;
+  margin: 1px;
+  text-align: left;
+}
+.dark-heresy .progression .characteristics .item-list .header .modifystat {
   flex-basis: 13%;
+  text-align: center;
   margin: 1px;
 }
 .dark-heresy .progression .characteristics .item-list .header .base {
-  flex-basis: 11%;
+  flex-basis: 10%;
   margin: 1px;
 }
 .dark-heresy .progression .characteristics .item-list .header .cost {
@@ -1900,6 +1923,12 @@ li.folder.collapsed > .folder-header {
   width: 40px;
   margin: 1px;
 }
+.dark-heresy .progression .characteristics .item-list .items .item .modifystat {
+  font-size: 12px;
+  height: 24px;
+  width: 40px;
+  margin: 1px;
+}
 .dark-heresy .progression .characteristics .item-list .items .item .base {
   font-size: 12px;
   height: 24px;
@@ -1909,8 +1938,8 @@ li.folder.collapsed > .folder-header {
 .dark-heresy .progression .characteristics .item-list .items .item .cost {
   flex-basis: 15%;
   text-align: center;
-  height: 22px;
-  margin-left: 5px;
+  height: 24px;
+  margin-left: 1px;
 }
 .dark-heresy .progression .psychic-powers {
   display: flex;

@@ -22,9 +22,17 @@ import { TraitSheet } from "../sheet/trait.js";
 import { AptitudeSheet } from "../sheet/aptitude.js";
 import { initializeHandlebars } from "./handlebars.js";
 import { migrateWorld } from "./migration.js";
-import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "./dialog.js";
-import { commonRoll, combatRoll } from "./roll.js";
+import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll, prepareShipCombatRoll } from "./dialog.js";
+import { commonRoll, combatRoll, shipCombatRoll } from "./roll.js";
 import DhMacroUtil from "./macro.js";
+import { VehicleSheet } from "../sheet/actor/vehicle.js";
+import { AircraftSheet } from "../sheet/actor/aircraft.js";
+import { StarshipSheet } from "../sheet/actor/starship.js";
+import { StarshipweaponSheet } from "../sheet/starship-weapon.js";
+import { StarshipcoreSheet } from "../sheet/starship-core.js";
+import { StarshipsuppSheet } from "../sheet/starship-supp.js";
+import { SquadronsSheet } from "../sheet/squadrons.js";
+import { GroundtroopsSheet } from "../sheet/groundtroops.js";
 
 // Import Helpers
 import * as chat from "./chat.js";
@@ -38,17 +46,22 @@ Hooks.once("init", () => {
     testInit: {
       prepareCommonRoll,
       prepareCombatRoll,
-      preparePsychicPowerRoll,
+      prepareShipCombatRoll,
+      preparePsychicPowerRoll
     },
-    tests:{
+    tests: {
       commonRoll,
-      combatRoll
+      combatRoll,
+      shipCombatRoll
     }
   };
-  game.macro = DhMacroUtil; 
+  game.macro = DhMacroUtil;
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("dark-heresy", AcolyteSheet, { types: ["acolyte"], makeDefault: true });
   Actors.registerSheet("dark-heresy", NpcSheet, { types: ["npc"], makeDefault: true });
+  Actors.registerSheet("dark-heresy", VehicleSheet, { types: ["vehicle"], makeDefault: true });
+  Actors.registerSheet("dark-heresy", AircraftSheet, { types: ["aircraft"], makeDefault: true });
+  Actors.registerSheet("dark-heresy", StarshipSheet, { types: ["starship"], makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("dark-heresy", WeaponSheet, { types: ["weapon"], makeDefault: true });
   Items.registerSheet("dark-heresy", AmmunitionSheet, { types: ["ammunition"], makeDefault: true });
@@ -68,6 +81,11 @@ Hooks.once("init", () => {
   Items.registerSheet("dark-heresy", SpecialAbilitySheet, { types: ["specialAbility"], makeDefault: true });
   Items.registerSheet("dark-heresy", TraitSheet, { types: ["trait"], makeDefault: true });
   Items.registerSheet("dark-heresy", AptitudeSheet, { types: ["aptitude"], makeDefault: true });
+  Items.registerSheet("dark-heresy", StarshipweaponSheet, { types: ["starshipWeapon"], makeDefault: true });
+  Items.registerSheet("dark-heresy", StarshipcoreSheet, { types: ["starshipCore"], makeDefault: true });
+  Items.registerSheet("dark-heresy", StarshipsuppSheet, { types: ["starshipSupplementary"], makeDefault: true });
+  Items.registerSheet("dark-heresy", SquadronsSheet, { types: ["squadrons"], makeDefault: true });
+  Items.registerSheet("dark-heresy", GroundtroopsSheet, { types: ["groundTroops"], makeDefault: true });
   initializeHandlebars();
   game.settings.register("dark-heresy", "worldSchemaVersion", {
     name: "World Version",
@@ -90,8 +108,8 @@ Hooks.once("init", () => {
 Hooks.once("ready", () => {
   migrateWorld();
   CONFIG.ChatMessage.documentClass.prototype.getRollData = function() {
-      return this.getFlag("dark-heresy", "rollData") 
-  }
+    return this.getFlag("dark-heresy", "rollData");
+  };
 });
 
 
@@ -106,10 +124,10 @@ Hooks.on("getChatLogEntryContext", chat.showRolls);
  * Item      - open roll dialog for item
  */
 Hooks.on("hotbarDrop", (bar, data, slot) => {
-  if (data.type == "Item" || data.type == "Actor")
+  if (data.type === "Item" || data.type === "Actor")
   {
-      DhMacroUtil.createMacro(data, slot)
-      return false
+    DhMacroUtil.createMacro(data, slot);
+    return false;
   }
 });
 

@@ -12,6 +12,15 @@
             {{/if}}
 
             <p><strong>{{localize "CHAT.TEST_MODIFIER"}}:</strong> {{modifier}}</p>
+            {{#if rarity}}
+            <p><strong>{{localize "ACQUIRE.RARITY"}}:</strong> {{rarity}}</p>
+            {{/if}}
+            {{#if quality}}
+            <p><strong>{{localize "ACQUIRE.QUALITY"}}:</strong> {{quality}}</p>
+            {{/if}}
+            {{#if scale}}
+            <p><strong>{{localize "ACQUIRE.SCALE"}}:</strong> {{scale}}</p>
+            {{/if}}
 
             {{#if rolledWith}}
                 <p><strong>{{localize "CHAT.ROLLED_WITH"}}:</strong> {{rolledWith}}</p>

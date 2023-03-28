@@ -1,0 +1,49 @@
+<div class="flex wrap notes-tab">
+    <div class="information border">
+        <h1>{{localize "SHIP.TITLE.BIO"}}</h1>
+        <div class="information-row">
+            <div class="bonus wrapper">
+                <label>{{localize "SHIP.MILITARY"}}</label>
+                <input name="system.objectivebonus.military" type="text" value="{{system.objectivebonus.military}}" />
+            </div>
+            <div class="bonus wrapper margin">
+                <label>{{localize "SHIP.CRIMINAL"}}</label>
+                <input name="system.objectivebonus.criminal" type="text" value="{{system.objectivebonus.criminal}}" />
+            </div>
+            <div class="bonus wrapper margin">
+                <label>{{localize "SHIP.EXPLORATION"}}</label>
+                <input name="system.objectivebonus.exploration" type="text" value="{{system.objectivebonus.exploration}}" />
+            </div>
+            <div class="bonus wrapper margin">
+                <label>{{localize "SHIP.TRADE"}}</label>
+                <input name="system.objectivebonus.trade" type="text" value="{{system.objectivebonus.trade}}" />
+            </div>
+            <div class="bonus wrapper margin" style="margin-left: 16px">
+                <label>{{localize "SHIP.CREED"}}</label>
+                <input name="system.objectivebonus.creed" type="text" value="{{system.objectivebonus.creed}}" />
+            </div>
+            <div class="bonus wrapper margin" style="margin-left: 16px">
+                <label>{{localize "SHIP.OTHER"}}</label>
+                <input name="system.objectivebonus.other" type="text" value="{{system.objectivebonus.other}}" />
+            </div>
+        </div>
+        <div class="information-row full">
+            <div class="divination wrapper full">
+                <label>{{localize "SHIP.SPIRIT"}}</label>
+                <input name="system.shipspirit" type="text" value="{{system.shipspirit}}" />
+            </div>
+        </div>
+        <div class="information-row full">
+            <div class="quirks wrapper full">
+                <label>{{localize "SHIP.HISTORY"}}</label>
+                <input name="system.shiphistory" type="text" value="{{system.shiphistory}}" />
+            </div>
+        </div>
+    </div>
+    <div class="notes-editor border" style="height: 674px;">
+        <h1>{{localize "TITLE.NOTES"}}</h1>
+        <div style="height: 641px; width: 100%">
+            {{editor enrichment.system.bio.notes target="system.bio.notes" engine="prosemirror" button=true owner=owner editable=editable}}
+        </div>
+    </div>
+</div>

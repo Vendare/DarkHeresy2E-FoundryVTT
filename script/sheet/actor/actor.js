@@ -1,4 +1,4 @@
-import {prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll} from "../../common/dialog.js";
+import {prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll, prepareShipCombatRoll, prepareAcquireRoll} from "../../common/dialog.js";
 import DarkHeresyUtil from "../../common/util.js";
 
 export class DarkHeresySheet extends ActorSheet {
@@ -15,14 +15,24 @@ export class DarkHeresySheet extends ActorSheet {
     html.find(".roll-corruption").click(async ev => await this._prepareRollCorruption(ev));
     html.find(".roll-weapon").click(async ev => await this._prepareRollWeapon(ev));
     html.find(".roll-psychic-power").click(async ev => await this._prepareRollPsychicPower(ev));
+    html.find(".roll-shipweapon").click(async ev => await this._prepareRollShipWeapon(ev));
+    html.find(".roll-acquire").click(async ev => await this._prepareRollAcquire(ev));
   }
 
   /** @override */
-  getData() {
+  async getData() {
     const data = super.getData();
     data.system = data.data.system;
-    data.items = this.constructItemLists(data)
+    data.items = this.constructItemLists(data);
+
+    data.enrichment = await this._enrichment();
     return data;
+  }
+
+  async _enrichment() {
+    let enrichment = {};
+    enrichment["system.bio.notes"] = await TextEditor.enrichHTML(this.actor.system.bio.notes, {async: true});
+    return expandObject(enrichment);
   }
 
   /** @override */
@@ -141,10 +151,19 @@ export class DarkHeresySheet extends ActorSheet {
     const specialityName = $(event.currentTarget).data("speciality");
     const skill = this.actor.skills[skillName];
     const speciality = skill.specialities[specialityName];
+
+    const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
+    let characteristics = this._getCharacteristicOptions(defaultChar);
+    characteristics = characteristics.map(char => {
+      char.target += speciality.advance;
+      return char;
+    });
+
     const rollData = {
       name: speciality.label,
       baseTarget: speciality.total,
       modifier: 0,
+      characteristics: characteristics,
       ownerId: this.actor.id
     };
     await prepareCommonRoll(rollData);
@@ -179,7 +198,7 @@ export class DarkHeresySheet extends ActorSheet {
     const div = $(event.currentTarget).parents(".item");
     const weapon = this.actor.items.get(div.data("itemId"));
     await prepareCombatRoll(
-      DarkHeresyUtil.createWeaponRollData(this.actor, weapon), 
+      DarkHeresyUtil.createWeaponRollData(this.actor, weapon),
       this.actor
     );
   }
@@ -187,7 +206,7 @@ export class DarkHeresySheet extends ActorSheet {
   async _prepareRollPsychicPower(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
-    const psychicPower = this.actor.items.get(div.data("itemId"));    
+    const psychicPower = this.actor.items.get(div.data("itemId"));
     await preparePsychicPowerRoll(
       DarkHeresyUtil.createPsychicRollData(this.actor, psychicPower)
     );
@@ -202,7 +221,12 @@ export class DarkHeresySheet extends ActorSheet {
       primitive: this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
       razorSharp: this._hasNamedTrait(/Razor *Sharp/gi, traits),
       skipAttackRoll: this._hasNamedTrait(/Spray/gi, traits),
-      tearing: this._hasNamedTrait(/Tearing/gi, traits)
+      tearing: this._hasNamedTrait(/Tearing/gi, traits),
+      storm: this.hasNamedTrait(/Storm/gi, traits),
+      twinLinked: this.hasNamedTrait(/Twin-Linked/gi, traits),
+      rabbit: this.hasNamedTrait(/Rabbit *Punch/gi, traits),
+      force: this.hasNamedTrait(/Force/gi, traits),
+      inaccurate: this.hasNamedTrait(/Inaccurate/gi, traits)
     };
   }
 
@@ -269,47 +293,77 @@ export class DarkHeresySheet extends ActorSheet {
   }
 
   constructItemLists() {
-      let items = {}
-      let itemTypes = this.actor.itemTypes;
-      items.mentalDisorders = itemTypes["mentalDisorder"];
-      items.malignancies = itemTypes["malignancy"];
-      items.mutations = itemTypes["mutation"];
-      if (this.actor.type === "npc") {
-          items.abilities = itemTypes["talent"]
-          .concat(itemTypes["trait"])
-          .concat(itemTypes["specialAbility"]);
-      }
-      items.talents = itemTypes["talent"];
-      items.traits = itemTypes["trait"];
-      items.specialAbilities = itemTypes["specialAbility"];
-      items.aptitudes = itemTypes["aptitude"];
+    let items = {};
+    let itemTypes = this.actor.itemTypes;
+    items.mentalDisorders = itemTypes.mentalDisorder;
+    items.malignancies = itemTypes.malignancy;
+    items.mutations = itemTypes.mutation;
+    if (["npc", "vehicle", "aircraft", "starship"].includes(this.actor.type)) {
+      items.abilities = itemTypes.talent
+        .concat(itemTypes.trait)
+        .concat(itemTypes.specialAbility);
+    }
+    items.talents = itemTypes.talent;
+    items.traits = itemTypes.trait;
+    items.specialAbilities = itemTypes.specialAbility;
+    items.aptitudes = itemTypes.aptitude;
 
-      items.psychicPowers = itemTypes["psychicPower"];
+    items.psychicPowers = itemTypes.psychicPower;
 
-      items.criticalInjuries = itemTypes["criticalInjury"];
+    items.criticalInjuries = itemTypes.criticalInjury;
 
-      items.gear = itemTypes["gear"];
-      items.drugs = itemTypes["drug"];
-      items.tools = itemTypes["tool"];
-      items.cybernetics = itemTypes["cybernetic"];
+    items.gear = itemTypes.gear;
+    items.drugs = itemTypes.drug;
+    items.tools = itemTypes.tool;
+    items.cybernetics = itemTypes.cybernetic;
 
-      items.armour = itemTypes["armour"];
-      items.forceFields = itemTypes["forceField"];
+    items.armour = itemTypes.armour;
+    items.forceFields = itemTypes.forceField;
 
-      items.weapons = itemTypes["weapon"];
-      items.weaponMods = itemTypes["weaponModification"];
-      items.ammunitions = itemTypes["ammunition"];
-      this._sortItemLists(items)
+    items.weapons = itemTypes.weapon;
+    items.weaponMods = itemTypes.weaponModification;
+    items.ammunitions = itemTypes.ammunition;
 
-      return items;
+    items.starshipcore = itemTypes.starshipCore;
+    items.starshipsupplementary = itemTypes.starshipSupplementary;
+    items.starshipweapon = itemTypes.starshipWeapon;
+    items.groundtroops = itemTypes.groundTroops;
+    items.squadrons = itemTypes.squadrons;
+    this._sortItemLists(items);
+
+    return items;
   }
 
-    _sortItemLists(items) {
-        for (let list in items) {
-            if (Array.isArray(items[list]))
-                items[list] = items[list].sort((a, b) => a.sort - b.sort)
-            else if (typeof items[list] == "object")
-                _sortItemLists(items[list])
-        }
+  _sortItemLists(items) {
+    for (let list in items) {
+      if (Array.isArray(items[list])) items[list] = items[list].sort((a, b) => a.sort - b.sort);
+      else if (typeof items[list] == "object") _sortItemLists(items[list]);
     }
+  }
+
+  async _prepareRollShipWeapon(event) {
+    event.preventDefault();
+    const div = $(event.currentTarget).parents(".item");
+    const weapon = this.actor.items.get(div.data("itemId"));
+    await prepareShipCombatRoll(
+      DarkHeresyUtil.createShipWeaponRollData(this.actor, weapon),
+      this.actor
+    );
+  }
+
+  async _prepareRollAcquire(event) {
+    event.preventDefault();
+    const characteristicName = "influence";
+    const characteristic = this.actor.characteristics[characteristicName];
+    const rollData = {
+      name: characteristic.label,
+      baseTarget: characteristic.total,
+      modifier: 0,
+      rarity: 0,
+      quality: 0,
+      scale: 0,
+      ownerId: this.actor.id
+    };
+    await prepareAcquireRoll(rollData);
+  }
 }

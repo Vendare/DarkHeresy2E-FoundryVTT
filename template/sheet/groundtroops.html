@@ -1,0 +1,115 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "GEAR.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="stats-row ground">
+                    <div class="stat class">
+                        <label>{{localize "BIO.TYPE"}}</label>
+                        <select name="system.unitclass">
+                            {{#select system.unitclass}}
+                                <option value="infantry">{{localize "GROUND.INFANTRY"}}</option>
+                                <option value="cavalry">{{localize "GROUND.CAV"}}</option>
+                                <option value="mechanized">{{localize "GROUND.MECH"}}</option>
+                                <option value="armour">{{localize "GROUND.ARMOUR"}}</option>
+                                <option value="artillery">{{localize "GROUND.ART"}}</option>
+                                <option value="air">{{localize "GROUND.AIR"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat availability">
+                        <label>{{localize "GEAR.AVAILABILITY"}}</label>
+                        <select name="system.availability">
+                            {{#select system.availability}}
+                                <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
+                                <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
+                                <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
+                                <option value="common">{{localize "AVAILABILITY.COMMON"}}</option>
+                                <option value="average">{{localize "AVAILABILITY.AVERAGE"}}</option>
+                                <option value="scarce">{{localize "AVAILABILITY.SCARCE"}}</option>
+                                <option value="rare">{{localize "AVAILABILITY.RARE"}}</option>
+                                <option value="very-rare">{{localize "AVAILABILITY.VERY_RARE"}}</option>
+                                <option value="extremely-rare">{{localize "AVAILABILITY.EXTREMELY_RARE"}}</option>
+                                <option value="near-unique">{{localize "AVAILABILITY.NEAR_UNIQUE"}}</option>
+                                <option value="unique">{{localize "AVAILABILITY.UNIQUE"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat strength">
+                        <label>{{localize "GROUND.STRENGTH"}}</label>
+                        <input name="system.strength" type="number" value="{{system.strength}}" data-dtype="Number" />
+                    </div>
+                    <div class="stat power">
+                        <label>{{localize "GROUND.POWER"}}</label>
+                        <input name="system.power" type="number" value="{{system.power}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="stats-row ground">
+                    <div class="stat designation">
+                        <label>{{localize "GROUND.DESIGNATION"}}</label>
+                        <select name="system.designation">
+                            {{#select system.designation}}
+                                <option value="light">{{localize "GROUND.LIGHT"}}</option>
+                                <option value="medium">{{localize "GROUND.MEDIUM"}}</option>
+                                <option value="heavy">{{localize "GROUND.HEAVY"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat tech">
+                        <label>{{localize "GROUND.TECHLEVEL"}}</label>
+                        <select name="system.techlevel">
+                            {{#select system.techlevel}}
+                                <option value="feral">{{localize "GROUND.FERAL"}}</option>
+                                <option value="feudal">{{localize "GROUND.FEUDAL"}}</option>
+                                <option value="industrial">{{localize "GROUND.INDUSTRIAL"}}</option>
+                                <option value="techno">{{localize "GROUND.TECHNO"}}</option>
+                                <option value="modern">{{localize "GROUND.MODERN"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat movement">
+                        <label>{{localize "GROUND.MOVEMENT"}}</label>
+                        <input name="system.movement" type="number" value="{{system.movement}}" data-dtype="Number" />
+                    </div>
+                    <div class="stat morale">
+                        <label>{{localize "GROUND.MORALE"}}</label>
+                        <input name="system.morale" type="number" value="{{system.morale}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="stats-row ground">
+                    <div class="stat short-description">
+                        <label>{{localize "GEAR.SHORT_DESCRIPTION"}}</label>
+                        <input name="system.shortDescription" type="text" value="{{system.shortDescription}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div style="height: 132px; width: 100%">
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

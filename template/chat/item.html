@@ -138,5 +138,42 @@
         {{#if item.isAptitude}}
         <p><strong>{{localize "HEADER.DESCRIPTION"}}:</strong> {{{item.description}}}</p>
         {{/if}}
+
+        {{#if item.isStarshipWeapon}}
+        <p><strong>{{localize "WEAPON.TYPE"}}:</strong> {{item.ShipWeaponClass}}</p>
+        <p><strong>{{localize "SHIP.POWERUSE"}}:</strong> {{item.powerUse}}</p>
+        <p><strong>{{localize "SHIP.SPACEUSE"}}:</strong> {{item.spaceUse}}</p>
+        <p><strong>{{localize "SHIP.PARTCOST"}}:</strong> {{item.spcost}}</p>
+        {{/if}}
+
+        {{#if item.isStarshipCore}}
+        <p><strong>{{localize "WEAPON.TYPE"}}:</strong> {{item.ShipCompType}}</p>
+        <p><strong>{{localize "SHIP.POWERUSE"}}:</strong> {{item.powerUse}}</p>
+        <p><strong>{{localize "SHIP.SPACEUSE"}}:</strong> {{item.spaceUse}}</p>
+        <p><strong>{{localize "SHIP.PARTCOST"}}:</strong> {{item.spcost}}</p>
+        {{/if}}
+
+        {{#if item.isStarshipSupplementary}}
+        <p><strong>{{localize "WEAPON.TYPE"}}:</strong> {{item.ShipCompType}}</p>
+        <p><strong>{{localize "SHIP.POWERUSE"}}:</strong> {{item.powerUse}}</p>
+        <p><strong>{{localize "SHIP.SPACEUSE"}}:</strong> {{item.spaceUse}}</p>
+        <p><strong>{{localize "SHIP.PARTCOST"}}:</strong> {{item.spcost}}</p>
+        {{/if}}
+
+        {{#if item.isSquadrons}}
+        <p><strong>{{localize "WEAPON.TYPE"}}:</strong> {{item.SquadronClass}}</p>
+        <p><strong>{{localize "SHIP.SQUADRON.CURRENT"}}:</strong> {{item.squadcurrent}}</p>
+        <p><strong>{{localize "SHIP.SQUADRON.MAX"}}:</strong> {{item.squadmax}}</p>
+        <p><strong>{{localize "SHIP.SQUADRON.QUANTITY"}}:</strong> {{item.squadcount}}</p>
+        {{/if}}
+
+        {{#if item.isGroundTroops}}
+        <p><strong>{{localize "WEAPON.TYPE"}}:</strong> {{item.GroundClass}}</p>
+        <p><strong>{{localize "SHIP.TROOP.STRENGTH"}}:</strong> {{item.strength}}</p>
+        <p><strong>{{localize "SHIP.TROOP.POWER"}}:</strong> {{item.power}}</p>
+        <p><strong>{{localize "SHIP.TROOP.MORALE"}}:</strong> {{item.morale}}</p>
+        <p><strong>{{localize "SHIP.TROOP.MOVEMENT"}}:</strong> {{item.movement}}km</p>
+        {{/if}}
+
     </div>
 </div>

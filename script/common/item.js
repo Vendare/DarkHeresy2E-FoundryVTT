@@ -346,4 +346,201 @@ export class DarkHeresyItem extends Item {
 
   get upgrades() { return this.system.upgrades;}
 
+  get isStarshipCore() { return this.type === "starshipCore"; }
+
+  get isStarshipSupplementary() { return this.type === "starshipSupplementary"; }
+
+  get isStarshipWeapon() { return this.type === "starshipWeapon"; }
+
+  get isGroundTroops() { return this.type === "groundTroops"; }
+
+  get isSquadrons() { return this.type === "squadrons"; }
+
+  get powerUse() { return this.system.powerUse;}
+
+  get spaceUse() { return this.system.spaceUse;}
+
+  get powerUsed() { return this.system.powerUse;}
+
+  get spcost() { return this.system.spcost;}
+
+  get shipStrength() { return this.system.shipStrength;}
+
+  get shipCritical() { return this.system.shipCritical;}
+
+  get squadStrengthMax() {return this.system.squadron.strength.max;}
+
+  get squadStrengthCurrent() {return this.system.squadron.strength.current;}
+
+  get troopStrength() {return this.system.strength;}
+
+  get troopMorale() {return this.system.morale;}
+
+  get troopMovement() {return this.system.movement;}
+
+  get troopPower() {return this.system.power;}
+
+  get squadmax() {return this.system.strength.max;}
+
+  get squadcurrent() {return this.system.strength.current;}
+
+  get squadcount() {return this.system.count;}
+
+  get rarity() { return this.system.rarity;}
+
+  get quality() { return this.system.quality;}
+
+  get scale() { return this.system.scale;}
+
+  get comptype() { return this.system.comptype;}
+
+  get slot() { return this.system.slot;}
+
+  get squadclass() { return this.system.squadclass;}
+
+  get strength() {return this.system.strength;}
+
+  get morale() {return this.system.morale;}
+
+  get power() {return this.system.power;}
+
+  get movement() {return this.system.movement;}
+
+  get unitclass() {return this.system.unitclass;}
+
+  get designation() {return this.system.designation;}
+
+  get techlevel() {return this.system.techlevel;}
+
+  get ShipWeaponClass() {
+
+    switch (this.comptype) {
+      case "macro":
+        return game.i18n.localize("SHIP.WEAPON.MACRO");
+      case "lance":
+        return game.i18n.localize("SHIP.WEAPON.LANCE");
+      case "torpedo":
+        return game.i18n.localize("SHIP.WEAPON.TORPEDO");
+      case "nova":
+        return game.i18n.localize("SHIP.WEAPON.NOVA");
+      case "hanger":
+        return game.i18n.localize("SHIP.WEAPON.HANGER");
+      default:
+        return game.i18n.localize("SHIP.WEAPON.MACRO");
+    }
+  }
+
+  get ShipCompType() {
+
+    switch (this.comptype) {
+      case "plasmadrive":
+        return game.i18n.localize("SHIP.CORE.DRIVE");
+      case "warpengine":
+        return game.i18n.localize("SHIP.CORE.WARP");
+      case "gellar":
+        return game.i18n.localize("SHIP.CORE.GELLAR");
+      case "void":
+        return game.i18n.localize("SHIP.CORE.VOID");
+      case "bridge":
+        return game.i18n.localize("SHIP.CORE.BRIDGE");
+      case "lifesupp":
+        return game.i18n.localize("SHIP.CORE.LIFE");
+      case "crew":
+        return game.i18n.localize("SHIP.CORE.CREW");
+      case "auger":
+        return game.i18n.localize("SHIP.CORE.AUGER");
+      case "augment":
+        return game.i18n.localize("SHIP.SUPP.AUGMENT");
+      case "additional":
+        return game.i18n.localize("SHIP.SUPP.ADDITIONAL");
+      case "cargo":
+        return game.i18n.localize("SHIP.SUPP.CARGO");
+      default:
+        return game.i18n.localize("SHIP.CORE.DRIVE");
+    }
+  }
+
+  get ShipSlot() {
+
+    switch (this.slot) {
+      case "prow":
+        return game.i18n.localize("SHIP.PROW");
+      case "port":
+        return game.i18n.localize("SHIP.PORT");
+      case "starboard":
+        return game.i18n.localize("SHIP.STARBOARD");
+      case "keel":
+        return game.i18n.localize("SHIP.KEEL");
+      case "dorsal":
+        return game.i18n.localize("SHIP.DORSAL");
+      default:
+        return game.i18n.localize("SHIP.PROW");
+    }
+  }
+
+  get SquadronClass() {
+    switch (this.squadclass) {
+      case "fighter":
+        return game.i18n.localize("SHIP.SQUADRON.FIGHTER");
+      case "bomber":
+        return game.i18n.localize("SHIP.SQUADRON.BOMBER");
+      case "assault":
+        return game.i18n.localize("SHIP.SQUADRON.ASSAULT");
+      case "aeronautica":
+        return game.i18n.localize("SHIP.SQUADRON.AERO");
+      case "shuttle":
+        return game.i18n.localize("SHIP.SQUADRON.SHUTTLE");
+      default:
+        return game.i18n.localize("SHIP.SQUADRON.FIGHTER");
+    }
+  }
+
+  get GroundClass() {
+    switch (this.unitclass) {
+      case "infantry":
+        return game.i18n.localize("GROUND.INFANTRY");
+      case "cavalry":
+        return game.i18n.localize("GROUND.CAV");
+      case "mechanized":
+        return game.i18n.localize("GROUND.MECH");
+      case "armour":
+        return game.i18n.localize("GROUND.ARMOUR");
+      case "artillery":
+        return game.i18n.localize("GROUND.ART");
+      case "air":
+        return game.i18n.localize("GROUND.AIR");
+      default:
+        return game.i18n.localize("GROUND.INFANTRY");
+    }
+  }
+
+  get Desgination() {
+    switch (this.designation) {
+      case "light":
+        return game.i18n.localize("GROUND.LIGHT");
+      case "medium":
+        return game.i18n.localize("GROUND.NEDIUM");
+      case "heavy":
+        return game.i18n.localize("GROUND.HEAVY");
+      default:
+        return game.i18n.localize("GROUND.MEDIUM");
+    }
+  }
+
+  get TechLevel() {
+    switch (this.techlevel) {
+      case "feral":
+        return game.i18n.localize("GROUND.FERAL");
+      case "feudal":
+        return game.i18n.localize("GROUND.FEUDAL");
+      case "industrial":
+        return game.i18n.localize("GROUND.INDUSTRIAL");
+      case "techno":
+        return game.i18n.localize("GROUND.TECHNO");
+      case "modern":
+        return game.i18n.localize("GROUND.MODERN");
+      default:
+        return game.i18n.localize("GROUND.MODERN");
+    }
+  }
 }

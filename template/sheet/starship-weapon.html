@@ -1,0 +1,102 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "WEAPON.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="stats-row shipweapon">
+                    <div class="stat class">
+                        <label>{{localize "WEAPON.CLASS"}}</label>
+                        <select name="system.comptype">
+                            {{#select system.comptype}}
+                                <option value="macro">{{localize "SHIP.WEAPON.MACRO"}}</option>
+                                <option value="lance">{{localize "SHIP.WEAPON.LANCE"}}</option>
+                                <option value="torpedo">{{localize "SHIP.WEAPON.TORPEDO"}}</option>
+                                <option value="nova">{{localize "SHIP.WEAPON.NOVA"}}</option>
+                                <option value="hanger">{{localize "SHIP.WEAPON.HANGER"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat weaponslot">
+                        <label>Slot</label>
+                        <select name="system.slot">
+                            {{#select system.slot}}
+                                <option value="prow">{{localize "SHIP.PROW"}}</option>
+                                <option value="port">{{localize "SHIP.PORT"}}</option>
+                                <option value="starboard">{{localize "SHIP.STARBOARD"}}</option>
+                                <option value="dorsal">{{localize "SHIP.DORSAL"}}</option>
+                                <option value="keel">{{localize "SHIP.KEEL"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat power">
+                        <label>{{localize "SHIP.POWERUSE"}}</label>
+                        <input name="system.powerUse" type="number" value="{{system.powerUse}}" data-dtype="number"/>
+                    </div>
+                    <div class="stat space">
+                        <label>{{localize "SHIP.SPACEUSE"}}</label>
+                        <input name="system.spaceUse" type="number" value="{{system.spaceUse}}" data-dtype="number"/>
+                    </div>
+                    <div class="stat spcost">
+                        <label>{{localize "SHIP.PARTCOST"}}</label>
+                        <input name="system.spcost" type="number" value="{{system.spcost}}" data-dtype="number"/>
+                    </div>
+                </div>
+                <div class="stats-row shipweapon">
+                    <div class="stat damage">
+                        <label>{{localize "WEAPON.DAMAGE_FULL"}}</label>
+                        <input name="system.damage" type="text" value="{{system.damage}}" />
+                    </div>
+                    <div class="stat range">
+                        <label>{{localize "WEAPON.RANGE"}}</label>
+                        <input name="system.range" type="number" value="{{system.range}}" data-dtype="number" />
+                    </div>
+                    <div class="stat crit">
+                        <label>{{localize "SHIP.WEAPON.CRIT"}}</label>
+                        <input name="system.shipCritical" type="number" value="{{system.shipCritical}}" data-dtype="number" />
+                    </div>
+                    <div class="stat strength">
+                        <label>{{localize "SHIP.WEAPON.STRENGTH"}}</label>
+                        <input  name="system.shipStrength" type="number" value="{{system.shipStrength}}" data-dtype="number" />
+                    </div>
+                    <div class="stat attack">
+                        <label>{{localize "WEAPON.ATTACK"}}</label>
+                        <input name="system.attack" type="number" value="{{system.attack}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="stats-row shipweapon">
+                    <div class="stat special">
+                        <label>{{localize "WEAPON.SPECIAL"}}</label>
+                        <input name="system.special" type="text" value="{{system.special}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div style="height: 132px; width: 100%">
+                    {{editor enrichment.system.description target="system.description" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
