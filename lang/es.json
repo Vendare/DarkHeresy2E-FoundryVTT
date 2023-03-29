@@ -167,6 +167,7 @@
   "EXPERIENCE.SPENT_SKILLS": " Gastado en habilidades",
   "EXPERIENCE.SPENT_TALENTS": " Gastado en talentos",
   "EXPERIENCE.SPENT_PSYCHIC_POWERS": " Gastado en Poderes psíquicos",
+  "EXPERIENCE.SPENT_OTHER": "Gastado en Otro",
   "EXPERIENCE.TOTAL_SPENT": "Total Gastado",
   "EXPERIENCE.TOTAL": "Total",
 
@@ -270,6 +271,7 @@
   "SKILL.ADVANCE": "Mejoras",
   "SKILL.TOTAL": "Total",
   "SKILL.COST": "Coste",
+  "SKILL.STARTER": "I",
 
   "SIZE": "Tamaño",
 
@@ -289,6 +291,7 @@
   "TALENT.NAME": "Nombre",
   "TALENT.BENEFIT": "Beneficio",
   "TALENT.COST": "Coste",
+  "TALENT.STARTER": "I",
   "TALENT.PREREQUISITES": "Prerrequisitos",
   "TALENT.TIER": "Rango",
   "TALENT.APTITUDES": "Aptitudes",

@@ -319,6 +319,8 @@ export class DarkHeresyItem extends Item {
 
   get aptitudes() { return this.system.aptitudes;}
 
+  get starter() { return this.system.starter;}
+
   get tier() { return this.system.tier;}
 
   get class() { return this.system.class;}
