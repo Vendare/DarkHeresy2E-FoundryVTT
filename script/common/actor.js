@@ -48,12 +48,12 @@ export class DarkHeresyActor extends Actor {
     this.initiative.bonus = this.characteristics[this.initiative.characteristic].bonus;
     // Done as variables to make it easier to read & understand
     let tb = Math.floor(
-      ( this.characteristics.toughness.base
-            + this.characteristics.toughness.advance) / 10);
+      (this.characteristics.toughness.base
+        + this.characteristics.toughness.advance) / 10);
 
     let wb = Math.floor(
-      ( this.characteristics.willpower.base
-            + this.characteristics.willpower.advance) / 10);
+      (this.characteristics.willpower.base
+        + this.characteristics.willpower.advance) / 10);
 
     // The only thing not affected by itself
     this.fatigue.max = tb + wb;
@@ -87,10 +87,84 @@ export class DarkHeresyActor extends Actor {
     this._computeEncumbrance(encumbrance);
   }
 
-  _computeExperience() {
+  static _characteristicCosts = [
+    [0, 0, 0],
+    [100, 250, 500],
+    [250, 500, 750],
+    [500, 750, 1000],
+    [750, 1000, 1500],
+    [1250, 1500, 2500]];
+
+  static _talentCosts = [[200, 300, 600], [300, 450, 900], [400, 600, 1200]];
+
+  _computeExperience_auto() {
+    let characterAptitudes = this.items.filter(it => it.isAptitude).map(it => it.name.trim());
+    if (!characterAptitudes.includes("General")) characterAptitudes.push("General");
     this.experience.spentCharacteristics = 0;
     this.experience.spentSkills = 0;
     this.experience.spentTalents = 0;
+    if (this.experience.spentOther == null) this.experience.spentOther = 0;
+    this.experience.spentPsychicPowers = 0;
+    let psyRatingCost = 0;
+    for (let i = 2; i <= this.psy.rating; i++) psyRatingCost += i * 200;
+    this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost;
+    for (let characteristic of Object.values(this.characteristics)) {
+      let matchedAptitudes = characterAptitudes.filter(it => characteristic.aptitudes.includes(it)).length;
+      let cost = 0;
+      for (let i = 0; i <= characteristic.advance / 5 && i <= DarkHeresyActor._characteristicCosts.length; i++) {
+        cost += DarkHeresyActor._characteristicCosts[i][2 - matchedAptitudes];
+      }
+      characteristic.cost = cost.toString();
+      this.experience.spentCharacteristics += cost;
+    }
+    for (let skill of Object.values(this.skills)) {
+      let matchedAptitudes = characterAptitudes.filter(it => skill.aptitudes.includes(it)).length;
+      if (skill.isSpecialist) {
+        for (let speciality of Object.values(skill.specialities)) {
+          let cost = 0;
+          for (let i = (speciality.starter ? 1 : 0); i <= speciality.advance / 10; i++) {
+            cost += (i + 1) * (3 - matchedAptitudes) * 100;
+          }
+          speciality.cost = cost;
+          this.experience.spentSkills += cost;
+        }
+      } else {
+        let cost = 0;
+        for (let i = (skill.starter ? 1 : 0); i <= skill.advance / 10; i++) {
+          cost += (i + 1) * (3 - matchedAptitudes) * 100;
+        }
+        skill.cost = cost;
+        this.experience.spentSkills += cost;
+      }
+    }
+    for (let item of this.items) {
+      if (item.isTalent) {
+        let talentAptitudes = item.aptitudes.split(",").map(it => it.trim());
+        let matchedAptitudes = characterAptitudes.filter(it => talentAptitudes.includes(it)).length;
+        let cost = 0;
+        let tier = parseInt(item.tier);
+        if (!item.system.starter && tier >= 1 && tier <= 3) {
+          cost = DarkHeresyActor._talentCosts[tier - 1][2 - matchedAptitudes];
+        }
+        item.system.cost = cost.toString();
+        this.experience.spentTalents += cost;
+      } else if (item.isPsychicPower) {
+        this.experience.spentPsychicPowers += parseInt(item.cost, 10);
+      }
+    }
+    this.experience.totalSpent = this.experience.spentCharacteristics
+      + this.experience.spentSkills
+      + this.experience.spentTalents
+      + this.experience.spentPsychicPowers
+      + this.experience.spentOther;
+    this.experience.remaining = this.experience.value - this.experience.totalSpent;
+  }
+
+  _computeExperience_normal() {
+    this.experience.spentCharacteristics = 0;
+    this.experience.spentSkills = 0;
+    this.experience.spentTalents = 0;
+    if (this.experience.spentOther == null) this.experience.spentOther = 0;
     this.experience.spentPsychicPowers = this.psy.cost;
     for (let characteristic of Object.values(this.characteristics)) {
       this.experience.spentCharacteristics += parseInt(characteristic.cost, 10);
@@ -114,8 +188,14 @@ export class DarkHeresyActor extends Actor {
     this.experience.totalSpent = this.experience.spentCharacteristics
       + this.experience.spentSkills
       + this.experience.spentTalents
-      + this.experience.spentPsychicPowers;
+      + this.experience.spentPsychicPowers
+      + this.experience.spentOther;
     this.experience.remaining = this.experience.value - this.experience.totalSpent;
+  }
+
+  _computeExperience() {
+    if (game.settings.get("dark-heresy", "autoCalcXPCosts")) this._computeExperience_auto();
+    else this._computeExperience_normal();
   }
 
   _computeArmour() {
@@ -273,8 +353,7 @@ export class DarkHeresyActor extends Actor {
   }
 
 
-  _getAdvanceCharacteristic(characteristic)
-  {
+  _getAdvanceCharacteristic(characteristic) {
     switch (characteristic || 0) {
       case 0:
         return "N";
@@ -293,8 +372,7 @@ export class DarkHeresyActor extends Actor {
     }
   }
 
-  _getAdvanceSkill(skill)
-  {
+  _getAdvanceSkill(skill) {
     switch (skill || 0) {
       case -20:
         return "U";
@@ -456,49 +534,49 @@ export class DarkHeresyActor extends Actor {
   get attributeBoni() {
     let boni = [];
     for (let characteristic of Object.values(this.characteristics)) {
-      boni.push( {regex: new RegExp(`${characteristic.short}B`, "gi"), value: characteristic.bonus} );
+      boni.push({ regex: new RegExp(`${characteristic.short}B`, "gi"), value: characteristic.bonus });
     }
     return boni;
   }
 
   get characteristics() {return this.system.characteristics;}
 
-  get skills() {return this.system.skills;}
+  get skills() { return this.system.skills; }
 
-  get initiative() {return this.system.initiative;}
+  get initiative() { return this.system.initiative; }
 
-  get wounds() {return this.system.wounds;}
+  get wounds() { return this.system.wounds; }
 
-  get fatigue() {return this.system.fatigue;}
+  get fatigue() { return this.system.fatigue; }
 
-  get fate() {return this.system.fate;}
+  get fate() { return this.system.fate; }
 
-  get psy() {return this.system.psy;}
+  get psy() { return this.system.psy; }
 
-  get bio() {return this.system.bio;}
+  get bio() { return this.system.bio; }
 
-  get experience() {return this.system.experience;}
+  get experience() { return this.system.experience; }
 
-  get insanity() {return this.system.insanity;}
+  get insanity() { return this.system.insanity; }
 
-  get corruption() {return this.system.corruption;}
+  get corruption() { return this.system.corruption; }
 
-  get aptitudes() {return this.system.aptitudes;}
+  get aptitudes() { return this.system.aptitudes; }
 
-  get size() {return this.system.size;}
+  get size() { return this.system.size; }
 
-  get faction() {return this.system.faction;}
+  get faction() { return this.system.faction; }
 
-  get subfaction() {return this.system.subfaction;}
+  get subfaction() { return this.system.subfaction; }
 
-  get subtype() {return this.system.type;}
+  get subtype() { return this.system.type; }
 
-  get threatLevel() {return this.system.threatLevel;}
+  get threatLevel() { return this.system.threatLevel; }
 
-  get armour() {return this.system.armour;}
+  get armour() { return this.system.armour; }
 
-  get encumbrance() {return this.system.encumbrance;}
+  get encumbrance() { return this.system.encumbrance; }
 
-  get movement() {return this.system.movement;}
+  get movement() { return this.system.movement; }
 
 }

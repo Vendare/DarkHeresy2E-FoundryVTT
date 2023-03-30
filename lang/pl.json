@@ -208,6 +208,7 @@
   "EXPERIENCE.SPENT_SKILLS": "Wydane na Umiejętności",
   "EXPERIENCE.SPENT_TALENTS": "Wydane na Talenty",
   "EXPERIENCE.SPENT_PSYCHIC_POWERS": "Wydane na Moce Psioniczne",
+  "EXPERIENCE.SPENT_OTHER": "Wydane na Inne",
   "EXPERIENCE.TOTAL_SPENT": "Suma Wydanych",
   "EXPERIENCE.TOTAL": "Suma",
 
@@ -318,6 +319,7 @@
   "SKILL.ADVANCE": "Rozwinięcie",
   "SKILL.TOTAL": "Całość",
   "SKILL.COST": "Koszt",
+  "SKILL.STARTER": "I",
 
   "SIZE": "Wielkość",
 
@@ -337,6 +339,7 @@
   "TALENT.NAME": "Nazwa",
   "TALENT.BENEFIT": "Benefity",
   "TALENT.COST": "Koszt",
+  "TALENT.STARTER": "I",
   "TALENT.PREREQUISITES": "Predyspozycje",
   "TALENT.TIER": "Stopień",
   "TALENT.APTITUDES": "Zdolności",
