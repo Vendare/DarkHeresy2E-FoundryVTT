@@ -21,24 +21,24 @@ export const addChatMessageContextOptions = function(html, options) {
       callback: li => applyChatCardDamage(li)
     }
   );
-  
+
   let canReroll = li => {
-      const message = game.messages.get(li.data("messageId"));
-      let actor = game.actors.get(message.getRollData()?.ownerId);
-      return message.isRoll && message.isContentVisible && actor?.fate.value > 0;
+    const message = game.messages.get(li.data("messageId"));
+    let actor = game.actors.get(message.getRollData()?.ownerId);
+    return message.isRoll && message.isContentVisible && actor?.fate.value > 0;
   };
-  
+
   options.push(
-      {
-          name: game.i18n.localize("CHAT.CONTEXT.REROLL"),
-          icon: '<i class="fa-solid fa-repeat"></i>',
-          condition: canReroll,
-          callback: li => {
-              const message = game.messages.get(li.data("messageId"));              
-              rerollTest(message.getRollData());
-          } 
+    {
+      name: game.i18n.localize("CHAT.CONTEXT.REROLL"),
+      icon: '<i class="fa-solid fa-repeat"></i>',
+      condition: canReroll,
+      callback: li => {
+        const message = game.messages.get(li.data("messageId"));
+        rerollTest(message.getRollData());
       }
-  )
+    }
+  );
   return options;
 };
 
@@ -77,20 +77,25 @@ function applyChatCardDamage(roll, multiplier) {
   }));
 }
 
+/**
+ * Rerolls the Test using the same Data as the initial Roll while reducing an actors fate
+ * @param {object} rollData
+ * @returns {Promise}
+ */
 function rerollTest(rollData) {
-    let actor = game.actors.get(rollData.ownerId);    
-    actor.update({ "system.fate.value" : actor.fate.value -1 });
-    delete rollData.damages; //reset so no old data is shown on failure
-    
-    rollData.isReRoll = true;
-    if(rollData.isCombatTest) {
-        //All the regexes in this are broken once retrieved from the chatmessage
-        //No idea why this happens so we need to fetch them again so the roll works correctly
-        rollData.attributeBoni = actor.attributeBoni;
-        return combatRoll(rollData);
-    } else {
-        return commonRoll(rollData);
-    }
+  let actor = game.actors.get(rollData.ownerId);
+  actor.update({ "system.fate.value": actor.fate.value -1 });
+  delete rollData.damages; // Reset so no old data is shown on failure
+
+  rollData.isReRoll = true;
+  if (rollData.isCombatTest) {
+    // All the regexes in this are broken once retrieved from the chatmessage
+    // No idea why this happens so we need to fetch them again so the roll works correctly
+    rollData.attributeBoni = actor.attributeBoni;
+    return combatRoll(rollData);
+  } else {
+    return commonRoll(rollData);
+  }
 }
 
 export const showRolls =html => {

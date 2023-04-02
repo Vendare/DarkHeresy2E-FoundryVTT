@@ -194,7 +194,7 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
   };
 
   if (weaponTraits.accurate && isAiming) {
-    let numDice = ~~((dos - 1) / 2); //-1 because each degree after the first counts
+    let numDice = ~~((dos - 1) / 2); // -1 because each degree after the first counts
     if (numDice >= 1) {
       if (numDice > 2) numDice = 2;
       let ar = new Roll(`${numDice}d10`);
@@ -236,13 +236,13 @@ function _rollPenetration(rollData) {
   let penetration = (rollData.penetrationFormula) ? _replaceSymbols(rollData.penetrationFormula, rollData) : "0";
   let multiplier = 1;
 
-  if(rollData.dos >= 3) {
+  if (rollData.dos >= 3) {
     if (penetration.includes("(")) // Legacy Support
-    {    
-        let rsValue = penetration.match(/\(\d+\)/gi); // Get Razorsharp Value
-        penetration = penetration.replace(/\d+.*\(\d+\)/gi, rsValue); // Replace construct BaseValue(RazorsharpValue) with the extracted date
-    } else if (rollData.weaponTraits.razorSharp) {    
-        multiplier = 2;
+    {
+      let rsValue = penetration.match(/\(\d+\)/gi); // Get Razorsharp Value
+      penetration = penetration.replace(/\d+.*\(\d+\)/gi, rsValue); // Replace construct BaseValue(RazorsharpValue) with the extracted date
+    } else if (rollData.weaponTraits.razorSharp) {
+      multiplier = 2;
     }
   }
   let r = new Roll(penetration.toString());

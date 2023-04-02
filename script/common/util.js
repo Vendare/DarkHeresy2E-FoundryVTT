@@ -36,7 +36,7 @@ export default class DarkHeresyUtil {
     rollData.psy= { value: actor.psy.rating, display: false};
     return rollData;
   }
-  
+
   static createPsychicRollData(actor, power) {
     let focusPowerTarget = this.getFocusPowerTarget(actor, power);
 
@@ -123,6 +123,6 @@ export default class DarkHeresyUtil {
       return actor.characteristics.willpower;
     }
   }
-    
+
 }
 

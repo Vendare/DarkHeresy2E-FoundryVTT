@@ -186,7 +186,7 @@ export class DarkHeresySheet extends ActorSheet {
     const div = $(event.currentTarget).parents(".item");
     const weapon = this.actor.items.get(div.data("itemId"));
     await prepareCombatRoll(
-      DarkHeresyUtil.createWeaponRollData(this.actor, weapon), 
+      DarkHeresyUtil.createWeaponRollData(this.actor, weapon),
       this.actor
     );
   }
@@ -194,7 +194,7 @@ export class DarkHeresySheet extends ActorSheet {
   async _prepareRollPsychicPower(event) {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
-    const psychicPower = this.actor.items.get(div.data("itemId"));    
+    const psychicPower = this.actor.items.get(div.data("itemId"));
     await preparePsychicPowerRoll(
       DarkHeresyUtil.createPsychicRollData(this.actor, psychicPower)
     );
@@ -212,49 +212,47 @@ export class DarkHeresySheet extends ActorSheet {
       return -30;
     }
   }
-  
+
   constructItemLists() {
-      let items = {}
-      let itemTypes = this.actor.itemTypes;
-      items.mentalDisorders = itemTypes["mentalDisorder"];
-      items.malignancies = itemTypes["malignancy"];
-      items.mutations = itemTypes["mutation"];
-      if (this.actor.type === "npc") {
-          items.abilities = itemTypes["talent"]
-          .concat(itemTypes["trait"])
-          .concat(itemTypes["specialAbility"]);
-      }
-      items.talents = itemTypes["talent"];
-      items.traits = itemTypes["trait"];
-      items.specialAbilities = itemTypes["specialAbility"];
-      items.aptitudes = itemTypes["aptitude"];
+    let items = {};
+    let itemTypes = this.actor.itemTypes;
+    items.mentalDisorders = itemTypes.mentalDisorder;
+    items.malignancies = itemTypes.malignancy;
+    items.mutations = itemTypes.mutation;
+    if (this.actor.type === "npc") {
+      items.abilities = itemTypes.talent
+        .concat(itemTypes.trait)
+        .concat(itemTypes.specialAbility);
+    }
+    items.talents = itemTypes.talent;
+    items.traits = itemTypes.trait;
+    items.specialAbilities = itemTypes.specialAbility;
+    items.aptitudes = itemTypes.aptitude;
 
-      items.psychicPowers = itemTypes["psychicPower"];
+    items.psychicPowers = itemTypes.psychicPower;
 
-      items.criticalInjuries = itemTypes["criticalInjury"];
+    items.criticalInjuries = itemTypes.criticalInjury;
 
-      items.gear = itemTypes["gear"];
-      items.drugs = itemTypes["drug"];
-      items.tools = itemTypes["tool"];
-      items.cybernetics = itemTypes["cybernetic"];
+    items.gear = itemTypes.gear;
+    items.drugs = itemTypes.drug;
+    items.tools = itemTypes.tool;
+    items.cybernetics = itemTypes.cybernetic;
 
-      items.armour = itemTypes["armour"];
-      items.forceFields = itemTypes["forceField"];
+    items.armour = itemTypes.armour;
+    items.forceFields = itemTypes.forceField;
 
-      items.weapons = itemTypes["weapon"];
-      items.weaponMods = itemTypes["weaponModification"];
-      items.ammunitions = itemTypes["ammunition"];
-      this._sortItemLists(items)
+    items.weapons = itemTypes.weapon;
+    items.weaponMods = itemTypes.weaponModification;
+    items.ammunitions = itemTypes.ammunition;
+    this._sortItemLists(items);
 
-      return items;
+    return items;
   }
 
-    _sortItemLists(items) {
-        for (let list in items) {
-            if (Array.isArray(items[list]))
-                items[list] = items[list].sort((a, b) => a.sort - b.sort)
-            else if (typeof items[list] == "object")
-                _sortItemLists(items[list])
-        }
+  _sortItemLists(items) {
+    for (let list in items) {
+      if (Array.isArray(items[list])) items[list] = items[list].sort((a, b) => a.sort - b.sort);
+      else if (typeof items[list] == "object") _sortItemLists(items[list]);
     }
+  }
 }

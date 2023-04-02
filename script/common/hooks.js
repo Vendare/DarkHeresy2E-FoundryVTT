@@ -38,14 +38,14 @@ Hooks.once("init", () => {
     testInit: {
       prepareCommonRoll,
       prepareCombatRoll,
-      preparePsychicPowerRoll,
+      preparePsychicPowerRoll
     },
-    tests:{
+    tests: {
       commonRoll,
       combatRoll
     }
   };
-  game.macro = DhMacroUtil; 
+  game.macro = DhMacroUtil;
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("dark-heresy", AcolyteSheet, { types: ["acolyte"], makeDefault: true });
   Actors.registerSheet("dark-heresy", NpcSheet, { types: ["npc"], makeDefault: true });
