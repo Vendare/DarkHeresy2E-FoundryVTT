@@ -191,4 +191,6 @@ $RECYCLE.BIN/
 # Node
 node_modules/
 
+# Projekt Related
 dark-heresy.zip
+css/
