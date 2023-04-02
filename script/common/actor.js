@@ -11,7 +11,7 @@ export class DarkHeresyActor extends Actor {
             
     };
     if (data.type === "acolyte") {
-      initData["prototypeToken.actorLink"] = true;      
+      initData["prototypeToken.actorLink"] = true;
       initData["prototypeToken.disposition"] = CONST.TOKEN_DISPOSITIONS.FRIENDLY
     }
     this.updateSource(initData);
@@ -105,8 +105,8 @@ export class DarkHeresyActor extends Actor {
     this.experience.spentTalents = 0;
     if (this.experience.spentOther == null) this.experience.spentOther = 0;
     this.experience.spentPsychicPowers = 0;
-    let psyRatingCost = 0;
-    for (let i = 2; i <= this.psy.rating; i++) psyRatingCost += i * 200;
+    let psyRatingCost = (this.psy.rating * (this.psy.rating + 1) /2 - 1) * 200; //n*(n+1)/2 equals 1+2+3... -1 because we start paying from 2
+    
     this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost;
     for (let characteristic of Object.values(this.characteristics)) {
       let matchedAptitudes = characterAptitudes.filter(it => characteristic.aptitudes.includes(it)).length;
@@ -137,7 +137,7 @@ export class DarkHeresyActor extends Actor {
         this.experience.spentSkills += cost;
       }
     }
-    for (let item of this.items) {
+    for (let item of this.items.filter(it => it.isTalent || it.isPsychicPower)) {
       if (item.isTalent) {
         let talentAptitudes = item.aptitudes.split(",").map(it => it.trim());
         let matchedAptitudes = characterAptitudes.filter(it => talentAptitudes.includes(it)).length;

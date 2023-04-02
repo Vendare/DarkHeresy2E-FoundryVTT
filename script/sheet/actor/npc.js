@@ -42,9 +42,7 @@ export class NpcSheet extends DarkHeresySheet {
     event.preventDefault();
     const div = $(event.currentTarget).parents(".item");
     let item = this.actor.items.get(div.data("itemId"));
-    let data = { _id: item.id, "system.cost": $(event.currentTarget)[0].value };
-    await this.actor.updateEmbeddedDocuments("Item", data);
-    this._render(true);
+    item.update({"system.cost": $(event.currentTarget)[0].value});
   }
 
   async _onItemStarterClick(event) {

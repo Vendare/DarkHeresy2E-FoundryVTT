@@ -1,16 +1,16 @@
 export default class DarkHeresyUtil {
-  
+
   static createCommonAttackRollData(actor, item) {
-      return {
-        name: item.name,      
-        attributeBoni: actor.attributeBoni,
-        ownerId: actor.id,
-        itemId: item.id,      
-        damageBonus: 0,
-        damageType: item.damageType,      
+    return {
+      name: item.name,
+      attributeBoni: actor.attributeBoni,
+      ownerId: actor.id,
+      itemId: item.id,
+      damageBonus: 0,
+      damageType: item.damageType
     };
   }
-  
+
   static createWeaponRollData(actor, weapon) {
     let characteristic = this.getWeaponCharacteristic(actor, weapon);
     let rateOfFire;
@@ -20,17 +20,18 @@ export default class DarkHeresyUtil {
       rateOfFire = {burst: weapon.rateOfFire.burst, full: weapon.rateOfFire.full};
     }
     let isMelee = weapon.class === "melee";
-    
+
     let rollData = this.createCommonAttackRollData(actor, weapon);
-    rollData.baseTarget= characteristic.total + weapon.attack,
-    rollData.modifier= 0,
+    rollData.baseTarget= characteristic.total + weapon.attack;
+    rollData.modifier= 0;
     rollData.isMelee= isMelee;
     rollData.isRange= !isMelee;
     rollData.clip= weapon.clip;
     rollData.rateOfFire= rateOfFire;
-    rollData.damageFormula= weapon.damage + (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");
-    rollData.penetrationFormula= weapon.penetration;
-    rollData.weaponTraits= this.extractWeaponTraits(weapon.special);    
+    rollData.weaponTraits= this.extractWeaponTraits(weapon.special);
+    let attributeMod = (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");
+    rollData.damageFormula= weapon.damage + attributeMod + (rollData.weaponTraits.force ? "+PR": "");
+    rollData.penetrationFormula = weapon.penetration + (rollData.weaponTraits.force ? "+PR" : "");
     rollData.special= weapon.special;
     rollData.psy= { value: actor.psy.rating, display: false};
     return rollData;
@@ -38,25 +39,25 @@ export default class DarkHeresyUtil {
   
   static createPsychicRollData(actor, power) {
     let focusPowerTarget = this.getFocusPowerTarget(actor, power);
-    
-    let rollData = this.createCommonAttackRollData(actor, power); 
+
+    let rollData = this.createCommonAttackRollData(actor, power);
     rollData.baseTarget= focusPowerTarget.total;
-    rollData.modifier= power.focusPower.difficulty;      
-    rollData.damageFormula= power.damage.formula;      
+    rollData.modifier= power.focusPower.difficulty;
+    rollData.damageFormula= power.damage.formula;
     rollData.penetrationFormula= power.damage.penetration;
     rollData.attackType= { name: power.damage.zone, text: "" };
     rollData.weaponTraits= this.extractWeaponTraits(power.damage.special);
     rollData.special= power.damage.special;
     rollData.psy = {
-        value: actor.psy.rating,
-        rating: actor.psy.rating,
-        max: this.getMaxPsyRating(actor),
-        warpConduit: false,
-        display: true
+      value: actor.psy.rating,
+      rating: actor.psy.rating,
+      max: this.getMaxPsyRating(actor),
+      warpConduit: false,
+      display: true
     };
     return rollData;
   }
-  
+
   static extractWeaponTraits(traits) {
     // These weapon traits never go above 9 or below 2
     return {
@@ -66,7 +67,11 @@ export default class DarkHeresyUtil {
       primitive: this.extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
       razorSharp: this.hasNamedTrait(/Razor *Sharp/gi, traits),
       skipAttackRoll: this.hasNamedTrait(/Spray/gi, traits),
-      tearing: this.hasNamedTrait(/Tearing/gi, traits)
+      tearing: this.hasNamedTrait(/Tearing/gi, traits),
+      storm: this.hasNamedTrait(/Storm/gi, traits),
+      twinLinked: this.hasNamedTrait(/Twin-Linked/gi, traits),
+      force: this.hasNamedTrait(/Force/gi, traits),
+      inaccurate: this.hasNamedTrait(/Inaccurate/gi, traits)
     };
   }
 
@@ -99,7 +104,7 @@ export default class DarkHeresyUtil {
       return false;
     }
   }
-  
+
   static getWeaponCharacteristic(actor, weapon) {
     if (weapon.class === "melee") {
       return actor.characteristics.weaponSkill;

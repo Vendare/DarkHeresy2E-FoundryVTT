@@ -90,8 +90,8 @@ Hooks.once("init", () => {
 Hooks.once("ready", () => {
   migrateWorld();
   CONFIG.ChatMessage.documentClass.prototype.getRollData = function() {
-      return this.getFlag("dark-heresy", "rollData") 
-  }
+    return this.getFlag("dark-heresy", "rollData");
+  };
 });
 
 
@@ -106,10 +106,10 @@ Hooks.on("getChatLogEntryContext", chat.showRolls);
  * Item      - open roll dialog for item
  */
 Hooks.on("hotbarDrop", (bar, data, slot) => {
-  if (data.type == "Item" || data.type == "Actor")
+  if (data.type === "Item" || data.type === "Actor")
   {
-      DhMacroUtil.createMacro(data, slot)
-      return false
+    DhMacroUtil.createMacro(data, slot);
+    return false;
   }
 });
 

@@ -2,7 +2,7 @@
   "id": "dark-heresy",
   "title": "Dark Heresy 2E",
   "description": "Innocence proves nothing",
-  "version": "4.1.2",
+  "version": "4.2.0",
   "minimumCoreVersion" : 10,
   "compatibility" : {
     "minimum" : 10,
@@ -10,7 +10,17 @@
     "maximum" : 10
   },
   "templateVersion": 2,
-  "author": "JeansenVaars, Moo Man, fredthedeadhead, Perfectro, Vendare, Silver292, Giddy",
+  "authors": [
+	"JeansenVaars", 
+	"Moo Man", 
+	"fredthedeadhead", 
+	"Perfectro", 
+	"Vendare", 
+	"Silver292", 
+	"Giddy",
+	"Dazzerix",
+	"FilippoPolo"
+  ],
   "scripts": [],
   "esmodules": [
     "script/common/hooks.js"
