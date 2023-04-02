@@ -1,3 +1,5 @@
+gulp buildAll
+
 New-Item -Path '.\release\DarkHeresy2E-FoundryVTT-master' -ItemType Directory
 
 Copy-Item -Path ".\asset" -Destination ".\release\DarkHeresy2E-FoundryVTT-master" -Recurse
@@ -18,6 +20,6 @@ $compress = @{
 	CompressionLevel = "Optimal"
 	DestinationPath = ".\dark-heresy.zip"
 }
-Compress-Archive @compress
+Compress-Archive @compress -Force
 
 Remove-Item '.\release' -Recurse
