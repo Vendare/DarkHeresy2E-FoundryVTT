@@ -1070,7 +1070,8 @@
       "subfaction": "",
       "type": "troop",
       "threatLevel": 0,
-      "size": 4
+      "size": 4,
+      "notes": ""
     }
   },
   "Item": {
