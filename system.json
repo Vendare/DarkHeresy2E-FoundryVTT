@@ -2,7 +2,7 @@
   "id": "dark-heresy",
   "title": "Dark Heresy 2E",
   "description": "Innocence proves nothing",
-  "version": "4.1.2",
+  "version": "4.3.0",
   "minimumCoreVersion" : 10,
   "compatibility" : {
     "minimum" : 10,
@@ -10,7 +10,17 @@
     "maximum" : 10
   },
   "templateVersion": 2,
-  "author": "JeansenVaars, Moo Man, fredthedeadhead, Perfectro, Vendare, Silver292, Giddy",
+  "authors": [
+    { "name":"JeansenVaars" }, 
+    { "name":"Moo Man" }, 
+    { "name":"fredthedeadhead"},
+    { "name":"Perfectro"}, 
+    { "name":"Vendare" },
+    { "name":"Silver292"},
+    { "name":"Giddy"},
+    { "name":"Dazzerix"},
+	{ "name":"FilippoPolo"}
+  ],
   "scripts": [],
   "esmodules": [
     "script/common/hooks.js"
@@ -53,9 +63,9 @@
   "gridUnits": "m",
   "primaryTokenAttribute": null,
   "secondaryTokenAttribute": null,
-  "url": "https://github.com/moo-man/DarkHeresy2E-FoundryVTT",
+  "url": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT",
   "socket": true,
-  "manifest": "https://github.com/moo-man/DarkHeresy2E-FoundryVTT/releases/download/4.1.2/system.json",
-  "download": "https://github.com/moo-man/DarkHeresy2E-FoundryVTT/releases/download/4.1.2/dark-heresy.zip",
+  "manifest": "https://github.com/moo-man/DarkHeresy2E-FoundryVTT/releases/download/4.3.0/system.json",
+  "download": "https://github.com/moo-man/DarkHeresy2E-FoundryVTT/releases/download/4.3.0/dark-heresy.zip",
   "license": "LICENSE.txt"
 }

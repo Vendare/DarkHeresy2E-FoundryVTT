@@ -1091,9 +1091,7 @@
       "type": "troop",
       "threatLevel": 0,
       "size": 4,
-      "bio": {
-        "notes": ""
-      }
+      "notes": ""
     },
     "vehicle": {
       "templates": [
@@ -1113,9 +1111,7 @@
       "subfaction": "",
       "type": "troop",
       "size": 4,
-      "bio": {
-        "notes": ""
-      }
+      "notes": ""
     },
     "aircraft": {
       "templates": [
@@ -1137,9 +1133,7 @@
       "size": 4,
       "airunits": 0,
       "voidunits": 0,
-      "bio": {
-        "notes": ""
-      }
+      "notes": ""
     },
     "starship": {
       "templates": [
@@ -1193,9 +1187,7 @@
         "creed": 0,
         "other": 0
       },
-      "bio": {
-        "notes": ""
-      }
+      "notes": ""
     }
   },
   "Item": {
