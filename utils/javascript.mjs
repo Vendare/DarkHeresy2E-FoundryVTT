@@ -48,7 +48,7 @@ function bundleJavascript() {
 		})
 		.then(bundle => {
 			return bundle.write({
-				file: './release/DarkHeresy2E-FoundryVTT-master/script/dark-heresy.js'
+				file: './release/script/dark-heresy.js'
 			});
 		});
 }

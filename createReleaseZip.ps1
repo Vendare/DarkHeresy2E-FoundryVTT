@@ -1,23 +1,30 @@
-New-Item -Path '.\release\DarkHeresy2E-FoundryVTT-master' -ItemType Directory
+$target = '.\release'
+$targetFile = ".\dark-heresy.zip"
+
+New-Item -Path '.\release' -ItemType Directory
 
 gulp buildAll
 
-Copy-Item -Path ".\asset" -Destination ".\release\DarkHeresy2E-FoundryVTT-master" -Recurse
-Copy-Item -Path ".\lang" -Destination ".\release\DarkHeresy2E-FoundryVTT-master" -Recurse
-Copy-Item -Path ".\logo" -Destination ".\release\DarkHeresy2E-FoundryVTT-master" -Recurse
-Copy-Item -Path ".\packs" -Destination ".\release\DarkHeresy2E-FoundryVTT-master" -Recurse
-Copy-Item -Path ".\template" -Destination ".\release\DarkHeresy2E-FoundryVTT-master" -Recurse
-Copy-item -Path ".\CONTRIBUTING.md" -Destination ".\release\DarkHeresy2E-FoundryVTT-master"
-Copy-item -Path ".\README.md" -Destination ".\release\DarkHeresy2E-FoundryVTT-master"
-Copy-item -Path ".\LICENSE" -Destination ".\release\DarkHeresy2E-FoundryVTT-master"
-Copy-item -Path ".\system.json" -Destination ".\release\DarkHeresy2E-FoundryVTT-master"
-Copy-item -Path ".\template.json" -Destination ".\release\DarkHeresy2E-FoundryVTT-master"
+Copy-Item -Path ".\asset" -Destination $target -Recurse
+Copy-Item -Path ".\lang" -Destination $target -Recurse
+Copy-Item -Path ".\logo" -Destination $target -Recurse
+Copy-Item -Path ".\packs" -Destination $target -Recurse
+Copy-Item -Path ".\template" -Destination $target -Recurse
+Copy-item -Path ".\CONTRIBUTING.md" -Destination $target
+Copy-item -Path ".\README.md" -Destination $target
+Copy-item -Path ".\LICENSE" -Destination $target
+Copy-item -Path ".\system.json" -Destination $target
+Copy-item -Path ".\template.json" -Destination $target
+
+if(Test-Path -Path $targetFile -PathType Leaf) {
+	Remove-Item $targetFile
+}
 
 $compress = @{
 	Path = ".\release\*"
 	CompressionLevel = "Optimal"
-	DestinationPath = ".\dark-heresy.zip"
+	DestinationPath = $targetFile
 }
-Compress-Archive @compress -Force
+Compress-Archive @compress
 
-Remove-Item '.\release' -Recurse
+Remove-Item $target -Recurse
