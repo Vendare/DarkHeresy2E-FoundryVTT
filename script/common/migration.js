@@ -1,5 +1,5 @@
 export const migrateWorld = async () => {
-  const schemaVersion = 5;
+  const schemaVersion = 6;
   const worldSchemaVersion = Number(game.settings.get("dark-heresy", "worldSchemaVersion"));
   if (worldSchemaVersion !== schemaVersion && game.user.isGM) {
     ui.notifications.info("Upgrading the world, please wait...");
@@ -14,7 +14,7 @@ export const migrateWorld = async () => {
       }
     }
     for (let pack of
-      game.packs.filter(p => p.metadata.package === "world" && ["Actor"].includes(p.metadata.entity))) {
+      game.packs.filter(p => p.metadata.package === "world" && ["Actor"].includes(p.metadata.type))) {
       await migrateCompendium(pack, worldSchemaVersion);
     }
     game.settings.set("dark-heresy", "worldSchemaVersion", schemaVersion);
@@ -123,11 +123,27 @@ const migrateActorData = (actor, worldSchemaVersion) => {
       update["system.experience.value"] = value;
     }
   }
+
+  if (worldSchemaVersion < 6) {
+    actor.prepareData();
+    if (actor.type === "npc") {
+      if (actor.system.bio?.notes) {
+        actor.system.notes = actor.system.bio.notes;
+      }
+    }
+  }
+
   return update;
 };
 
+/**
+ * Migrate Data in Compendiums
+ * @param {CompendiumCollection} pack
+ * @param {number} worldSchemaVersion
+ * @returns {Promise<void>}
+ */
 export const migrateCompendium = async function(pack, worldSchemaVersion) {
-  const entity = pack.metadata.entity;
+  const entity = pack.metadata.type;
 
   await pack.migrate();
   const content = await pack.getContent();

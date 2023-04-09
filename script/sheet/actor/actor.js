@@ -31,7 +31,11 @@ export class DarkHeresySheet extends ActorSheet {
 
   async _enrichment() {
     let enrichment = {};
-    enrichment["system.bio.notes"] = await TextEditor.enrichHTML(this.actor.system.bio.notes, {async: true});
+    if (this.actor.type !== "npc") {
+      enrichment["system.bio.notes"] = await TextEditor.enrichHTML(this.actor.system.bio.notes, {async: true});
+    } else {
+      enrichment["system.notes"] = await TextEditor.enrichHTML(this.actor.system.notes, {async: true});
+    }
     return expandObject(enrichment);
   }
 
