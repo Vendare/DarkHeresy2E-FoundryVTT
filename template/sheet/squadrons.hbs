@@ -1,0 +1,87 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="header border">
+        <div class="flex row">
+            <div class="avatar">
+                <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            </div>
+            <div class="flex column grow justify-center">
+                <div class="name header-row">
+                    <label>{{localize "GEAR.NAME"}}</label>
+                    <input name="name" type="text" value="{{item.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-tabs tabs flex row" data-group="primary">
+        <b class="item" data-tab="data">{{localize "TAB.DATA"}}</b>
+        <b class="item" data-tab="notes">{{localize "TAB.NOTES"}}</b>
+    </div>
+
+    <div class="sheet-body">
+        <div class="tab" data-group="primary" data-tab="data">
+            <div class="stats border">
+                <h1>{{localize "TITLE.STATS"}}</h1>
+                <div class="stats-row squadron">
+                    <div class="stat availability">
+                        <label>{{localize "GEAR.AVAILABILITY"}}</label>
+                        <select name="system.availability">
+                            {{#select system.availability}}
+                                <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
+                                <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
+                                <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
+                                <option value="common">{{localize "AVAILABILITY.COMMON"}}</option>
+                                <option value="average">{{localize "AVAILABILITY.AVERAGE"}}</option>
+                                <option value="scarce">{{localize "AVAILABILITY.SCARCE"}}</option>
+                                <option value="rare">{{localize "AVAILABILITY.RARE"}}</option>
+                                <option value="very-rare">{{localize "AVAILABILITY.VERY_RARE"}}</option>
+                                <option value="extremely-rare">{{localize "AVAILABILITY.EXTREMELY_RARE"}}</option>
+                                <option value="near-unique">{{localize "AVAILABILITY.NEAR_UNIQUE"}}</option>
+                                <option value="unique">{{localize "AVAILABILITY.UNIQUE"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                    <div class="stat type">
+                        <label>{{localize "SHIP.SQUADRON.TYPE"}}</label>
+                        <select name="system.squadclass">
+                            {{#select system.squadclass}}
+                                <option value="fighter">{{localize "SHIP.SQUADRON.FIGHTER"}}</option>
+                                <option value="bomber">{{localize "SHIP.SQUADRON.BOMBER"}}</option>
+                                <option value="assault">{{localize "SHIP.SQUADRON.ASSAULT"}}</option>
+                                <option value="shuttle">{{localize "SHIP.SQUADRON.AERO"}}</option>
+                                <option value="aeronautica">{{localize "SHIP.SQUADRON.SHUTTLE"}}</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+                <div class="stats-row squadron">
+                    <div class="stat strength">
+                        <label>{{localize "SHIP.SQUADRON.CURRENT"}}</label>
+                        <input name="system.strength.current" type="number" value="{{system.strength.current}}" data-dtype="Number" />
+                         /
+                        <input name="system.strength.max" type="number" value="{{system.strength.max}}" data-dtype="Number" />
+                        <label>{{localize "SHIP.SQUADRON.MAX"}}</label>
+                    </div>
+                    <div class="stat count">
+                        <label>{{localize "SHIP.SQUADRON.COUNT"}}</label>
+                        <input name="system.count" type="number" value="{{system.count}}" data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="stats-row squadron">
+                    <div class="stat short-description">
+                        <label>{{localize "GEAR.SHORT_DESCRIPTION"}}</label>
+                        <input name="system.shortDescription" type="text" value="{{system.shortDescription}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab" data-group="primary" data-tab="notes">
+            <div class="notes-editor border">
+                <h1>{{localize "TITLE.NOTES"}}</h1>
+                <div style="height: 132px; width: 100%">
+                    {{editor enrichment.system.description target="system.description" engine="prosemirror" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

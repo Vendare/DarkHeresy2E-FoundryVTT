@@ -1,0 +1,65 @@
+<div class="dark-heresy dialog">
+    <div class="flex row wrap background border" style="flex-basis: 100%;margin-bottom: 5px">        
+        <h1>{{localize name}}</h1>
+        {{#unless weaponTraits.skipAttackRoll}}
+            <div class="wrapper">
+                <label>{{localize "DIALOG.TARGET"}}</label>
+                <input id="target" type="number" value="{{baseTarget}}" data-dtype="Number"/>
+            </div>
+            <div class="wrapper">
+                <label>{{localize "DIALOG.MODIFIER"}}</label>
+                <input id="modifier" type="text" value="{{modifier}}"/>
+            </div>
+            <div class="wrapper">
+                <label>{{localize "DIALOG.RANGE"}}</label>
+                <select id="range">
+                    {{#select range}}
+                    <option value="0" selected>{{localize "RANGE.NONE"}}</option>
+                    <option value="10">{{localize "RANGE.SHORT"}}</option>
+                    <option value="-10">{{localize "RANGE.LONG"}}</option>
+                    {{/select}}
+                </select>
+            </div>
+            <div class="separator"></div>
+        {{/unless}}
+        <div class="wrapper">
+            <label>{{localize "DIALOG.DAMAGE"}}</label>
+            <input id="damageFormula" type="text" value="{{damageFormula}}"/>
+        </div>
+        <div class="wrapper">
+            <label>{{localize "DIALOG.TYPE"}}</label>
+            <select id="damageType">
+                {{#select damageType}}
+                <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
+                <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
+                <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
+                <option value="explosive">{{localize "DAMAGE_TYPE.EXPLOSIVE"}}</option>
+                {{/select}}
+            </select>
+        </div>
+        <div class="wrapper">
+            <label>{{localize "DIALOG.BONUS"}}</label>
+            <input id="damageBonus" type="number" value="{{damageBonus}}" data-dtype="Number"/>
+        </div>
+        <div class="wrapper">
+            <label>{{localize "SHIP.WEAPON.CRIT"}}</label>
+            <input id="critical" type="text" value="{{critical}}" />
+        </div>
+    </div>
+    <div>
+        {{#if isRange}}
+            <div class="wrapper">
+                <table>
+                <tr>
+                <td style="padding:0 10px 0 10px;"><b>RoF: </b>{{rateOfFire}}</td>
+                </tr>
+                </table>
+            </div>
+        {{/if}}
+    </div>
+</div>
+<script>
+    $(".wrapper input").focusin(function () {
+        $(this).select();
+    });
+</script>

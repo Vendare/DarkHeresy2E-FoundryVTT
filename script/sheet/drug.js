@@ -4,7 +4,7 @@ export class DrugSheet extends DarkHeresyItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["dark-heresy", "sheet", "drug"],
-      template: "systems/dark-heresy/template/sheet/drug.html",
+      template: "systems/dark-heresy/template/sheet/drug.hbs",
       width: 500,
       height: 369,
       resizable: false,

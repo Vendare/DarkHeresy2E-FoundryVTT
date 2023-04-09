@@ -18,7 +18,11 @@ export const buildCSS = gulp.series(css.compile);
 // Javascript linting
 export const lint = gulp.series(javascript.lint);
 
+//Javascript bundling
+export const bundle = gulp.series(javascript.bundle);
+
 // Build all artifacts
 export const buildAll = gulp.parallel(
   css.compile,
+  javascript.bundle
 );

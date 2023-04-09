@@ -42,7 +42,7 @@ export class DarkHeresySheet extends ActorSheet {
   /** @override */
   get template() {
     if (!game.user.isGM && this.actor.limited) {
-      return "systems/dark-heresy/template/sheet/actor/limited-sheet.html";
+      return "systems/dark-heresy/template/sheet/actor/limited-sheet.hbs";
     } else {
       return this.options.template;
     }

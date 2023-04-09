@@ -508,7 +508,7 @@ async function _sendToChat(rollData) {
     chatData.roll = rollData.rollObject;
   }
 
-  const html = await renderTemplate("systems/dark-heresy/template/chat/roll.html", rollData);
+  const html = await renderTemplate("systems/dark-heresy/template/chat/roll.hbs", rollData);
   chatData.content = html;
 
   if (["gmroll", "blindroll"].includes(chatData.rollMode)) {
@@ -699,7 +699,7 @@ async function _sendToChatShip(rollData) {
     chatData.roll = rollData.rollObject;
   }
 
-  chatData.content = await renderTemplate("systems/dark-heresy/template/chat/shiproll.html", rollData);
+  chatData.content = await renderTemplate("systems/dark-heresy/template/chat/shiproll.hbs", rollData);
 
   if (["gmroll", "blindroll"].includes(chatData.rollMode)) {
     chatData.whisper = ChatMessage.getWhisperRecipients("GM");
