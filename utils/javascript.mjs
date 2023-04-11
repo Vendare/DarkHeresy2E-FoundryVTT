@@ -44,7 +44,7 @@ export const lint = lintJavascript;
 
 function bundleJavascript() {
 	return rollup({
-			input: './script/common/hooks.js',
+			input: './script/dark-heresy.js',
 		})
 		.then(bundle => {
 			return bundle.write({
