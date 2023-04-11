@@ -32,9 +32,9 @@ export class DarkHeresySheet extends ActorSheet {
     async _enrichment() {
         let enrichment = {};
         if (this.actor.type !== "npc") {
-            enrichment["system.bio.notes"] = await TextEditor.enrichHTML(this.actor.system.bio.notes, {async: true});
+            enrichment["system.bio.notes"] = TextEditor.enrichHTML(this.actor.system.bio.notes, {async: true});
         } else {
-            enrichment["system.notes"] = await TextEditor.enrichHTML(this.actor.system.notes, {async: true});
+            enrichment["system.notes"] = TextEditor.enrichHTML(this.actor.system.notes, {async: true});
         }
         return expandObject(enrichment);
     }
@@ -216,54 +216,6 @@ export class DarkHeresySheet extends ActorSheet {
         );
     }
 
-    _extractWeaponTraits(traits) {
-    // These weapon traits never go above 9 or below 2
-        return {
-            accurate: this._hasNamedTrait(/Accurate/gi, traits),
-            rfFace: this._extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
-            proven: this._extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
-            primitive: this._extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
-            razorSharp: this._hasNamedTrait(/Razor *Sharp/gi, traits),
-            skipAttackRoll: this._hasNamedTrait(/Spray/gi, traits),
-            tearing: this._hasNamedTrait(/Tearing/gi, traits),
-            storm: this.hasNamedTrait(/Storm/gi, traits),
-            twinLinked: this.hasNamedTrait(/Twin-Linked/gi, traits),
-            rabbit: this.hasNamedTrait(/Rabbit *Punch/gi, traits),
-            force: this.hasNamedTrait(/Force/gi, traits),
-            inaccurate: this.hasNamedTrait(/Inaccurate/gi, traits)
-        };
-    }
-
-    _getMaxPsyRating() {
-        let base = this.actor.psy.rating;
-        switch (this.actor.psy.class) {
-            case "bound":
-                return base + 2;
-            case "unbound":
-                return base + 4;
-            case "daemonic":
-                return base + 3;
-        }
-    }
-
-    _extractNumberedTrait(regex, traits) {
-        let rfMatch = traits.match(regex);
-        if (rfMatch) {
-            regex = /\d+/gi;
-            return parseInt(rfMatch[0].match(regex)[0]);
-        }
-        return undefined;
-    }
-
-    _hasNamedTrait(regex, traits) {
-        let rfMatch = traits.match(regex);
-        if (rfMatch) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     _getCorruptionModifier() {
         const corruption = this.actor.corruption;
         if (corruption <= 30) {
@@ -274,25 +226,6 @@ export class DarkHeresySheet extends ActorSheet {
             return -20;
         } else if (corruption >= 91) {
             return -30;
-        }
-    }
-
-    _getWeaponCharacteristic(weapon) {
-        if (weapon.class === "melee") {
-            return this.actor.characteristics.weaponSkill;
-        } else {
-            return this.actor.characteristics.ballisticSkill;
-        }
-    }
-
-    _getFocusPowerTarget(psychicPower) {
-        const normalizeName = psychicPower.focusPower.test.toLowerCase();
-        if (this.actor.characteristics.hasOwnProperty(normalizeName)) {
-            return this.actor.characteristics[normalizeName];
-        } else if (this.actor.skills.hasOwnProperty(normalizeName)) {
-            return this.actor.skills[normalizeName];
-        } else {
-            return this.actor.characteristics.willpower;
         }
     }
 

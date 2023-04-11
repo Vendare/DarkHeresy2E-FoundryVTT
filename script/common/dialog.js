@@ -95,9 +95,8 @@ export async function prepareAcquireRoll(rollData) {
 /**
  * Show a combat roll dialog.
  * @param {object} rollData
- * @param {DarkHeresyActor} actorRef
  */
-export async function prepareCombatRoll(rollData, actorRef) {
+export async function prepareCombatRoll(rollData) {
     const html = await renderTemplate("systems/dark-heresy/template/dialog/combat-roll.hbs", rollData);
     let dialog = new Dialog({
         title: rollData.name,
@@ -244,9 +243,8 @@ export async function preparePsychicPowerRoll(rollData) {
 /**
  * Show a dialogue window for a ship combat roll.
  * @param {object} rollData
- * @param {Actor} actorRef
  */
-export async function prepareShipCombatRoll(rollData, actorRef) {
+export async function prepareShipCombatRoll(rollData) {
     const html = await renderTemplate("systems/dark-heresy/template/dialog/shipcombat-roll.hbs", rollData);
     let dialog = new Dialog({
         title: rollData.name,
