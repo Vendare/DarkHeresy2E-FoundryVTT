@@ -12,14 +12,17 @@
   "templateVersion": 2,
   "authors": [
     { "name":"JeansenVaars" }, 
-    { "name":"Moo Man" }, 
-    { "name":"fredthedeadhead"},
-    { "name":"Perfectro"}, 
+    { "name":"Moo Man" 
+	  "email": "russellt@cubicle7games.com",
+      "discord": "Moo Man#7518",
+      "reddit": "u/mooman10" }, 
+    { "name":"fredthedeadhead" },
+    { "name":"Perfectro" }, 
     { "name":"Vendare" },
-    { "name":"Silver292"},
-    { "name":"Giddy"},
-    { "name":"Dazzerix"},
-	{ "name":"FilippoPolo"}
+    { "name":"Silver292" },
+    { "name":"Giddy" },
+    { "name":"Dazzerix" },
+	{ "name":"FilippoPolo" }
   ],
   "scripts": [],
   "esmodules": [
