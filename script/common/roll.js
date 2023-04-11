@@ -41,11 +41,11 @@ export async function reportEmptyClip(rollData) {
  * @param {object} rollData
  */
 async function _computeTarget(rollData) {
-  const range = (rollData.range) ? rollData.range : "0";
+
   let attackType = 0;
-  if (typeof rollData.attackType !== "undefined" && rollData.attackType != null) {
+  if (rollData.attackType) {
     _computeRateOfFire(rollData);
-    attackType = rollData.attackType.modifier + (rollData.weaponTraits.twinLinked ? 20: 0);
+    attackType = rollData.attackType.modifier;
   }
   let psyModifier = 0;
   if (typeof rollData.psy !== "undefined" && typeof rollData.psy.useModifier !== "undefined" && rollData.psy.useModifier) {
@@ -60,19 +60,22 @@ async function _computeTarget(rollData) {
       rollData.psy.value += ratingBonus;
     }
   }
-  let aim = rollData.aim?.val ? rollData.aim.val : 0;
-  let acquire = rollData.acquire? rollData.acquire:0;
-  const formula = `0 + ${rollData.modifier} + ${aim} + ${range} + ${attackType} + ${psyModifier} +${acquire}`;
-  let r = new Roll(formula, {});
-  r.evaluate({ async: false });
-  if (r.total > 60) {
+
+  let targetMods = rollData.modifier
+    + (rollData.aim?.val ? rollData.aim.val : 0)
+    + (rollData.range ? rollData.range : 0)
+    + (rollData.acquire? rollData.acquire:0)
+    + (rollData.weaponTraits.twinLinked ? 20: 0)
+    + attackType
+    + psyModifier;
+
+  if (targetMods > 60) {
     rollData.target = rollData.baseTarget + 60;
-  } else if (r.total < -60) {
+  } else if (targetMods < -60) {
     rollData.target = rollData.baseTarget + -60;
   } else {
-    rollData.target = rollData.baseTarget + r.total;
+    rollData.target = rollData.baseTarget + targetMods;
   }
-  rollData.rollObject = r;
 }
 
 /**
@@ -92,7 +95,7 @@ async function _rollTarget(rollData) {
     rollData.dos = 0;
     rollData.dof = 1 + _getDegree(rollData.result, rollData.target);
   }
-  if (typeof rollData.psy !== "undefined") _computePsychicPhenomena(rollData);
+  if (rollData.psy) _computePsychicPhenomena(rollData);
 }
 
 /**
@@ -144,7 +147,7 @@ async function _rollDamage(rollData) {
 
     if (rollData.attackType.hitMargin > 0) {
       let maxAdditionalHit = Math.floor(((potentialHits * stormMod) - 1) / rollData.attackType.hitMargin);
-      if (typeof rollData.maxAdditionalHit !== "undefined" && maxAdditionalHit > rollData.maxAdditionalHit) {
+      if (maxAdditionalHit && maxAdditionalHit > rollData.maxAdditionalHit) {
         maxAdditionalHit = rollData.maxAdditionalHit;
       }
       rollData.numberOfHit = maxAdditionalHit + 1;
@@ -193,8 +196,7 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
     replaced: false,
     damageRender: await r.render()
   };
-  if (weaponTraits.inaccurate) { /* Do nothing */ }
-  else if (weaponTraits.accurate && isAiming) {
+  if (weaponTraits.accurate && isAiming) {
     let numDice = ~~((dos - 1) / 2); // -1 because each degree after the first counts
     if (numDice >= 1) {
       if (numDice > 2) numDice = 2;
