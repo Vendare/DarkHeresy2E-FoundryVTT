@@ -61,15 +61,15 @@ export default class DarkHeresyUtil {
   static extractWeaponTraits(traits) {
     // These weapon traits never go above 9 or below 2
     return {
-      accurate: this.hasNamedTrait(/Accurate/gi, traits),
+      accurate: this.hasNamedTrait(/(?<!in)Accurate/gi, traits),
       rfFace: this.extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
       proven: this.extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
       primitive: this.extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
-      razorSharp: this.hasNamedTrait(/Razor *Sharp/gi, traits),
+      razorSharp: this.hasNamedTrait(/Razor.?-? *Sharp/gi, traits),
       skipAttackRoll: this.hasNamedTrait(/Spray/gi, traits),
       tearing: this.hasNamedTrait(/Tearing/gi, traits),
       storm: this.hasNamedTrait(/Storm/gi, traits),
-      twinLinked: this.hasNamedTrait(/Twin-Linked/gi, traits),
+      twinLinked: this.hasNamedTrait(/Twin.?-? *Linked/gi, traits),
       force: this.hasNamedTrait(/Force/gi, traits),
       inaccurate: this.hasNamedTrait(/Inaccurate/gi, traits)
     };
