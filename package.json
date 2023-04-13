@@ -17,6 +17,8 @@
     "gulp-if": "^3.0.0",
     "gulp-less": "^5.0.0",
     "merge-stream": "^2.0.0",
+    "nedb": "^1.8.0",
+    "through2": "^4.0.2",
     "yargs": "^17.5.1"
   }
 }

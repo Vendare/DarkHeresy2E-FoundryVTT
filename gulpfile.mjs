@@ -4,6 +4,7 @@ import gulp from "gulp";
 
 import * as css from "./utils/css.mjs";
 import * as javascript from "./utils/javascript.mjs";
+import * as compendia from "./utils/compendia.mjs";
 
 
 // Default export - build CSS and watch for updates
@@ -15,6 +16,9 @@ export default gulp.series(
 // CSS compiling
 export const buildCSS = gulp.series(css.compile);
 
+// Pack compiling
+export const buildPacks = gulp.series(compendia.compile);
+
 // Javascript linting
 export const lint = gulp.series(javascript.lint);
 
@@ -24,5 +28,6 @@ export const bundle = gulp.series(javascript.bundle);
 // Build all artifacts
 export const buildAll = gulp.parallel(
     css.compile,
+    compendia.compile,
     javascript.bundle
 );

@@ -12,8 +12,8 @@
   "templateVersion": 2,
   "authors": [
     { "name":"JeansenVaars" }, 
-    { "name":"Moo Man" 
-	  "email": "russellt@cubicle7games.com",
+    { "name":"Moo Man",
+      "email": "russellt@cubicle7games.com",
       "discord": "Moo Man#7518",
       "reddit": "u/mooman10" }, 
     { "name":"fredthedeadhead" },
@@ -36,7 +36,7 @@
       "name": "character-aptitudes",
       "label": "Character Aptitudes",
       "system": "dark-heresy",
-      "path": "./packs/character/aptitudes.db",
+      "path": "./packs/aptitudes.db",
       "entity": "Item"
     }
   ],
