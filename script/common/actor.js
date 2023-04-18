@@ -105,7 +105,7 @@ export class DarkHeresyActor extends Actor {
     this.experience.spentTalents = 0;
     if (this.experience.spentOther == null) this.experience.spentOther = 0;
     this.experience.spentPsychicPowers = 0;
-    let psyRatingCost = ((this.psy.rating * (this.psy.rating + 1) /2) - 1) * 200; // N*(n+1)/2 equals 1+2+3... -1 because we start paying from 2
+    let psyRatingCost = Math.max(0, ((this.psy.rating * (this.psy.rating + 1) /2) - 1) * 200); // N*(n+1)/2 equals 1+2+3... -1 because we start paying from 2
 
     this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost;
     for (let characteristic of Object.values(this.characteristics)) {
