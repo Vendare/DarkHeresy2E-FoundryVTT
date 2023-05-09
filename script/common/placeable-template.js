@@ -29,13 +29,12 @@ export class PlaceableTemplate extends MeasuredTemplate {
   
     /**
      * A factory method to create a cone PlaceableTemplate instance 
-     * @param tag An object attached to the template instance.
      * @param origin The id of the item originating the cone.
      * @param angle The cone angle.
      * @param length The cone length.
      * @returns {PlaceableTemplate}    The template .
      */
-    static cone(tag, origin, angle, length) {
+    static cone(origin, angle, length) {
         const templateData = {
             t: "cone",
             user: game.user.id,
@@ -49,7 +48,6 @@ export class PlaceableTemplate extends MeasuredTemplate {
           };
           const template = new CONFIG.MeasuredTemplate.documentClass(templateData, {parent: canvas.scene});
           const object = new this(template);
-          object.tag = tag;
           return object;
     }
   

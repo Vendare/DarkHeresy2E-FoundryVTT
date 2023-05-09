@@ -16,7 +16,7 @@ export async function commonRoll(rollData) {
  */
 export async function combatRoll(rollData) {
   if (rollData.weaponTraits.spray) {
-    let template = PlaceableTemplate.cone(rollData, rollData.itemid, 30, rollData.range);
+    let template = PlaceableTemplate.cone(rollData.itemId, 30, rollData.range);
     await template.drawPreview();
   }
   if (rollData.weaponTraits.skipAttackRoll) {
