@@ -1,3 +1,5 @@
+import {PlaceableTemplate} from './placeable-template.js';
+
 /**
  * Roll a generic roll, and post the result to chat.
  * @param {object} rollData
@@ -13,6 +15,10 @@ export async function commonRoll(rollData) {
  * @param {object} rollData
  */
 export async function combatRoll(rollData) {
+  if (rollData.weaponTraits.spray) {
+    let template = PlaceableTemplate.cone(rollData, rollData.itemid, 30, rollData.range);
+    await template.drawPreview();
+  }
   if (rollData.weaponTraits.skipAttackRoll) {
     rollData.result = 5; // Attacks that skip the hit roll always hit body; 05 reversed 50 = body
     await _rollDamage(rollData);
