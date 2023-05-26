@@ -27,7 +27,7 @@ import { commonRoll, combatRoll } from "./roll.js";
 import DhMacroUtil from "./macro.js";
 
 // Import Helpers
-import * as chat from "./chat.js";
+import * as chat from "./common/chat.js";
 
 Hooks.once("init", () => {
   CONFIG.Combat.initiative = { formula: "@initiative.base + @initiative.bonus", decimals: 0 };
@@ -85,6 +85,15 @@ Hooks.once("init", () => {
     default: false,
     type: Boolean
   });
+  game.settings.register("dark-heresy", "useSpraytemplate" {
+      name: "Use Template with Spray Weapons"
+      hint: "If enabled, Spray Weapons will require the user to put down a template before the roll is made. Templates are NOT removed automatically"
+      scope: "client"
+      config true,
+      default: true,
+      type: Boolean
+  });
+
 });
 
 Hooks.once("ready", () => {
