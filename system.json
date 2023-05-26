@@ -11,15 +11,18 @@
   },
   "templateVersion": 2,
   "authors": [
-	"JeansenVaars",
-	"Moo Man", 
-	"fredthedeadhead", 
-	"Perfectro", 
-	"Vendare", 
-	"Silver292", 
-	"Giddy",
-	"Dazzerix",
-	"FilippoPolo"
+    { "name":"JeansenVaars" }, 
+    { "name":"Moo Man",
+      "email": "russellt@cubicle7games.com",
+      "discord": "Moo Man#7518",
+      "reddit": "u/mooman10" }, 
+    { "name":"fredthedeadhead" },
+    { "name":"Perfectro" }, 
+    { "name":"Vendare" },
+    { "name":"Silver292" },
+    { "name":"Giddy" },
+    { "name":"Dazzerix" },
+	{ "name":"FilippoPolo" }
   ],
   "scripts": [],
   "esmodules": [
@@ -33,7 +36,7 @@
       "name": "character-aptitudes",
       "label": "Character Aptitudes",
       "system": "dark-heresy",
-      "path": "./packs/character/aptitudes.db",
+      "path": "./packs/aptitudes.db",
       "entity": "Item"
     }
   ],
