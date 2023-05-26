@@ -27,6 +27,7 @@ export default class DarkHeresyUtil {
     rollData.isMelee= isMelee;
     rollData.isRange= !isMelee;
     rollData.clip= weapon.clip;
+    rollData.range = weapon.range;
     rollData.rateOfFire= rateOfFire;
     rollData.weaponTraits= this.extractWeaponTraits(weapon.special);
     let attributeMod = (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");
@@ -66,7 +67,8 @@ export default class DarkHeresyUtil {
       proven: this.extractNumberedTrait(/Proven.*\(\d\)/gi, traits),
       primitive: this.extractNumberedTrait(/Primitive.*\(\d\)/gi, traits),
       razorSharp: this.hasNamedTrait(/Razor.?-? *Sharp/gi, traits),
-      skipAttackRoll: this.hasNamedTrait(/Spray/gi, traits),
+      spray: this.hasNamedTrait(/Spray/gi, traits),
+      skipAttackRoll: this.hasNamedTrait(/Spray/gi, traits), // Currently, spray will always be the same as skipAttackRoll. However, in the future, there may be other skipAttackRoll weapons that are not Spray.
       tearing: this.hasNamedTrait(/Tearing/gi, traits),
       storm: this.hasNamedTrait(/Storm/gi, traits),
       twinLinked: this.hasNamedTrait(/Twin.?-? *Linked/gi, traits),
