@@ -63,7 +63,8 @@ export async function prepareCombatRoll(rollData, actorRef) {
           rollData.baseTarget = parseInt(html.find("#target")[0]?.value, 10);
           rollData.modifier = html.find("#modifier")[0]?.value;
           const range = html.find("#range")[0];
-          if (typeof range !== "undefined" && range !== null) {
+
+          if (range) {
             rollData.range = range.value;
             rollData.rangeText = range.options[range.selectedIndex].text;
           }
@@ -85,7 +86,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
           if (rollData.weaponTraits.inaccurate) {
             rollData.aim.val=0;
           } else if (rollData.weaponTraits.accurate && rollData.aim.isAiming) {
-            rollData.aim.val=`${rollData.aim.val}+10`;
+            rollData.aim.val += 10;
           }
 
           rollData.damageFormula = html.find("#damageFormula")[0].value.replace(" ", "");
@@ -93,7 +94,11 @@ export async function prepareCombatRoll(rollData, actorRef) {
           rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
           rollData.penetrationFormula = html.find("#penetration")[0].value;
           rollData.isCombatTest = true;
-          if (rollData.weaponTraits.skipAttackRoll) {rollData.attackType.name = "standard";}
+
+          if (rollData.weaponTraits.skipAttackRoll) {
+            rollData.attackType.name = "standard";
+          }
+
           if (rollData.isRange && rollData.clip.max > 0) {
             const weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
             if (weapon) {
