@@ -70,7 +70,7 @@ async function _computeTarget(rollData) {
     let targetMods = rollData.modifier
     + (rollData.aim?.val ? rollData.aim.val : 0)
     + (rollData.range ? rollData.range : 0)
-    + (rollData.weaponTraits.twinLinked ? 20: 0)
+    + (rollData.weaponTraits?.twinLinked ? 20: 0)
     + attackType
     + psyModifier;
 

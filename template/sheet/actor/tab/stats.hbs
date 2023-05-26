@@ -37,14 +37,14 @@
         <div class="left">
             {{#each system.characteristics as |characteristic key|}}
                 {{#if characteristic.isLeft}}
-                    {{> systems/dark-heresy/template/sheet/characteristics/left.html characteristic=characteristic key=key}}
+                    {{> systems/dark-heresy/template/sheet/characteristics/left.hbs characteristic=characteristic key=key}}
                 {{/if}}
             {{/each}}
         </div>
         <div class="right">
             {{#each system.characteristics as |characteristic key|}}
                 {{#if characteristic.isRight}}
-                    {{> systems/dark-heresy/template/sheet/characteristics/right.html characteristic=characteristic key=key}}
+                    {{> systems/dark-heresy/template/sheet/characteristics/right.hbs characteristic=characteristic key=key}}
                 {{/if}}
             {{/each}}
         </div>
