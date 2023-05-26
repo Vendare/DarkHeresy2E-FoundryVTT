@@ -4,7 +4,7 @@ export class ToolSheet extends DarkHeresyItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["dark-heresy", "sheet", "tool"],
-      template: "systems/dark-heresy/template/sheet/tool.html",
+      template: "systems/dark-heresy/template/sheet/tool.hbs",
       width: 500,
       height: 369,
       resizable: false,

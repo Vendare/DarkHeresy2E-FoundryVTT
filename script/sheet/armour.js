@@ -4,7 +4,7 @@ export class ArmourSheet extends DarkHeresyItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["dark-heresy", "sheet", "armour"],
-      template: "systems/dark-heresy/template/sheet/armour.html",
+      template: "systems/dark-heresy/template/sheet/armour.hbs",
       width: 500,
       height: 369,
       resizable: false,

@@ -5,7 +5,7 @@ import { commonRoll, combatRoll, reportEmptyClip } from "./roll.js";
  * @param {object} rollData
  */
 export async function prepareCommonRoll(rollData) {
-  const html = await renderTemplate("systems/dark-heresy/template/dialog/common-roll.html", rollData);
+  const html = await renderTemplate("systems/dark-heresy/template/dialog/common-roll.hbs", rollData);
   let dialog = new Dialog({
     title: game.i18n.localize(rollData.name),
     content: html,
@@ -50,7 +50,7 @@ export async function prepareCommonRoll(rollData) {
  * @param {DarkHeresyActor} actorRef
  */
 export async function prepareCombatRoll(rollData, actorRef) {
-  const html = await renderTemplate("systems/dark-heresy/template/dialog/combat-roll.html", rollData);
+  const html = await renderTemplate("systems/dark-heresy/template/dialog/combat-roll.hbs", rollData);
   let dialog = new Dialog({
     title: rollData.name,
     content: html,
@@ -149,7 +149,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
  * @param {object} rollData
  */
 export async function preparePsychicPowerRoll(rollData) {
-  const html = await renderTemplate("systems/dark-heresy/template/dialog/psychic-power-roll.html", rollData);
+  const html = await renderTemplate("systems/dark-heresy/template/dialog/psychic-power-roll.hbs", rollData);
   let dialog = new Dialog({
     title: rollData.name,
     content: html,
