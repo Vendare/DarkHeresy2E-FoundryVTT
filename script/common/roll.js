@@ -15,7 +15,7 @@ export async function commonRoll(rollData) {
  * @param {object} rollData
  */
 export async function combatRoll(rollData) {
-    if (rollData.weaponTraits.spray) {
+    if (rollData.weaponTraits.spray && game.settings.get("dark-heresy", "useSpraytemplate")) {
         let template = PlaceableTemplate.cone(rollData.itemId, 30, rollData.range);
         await template.drawPreview();
     }
