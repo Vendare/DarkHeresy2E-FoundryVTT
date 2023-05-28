@@ -35,6 +35,7 @@ export default class DarkHeresyUtil {
         rollData.penetrationFormula = weapon.penetration + (rollData.weaponTraits.force ? "+PR" : "");
         rollData.special= weapon.special;
         rollData.psy= { value: actor.psy.rating, display: false};
+        rollData.attackType = "standard";
         return rollData;
     }
 
