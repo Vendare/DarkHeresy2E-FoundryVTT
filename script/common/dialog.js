@@ -17,7 +17,7 @@ export async function prepareCommonRoll(rollData) {
                     rollData.name = game.i18n.localize(rollData.name);
                     rollData.baseTarget = parseInt(html.find("#target")[0].value, 10);
                     rollData.rolledWith = html.find("[name=characteristic] :selected").text();
-                    rollData.modifier = html.find("#modifier")[0].value;
+                    rollData.modifier = parseInt(html.find("#modifier")[0].value, 10);
                     rollData.isCombatTest = false;
                     await commonRoll(rollData);
                 }
@@ -61,9 +61,8 @@ export async function prepareCombatRoll(rollData, actorRef) {
                 callback: async html => {
                     rollData.name = game.i18n.localize(rollData.name);
                     rollData.baseTarget = parseInt(html.find("#target")[0]?.value, 10);
-                    rollData.modifier = html.find("#modifier")[0]?.value;
+                    rollData.modifier = parseInt(html.find("#modifier")[0]?.value, 10);
                     const range = html.find("#range")[0];
-
                     if (range) {
                         rollData.range = range.value;
                         rollData.rangeText = range.options[range.selectedIndex].text;
@@ -78,8 +77,8 @@ export async function prepareCombatRoll(rollData, actorRef) {
 
                     const aim = html.find("#aim")[0];
                     rollData.aim = {
-                        val: aim?.value,
-                        isAiming: aim?.value !== "0",
+                        val: parseInt(aim?.value, 10),
+                        isAiming: aim?.value !== 0,
                         text: aim?.options[aim.selectedIndex].text
                     };
 
@@ -165,7 +164,7 @@ export async function preparePsychicPowerRoll(rollData) {
                 callback: async html => {
                     rollData.name = game.i18n.localize(rollData.name);
                     rollData.baseTarget = parseInt(html.find("#target")[0].value, 10);
-                    rollData.modifier = html.find("#modifier")[0].value;
+                    rollData.modifier = parseInt(html.find("#modifier")[0].value, 10);
                     rollData.psy.value = parseInt(html.find("#psy")[0].value, 10);
                     rollData.psy.warpConduit = html.find("#warpConduit")[0].checked;
                     rollData.damageFormula = html.find("#damageFormula")[0].value;

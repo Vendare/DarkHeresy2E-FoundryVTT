@@ -23,7 +23,7 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/actor/tab/progression.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/psychic-powers.hbs",
         "systems/dark-heresy/template/sheet/actor/tab/stats.hbs",
-        
+
         "systems/dark-heresy/template/sheet/mental-disorder.hbs",
         "systems/dark-heresy/template/sheet/aptitude.hbs",
         "systems/dark-heresy/template/sheet/malignancy.hbs",
@@ -42,18 +42,18 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/weapon-modification.hbs",
         "systems/dark-heresy/template/sheet/ammunition.hbs",
         "systems/dark-heresy/template/sheet/force-field.hbs",
-        
+
         "systems/dark-heresy/template/sheet/characteristics/information.hbs",
         "systems/dark-heresy/template/sheet/characteristics/left.hbs",
         "systems/dark-heresy/template/sheet/characteristics/name.hbs",
         "systems/dark-heresy/template/sheet/characteristics/right.hbs",
         "systems/dark-heresy/template/sheet/characteristics/total.hbs",
-        
+
         "systems/dark-heresy/template/chat/item.hbs",
         "systems/dark-heresy/template/chat/roll.hbs",
         "systems/dark-heresy/template/chat/critical.hbs",
         "systems/dark-heresy/template/chat/shiproll.hbs",
-        
+
         "systems/dark-heresy/template/dialog/common-roll.hbs",
         "systems/dark-heresy/template/dialog/combat-roll.hbs",
         "systems/dark-heresy/template/dialog/psychic-power-roll.hbs"
@@ -104,6 +104,10 @@ function registerHandlebarsHelpers() {
             default:
                 return game.i18n.localize("DAMAGE_TYPE.IMPACT_SHORT");
         }
+    });
+
+    Handlebars.registerHelper("config", function(key) {
+        return game.darkHeresy.config[key];
     });
 
 }

@@ -25,6 +25,7 @@ import { migrateWorld } from "./common/migration.js";
 import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "./common/dialog.js";
 import { commonRoll, combatRoll } from "./common/roll.js";
 import DhMacroUtil from "./common/macro.js";
+import Dh from "./common/config.js";
 
 // Import Helpers
 import * as chat from "./common/chat.js";
@@ -35,6 +36,7 @@ Hooks.once("init", () => {
     CONFIG.Item.documentClass = DarkHeresyItem;
     CONFIG.fontDefinitions["Caslon Antique"] = {editor: true, fonts: []};
     game.darkHeresy = {
+        config: Dh,
         testInit: {
             prepareCommonRoll,
             prepareCombatRoll,
