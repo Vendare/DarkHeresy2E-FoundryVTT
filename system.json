@@ -2,10 +2,10 @@
   "id": "dark-heresy",
   "title": "Dark Heresy 2E",
   "description": "Innocence proves nothing",
-  "version": "4.2.4",
-  "minimumCoreVersion" : 10,
+  "version": "4.2.5",
+  "minimumCoreVersion" : 11,
   "compatibility" : {
-    "minimum" : 10,
+    "minimum" : 11,
     "verified" : 11,
     "maximum" : 11
   },
@@ -68,7 +68,7 @@
   "secondaryTokenAttribute": null,
   "url": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT",
   "socket": true,
-  "manifest": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT/releases/download/4.2.4/system.json",
-  "download": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT/releases/download/4.2.4/dark-heresy.zip",
+  "manifest": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT/releases/download/4.2.5/system.json",
+  "download": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT/releases/download/4.2.5/dark-heresy.zip",
   "license": "LICENSE.txt"
 }
