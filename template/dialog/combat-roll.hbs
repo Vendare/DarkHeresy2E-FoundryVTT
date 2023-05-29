@@ -24,7 +24,7 @@
             <div class="wrapper">
                 <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
                 <select id="attackType">
-                    {{#select attackType}}
+                    {{#select attackType.name}}
                         {{#each (config "attackTypeMelee") as | type t|}}
                         <option value="{{t}}">{{localize type}}</option>
                         {{/each}}
@@ -46,7 +46,7 @@
             <div class="wrapper">
                 <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
                 <select id="attackType">
-                    {{#select attackType}}
+                    {{#select attackType.name}}
                         {{#each (config "attackTypeRanged") as | type t|}}
                         <option value="{{t}}">{{localize type}}</option>
                         {{/each}}

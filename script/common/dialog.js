@@ -64,7 +64,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     rollData.modifier = parseInt(html.find("#modifier")[0]?.value, 10);
                     const range = html.find("#range")[0];
                     if (range) {
-                        rollData.range = range.value;
+                        rollData.range = parseInt(range.value, 10);
                         rollData.rangeText = range.options[range.selectedIndex].text;
                     }
 
@@ -78,7 +78,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     const aim = html.find("#aim")[0];
                     rollData.aim = {
                         val: parseInt(aim?.value, 10),
-                        isAiming: aim?.value !== 0,
+                        isAiming: aim?.value !== "0",
                         text: aim?.options[aim.selectedIndex].text
                     };
 
