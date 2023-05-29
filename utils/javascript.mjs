@@ -5,6 +5,7 @@ import gulp from "gulp";
 import gulpIf from "gulp-if";
 import mergeStream from "merge-stream";
 import yargs from "yargs";
+import { rollup } from 'rollup';
 
 
 /**
@@ -40,3 +41,15 @@ function lintJavascript() {
   return mergeStream(tasks);
 }
 export const lint = lintJavascript;
+
+function bundleJavascript() {
+	return rollup({
+			input: './script/dark-heresy.js',
+		})
+		.then(bundle => {
+			return bundle.write({
+				file: './release/script/dark-heresy.js'
+			});
+		});
+}
+export const bundle = bundleJavascript; 

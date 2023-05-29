@@ -29,6 +29,7 @@
             <div class="flex header">
                 <b class="name">{{localize "TALENT.NAME"}}</b>
                 <b class="cost">{{localize "TALENT.COST"}}</b>
+                <b class="starter">{{localize "TALENT.STARTER"}}</b>
                 <a class="button item-create" title="Add Talent" data-type="talent"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
@@ -41,6 +42,7 @@
                             <div class="name">{{item.name}}</div>
                         </div>
                         <input class="item-cost" type="number" value="{{item.cost}}" data-dtype="Number" />
+                        <input class="item-starter" type="checkbox" {{#if item.starter}}checked{{/if}} data-dtype="Boolean"/>
                         <div class="button">
                             <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
                         </div>
@@ -70,6 +72,10 @@
         <div class="information">
             <label>{{localize "EXPERIENCE.SPENT_PSYCHIC_POWERS"}}</label>
             <input name="system.experience.spentPsychicPowers" type="number" value="{{system.experience.spentPsychicPowers}}" data-dtype="Number" disabled />
+        </div>
+        <div class="information">
+            <label>{{localize "EXPERIENCE.SPENT_OTHER"}}</label>
+            <input name="system.experience.spentOther" type="number" value="{{system.experience.spentOther}}" data-dtype="Number" />
         </div>
         <div class="information">
             <label>{{localize "EXPERIENCE.TOTAL_SPENT"}}</label>
@@ -170,6 +176,7 @@
                 <b class="advance">{{localize "SKILL.ADVANCE"}}</b>
                 <b class="total">{{localize "SKILL.TOTAL"}}</b>
                 <b class="cost">{{localize "SKILL.COST"}}</b>
+                <b class="starter">{{localize "SKILL.STARTER"}}</b>
             </div>
             <div class="items">
                 {{#each system.skills as |skill key|}}
@@ -187,6 +194,7 @@
                             </select>
                             <input class="total" name="system.skills.{{key}}.total" type="number" value="{{skill.total}}" data-dtype="Number" disabled />
                             <input class="cost" name="system.skills.{{key}}.cost" type="number" value="{{skill.cost}}" data-dtype="Number" />
+                            <input class="starter" name="system.skills.{{key}}.starter" type="checkbox" {{#if skill.starter}}checked{{/if}} data-dtype="Boolean" />
                         </div>
                     {{/unless}}
                 {{/each}}
@@ -209,6 +217,7 @@
                                 </select>
                                 <input class="total" name="system.skills.{{key}}.specialities.{{keySpe}}.total" type="number" value="{{speciality.total}}" data-dtype="Number" disabled />
                                 <input class="cost" name="system.skills.{{key}}.specialities.{{keySpe}}.cost" type="number" value="{{speciality.cost}}" data-dtype="Number" />
+                                <input class="starter" name="system.skills.{{key}}.specialities.{{keySpe}}.starter" type="checkbox" {{#if speciality.starter}}checked{{/if}} data-dtype="Boolean" />
                             </div>
                         {{/each}}
                     {{/if}}

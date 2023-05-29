@@ -31,10 +31,9 @@
             <label>{{localize "DIALOG.TYPE"}}</label>
             <select id="damageType">
                 {{#select damageType}}
-                <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
-                <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
-                <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
-                <option value="explosive">{{localize "DAMAGE_TYPE.EXPLOSIVE"}}</option>
+                    {{#each (config "damageTypes") as | damageType dt|}}
+                    <option value="{{dt}}">{{localize damageType}}</option>
+                    {{/each}}
                 {{/select}}
             </select>
         </div>
@@ -42,11 +41,9 @@
             <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
             <select id="attackType">
                 {{#select attackType.name}}
-                <option value="none">{{localize "ATTACK_TYPE.NONE"}}</option>
-                <option value="bolt">{{localize "PSYCHIC_POWER.BOLT"}}</option>
-                <option value="barrage">{{localize "PSYCHIC_POWER.BARRAGE"}}</option>
-                <option value="storm">{{localize "PSYCHIC_POWER.STORM"}}</option>
-                <option value="blast">{{localize "PSYCHIC_POWER.BLAST"}}</option>
+                    {{#each (config "attackTypePsy") as | type t|}}
+                    <option value="{{t}}">{{localize type}}</option>
+                    {{/each}}
                 {{/select}}
             </select>
         </div>
