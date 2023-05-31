@@ -1,5 +1,5 @@
 import DarkHeresyUtil from "./util.js";
-import { prepareCombatRoll, preparePsychicPowerRoll } from "./dialog.js";
+import { prepareCombatRoll, preparePsychicPowerRoll, prepareCommonRoll } from "./dialog.js";
 
 export default class DhMacroUtil {
 
@@ -32,13 +32,9 @@ export default class DhMacroUtil {
     }
 
     static rollAttack(itemName, itemType) {
-        const speaker = ChatMessage.getSpeaker();
-        let actor;
-
-        if (speaker.token) actor = game.actors.tokens[speaker.token];
-        if (!actor) actor = game.actors.get(speaker.actor);
-
-        let item = actor ? actor.items.find(i => i.name === itemName && i.type === itemType) : null;
+        let actor = this.getActor();
+        
+        item = actor ? actor.items.find(i => i.name === itemName && i.type === itemType) : null;        
 
         if (!item) return ui.notifications.warn(`${game.i18n.localize("NOTIFICATION.MACRO_ITEM_NOT_FOUND")} ${itemName}`);
 
@@ -49,6 +45,21 @@ export default class DhMacroUtil {
             this.rollWeapon(actor, item);
         }
     }
+    
+    static rollTest(name, type, specialty) {       
+        let actor = getActor();
+        let rollData;
+        
+        if(specialty) {
+            rollData = DarkHeresyUtil.createSpecialtyRollData(actor, name, specialty);
+        } else if(type === "skill") {
+            rollData = DarkHeresyUtil.createSkillRollData(actor, name);
+        } else {
+            rollData = DarkHeresyUtil.createCharacteristicRollData(actor, name);  
+        }
+        
+        prepareCommonRoll(rollData);
+    }
 
     static rollPsychicPower(actor, item) {
         let rollData = DarkHeresyUtil.createPsychicRollData(actor, item);
@@ -58,5 +69,15 @@ export default class DhMacroUtil {
     static rollWeapon(actor, item) {
         let rollData = DarkHeresyUtil.createWeaponRollData(actor, item);
         prepareCombatRoll(rollData);
+    }
+    
+    static getActor() {
+        const speaker = ChatMessage.getSpeaker();
+        let actor;
+
+        if (speaker.token) actor = game.actors.tokens[speaker.token];
+        if (!actor) actor = game.actors.get(speaker.actor);
+        
+        return actor;
     }
 }

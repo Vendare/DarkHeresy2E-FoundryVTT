@@ -59,6 +59,47 @@ export default class DarkHeresyUtil {
         };
         return rollData;
     }
+    
+    static createSkillRollData(actor, skillName) {
+        const skill = actor.skills[skillName];
+        const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
+
+        let characteristics = getCharacteristicOptions(actor, defaultChar);
+        characteristics = characteristics.map(char => {
+            char.target += skill.advance;
+            return char;
+        });
+
+        return {
+            name: skill.label,
+            baseTarget: skill.total,
+            modifier: 0,
+            characteristics: characteristics,
+            ownerId: actor.id
+        };
+    }
+    
+    static createSpecialtyRollData(actor, skillName, specialityName) {
+        const skill = actor.skills[skillName];
+        const speciality = skill.specialities[specialityName];
+        return {
+            name: speciality.label,
+            baseTarget: speciality.total,
+            modifier: 0,
+            ownerId: actor.id
+        };
+    }
+    
+    static createCharacteristicRollData(actor, characteristicName) {
+        const characteristic = actor.characteristics[characteristicName];
+        return rollData = {
+            name: characteristic.label,
+            baseTarget: characteristic.total,
+            modifier: 0,
+            ownerId: actor.id
+        };
+    }
+    
 
     static extractWeaponTraits(traits) {
     // These weapon traits never go above 9 or below 2
@@ -125,6 +166,18 @@ export default class DarkHeresyUtil {
         } else {
             return actor.characteristics.willpower;
         }
+    }
+    
+    static getCharacteristicOptions(actor, selected) {
+        const characteristics = [];
+        for (let char of Object.values(actor.characteristics)) {
+            characteristics.push({
+                label: char.label,
+                target: char.total,
+                selected: char.short === selected
+            });
+        }
+        return characteristics;
     }
 
 }

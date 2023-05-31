@@ -102,63 +102,26 @@ export class DarkHeresySheet extends ActorSheet {
     async _prepareRollCharacteristic(event) {
         event.preventDefault();
         const characteristicName = $(event.currentTarget).data("characteristic");
-        const characteristic = this.actor.characteristics[characteristicName];
-        const rollData = {
-            name: characteristic.label,
-            baseTarget: characteristic.total,
-            modifier: 0,
-            ownerId: this.actor.id
-        };
-        await prepareCommonRoll(rollData);
-    }
-
-    _getCharacteristicOptions(selected) {
-        const characteristics = [];
-        for (let char of Object.values(this.actor.characteristics)) {
-            characteristics.push({
-                label: char.label,
-                target: char.total,
-                selected: char.short === selected
-            });
-        }
-        return characteristics;
+        await prepareCommonRoll(
+            DarkHeresyUtil.createCharacteristicRollData(this.actor, characteristicName)
+        );
     }
 
     async _prepareRollSkill(event) {
         event.preventDefault();
         const skillName = $(event.currentTarget).data("skill");
-        const skill = this.actor.skills[skillName];
-        const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
-
-        let characteristics = this._getCharacteristicOptions(defaultChar);
-        characteristics = characteristics.map(char => {
-            char.target += skill.advance;
-            return char;
-        });
-
-        const rollData = {
-            name: skill.label,
-            baseTarget: skill.total,
-            modifier: 0,
-            characteristics: characteristics,
-            ownerId: this.actor.id
-        };
-        await prepareCommonRoll(rollData);
+        await prepareCommonRoll(
+            DarkHeresyUtil.createSkillRollData(this.actor, skillName)                 
+        );
     }
 
     async _prepareRollSpeciality(event) {
         event.preventDefault();
         const skillName = $(event.currentTarget).parents(".item").data("skill");
         const specialityName = $(event.currentTarget).data("speciality");
-        const skill = this.actor.skills[skillName];
-        const speciality = skill.specialities[specialityName];
-        const rollData = {
-            name: speciality.label,
-            baseTarget: speciality.total,
-            modifier: 0,
-            ownerId: this.actor.id
-        };
-        await prepareCommonRoll(rollData);
+        await prepareCommonRoll(
+            DarkHeresyUtil.createSpecialtyRollData(this.actor, skillName, specialityName)
+        );
     }
 
     async _prepareRollInsanity(event) {
