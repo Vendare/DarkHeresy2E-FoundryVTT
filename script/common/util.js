@@ -92,13 +92,44 @@ export default class DarkHeresyUtil {
     
     static createCharacteristicRollData(actor, characteristicName) {
         const characteristic = actor.characteristics[characteristicName];
-        return rollData = {
+        return {
             name: characteristic.label,
             baseTarget: characteristic.total,
             modifier: 0,
             ownerId: actor.id
         };
     }
+    
+    static createFearTestRolldata(actor) {  
+        const characteristic = actor.characteristics.willpower;
+        return {
+            name: "FEAR.HEADER",
+            baseTarget: characteristic.total,
+            modifier: 0,
+            ownerId: actor.id
+        };
+    }
+    
+    static createMalignancyTestRolldata(actor) {  
+        const characteristic = actor.characteristics.willpower;
+        return {
+            name: "CORRUPTION.HEADER",
+            baseTarget: characteristic.total,
+            modifier: getMalignancyModifier(actor.corruption),
+            ownerId: actor.id
+        };
+    }
+    
+    static createTraumaTestRolldata(actor) {  
+        const characteristic = actor.characteristics.willpower;
+        return {
+            name: "TRAUMA.HEADER",
+            baseTarget: characteristic.total,
+            modifier: getTraumaModifier(actor.insanity),
+            ownerId: actor.id
+        };
+    }
+    
     
 
     static extractWeaponTraits(traits) {
@@ -179,6 +210,30 @@ export default class DarkHeresyUtil {
         }
         return characteristics;
     }
-
+    
+    static getMalignancyModifier(corruption) {
+        if (corruption <= 30) {
+            return 0;
+        } else if (corruption <= 60) {
+            return -10;
+        } else if (corruption <= 90) {
+            return -20;
+        } else {
+            return -30;
+        }
+    }
+    
+    static getTraumaModifier(insanity) {
+        if(insanity < 10) {
+            return 0;
+        } else if(insanity < 40) {
+            return 10;
+        } else if(insanity < 60) {
+            return 0;
+        } else if(insanity < 80) {
+            return -10;
+        } else {
+            return -20;
+        }
+    }
 }
-

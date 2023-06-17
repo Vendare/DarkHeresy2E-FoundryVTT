@@ -1,3 +1,5 @@
+import Dh from "./common/config.js";
+
 export class DarkHeresyActor extends Actor {
 
     async _preCreate(data, options, user) {
@@ -87,16 +89,6 @@ export class DarkHeresyActor extends Actor {
         this._computeEncumbrance(encumbrance);
     }
 
-  static _characteristicCosts = [
-      [0, 0, 0],
-      [100, 250, 500],
-      [250, 500, 750],
-      [500, 750, 1000],
-      [750, 1000, 1500],
-      [1250, 1500, 2500]];
-
-  static _talentCosts = [[200, 300, 600], [300, 450, 900], [400, 600, 1200]];
-
   _computeExperience_auto() {
       let characterAptitudes = this.items.filter(it => it.isAptitude).map(it => it.name.trim());
       if (!characterAptitudes.includes("General")) characterAptitudes.push("General");
@@ -111,8 +103,8 @@ export class DarkHeresyActor extends Actor {
       for (let characteristic of Object.values(this.characteristics)) {
           let matchedAptitudes = characterAptitudes.filter(it => characteristic.aptitudes.includes(it)).length;
           let cost = 0;
-          for (let i = 0; i <= characteristic.advance / 5 && i <= DarkHeresyActor._characteristicCosts.length; i++) {
-              cost += DarkHeresyActor._characteristicCosts[i][2 - matchedAptitudes];
+          for (let i = 0; i <= characteristic.advance / 5 && i <= Dh.characteristicCosts.length; i++) {
+              cost += Dh.characteristicCosts[i][2 - matchedAptitudes];
           }
           characteristic.cost = cost.toString();
           this.experience.spentCharacteristics += cost;
@@ -144,7 +136,7 @@ export class DarkHeresyActor extends Actor {
               let cost = 0;
               let tier = parseInt(item.tier);
               if (!item.system.starter && tier >= 1 && tier <= 3) {
-                  cost = DarkHeresyActor._talentCosts[tier - 1][2 - matchedAptitudes];
+                  cost = Dh.talentCosts[tier - 1][2 - matchedAptitudes];
               }
               item.system.cost = cost.toString();
               this.experience.spentTalents += cost;

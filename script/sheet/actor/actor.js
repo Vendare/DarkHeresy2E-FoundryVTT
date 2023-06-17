@@ -125,27 +125,17 @@ export class DarkHeresySheet extends ActorSheet {
     }
 
     async _prepareRollInsanity(event) {
-        event.preventDefault();
-        const characteristic = this.actor.characteristics.willpower;
-        const rollData = {
-            name: "FEAR.HEADER",
-            baseTarget: characteristic.total,
-            modifier: 0,
-            ownerId: this.actor.id
-        };
-        await prepareCommonRoll(rollData);
+        event.preventDefault();       
+        await prepareCommonRoll(
+            DarkHeresyUtil.createFearTestRolldata(this.actor)
+        );
     }
 
     async _prepareRollCorruption(event) {
         event.preventDefault();
-        const characteristic = this.actor.characteristics.willpower;
-        const rollData = {
-            name: "CORRUPTION.HEADER",
-            baseTarget: characteristic.total,
-            modifier: this._getCorruptionModifier(),
-            ownerId: this.actor.id
-        };
-        await prepareCommonRoll(rollData);
+        await prepareCommonRoll(
+            DarkHeresyUtil.createMalignancyTestRolldata(this.actor)
+        );
     }
 
     async _prepareRollWeapon(event) {
@@ -165,19 +155,6 @@ export class DarkHeresySheet extends ActorSheet {
         await preparePsychicPowerRoll(
             DarkHeresyUtil.createPsychicRollData(this.actor, psychicPower)
         );
-    }
-
-    _getCorruptionModifier() {
-        const corruption = this.actor.corruption;
-        if (corruption <= 30) {
-            return 0;
-        } else if (corruption >= 31 && corruption <= 60) {
-            return -10;
-        } else if (corruption >= 61 && corruption <= 90) {
-            return -20;
-        } else if (corruption >= 91) {
-            return -30;
-        }
     }
 
     constructItemLists() {

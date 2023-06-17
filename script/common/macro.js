@@ -54,10 +54,15 @@ export default class DhMacroUtil {
             rollData = DarkHeresyUtil.createSpecialtyRollData(actor, name, specialty);
         } else if(type === "skill") {
             rollData = DarkHeresyUtil.createSkillRollData(actor, name);
+        } else if(name === "fear") {       
+            rollData = DarkHeresyUtil.createFearTestRolldata(actor);
+        } else if(name === "malignancy") {       
+            rollData = DarkHeresyUtil.createCorruptionTestRolldata(actor);
+        } else if(name === "trauma") {    
+            rollData = DarkHeresyUtil.createTraumaTestRolldata(actor)
         } else {
             rollData = DarkHeresyUtil.createCharacteristicRollData(actor, name);  
-        }
-        
+        }        
         prepareCommonRoll(rollData);
     }
 

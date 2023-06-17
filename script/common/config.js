@@ -49,6 +49,16 @@ Dh.aimModes = {
     20: "AIMING.FULL"
 };
 
+DH.characteristicCosts = [
+      [0, 0, 0],
+      [100, 250, 500],
+      [250, 500, 750],
+      [500, 750, 1000],
+      [750, 1000, 1500],
+      [1250, 1500, 2500]];
+
+DH.talentCosts = [[200, 300, 600], [300, 450, 900], [400, 600, 1200]];
+
 
 CONFIG.statusEffects = [
     {
@@ -114,8 +124,8 @@ CONFIG.statusEffects = [
     {
         id: "dead",
         label: "EFFECT.StatusDead", // Foundry Default Text Key
-        icon: "systems/dark-heresy/asset/icons/"
+        icon: "systems/dark-heresy/asset/icons/dead.png"
     }
-]   ;
+];
 
 export default Dh;
