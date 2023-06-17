@@ -49,7 +49,7 @@ Dh.aimModes = {
     20: "AIMING.FULL"
 };
 
-DH.characteristicCosts = [
+Dh.characteristicCosts = [
     [0, 0, 0],
     [100, 250, 500],
     [250, 500, 750],
@@ -57,7 +57,7 @@ DH.characteristicCosts = [
     [750, 1000, 1500],
     [1250, 1500, 2500]];
 
-DH.talentCosts = [[200, 300, 600], [300, 450, 900], [400, 600, 1200]];
+Dh.talentCosts = [[200, 300, 600], [300, 450, 900], [400, 600, 1200]];
 
 
 CONFIG.statusEffects = [

@@ -27,7 +27,7 @@ export default class DarkHeresyUtil {
         rollData.isMelee= isMelee;
         rollData.isRange= !isMelee;
         rollData.clip= weapon.clip;
-        rollData.range = weapon.range;
+        rollData.range = 10;
         rollData.rateOfFire= rateOfFire;
         rollData.weaponTraits= this.extractWeaponTraits(weapon.special);
         let attributeMod = (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");
@@ -64,7 +64,7 @@ export default class DarkHeresyUtil {
         const skill = actor.skills[skillName];
         const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
 
-        let characteristics = getCharacteristicOptions(actor, defaultChar);
+        let characteristics = this.getCharacteristicOptions(actor, defaultChar);
         characteristics = characteristics.map(char => {
             char.target += skill.advance;
             return char;
@@ -113,9 +113,9 @@ export default class DarkHeresyUtil {
     static createMalignancyTestRolldata(actor) {
         const characteristic = actor.characteristics.willpower;
         return {
-            name: "CORRUPTION.HEADER",
+            name: "CORRUPTION.MALIGNANCY",
             baseTarget: characteristic.total,
-            modifier: getMalignancyModifier(actor.corruption),
+            modifier: this.getMalignancyModifier(actor.corruption),
             ownerId: actor.id
         };
     }
@@ -125,7 +125,7 @@ export default class DarkHeresyUtil {
         return {
             name: "TRAUMA.HEADER",
             baseTarget: characteristic.total,
-            modifier: getTraumaModifier(actor.insanity),
+            modifier: this.getTraumaModifier(actor.insanity),
             ownerId: actor.id
         };
     }
