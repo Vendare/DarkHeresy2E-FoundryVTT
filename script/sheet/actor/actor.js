@@ -111,7 +111,7 @@ export class DarkHeresySheet extends ActorSheet {
         event.preventDefault();
         const skillName = $(event.currentTarget).data("skill");
         await prepareCommonRoll(
-            DarkHeresyUtil.createSkillRollData(this.actor, skillName)                 
+            DarkHeresyUtil.createSkillRollData(this.actor, skillName)
         );
     }
 
@@ -125,7 +125,7 @@ export class DarkHeresySheet extends ActorSheet {
     }
 
     async _prepareRollInsanity(event) {
-        event.preventDefault();       
+        event.preventDefault();
         await prepareCommonRoll(
             DarkHeresyUtil.createFearTestRolldata(this.actor)
         );

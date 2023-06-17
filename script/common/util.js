@@ -35,7 +35,7 @@ export default class DarkHeresyUtil {
         rollData.penetrationFormula = weapon.penetration + (rollData.weaponTraits.force ? "+PR" : "");
         rollData.special= weapon.special;
         rollData.psy= { value: actor.psy.rating, display: false};
-        rollData.attackType =  { name: "standard", text: "" };
+        rollData.attackType = { name: "standard", text: "" };
         return rollData;
     }
 
@@ -59,7 +59,7 @@ export default class DarkHeresyUtil {
         };
         return rollData;
     }
-    
+
     static createSkillRollData(actor, skillName) {
         const skill = actor.skills[skillName];
         const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
@@ -78,7 +78,7 @@ export default class DarkHeresyUtil {
             ownerId: actor.id
         };
     }
-    
+
     static createSpecialtyRollData(actor, skillName, specialityName) {
         const skill = actor.skills[skillName];
         const speciality = skill.specialities[specialityName];
@@ -89,7 +89,7 @@ export default class DarkHeresyUtil {
             ownerId: actor.id
         };
     }
-    
+
     static createCharacteristicRollData(actor, characteristicName) {
         const characteristic = actor.characteristics[characteristicName];
         return {
@@ -99,8 +99,8 @@ export default class DarkHeresyUtil {
             ownerId: actor.id
         };
     }
-    
-    static createFearTestRolldata(actor) {  
+
+    static createFearTestRolldata(actor) {
         const characteristic = actor.characteristics.willpower;
         return {
             name: "FEAR.HEADER",
@@ -109,8 +109,8 @@ export default class DarkHeresyUtil {
             ownerId: actor.id
         };
     }
-    
-    static createMalignancyTestRolldata(actor) {  
+
+    static createMalignancyTestRolldata(actor) {
         const characteristic = actor.characteristics.willpower;
         return {
             name: "CORRUPTION.HEADER",
@@ -119,8 +119,8 @@ export default class DarkHeresyUtil {
             ownerId: actor.id
         };
     }
-    
-    static createTraumaTestRolldata(actor) {  
+
+    static createTraumaTestRolldata(actor) {
         const characteristic = actor.characteristics.willpower;
         return {
             name: "TRAUMA.HEADER",
@@ -129,8 +129,7 @@ export default class DarkHeresyUtil {
             ownerId: actor.id
         };
     }
-    
-    
+
 
     static extractWeaponTraits(traits) {
     // These weapon traits never go above 9 or below 2
@@ -198,7 +197,7 @@ export default class DarkHeresyUtil {
             return actor.characteristics.willpower;
         }
     }
-    
+
     static getCharacteristicOptions(actor, selected) {
         const characteristics = [];
         for (let char of Object.values(actor.characteristics)) {
@@ -210,7 +209,7 @@ export default class DarkHeresyUtil {
         }
         return characteristics;
     }
-    
+
     static getMalignancyModifier(corruption) {
         if (corruption <= 30) {
             return 0;
@@ -222,15 +221,15 @@ export default class DarkHeresyUtil {
             return -30;
         }
     }
-    
+
     static getTraumaModifier(insanity) {
-        if(insanity < 10) {
+        if (insanity < 10) {
             return 0;
-        } else if(insanity < 40) {
+        } else if (insanity < 40) {
             return 10;
-        } else if(insanity < 60) {
+        } else if (insanity < 60) {
             return 0;
-        } else if(insanity < 80) {
+        } else if (insanity < 80) {
             return -10;
         } else {
             return -20;

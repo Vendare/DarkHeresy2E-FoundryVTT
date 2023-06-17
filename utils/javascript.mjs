@@ -1,6 +1,6 @@
 /** Modified copy of file found in dnd5e (https://github.com/foundryvtt/dnd5e/blob/master/LICENSE.txt) */
 
-import eslint from "gulp-eslint7";
+import eslint from "gulp-eslint-new";
 import gulp from "gulp";
 import gulpIf from "gulp-if";
 import mergeStream from "merge-stream";
