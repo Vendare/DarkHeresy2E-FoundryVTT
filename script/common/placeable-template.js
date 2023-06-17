@@ -29,9 +29,9 @@ export class PlaceableTemplate extends MeasuredTemplate {
 
     /**
      * A factory method to create a cone PlaceableTemplate instance
-     * @param origin {string} The id of the item originating the cone.
-     * @param angle  {number} The cone angle.
-     * @param length {number} The cone length.
+     * @param {string} origin  The id of the item originating the cone.
+     * @param {number} angle   The cone angle.
+     * @param {number} length  The cone length.
      * @returns {PlaceableTemplate}    The template .
      */
     static cone(origin, angle, length) {

@@ -1,5 +1,5 @@
 import DarkHeresyUtil from "./util.js";
-import { prepareCombatRoll, preparePsychicPowerRoll } from "./dialog.js";
+import { prepareCombatRoll, preparePsychicPowerRoll, prepareCommonRoll } from "./dialog.js";
 
 export default class DhMacroUtil {
 
@@ -32,13 +32,11 @@ export default class DhMacroUtil {
     }
 
     static rollAttack(itemName, itemType) {
-        const speaker = ChatMessage.getSpeaker();
-        let actor;
+        let actor = this.getActor();
+        
+        if (!actor) return ui.notifications.warn(`${game.i18n.localize("NOTIFICATION.MACRO_ACTOR_NOT_FOUND")}`);
 
-        if (speaker.token) actor = game.actors.tokens[speaker.token];
-        if (!actor) actor = game.actors.get(speaker.actor);
-
-        let item = actor ? actor.items.find(i => i.name === itemName && i.type === itemType) : null;
+        let item = actor.items.find(i => i.name === itemName && i.type === itemType);
 
         if (!item) return ui.notifications.warn(`${game.i18n.localize("NOTIFICATION.MACRO_ITEM_NOT_FOUND")} ${itemName}`);
 
@@ -50,6 +48,29 @@ export default class DhMacroUtil {
         }
     }
 
+    static rollTest(name, type, specialty) {
+        let actor = this.getActor();     
+        
+        if (!actor) return ui.notifications.warn(`${game.i18n.localize("NOTIFICATION.MACRO_ACTOR_NOT_FOUND")}`);
+        
+        let rollData;
+
+        if (specialty) {
+            rollData = DarkHeresyUtil.createSpecialtyRollData(actor, name, specialty);
+        } else if (type === "skill") {
+            rollData = DarkHeresyUtil.createSkillRollData(actor, name);
+        } else if (name === "fear") {
+            rollData = DarkHeresyUtil.createFearTestRolldata(actor);
+        } else if (name === "malignancy") {
+            rollData = DarkHeresyUtil.createMalignancyTestRolldata(actor);
+        } else if (name === "trauma") {
+            rollData = DarkHeresyUtil.createTraumaTestRolldata(actor);
+        } else {
+            rollData = DarkHeresyUtil.createCharacteristicRollData(actor, name);
+        }
+        prepareCommonRoll(rollData);
+    }
+
     static rollPsychicPower(actor, item) {
         let rollData = DarkHeresyUtil.createPsychicRollData(actor, item);
         preparePsychicPowerRoll(rollData);
@@ -58,5 +79,15 @@ export default class DhMacroUtil {
     static rollWeapon(actor, item) {
         let rollData = DarkHeresyUtil.createWeaponRollData(actor, item);
         prepareCombatRoll(rollData);
+    }
+
+    static getActor() {
+        const speaker = ChatMessage.getSpeaker();
+        let actor;
+
+        if (speaker.token) actor = game.actors.tokens[speaker.token];
+        if (!actor) actor = game.actors.get(speaker.actor);
+
+        return actor;
     }
 }

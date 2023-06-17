@@ -27,7 +27,7 @@ export default class DarkHeresyUtil {
         rollData.isMelee= isMelee;
         rollData.isRange= !isMelee;
         rollData.clip= weapon.clip;
-        rollData.range = weapon.range;
+        rollData.range = 10;
         rollData.rateOfFire= rateOfFire;
         rollData.weaponTraits= this.extractWeaponTraits(weapon.special);
         let attributeMod = (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");
@@ -35,7 +35,7 @@ export default class DarkHeresyUtil {
         rollData.penetrationFormula = weapon.penetration + (rollData.weaponTraits.force ? "+PR" : "");
         rollData.special= weapon.special;
         rollData.psy= { value: actor.psy.rating, display: false};
-        rollData.attackType =  { name: "standard", text: "" };
+        rollData.attackType = { name: "standard", text: "" };
         return rollData;
     }
 
@@ -59,6 +59,77 @@ export default class DarkHeresyUtil {
         };
         return rollData;
     }
+
+    static createSkillRollData(actor, skillName) {
+        const skill = actor.skills[skillName];
+        const defaultChar = skill.defaultCharacteristic || skill.characteristics[0];
+
+        let characteristics = this.getCharacteristicOptions(actor, defaultChar);
+        characteristics = characteristics.map(char => {
+            char.target += skill.advance;
+            return char;
+        });
+
+        return {
+            name: skill.label,
+            baseTarget: skill.total,
+            modifier: 0,
+            characteristics: characteristics,
+            ownerId: actor.id
+        };
+    }
+
+    static createSpecialtyRollData(actor, skillName, specialityName) {
+        const skill = actor.skills[skillName];
+        const speciality = skill.specialities[specialityName];
+        return {
+            name: speciality.label,
+            baseTarget: speciality.total,
+            modifier: 0,
+            ownerId: actor.id
+        };
+    }
+
+    static createCharacteristicRollData(actor, characteristicName) {
+        const characteristic = actor.characteristics[characteristicName];
+        return {
+            name: characteristic.label,
+            baseTarget: characteristic.total,
+            modifier: 0,
+            ownerId: actor.id
+        };
+    }
+
+    static createFearTestRolldata(actor) {
+        const characteristic = actor.characteristics.willpower;
+        return {
+            name: "FEAR.HEADER",
+            baseTarget: characteristic.total,
+            modifier: 0,
+            ownerId: actor.id
+        };
+    }
+
+    static createMalignancyTestRolldata(actor) {
+        const characteristic = actor.characteristics.willpower;
+        return {
+            name: "CORRUPTION.MALIGNANCY",
+            baseTarget: characteristic.total,
+            modifier: this.getMalignancyModifier(actor.corruption),
+            ownerId: actor.id
+        };
+    }
+
+    static createTraumaTestRolldata(actor) {
+        const characteristic = actor.characteristics.willpower;
+        return {
+            name: "TRAUMA.HEADER",
+            baseTarget: characteristic.total,
+            modifier: this.getTraumaModifier(actor.insanity),
+            ownerId: actor.id
+        };
+    }
+
 
     static extractWeaponTraits(traits) {
     // These weapon traits never go above 9 or below 2
@@ -127,5 +198,41 @@ export default class DarkHeresyUtil {
         }
     }
 
-}
+    static getCharacteristicOptions(actor, selected) {
+        const characteristics = [];
+        for (let char of Object.values(actor.characteristics)) {
+            characteristics.push({
+                label: char.label,
+                target: char.total,
+                selected: char.short === selected
+            });
+        }
+        return characteristics;
+    }
 
+    static getMalignancyModifier(corruption) {
+        if (corruption <= 30) {
+            return 0;
+        } else if (corruption <= 60) {
+            return -10;
+        } else if (corruption <= 90) {
+            return -20;
+        } else {
+            return -30;
+        }
+    }
+
+    static getTraumaModifier(insanity) {
+        if (insanity < 10) {
+            return 0;
+        } else if (insanity < 40) {
+            return 10;
+        } else if (insanity < 60) {
+            return 0;
+        } else if (insanity < 80) {
+            return -10;
+        } else {
+            return -20;
+        }
+    }
+}

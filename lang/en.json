@@ -221,6 +221,7 @@
   "FATIGUE": "Fatigue",
 
   "FEAR.HEADER": "Fear",
+  "TRAUMA.HEADER": "Trauma",
 
   "FORCE_FIELD.HEADER": "Force Field",
   "FORCE_FIELD.NAME": "Name",
@@ -278,6 +279,7 @@
   "NPC_TYPE.ELITE": "Elite",
   
   "NOTIFICATION.MACRO_ITEM_NOT_FOUND": "Couldn't find the Item. You may not have a Token selected or the Actor doesn't posses the item",
+  "NOTIFICATION.MACRO_ACTOR_NOT_FOUND": "Couldn't find the Actor. You not have a Token selected or your default Actor is not set.",
 
   "PSYCHIC_POWER.NAME": "Name",
   "PSYCHIC_POWER.COST": "Cost",
