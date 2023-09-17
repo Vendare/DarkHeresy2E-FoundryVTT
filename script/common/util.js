@@ -27,7 +27,7 @@ export default class DarkHeresyUtil {
         rollData.isMelee= isMelee;
         rollData.isRange= !isMelee;
         rollData.clip= weapon.clip;
-        rollData.range = 10;
+        rollData.range = !isMelee ? 10 : 0;
         rollData.rateOfFire= rateOfFire;
         rollData.weaponTraits= this.extractWeaponTraits(weapon.special);
         let attributeMod = (isMelee && !weapon.damage.match(/SB/gi) ? "+SB" : "");

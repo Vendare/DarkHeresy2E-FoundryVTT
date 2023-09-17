@@ -222,26 +222,37 @@ text-shadow: 0 0 12px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 255, 255, 0.75)
 #combat #combat-round .encounters a,
 #combat #combat-round .encounters h4,
 #combat li.combatant .token-resource,
-#combat li.combatant .token-name .combatant-control {
+#combat li.combatant .token-name .combatant-control,
+#combat-sidebar #combat-round .encounters a,
+#combat-sidebar #combat-round .encounters h4,
+#combat-sidebar li.combatant .token-resource,
+#combat-sidebar li.combatant .token-name .combatant-control {
 color: #333;
 border: none;
 }
 
 #combat li.combatant .token-name,
-#combat li.combatant .token-initiative .initiative {
+#combat li.combatant .token-initiative .initiative,
+#combat-sidebar li.combatant .token-name,
+#combat-sidebar li.combatant .token-initiative .initiative {
 font-size: 22px;
 text-shadow: none;
 }
 
-#combat li.combatant .token-initiative {
+#combat li.combatant .token-initiative
+#combat-sidebar li.combatant .token-initiative {
   mix-blend-mode: difference;
 }
 
-#combat li.combatant.hover, #combat li.combatant:hover {
+#combat li.combatant.hover, 
+#combat li.combatant:hover,
+#combat-sidebar li.combatant.hover, 
+#combat-sidebar li.combatant:hover {
     background: rgba(140, 75, 30, 0.20);
 }
 
-#combat li.combatant.active {
+#combat li.combatant.active,
+#combat-sidebar li.combatant.active {
     background: rgba(0, 0, 0, 0.25);
 }
 
