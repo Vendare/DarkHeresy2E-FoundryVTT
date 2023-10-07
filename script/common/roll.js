@@ -510,7 +510,12 @@ async function _sendRollToChat(rollData) {
         chatData.roll = rollData.rollObject;
     }
 
-    const html = await renderTemplate("systems/dark-heresy/template/chat/roll.hbs", rollData);
+    let html;
+    if (rollData.isEvasion) {
+        html = await renderTemplate("systems/dark-heresy/template/chat/evasion.hbs", rollData);
+    } else {
+        html = await renderTemplate("systems/dark-heresy/template/chat/roll.hbs", rollData);
+    }
     chatData.content = html;
 
     if (["gmroll", "blindroll"].includes(chatData.rollMode)) {
@@ -562,13 +567,10 @@ export async function sendDamageToChat(rollData) {
 async function _emptyClipToChat(rollData) {
     let chatData = {
         user: game.user.id,
-        content: `
-          <div class="dark-heresy chat roll">
-              <div class="background border">
-                  <p><strong>Reload! Out of Ammo!</strong></p>
-              </div>
-          </div>
-        `
+        content: await renderTemplate("systems/dark-heresy/template/chat/emptyMag.hbs", rollData),
+        flags: {
+            "dark-heresy.rollData": rollData
+        }
     };
     ChatMessage.create(chatData);
 }

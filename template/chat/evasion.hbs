@@ -1,0 +1,22 @@
+<div class="dark-heresy chat roll">
+    <div class="background border">
+        {{#if isReRoll}}
+            <h1>{{localize "CHAT.REROLL"}}</h1>
+        {{/if}}
+        <h1>{{name}} ({{target}})</h1>
+        {{#if isSuccess}}
+        <h3><span style="color: var(--color-success)">{{localize "CHAT.SUCCESS"}}</span> ({{result}})</h3>
+        {{else}}
+        <h3><span style="color: var(--color-failure)">{{localize "CHAT.FAILURE"}}</span> ({{result}})</h3>
+        {{/if}}
+        <p><strong>{{localize "CHAT.TEST_MODIFIER"}}:</strong> {{modifier}}</p>
+        {{#if isSuccess}}
+            <p><strong>{{localize "CHAT.DOS"}}:</strong> {{dos}}</p>
+        {{else}}
+            <p><strong>{{localize "CHAT.DOF"}}:</strong> {{dof}}</p>
+        {{/if}}        
+        {{#unless isSuccess}}
+            <p><button class="invoke-damage">{{localize "CHAT.ROLL_DAMAGE"}}</button></p>
+        {{/unless}}
+    </div> 
+</div>

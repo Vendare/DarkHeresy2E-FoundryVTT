@@ -134,7 +134,7 @@
   "CHAT.PENETRATION": "Penetration",
   "CHAT.PSY_RATING": "Psy Rating",
   "CHAT.PSY_PUSH": "Push",
-  "CHAT.NUMBER_OF_HIT": "Number of Hit",
+  "CHAT.NUMBER_OF_HIT": "Number of Hits",
   "CHAT.HAS_PSYCHIC_PHENOMENA": "You must roll on the Psychic Phenomena table !",
   "CHAT.HAS_PSYCHIC_PHENOMENA_WITH_WARPCONDUIT": "You must roll on the Psychic Phenomena table at +30 !",
   "CHAT.CONTEXT.APPLY_DAMAGE": "Apply Damage",
@@ -145,6 +145,8 @@
   "CHAT.AIMING" : "Aiming",
   "CHAT.ROLL_EVASION": "Roll Evasion",
   "CHAT.ROLL_DAMAGE" : "Roll Damage",
+  "CHAT.ROLL_TITLE" : "Individual Damage Rolls",
+  "CHAT.RELOAD": "Reload! Out of Ammo!",
   
   "CONDITION.BLEEDING": "Bleeding",
   "CONDITION.BLINDED": "Blinded",

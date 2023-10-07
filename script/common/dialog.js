@@ -113,7 +113,7 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     }
 
                     if (rollData.isRange && rollData.clip.max > 0) {
-                        const weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
+                        let weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
                         if (weapon) {
                             switch (rollData.attackType.name) {
                                 case "standard":

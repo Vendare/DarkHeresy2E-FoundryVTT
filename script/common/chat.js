@@ -10,6 +10,7 @@ import DarkHeresyUtil from "./util.js";
 export function chatListeners(html) {
     html.on("click", ".invoke-test", onTestClick.bind(this));
     html.on("click", ".invoke-damage", onDamageClick.bind(this));
+    html.on("click", ".reload-Weapon", onReloadClick.bind(this));
 }
 
 /**
@@ -106,7 +107,7 @@ function rerollTest(rollData) {
     delete rollData.damages; // Reset so no old data is shown on failure
 
     rollData.isReRoll = true;
-    if (rollData.isDamageRoll) {
+    if (rollData.isCombatRoll) {
     // All the regexes in this are broken once retrieved from the chatmessage
     // No idea why this happens so we need to fetch them again so the roll works correctly
         rollData.attributeBoni = actor.attributeBoni;
@@ -134,6 +135,8 @@ function onTestClick(ev) {
     rollData = { ...rollData, ...DarkHeresyUtil.createSkillRollData(actor, "dodge") };
     rollData.isEvasion = true;
     rollData.isDamageRoll = false;
+    rollData.isCombatRoll = false;
+    if (rollData.psy) rollData.psy.display = false;
     rollData.selectedSkill = "dodge";
     rollData.name = game.i18n.localize("DIALOG.EVASION");
     prepareCommonRoll(rollData);
@@ -149,8 +152,21 @@ function onDamageClick(ev) {
     let msg = game.messages.get(id);
     let rollData = msg.getRollData();
     rollData.isEvasion = false;
+    rollData.isCombatRoll = false;
     rollData.isDamageRoll = true;
     return sendDamageToChat(rollData);
+}
+
+/**
+ * Reloads the associated weapon who is empty Without considering ammo in the users inventory
+ * @param {Event} ev
+ */
+async function onReloadClick(ev) {
+    let id = $(ev.currentTarget).parents(".message").attr("data-message-id");
+    let msg = game.messages.get(id);
+    let rollData = msg.getRollData();
+    const weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
+    await weapon.update({"system.clip.value": rollData.clip.max});
 }
 
 export const showRolls =html => {
