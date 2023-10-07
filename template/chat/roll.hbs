@@ -5,9 +5,9 @@
         {{/if}}
         <h1>{{name}} ({{target}})</h1>
         {{#if isSuccess}}
-        <h3><p style="color: var(--color-success)">{{localize "CHAT.SUCCESS"}}</p> ({{result}})</h3>
+        <h3 style="color: var(--color-success)">{{localize "CHAT.SUCCESS"}} <span>({{result}})</span></h3>
         {{else}}
-        <h3><p style="color: var(--color-failure)">{{localize "CHAT.FAILURE"}}</p> ({{result}})</h3>
+        <h3 style="color: var(--color-failure)">{{localize "CHAT.FAILURE"}} <span>({{result}})</span></h3>
         {{/if}}
 
         <p><strong>{{localize "CHAT.TEST_MODIFIER"}}:</strong> {{modifier}}</p>
