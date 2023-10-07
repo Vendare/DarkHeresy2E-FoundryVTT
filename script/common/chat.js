@@ -1,4 +1,18 @@
-import { commonRoll, combatRoll } from "./roll.js";
+import { commonRoll, combatRoll, sendDamageToChat } from "./roll.js";
+import { prepareCommonRoll } from "./dialog.js";
+import DarkHeresyUtil from "./util.js";
+
+
+/**
+ * Listeners for Chatmessages
+ * @param {HTMLElement} html
+ */
+export function chatListeners(html) {
+    html.on("click", ".invoke-test", onTestClick.bind(this));
+    html.on("click", ".invoke-damage", onDamageClick.bind(this));
+    html.on("click", ".reload-Weapon", onReloadClick.bind(this));
+}
+
 /**
  * This function is used to hook into the Chat Log context menu to add additional options to each message
  * These options make it easy to conveniently apply damage to controlled tokens based on the value of a Roll
@@ -11,7 +25,9 @@ import { commonRoll, combatRoll } from "./roll.js";
 export const addChatMessageContextOptions = function(html, options) {
     let canApply = li => {
         const message = game.messages.get(li.data("messageId"));
-        return message.getRollData()?.isCombatTest && message.isContentVisible && canvas.tokens.controlled.length;
+        return message.getRollData()?.isDamageRoll
+            && message.isContentVisible
+            && canvas.tokens.controlled.length;
     };
     options.push(
         {
@@ -25,7 +41,10 @@ export const addChatMessageContextOptions = function(html, options) {
     let canReroll = li => {
         const message = game.messages.get(li.data("messageId"));
         let actor = game.actors.get(message.getRollData()?.ownerId);
-        return message.isRoll && message.isContentVisible && actor?.fate.value > 0;
+        return message.isRoll
+            && !message.getRollData()?.isDamageRoll
+            && message.isContentVisible
+            && actor?.fate.value > 0;
     };
 
     options.push(
@@ -88,7 +107,7 @@ function rerollTest(rollData) {
     delete rollData.damages; // Reset so no old data is shown on failure
 
     rollData.isReRoll = true;
-    if (rollData.isCombatTest) {
+    if (rollData.isCombatRoll) {
     // All the regexes in this are broken once retrieved from the chatmessage
     // No idea why this happens so we need to fetch them again so the roll works correctly
         rollData.attributeBoni = actor.attributeBoni;
@@ -96,6 +115,58 @@ function rerollTest(rollData) {
     } else {
         return commonRoll(rollData);
     }
+}
+
+/**
+ * Rolls a Test for the Selected Actor
+ * @param {Event} ev
+ */
+function onTestClick(ev) {
+    let actor = game.macro.getActor();
+    let id = $(ev.currentTarget).parents(".message").attr("data-message-id");
+    let msg = game.messages.get(id);
+    let rollData = msg.getRollData();
+
+    if (!actor) {
+        ui.notifications.warn(`${game.i18n.localize("NOTIFICATION.MACRO_ACTOR_NOT_FOUND")}`);
+        return;
+    }
+
+    rollData = { ...rollData, ...DarkHeresyUtil.createSkillRollData(actor, "dodge") };
+    rollData.isEvasion = true;
+    rollData.isDamageRoll = false;
+    rollData.isCombatRoll = false;
+    if (rollData.psy) rollData.psy.display = false;
+    rollData.selectedSkill = "dodge";
+    rollData.name = game.i18n.localize("DIALOG.EVASION");
+    prepareCommonRoll(rollData);
+}
+
+/**
+ * Rolls an Evasion chat for the currently selected character from the chatcard
+ * @param {Event} ev
+ * @returns {Promise}
+ */
+function onDamageClick(ev) {
+    let id = $(ev.currentTarget).parents(".message").attr("data-message-id");
+    let msg = game.messages.get(id);
+    let rollData = msg.getRollData();
+    rollData.isEvasion = false;
+    rollData.isCombatRoll = false;
+    rollData.isDamageRoll = true;
+    return sendDamageToChat(rollData);
+}
+
+/**
+ * Reloads the associated weapon who is empty Without considering ammo in the users inventory
+ * @param {Event} ev
+ */
+async function onReloadClick(ev) {
+    let id = $(ev.currentTarget).parents(".message").attr("data-message-id");
+    let msg = game.messages.get(id);
+    let rollData = msg.getRollData();
+    const weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
+    await weapon.update({"system.clip.value": rollData.clip.max});
 }
 
 export const showRolls =html => {

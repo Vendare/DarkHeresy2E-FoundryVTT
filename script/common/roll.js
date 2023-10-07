@@ -7,7 +7,7 @@ import {PlaceableTemplate} from "./placeable-template.js";
 export async function commonRoll(rollData) {
     await _computeTarget(rollData);
     await _rollTarget(rollData);
-    await _sendToChat(rollData);
+    await _sendRollToChat(rollData);
 }
 
 /**
@@ -21,17 +21,18 @@ export async function combatRoll(rollData) {
     }
     if (rollData.weaponTraits.skipAttackRoll) {
         rollData.result = 5; // Attacks that skip the hit roll always hit body; 05 reversed 50 = body
+        rollData.isDamageRoll = true;
         await _rollDamage(rollData);
-        // Without a To Hit Roll we need a substitute otherwise foundry can't render the message
-        rollData.rollObject = rollData.damages[0].damageRoll;
+        await sendDamageToChat(rollData);
     } else {
         await _computeTarget(rollData);
         await _rollTarget(rollData);
         if (rollData.isSuccess) {
             await _rollDamage(rollData);
         }
+        await _sendRollToChat(rollData);
     }
-    await _sendToChat(rollData);
+
 }
 
 /**
@@ -199,7 +200,8 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
         dos: dos,
         formula: damageFormula,
         replaced: false,
-        damageRender: await r.render()
+        damageRender: await r.render(),
+        damageRoll: r
     };
 
     if (weaponTraits.accurate && isAiming) {
@@ -215,11 +217,6 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
             });
             damage.accurateRender = await ar.render();
         }
-    }
-
-    // Without a To Hit we a roll to associate the chat message with
-    if (weaponTraits.skipAttackRoll) {
-        damage.damageRoll = r;
     }
 
     r.terms.forEach(term => {
@@ -492,7 +489,7 @@ function _appendTearing(formula) {
  * Post a roll to chat.
  * @param {object} rollData
  */
-async function _sendToChat(rollData) {
+async function _sendRollToChat(rollData) {
     let speaker = ChatMessage.getSpeaker();
     let chatData = {
         user: game.user.id,
@@ -513,7 +510,45 @@ async function _sendToChat(rollData) {
         chatData.roll = rollData.rollObject;
     }
 
-    const html = await renderTemplate("systems/dark-heresy/template/chat/roll.hbs", rollData);
+    let html;
+    if (rollData.isEvasion) {
+        html = await renderTemplate("systems/dark-heresy/template/chat/evasion.hbs", rollData);
+    } else {
+        html = await renderTemplate("systems/dark-heresy/template/chat/roll.hbs", rollData);
+    }
+    chatData.content = html;
+
+    if (["gmroll", "blindroll"].includes(chatData.rollMode)) {
+        chatData.whisper = ChatMessage.getWhisperRecipients("GM");
+    } else if (chatData.rollMode === "selfroll") {
+        chatData.whisper = [game.user];
+    }
+
+    ChatMessage.create(chatData);
+}
+/**
+ * Post rolled damage to chat.
+ * @param {object} rollData
+ */
+export async function sendDamageToChat(rollData) {
+    let speaker = ChatMessage.getSpeaker();
+    let chatData = {
+        user: game.user.id,
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+        rollMode: game.settings.get("core", "rollMode"),
+        speaker: speaker,
+        flags: {
+            "dark-heresy.rollData": rollData
+        }
+    };
+
+    if (speaker.token) {
+        rollData.tokenId = speaker.token;
+    }
+
+    chatData.roll = rollData.damages[0].damageRoll;
+
+    const html = await renderTemplate("systems/dark-heresy/template/chat/damage.hbs", rollData);
     chatData.content = html;
 
     if (["gmroll", "blindroll"].includes(chatData.rollMode)) {
@@ -532,13 +567,10 @@ async function _sendToChat(rollData) {
 async function _emptyClipToChat(rollData) {
     let chatData = {
         user: game.user.id,
-        content: `
-          <div class="dark-heresy chat roll">
-              <div class="background border">
-                  <p><strong>Reload! Out of Ammo!</strong></p>
-              </div>
-          </div>
-        `
+        content: await renderTemplate("systems/dark-heresy/template/chat/emptyMag.hbs", rollData),
+        flags: {
+            "dark-heresy.rollData": rollData
+        }
     };
     ChatMessage.create(chatData);
 }

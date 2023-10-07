@@ -24,6 +24,7 @@ import { initializeHandlebars } from "./common/handlebars.js";
 import { migrateWorld } from "./common/migration.js";
 import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "./common/dialog.js";
 import { commonRoll, combatRoll } from "./common/roll.js";
+import { chatListeners } from "./common/chat.js";
 import DhMacroUtil from "./common/macro.js";
 import Dh from "./common/config.js";
 
@@ -112,8 +113,15 @@ Hooks.once("ready", () => {
 /*  Other Hooks                                 */
 /* -------------------------------------------- */
 
+/** Add Event Listeners for Buttons on chat boxes */
+Hooks.once("renderChatLog", (chat, html) => {
+    chatListeners(html);
+});
+
+/** Add Options to context Menu of chatmessages */
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
 Hooks.on("getChatLogEntryContext", chat.showRolls);
+
 /**
  * Create a macro when dropping an entity on the hotbar
  * Item      - open roll dialog for item
