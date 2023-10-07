@@ -51,8 +51,8 @@ function preloadHandlebarsTemplates() {
 
         "systems/dark-heresy/template/chat/item.hbs",
         "systems/dark-heresy/template/chat/roll.hbs",
+        "systems/dark-heresy/template/chat/damage.hbs",
         "systems/dark-heresy/template/chat/critical.hbs",
-        "systems/dark-heresy/template/chat/shiproll.hbs",
 
         "systems/dark-heresy/template/dialog/common-roll.hbs",
         "systems/dark-heresy/template/dialog/combat-roll.hbs",

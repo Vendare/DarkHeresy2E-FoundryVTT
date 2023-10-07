@@ -143,6 +143,8 @@
   "CHAT.DAMAGE_HEADER": "Damage Roll",
   "CHAT.REROLL" : "Fate Reroll",
   "CHAT.AIMING" : "Aiming",
+  "CHAT.ROLL_EVASION": "Roll Evasion",
+  "CHAT.ROLL_DAMAGE" : "Roll Damage",
   
   "CONDITION.BLEEDING": "Bleeding",
   "CONDITION.BLINDED": "Blinded",
@@ -200,6 +202,7 @@
   "DIALOG.ATTACK_TYPE": "Attack Type",
   "DIALOG.WARPCONDUIT": "Warp Conduit",
   "DIALOG.AIM": "Aiming",
+  "DIALOG.EVASION": "Evasion",
 
   "DRUG.HEADER": "Drug",
   "DRUG.NAME": "Name",

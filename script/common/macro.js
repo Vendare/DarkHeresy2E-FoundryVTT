@@ -33,7 +33,7 @@ export default class DhMacroUtil {
 
     static rollAttack(itemName, itemType) {
         let actor = this.getActor();
-        
+
         if (!actor) return ui.notifications.warn(`${game.i18n.localize("NOTIFICATION.MACRO_ACTOR_NOT_FOUND")}`);
 
         let item = actor.items.find(i => i.name === itemName && i.type === itemType);
@@ -49,10 +49,10 @@ export default class DhMacroUtil {
     }
 
     static rollTest(name, type, specialty) {
-        let actor = this.getActor();     
-        
+        let actor = this.getActor();
+
         if (!actor) return ui.notifications.warn(`${game.i18n.localize("NOTIFICATION.MACRO_ACTOR_NOT_FOUND")}`);
-        
+
         let rollData;
 
         if (specialty) {

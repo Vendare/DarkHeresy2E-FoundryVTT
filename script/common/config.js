@@ -49,6 +49,11 @@ Dh.aimModes = {
     20: "AIMING.FULL"
 };
 
+Dh.evasions = {
+    dodge: "SKILL.DODGE",
+    parry: "SKILL.PARRY"
+};
+
 Dh.characteristicCosts = [
     [0, 0, 0],
     [100, 250, 500],
