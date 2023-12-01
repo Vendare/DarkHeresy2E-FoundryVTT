@@ -84,6 +84,9 @@ export class DarkHeresyActor extends Actor {
 
             if (item.weight) {
                 encumbrance = encumbrance + item.weight;
+                if (item.quantity) {
+                    encumbrance *= item.quantity;
+                }
             }
         }
         this._computeEncumbrance(encumbrance);
