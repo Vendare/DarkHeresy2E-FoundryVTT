@@ -16,13 +16,14 @@
     "AMMUNITION.WEAPON": "Arme",
     "AMMUNITION.QUANTITY": "Quantité",
     "AMMUNITION.WEIGHT": "Poids",
+    "AMMUNITION.SUM" : "Somme",
     "AMMUNITION.SPECIAL": "Attributs",
     "AMMUNITION.CRAFTSMANSHIP": "Qualité",
     "AMMUNITION.AVAILABILITY": "Disponibilité",
     "AMMUNITION.DAMAGE": "Dégâts",
     "AMMUNITION.ATTACK": "Attaque",
     "AMMUNITION.PENETRATION": "Pen",
-  
+
     "ARMOUR.HEAD": "Tête",
     "ARMOUR.LEFT_ARM": "Bras gauche",
     "ARMOUR.RIGHT_ARM": "Bras droit",
