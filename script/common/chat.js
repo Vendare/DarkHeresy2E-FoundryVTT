@@ -1,4 +1,4 @@
-import { commonRoll, combatRoll, sendDamageToChat } from "./roll.js";
+import { commonRoll, combatRoll, damageRoll } from "./roll.js";
 import { prepareCommonRoll } from "./dialog.js";
 import DarkHeresyUtil from "./util.js";
 
@@ -154,7 +154,7 @@ function onDamageClick(ev) {
     rollData.isEvasion = false;
     rollData.isCombatRoll = false;
     rollData.isDamageRoll = true;
-    return sendDamageToChat(rollData);
+    return damageRoll(rollData);
 }
 
 /**

@@ -5,8 +5,15 @@ import {PlaceableTemplate} from "./placeable-template.js";
  * @param {object} rollData
  */
 export async function commonRoll(rollData) {
-    await _computeTarget(rollData);
+    await _computeCommonTarget(rollData);
     await _rollTarget(rollData);
+    if (rollData.isEvasion) {
+        rollData.numberOfHits = _computeNumberOfHits(
+            rollData.attackDos,
+            rollData.dos,
+            rollData.attackType,
+            rollData.weaponTraits);
+    }
     await _sendRollToChat(rollData);
 }
 
@@ -25,14 +32,27 @@ export async function combatRoll(rollData) {
         await _rollDamage(rollData);
         await sendDamageToChat(rollData);
     } else {
-        await _computeTarget(rollData);
+        await _computeCombatTarget(rollData);
         await _rollTarget(rollData);
-        if (rollData.isSuccess) {
-            await _rollDamage(rollData);
-        }
+        rollData.attackDos = rollData.dos;
+        rollData.attackResult = rollData.result;
+        rollData.numberOfHits = _computeNumberOfHits(
+            rollData.attackDos,
+            0,
+            rollData.attackType,
+            rollData.weaponTraits);
         await _sendRollToChat(rollData);
     }
 
+}
+
+/**
+ * Roll damage for an attack and post the result to chat
+ * @param {object} rollData
+ */
+export async function damageRoll(rollData) {
+    await _rollDamage(rollData);
+    await sendDamageToChat(rollData);
 }
 
 /**
@@ -47,7 +67,7 @@ export async function reportEmptyClip(rollData) {
  * Compute the target value, including all +/-modifiers, for a roll.
  * @param {object} rollData
  */
-async function _computeTarget(rollData) {
+async function _computeCombatTarget(rollData) {
 
     let attackType = 0;
     if (rollData.attackType) {
@@ -75,14 +95,33 @@ async function _computeTarget(rollData) {
     + attackType
     + psyModifier;
 
-    if (targetMods > 60) {
-        rollData.target = rollData.baseTarget + 60;
-    } else if (targetMods < -60) {
-        rollData.target = rollData.baseTarget + -60;
+    rollData.target = _getRollTarget(targetMods, rollData.baseTarget);
+}
+
+/**
+ * Compute the target value, including all +/-modifiers, for a roll.
+ * @param {object} rollData
+ */
+async function _computeCommonTarget(rollData) {
+    rollData.target = _getRollTarget(rollData.modifier, rollData.baseTarget);
+}
+
+/**
+ * Checks and adjusts modifiers for the rolls target number and returns the final target number
+ * @param {int} targetMod calculated bonuses
+ * @param {int} baseTarget the intial target value to be modified
+ * @returns {int} the final target number
+ */
+function _getRollTarget(targetMod, baseTarget) {
+    if (targetMod > 60) {
+        return baseTarget + 60;
+    } else if (targetMod < -60) {
+        return baseTarget + -60;
     } else {
-        rollData.target = rollData.baseTarget + targetMods;
+        return baseTarget + targetMod;
     }
 }
+
 
 /**
  * Roll a d100 against a target, and apply the result to the rollData.
@@ -103,7 +142,6 @@ async function _rollTarget(rollData) {
     }
     if (rollData.psy) _computePsychicPhenomena(rollData);
 }
-
 /**
  * Handle rolling and collecting parts of a combat damage roll.
  * @param {object} rollData
@@ -127,56 +165,72 @@ async function _rollDamage(rollData) {
         formula = `${formula}+${rollData.damageBonus}`;
         formula = _replaceSymbols(formula, rollData);
     }
+
+
     let penetration = _rollPenetration(rollData);
+
     let firstHit = await _computeDamage(
         formula,
         penetration,
-        rollData.dos,
+        rollData.attackDos,
         rollData.aim?.isAiming,
         rollData.weaponTraits
     );
-    if (firstHit.total !== 0) {
-        const firstLocation = _getLocation(rollData.result);
-        firstHit.location = firstLocation;
-        rollData.damages.push(firstHit);
+    const firstLocation = _getLocation(rollData.attackResult);
+    firstHit.location = firstLocation;
+    rollData.damages.push(firstHit);
 
-        let potentialHits = rollData.dos;
-        let stormMod = (rollData.weaponTraits.storm ? 2: 1);
+    let stormMod = rollData.weaponTraits.storm ? 2 : 1;
 
-        if (rollData.weaponTraits.twinLinked&&rollData.dos >=2) {
-            if (rollData.attackType.hitMargin ===0) {
-                rollData.attackType.hitMargin = 1;
-            }
-            rollData.maxAdditionalHit +=1;
-            potentialHits += rollData.attackType.hitMargin;
-        }
+    let additionalhits = (rollData.numberOfHits * stormMod) - 1;
 
-        if (rollData.attackType.hitMargin > 0) {
-            let maxAdditionalHit = Math.floor(((potentialHits * stormMod) - 1) / rollData.attackType.hitMargin);
-            if (maxAdditionalHit && maxAdditionalHit > rollData.maxAdditionalHit) {
-                maxAdditionalHit = rollData.maxAdditionalHit;
-            }
-            rollData.numberOfHit = maxAdditionalHit + 1;
-            for (let i = 0; i < maxAdditionalHit; i++) {
-                let additionalHit = await _computeDamage(
-                    formula,
-                    penetration,
-                    rollData.dos,
-                    rollData.aim?.isAiming,
-                    rollData.weaponTraits
-                );
-                additionalHit.location = _getAdditionalLocation(firstLocation, i);
-                rollData.damages.push(additionalHit);
-            }
-        } else {
-            rollData.numberOfHit = 1;
-        }
-        let minDamage = rollData.damages.reduce(
-            (min, damage) => min.minDice < damage.minDice ? min : damage, rollData.damages[0]
+    for (let i = 0; i < additionalhits; i++) {
+        let additionalHit = await _computeDamage(
+            formula,
+            penetration,
+            rollData.attackDos,
+            rollData.aim?.isAiming,
+            rollData.weaponTraits
         );
-        if (minDamage.minDice < rollData.dos) {
-            minDamage.total += (rollData.dos - minDamage.minDice);
-        }
+        additionalHit.location = _getAdditionalLocation(firstLocation, i);
+        rollData.damages.push(additionalHit);
+    }
+
+    let minDamage = rollData.damages.reduce(
+        (min, damage) => min.minDice < damage.minDice ? min : damage, rollData.damages[0]);
+
+    if (minDamage.minDice < rollData.dos) {
+        minDamage.total += (rollData.dos - minDamage.minDice);
+    }
+}
+
+/**
+ * Calculates the amount of hits of a successful attack
+ * @param {int} attackDos Degrees of success on the Attack
+ * @param {int} evasionDos Degrees of success on the Evasion
+ * @param {object} attackType The mode of attack and its parameters
+ * @param {object} weaponTraits The traits of the weapon used for the attack
+ * @returns {int} the number of hits the attack has scrored
+ */
+function _computeNumberOfHits(attackDos, evasionDos, attackType, weaponTraits) {
+
+    if (weaponTraits.twinLinked && attackDos >=2) {
+        maxHits += 1;
+        attackDos += attackType.hitMargin;
+    }
+
+    let hits = 1 + Math.floor((attackDos - 1) / attackType.hitMargin);
+
+    if (hits > attackType.maxHits) {
+        hits = attackType.maxHits;
+    }
+
+    hits -= evasionDos;
+
+    if (hits <= 0) {
+        return 0;
+    } else {
+        return hits;
     }
 }
 
@@ -318,20 +372,18 @@ function _getLocation(result) {
  * @param {object} rollData
  */
 function _computeRateOfFire(rollData) {
-    rollData.maxAdditionalHit = 0;
-    let stormMod = rollData.weaponTraits.storm ? 2:1;
-
     switch (rollData.attackType.name) {
         case "standard":
             rollData.attackType.modifier = 10;
-            rollData.attackType.hitMargin = rollData.weaponTraits.storm ? 1: 0;
-            rollData.maxAdditionalHit = rollData.weaponTraits.storm ? 1: 0;
+            rollData.attackType.hitMargin = 1;
+            rollData.attackType.maxHits = 1;
             break;
 
         case "bolt":
         case "blast":
             rollData.attackType.modifier = 0;
-            rollData.attackType.hitMargin = 0;
+            rollData.attackType.hitMargin = 1;
+            rollData.attackType.maxHits = 1;
             break;
 
         case "swift":
@@ -339,40 +391,38 @@ function _computeRateOfFire(rollData) {
         case "barrage":
             rollData.attackType.modifier = 0;
             rollData.attackType.hitMargin = 2;
-            rollData.maxAdditionalHit = (rollData.rateOfFire.burst * stormMod) - 1;
+            rollData.attackType.maxHits = rollData.rateOfFire.burst;
             break;
 
         case "lightning":
         case "full_auto":
             rollData.attackType.modifier = -10;
             rollData.attackType.hitMargin = 1;
-            rollData.maxAdditionalHit = (rollData.rateOfFire.full * stormMod) - 1;
-            break;
-
-        case "storm":
-            rollData.attackType.modifier = 0;
-            rollData.attackType.hitMargin = 1;
-            rollData.maxAdditionalHit = rollData.rateOfFire.full - 1;
+            rollData.attackType.maxHits = rollData.rateOfFire.full;
             break;
 
         case "called_shot":
             rollData.attackType.modifier = -20;
-            rollData.attackType.hitMargin = 0;
+            rollData.attackType.hitMargin = 1;
+            rollData.attackType.maxHits = 1;
             break;
 
         case "charge":
             rollData.attackType.modifier = 20;
-            rollData.attackType.hitMargin = 0;
+            rollData.attackType.hitMargin = 1;
+            rollData.attackType.maxHits = 1;
             break;
 
         case "allOut":
             rollData.attackType.modifier = 30;
-            rollData.attackType.hitMargin = 0;
+            rollData.attackType.hitMargin = 1;
+            rollData.attackType.maxHits = 1;
             break;
 
         default:
             rollData.attackType.modifier = 0;
             rollData.attackType.hitMargin = 0;
+            rollData.attackType.maxHits = 1;
             break;
     }
 }
