@@ -14,9 +14,10 @@
             <p><strong>{{localize "CHAT.DOS"}}:</strong> {{dos}}</p>
         {{else}}
             <p><strong>{{localize "CHAT.DOF"}}:</strong> {{dof}}</p>
-        {{/if}}        
-        {{#unless isSuccess}}
+        {{/if}}
+        {{#if numberOfHits}}
+            <p><strong>{{localize "CHAT.REMAINING_NUMBER_OF_HIT"}}:</strong> {{numberOfHits}}</p>
             <p><button class="invoke-damage">{{localize "CHAT.ROLL_DAMAGE"}}</button></p>
-        {{/unless}}
+        {{/if}}
     </div> 
 </div>
