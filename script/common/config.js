@@ -51,7 +51,8 @@ Dh.aimModes = {
 
 Dh.evasions = {
     dodge: "SKILL.DODGE",
-    parry: "SKILL.PARRY"
+    parry: "SKILL.PARRY",
+    deny: "DIALOG.DENY_THE_WITCH"
 };
 
 Dh.characteristicCosts = [

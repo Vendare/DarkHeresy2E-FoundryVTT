@@ -131,13 +131,17 @@ function onTestClick(ev) {
         ui.notifications.warn(`${game.i18n.localize("NOTIFICATION.MACRO_ACTOR_NOT_FOUND")}`);
         return;
     }
-
-    rollData = { ...rollData, ...DarkHeresyUtil.createSkillRollData(actor, "dodge") };
+    let evasions = {
+        dodge : DarkHeresyUtil.createSkillRollData(actor, "dodge"), 
+        parry : DarkHeresyUtil.createSkillRollData(actor, "parry"), 
+        deny : DarkHeresyUtil.createCharacteristicRollData(actor, "willpower"),
+        selected : "dodge"
+    }
+    rollData.evasions = evasions;
     rollData.isEvasion = true;
     rollData.isDamageRoll = false;
     rollData.isCombatRoll = false;
     if (rollData.psy) rollData.psy.display = false;
-    rollData.selectedSkill = "dodge";
     rollData.name = game.i18n.localize("DIALOG.EVASION");
     prepareCommonRoll(rollData);
 }
