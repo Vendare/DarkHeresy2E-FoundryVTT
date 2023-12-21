@@ -103,7 +103,17 @@ async function _computeCombatTarget(rollData) {
  * @param {object} rollData
  */
 async function _computeCommonTarget(rollData) {
-    rollData.target = _getRollTarget(rollData.modifier, rollData.baseTarget);
+    if(rollData.isEvasion) {
+        let skill;
+        switch(rollData.evasions.selected) {
+           case "dodge" : skill = rollData.evasions.dodge; break;
+           case "parry" : skill = rollData.evasions.parry; break;
+           case "deny" : skill = rollData.evasions.deny; break;
+        }
+        rollData.target = _getRollTarget(rollData.modifier, skill.baseTarget);
+    } else {
+        rollData.target = _getRollTarget(rollData.modifier, rollData.baseTarget);
+    }
 }
 
 /**
@@ -489,10 +499,12 @@ function _getDegree(a, b) {
  * @returns {string}
  */
 function _replaceSymbols(formula, rollData) {
+    let actor = game.actors.get(rollData.ownerId);
+    let attributeBoni = actor.attributeBoni;
     if (rollData.psy) {
         formula = formula.replaceAll(/PR/gi, rollData.psy.value);
     }
-    for (let boni of rollData.attributeBoni) {
+    for (let boni of attributeBoni) {
         formula = formula.replaceAll(boni.regex, boni.value);
     }
     return formula;

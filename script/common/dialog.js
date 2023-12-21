@@ -1,4 +1,5 @@
 import { commonRoll, combatRoll, reportEmptyClip } from "./roll.js";
+import DarkHeresyUtil from "./util.js";
 
 /**
  * Show a generic roll dialog.
@@ -18,11 +19,7 @@ export async function prepareCommonRoll(rollData) {
                         const skill = html.find("#selectedSkill")[0];
                         if (skill) {
                             rollData.name = game.i18n.localize(skill.options[skill.selectedIndex].text);
-                            let actor = game.actors[rollData.ownerId];
-                            if (actor) {
-                                let evasion = actor.skills[skill.value];
-                                rollData.baseTarget = evasion?.total;
-                            }
+                            rollData.evasions.selected = skill.value;
                         }
                     } else {
                         rollData.name = game.i18n.localize(rollData.name);

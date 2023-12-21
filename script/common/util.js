@@ -4,7 +4,6 @@ export default class DarkHeresyUtil {
         return {
             name: item.name,
             itemName: item.name, // Seperately here because evasion may override it
-            attributeBoni: actor.attributeBoni,
             ownerId: actor.id,
             itemId: item.id,
             damageBonus: 0,

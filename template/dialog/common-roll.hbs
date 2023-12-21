@@ -21,7 +21,7 @@
             <div class="wrapper">
                 <label>{{localize "DIALOG.ROLL_WITH"}}</label>
                 <select id="selectedSkill">
-                    {{#select selectedSkill}}
+                    {{#select evasions.selected}}
                         {{#each (config "evasions") as |mode m|}}
                         <option value="{{m}}">{{localize mode}}</option>
                         {{/each}}
