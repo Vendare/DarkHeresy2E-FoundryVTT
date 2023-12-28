@@ -39,7 +39,7 @@ export class DarkHeresyActor extends Actor {
                 characteristic.total = Math.ceil(characteristic.total / 2);
                 characteristic.bonus = Math.floor(characteristic.total / 10) + characteristic.unnatural;
             }
-            characteristic.isLeft = i< middle;
+            characteristic.isLeft = i < middle;
             characteristic.isRight = i >= middle;
             characteristic.advanceCharacteristic = this._getAdvanceCharacteristic(characteristic.advance);
             i++;
@@ -83,11 +83,7 @@ export class DarkHeresyActor extends Actor {
         for (let item of this.items) {
 
             if (item.weight) {
-                if (item.quantity) {
-                    encumbrance = item.weight * item.quantity;
-                } else {
-                    encumbrance = encumbrance + item.weight;
-                }
+                encumbrance = encumbrance + (item.weight * item.quantity ? item.quantity : 1);
             }
         }
         this._computeEncumbrance(encumbrance);
