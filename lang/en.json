@@ -24,6 +24,7 @@
   "AMMUNITION.WEAPON": "Weapon",
   "AMMUNITION.QUANTITY": "Quantity",
   "AMMUNITION.WEIGHT": "Weight",
+  "AMMUNITION.SUM": "Sum",
   "AMMUNITION.SPECIAL": "Special",
   "AMMUNITION.CRAFTSMANSHIP": "Craftsmanship",
   "AMMUNITION.AVAILABILITY": "Availability",

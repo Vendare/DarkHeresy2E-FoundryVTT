@@ -275,6 +275,8 @@ export class DarkHeresyItem extends Item {
 
     get quantity() { return this.system.quantity;}
 
+    get weightSum() { return this.system.quantity * this.system.weight;}
+
     get effect() { return this.system.effect;}
 
     get weapon() { return this.system.weapon;}
