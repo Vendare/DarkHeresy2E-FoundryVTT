@@ -26,13 +26,7 @@
                     <div class="stat type">
                         <label>{{localize "ARMOUR.TYPE"}}</label>
                         <select name="system.type">
-                            {{#select system.type}}
-                                <option value="basic">{{localize "ARMOUR_TYPE.BASIC"}}</option>
-                                <option value="flak">{{localize "ARMOUR_TYPE.FLAK"}}</option>
-                                <option value="mesh">{{localize "ARMOUR_TYPE.MESH"}}</option>
-                                <option value="carapace">{{localize "ARMOUR_TYPE.CARAPACE"}}</option>
-                                <option value="power">{{localize "ARMOUR_TYPE.POWER"}}</option>
-                            {{/select}}
+                             {{selectOptions (config "armourTypes") selected=system.type localize=true}}
                         </select>
                     </div> 
                     <div class="stat part">
@@ -76,30 +70,13 @@
                     <div class="stat craftsmanship">
                         <label>{{localize "ARMOUR.CRAFTSMANSHIP"}}</label>
                         <select name="system.craftsmanship">
-                            {{#select system.craftsmanship}}
-                                <option value="poor">{{localize "CRAFTSMANSHIP.POOR"}}</option>
-                                <option value="common">{{localize "CRAFTSMANSHIP.COMMON"}}</option>
-                                <option value="good">{{localize "CRAFTSMANSHIP.GOOD"}}</option>
-                                <option value="best">{{localize "CRAFTSMANSHIP.BEST"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "craftmanship") selected=system.craftsmanship localize=true}}
                         </select>
                     </div>
                     <div class="stat availability">
                         <label>{{localize "ARMOUR.AVAILABILITY"}}</label>
                         <select name="system.availability">
-                            {{#select system.availability}}
-                                <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
-                                <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
-                                <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
-                                <option value="common">{{localize "AVAILABILITY.COMMON"}}</option>
-                                <option value="average">{{localize "AVAILABILITY.AVERAGE"}}</option>
-                                <option value="scarce">{{localize "AVAILABILITY.SCARCE"}}</option>
-                                <option value="rare">{{localize "AVAILABILITY.RARE"}}</option>
-                                <option value="very-rare">{{localize "AVAILABILITY.VERY_RARE"}}</option>
-                                <option value="extremely-rare">{{localize "AVAILABILITY.EXTREMELY_RARE"}}</option>
-                                <option value="near-unique">{{localize "AVAILABILITY.NEAR_UNIQUE"}}</option>
-                                <option value="unique">{{localize "AVAILABILITY.UNIQUE"}}</option>
-                            {{/select}}
+                             {{selectOptions (config "availability") selected=system.availability localize=true}}
                         </select>
                     </div>
                     <div class="stat weight">

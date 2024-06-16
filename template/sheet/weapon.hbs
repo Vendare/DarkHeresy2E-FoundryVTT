@@ -26,36 +26,12 @@
                     <div class="stat class">
                         <label>{{localize "WEAPON.CLASS"}}</label>
                         <select name="system.class">
-                            {{#select system.class}}
-                                <option value="melee">{{localize "WEAPON.MELEE"}}</option>
-                                <option value="thrown">{{localize "WEAPON.THROWN"}}</option>
-                                <option value="pistol">{{localize "WEAPON.PISTOL"}}</option>
-                                <option value="basic">{{localize "WEAPON.BASIC"}}</option>
-                                <option value="heavy">{{localize "WEAPON.HEAVY"}}</option>
-                                <option value="launched">{{localize "WEAPON.LAUNCHED"}}</option>
-                                <option value="placed">{{localize "WEAPON.PLACED"}}</option>
-                                <option value="vehicle">{{localize "WEAPON.VEHICLE"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "weaponClass") selected=system.class localize=true}}
                         </select>
                     </div>
 					<div class="stat type">
                         <select name="system.type">
-                            {{#select system.type}}
-                                <option value="las">{{localize "WEAPON.LAS"}}</option>
-                                <option value="solidprojectile">{{localize "WEAPON.SOLIDPROJECTILE"}}</option>
-                                <option value="bolt">{{localize "WEAPON.BOLT"}}</option>
-                                <option value="melta">{{localize "WEAPON.MELTA"}}</option>
-                                <option value="plasma">{{localize "WEAPON.PLASMA"}}</option>
-                                <option value="flame">{{localize "WEAPON.FLAME"}}</option>
-                                <option value="lowtech">{{localize "WEAPON.LOWTECH"}}</option>
-                                <option value="launcher">{{localize "WEAPON.LAUNCHER"}}</option>
-                                <option value="explosive">{{localize "WEAPON.EXPLOSIVE"}}</option>
-                                <option value="exotic">{{localize "WEAPON.EXOTIC"}}</option>
-                                <option value="chain">{{localize "WEAPON.CHAIN"}}</option>
-                                <option value="power">{{localize "WEAPON.POWER"}}</option>
-                                <option value="shock">{{localize "WEAPON.SHOCK"}}</option>
-                                <option value="force">{{localize "WEAPON.FORCE"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "weaponType") selected=system.type localize=true}}
                         </select>
                     </div>
                     <div class="stat range">
@@ -78,12 +54,7 @@
                         <label>{{localize "WEAPON.DAMAGE_FULL"}}</label>
                         <input name="system.damage" type="text" value="{{system.damage}}" />
                         <select name="system.damageType">
-                            {{#select system.damageType}}
-                                <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
-                                <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
-                                <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
-                                <option value="explosive">{{localize "DAMAGE_TYPE.EXPLOSIVE"}}</option>
-                            {{/select}}
+                            {{{selectOptions (config "damageTypes") selected=system.damageType localize=true}}
                         </select>
                     </div>
                     <div class="stat penetration">
@@ -103,30 +74,13 @@
                     <div class="stat craftsmanship">
                         <label>{{localize "WEAPON.CRAFTSMANSHIP"}}</label>
                         <select name="system.craftsmanship">
-                            {{#select system.craftsmanship}}
-                                <option value="poor">{{localize "CRAFTSMANSHIP.POOR"}}</option>
-                                <option value="common">{{localize "CRAFTSMANSHIP.COMMON"}}</option>
-                                <option value="good">{{localize "CRAFTSMANSHIP.GOOD"}}</option>
-                                <option value="best">{{localize "CRAFTSMANSHIP.BEST"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "craftmanship") selected=system.craftsmanship localize=true}}
                         </select>
                     </div>
                     <div class="stat availability">
                         <label>{{localize "WEAPON.AVAILABILITY"}}</label>
                         <select name="system.availability">
-                            {{#select system.availability}}
-                                <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
-                                <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
-                                <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
-                                <option value="common">{{localize "AVAILABILITY.COMMON"}}</option>
-                                <option value="average">{{localize "AVAILABILITY.AVERAGE"}}</option>
-                                <option value="scarce">{{localize "AVAILABILITY.SCARCE"}}</option>
-                                <option value="rare">{{localize "AVAILABILITY.RARE"}}</option>
-                                <option value="very-rare">{{localize "AVAILABILITY.VERY_RARE"}}</option>
-                                <option value="extremely-rare">{{localize "AVAILABILITY.EXTREMELY_RARE"}}</option>
-                                <option value="near-unique">{{localize "AVAILABILITY.NEAR_UNIQUE"}}</option>
-                                <option value="unique">{{localize "AVAILABILITY.UNIQUE"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "availability") selected=system.availability localize=true}}
                         </select>
                     </div>
                     <div class="stat weight">

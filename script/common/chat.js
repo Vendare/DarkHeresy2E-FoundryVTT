@@ -11,6 +11,7 @@ export function chatListeners(html) {
     html.on("click", ".invoke-test", onTestClick.bind(this));
     html.on("click", ".invoke-damage", onDamageClick.bind(this));
     html.on("click", ".reload-Weapon", onReloadClick.bind(this));
+    html.on("click", ".dark-heresy.chat.roll>.background.border", onChatRollClick.bind(this));
 }
 
 /**
@@ -132,11 +133,11 @@ function onTestClick(ev) {
         return;
     }
     let evasions = {
-        dodge : DarkHeresyUtil.createSkillRollData(actor, "dodge"), 
-        parry : DarkHeresyUtil.createSkillRollData(actor, "parry"), 
-        deny : DarkHeresyUtil.createCharacteristicRollData(actor, "willpower"),
-        selected : "dodge"
-    }
+        dodge: DarkHeresyUtil.createSkillRollData(actor, "dodge"),
+        parry: DarkHeresyUtil.createSkillRollData(actor, "parry"),
+        deny: DarkHeresyUtil.createCharacteristicRollData(actor, "willpower"),
+        selected: "dodge"
+    };
     rollData.evasions = evasions;
     rollData.isEvasion = true;
     rollData.isDamageRoll = false;
@@ -169,14 +170,9 @@ async function onReloadClick(ev) {
     let id = $(ev.currentTarget).parents(".message").attr("data-message-id");
     let msg = game.messages.get(id);
     let rollData = msg.getRollData();
-    const weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
+    let weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
     await weapon.update({"system.clip.value": rollData.clip.max});
 }
-
-export const showRolls =html => {
-    // Show dice rolls on click
-    html.on("click", ".dark-heresy.chat.roll>.background.border", onChatRollClick);
-};
 
 /**
  * Show/hide dice rolls when a chat message is clicked.

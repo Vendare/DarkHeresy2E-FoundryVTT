@@ -57,12 +57,7 @@
                         <label>{{localize "PSYCHIC_POWER.DAMAGE_FULL"}}</label>
                         <input name="system.damage.formula" type="text" value="{{system.damage.formula}}" />
                         <select name="system.damage.type">
-                            {{#select system.damage.type}}
-                                <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
-                                <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
-                                <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
-                                <option value="explosive">{{localize "DAMAGE_TYPE.EXPLOSIVE"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "damageTypes") selected=system.damage.type localize=true}}
                         </select>
                     </div>
                     <div class="stat penetration">
@@ -72,13 +67,7 @@
                     <div class="stat zone">
                         <label>{{localize "PSYCHIC_POWER.ZONE"}}</label>
                         <select name="system.damage.zone">
-                            {{#select system.damage.zone}}
-                                <option value="none">{{localize "ATTACK_TYPE.NONE"}}</option>
-                                <option value="bolt">{{localize "PSYCHIC_POWER.BOLT"}}</option>
-                                <option value="barrage">{{localize "PSYCHIC_POWER.BARRAGE"}}</option>
-                                <option value="storm">{{localize "PSYCHIC_POWER.STORM"}}</option>
-                                <option value="blast">{{localize "PSYCHIC_POWER.BLAST"}}</option>
-                            {{/select}}
+                            {{{selectOptions (config "attackTypePsy") selected=system.damage.zone localize=true}}
                         </select>
                     </div>
                 </div>

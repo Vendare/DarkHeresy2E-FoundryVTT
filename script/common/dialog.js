@@ -1,5 +1,4 @@
-import { commonRoll, combatRoll, reportEmptyClip } from "./roll.js";
-import DarkHeresyUtil from "./util.js";
+import { commonRoll, combatRoll } from "./roll.js";
 
 /**
  * Show a generic roll dialog.
@@ -23,10 +22,10 @@ export async function prepareCommonRoll(rollData) {
                         }
                     } else {
                         rollData.name = game.i18n.localize(rollData.name);
-                        rollData.baseTarget = parseInt(html.find("#target")[0].value, 10);
+                        rollData.target.base = parseInt(html.find("#target")[0].value, 10);
                         rollData.rolledWith = html.find("[name=characteristic] :selected").text();
                     }
-                    rollData.modifier = parseInt(html.find("#modifier")[0].value, 10);
+                    rollData.target.modifier = parseInt(html.find("#modifier")[0].value, 10);
                     rollData.isDamageRoll = false;
                     rollData.isCombatRoll = false;
                     await commonRoll(rollData);
@@ -44,7 +43,7 @@ export async function prepareCommonRoll(rollData) {
         render: html => {
             const sel = html.find("select[name=characteristic");
             const target = html.find("#target");
-            sel.change(ev => {
+            sel.change(() => {
                 target.val(sel.val());
             });
         }
@@ -70,12 +69,12 @@ export async function prepareCombatRoll(rollData, actorRef) {
                 label: game.i18n.localize("BUTTON.ROLL"),
                 callback: async html => {
                     rollData.name = game.i18n.localize(rollData.name);
-                    rollData.baseTarget = parseInt(html.find("#target")[0]?.value, 10);
-                    rollData.modifier = parseInt(html.find("#modifier")[0]?.value, 10);
+                    rollData.target.base = parseInt(html.find("#target")[0]?.value, 10);
+                    rollData.target.modifier = parseInt(html.find("#modifier")[0]?.value, 10);
                     const range = html.find("#range")[0];
                     if (range) {
-                        rollData.range = parseInt(range.value, 10);
-                        rollData.rangeText = range.options[range.selectedIndex].text;
+                        rolldata.rangeMod = parseInt(range.value, 10);
+                        rolldata.rangeModText = range.options[range.selectedIndex].text;
                     }
 
                     const attackType = html.find("#attackType")[0];
@@ -92,58 +91,23 @@ export async function prepareCombatRoll(rollData, actorRef) {
                         text: aim?.options[aim.selectedIndex].text
                     };
 
-                    if (rollData.weaponTraits.inaccurate) {
+                    if (rollData.weapon.traits.inaccurate) {
                         rollData.aim.val=0;
-                    } else if (rollData.weaponTraits.accurate && rollData.aim.isAiming) {
+                    } else if (rollData.weapon.traits.accurate && rollData.aim.isAiming) {
                         rollData.aim.val += 10;
                     }
 
-                    rollData.damageFormula = html.find("#damageFormula")[0].value.replace(" ", "");
-                    rollData.damageType = html.find("#damageType")[0].value;
-                    rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
-                    rollData.penetrationFormula = html.find("#penetration")[0].value;
+                    rollData.weapon.damageFormula = html.find("#damageFormula")[0].value.replace(" ", "");
+                    rollData.weapon.damageType = html.find("#damageType")[0].value;
+                    rollData.weapon.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
+                    rollData.weapon.penetrationFormula = html.find("#penetration")[0].value;
                     rollData.isDamageRoll = false;
                     rollData.isCombatRoll = true;
 
-                    if (rollData.weaponTraits.skipAttackRoll) {
+                    if (rollData.weapon.traits.skipAttackRoll) {
                         rollData.attackType.name = "standard";
                     }
 
-                    if (rollData.isRange && rollData.clip.max > 0) {
-                        let weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
-                        if (weapon) {
-                            switch (rollData.attackType.name) {
-                                case "standard":
-                                case "called_shot": {
-                                    if (rollData.clip.value < 1) {
-                                        return reportEmptyClip(rollData);
-                                    } else {
-                                        rollData.clip.value -= 1;
-                                        await weapon.update({"system.clip.value": rollData.clip.value});
-                                    }
-                                    break;
-                                }
-                                case "semi_auto": {
-                                    if (rollData.clip.value < rollData.rateOfFire.burst) {
-                                        return reportEmptyClip(rollData);
-                                    } else {
-                                        rollData.clip.value -= rollData.rateOfFire.burst;
-                                        await weapon.update({"system.clip.value": rollData.clip.value});
-                                    }
-                                    break;
-                                }
-                                case "full_auto": {
-                                    if (rollData.clip.value < rollData.rateOfFire.full) {
-                                        return reportEmptyClip(rollData);
-                                    } else {
-                                        rollData.clip.value -= rollData.rateOfFire.full;
-                                        await weapon.update({"system.clip.value": rollData.clip.value});
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                    }
                     await combatRoll(rollData);
                 }
             },
@@ -174,15 +138,15 @@ export async function preparePsychicPowerRoll(rollData) {
                 label: game.i18n.localize("BUTTON.ROLL"),
                 callback: async html => {
                     rollData.name = game.i18n.localize(rollData.name);
-                    rollData.baseTarget = parseInt(html.find("#target")[0].value, 10);
-                    rollData.modifier = parseInt(html.find("#modifier")[0].value, 10);
+                    rollData.target.base = parseInt(html.find("#target")[0]?.value, 10);
+                    rollData.target.modifier = parseInt(html.find("#modifier")[0]?.value, 10);
                     rollData.psy.value = parseInt(html.find("#psy")[0].value, 10);
                     rollData.psy.warpConduit = html.find("#warpConduit")[0].checked;
-                    rollData.damageFormula = html.find("#damageFormula")[0].value;
-                    rollData.damageType = html.find("#damageType")[0].value;
-                    rollData.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
-                    rollData.penetrationFormula = html.find("#penetration")[0].value;
-                    rollData.rateOfFire = { burst: rollData.psy.value, full: rollData.psy.value };
+                    rollData.weapon.damageFormula = html.find("#damageFormula")[0].value;
+                    rollData.weapon.damageType = html.find("#damageType")[0].value;
+                    rollData.weapon.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
+                    rollData.weapon.penetrationFormula = html.find("#penetration")[0].value;
+                    rollData.weapon.rateOfFire = { burst: rollData.psy.value, full: rollData.psy.value };
                     const attackType = html.find("#attackType")[0];
                     rollData.attackType.name = attackType.value;
                     rollData.attackType.text = attackType.options[attackType.selectedIndex].text;

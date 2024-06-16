@@ -37,12 +37,7 @@
                         <label>{{localize "AMMUNITION.DAMAGE"}}</label>
                         <input name="system.effect.damage.modifier" type="text" value="{{system.effect.damage.modifier}}" />
                         <select name="system.effect.damage.type">
-                            {{#select system.effect.damage.type}}
-                            <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
-                            <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
-                            <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
-                            <option value="explosive">{{localize "DAMAGE_TYPE.EXPLOSIVE"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "damageTypes") selected=system.effect.damage.type localize=true}}
                         </select>
                     </div>
                     <div class="stat penetration">
@@ -58,30 +53,13 @@
                     <div class="stat craftsmanship">
                         <label>{{localize "AMMUNITION.CRAFTSMANSHIP"}}</label>
                         <select name="system.craftsmanship">
-                            {{#select system.craftsmanship}}
-                                <option value="poor">{{localize "CRAFTSMANSHIP.POOR"}}</option>
-                                <option value="common">{{localize "CRAFTSMANSHIP.COMMON"}}</option>
-                                <option value="good">{{localize "CRAFTSMANSHIP.GOOD"}}</option>
-                                <option value="best">{{localize "CRAFTSMANSHIP.BEST"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "craftmanship") selected=system.craftsmanship localize=true}}
                         </select>
                     </div>
                     <div class="stat availability">
                         <label>{{localize "AMMUNITION.AVAILABILITY"}}</label>
                         <select name="system.availability">
-                            {{#select system.availability}}
-                                <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
-                                <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
-                                <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
-                                <option value="common">{{localize "AVAILABILITY.COMMON"}}</option>
-                                <option value="average">{{localize "AVAILABILITY.AVERAGE"}}</option>
-                                <option value="scarce">{{localize "AVAILABILITY.SCARCE"}}</option>
-                                <option value="rare">{{localize "AVAILABILITY.RARE"}}</option>
-                                <option value="very-rare">{{localize "AVAILABILITY.VERY_RARE"}}</option>
-                                <option value="extremely-rare">{{localize "AVAILABILITY.EXTREMELY_RARE"}}</option>
-                                <option value="near-unique">{{localize "AVAILABILITY.NEAR_UNIQUE"}}</option>
-                                <option value="unique">{{localize "AVAILABILITY.UNIQUE"}}</option>
-                            {{/select}}
+                           {{selectOptions (config "availability") selected=system.availability localize=true}}
                         </select>
                     </div>
                     <div class="stat weight">

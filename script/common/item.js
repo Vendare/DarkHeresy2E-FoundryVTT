@@ -15,8 +15,6 @@ export class DarkHeresyItem extends Item {
         ChatMessage.create(chatData);
     }
 
-
-    // TODO convert to config file
     get Clip() { return `${this.clip.value}/${this.clip.max}`; }
 
     get RateOfFire() {

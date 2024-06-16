@@ -31,7 +31,7 @@ import Dh from "./common/config.js";
 // Import Helpers
 import * as chat from "./common/chat.js";
 
-Hooks.once("init", () => {
+Hooks.once("init", function() {
     CONFIG.Combat.initiative = { formula: "@initiative.base + @initiative.bonus", decimals: 0 };
     CONFIG.Actor.documentClass = DarkHeresyActor;
     CONFIG.Item.documentClass = DarkHeresyItem;
@@ -101,7 +101,7 @@ Hooks.once("init", () => {
 
 });
 
-Hooks.once("ready", () => {
+Hooks.once("ready", function() {
     migrateWorld();
     CONFIG.ChatMessage.documentClass.prototype.getRollData = function() {
         return this.getFlag("dark-heresy", "rollData");
@@ -120,7 +120,6 @@ Hooks.once("renderChatLog", (chat, html) => {
 
 /** Add Options to context Menu of chatmessages */
 Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
-Hooks.on("getChatLogEntryContext", chat.showRolls);
 
 /**
  * Create a macro when dropping an entity on the hotbar

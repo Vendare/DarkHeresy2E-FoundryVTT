@@ -3,7 +3,7 @@ import { DarkHeresySheet } from "./actor.js";
 export class AcolyteSheet extends DarkHeresySheet {
 
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "actor"],
             template: "systems/dark-heresy/template/sheet/actor/acolyte.hbs",
             width: 700,
