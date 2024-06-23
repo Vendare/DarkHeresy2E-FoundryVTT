@@ -1,5 +1,3 @@
-import Dh from "./config.js";
-
 export class DarkHeresyActor extends Actor {
 
     async _preCreate(data, options, user) {
@@ -83,13 +81,14 @@ export class DarkHeresyActor extends Actor {
         for (let item of this.items) {
 
             if (item.weight) {
-                encumbrance = encumbrance + item.weight;
+                encumbrance = encumbrance + (item.weight * item.quantity ? item.quantity : 1);
             }
         }
         this._computeEncumbrance(encumbrance);
     }
 
     _computeExperience_auto() {
+        let config = game.darkHeresy.config;
         let characterAptitudes = this.items.filter(it => it.isAptitude).map(it => it.name.trim());
         if (!characterAptitudes.includes("General")) characterAptitudes.push("General");
         this.experience.spentCharacteristics = 0;
@@ -103,8 +102,8 @@ export class DarkHeresyActor extends Actor {
         for (let characteristic of Object.values(this.characteristics)) {
             let matchedAptitudes = characterAptitudes.filter(it => characteristic.aptitudes.includes(it)).length;
             let cost = 0;
-            for (let i = 0; i <= characteristic.advance / 5 && i <= Dh.characteristicCosts.length; i++) {
-                cost += Dh.characteristicCosts[i][2 - matchedAptitudes];
+            for (let i = 0; i <= characteristic.advance / 5 && i <= config.characteristicCosts.length; i++) {
+                cost += config.characteristicCosts[i][2 - matchedAptitudes];
             }
             characteristic.cost = cost.toString();
             this.experience.spentCharacteristics += cost;
@@ -136,7 +135,7 @@ export class DarkHeresyActor extends Actor {
                 let cost = 0;
                 let tier = parseInt(item.tier);
                 if (!item.system.starter && tier >= 1 && tier <= 3) {
-                    cost = Dh.talentCosts[tier - 1][2 - matchedAptitudes];
+                    cost = config.talentCosts[tier - 1][2 - matchedAptitudes];
                 }
                 item.system.cost = cost.toString();
                 this.experience.spentTalents += cost;
@@ -191,8 +190,7 @@ export class DarkHeresyActor extends Actor {
     }
 
     _computeArmour() {
-        let locations = Object.keys(game.system.template.Item.armour.part);
-
+        let locations = Object.keys(game.darkHeresy.config.hitLocations);
         let toughness = this.characteristics.toughness;
 
         this.system.armour = locations

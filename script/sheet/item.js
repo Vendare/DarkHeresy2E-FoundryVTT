@@ -8,6 +8,9 @@ export class DarkHeresyItemSheet extends ItemSheet {
         const data = await super.getData();
         data.enrichment = await this._handleEnrichment();
         data.system = data.data.system;
+        if (data.item.isWeapon) {
+            data.ammo = data.item.parent.itemTypes.ammunition;
+        }
         return data;
     }
 
@@ -15,7 +18,7 @@ export class DarkHeresyItemSheet extends ItemSheet {
         let enrichment ={};
         enrichment["system.description"] = await TextEditor.enrichHTML(this.item.system.description, {async: true});
         enrichment["system.effect"] = await TextEditor.enrichHTML(this.item.system.effect, {async: true});
-        return expandObject(enrichment);
+        return foundry.utils.expandObject(enrichment);
     }
 
     _getHeaderButtons() {

@@ -2,7 +2,7 @@ import { DarkHeresyItemSheet } from "./item.js";
 
 export class PsychicPowerSheet extends DarkHeresyItemSheet {
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "psychic-power"],
             template: "systems/dark-heresy/template/sheet/psychic-power.hbs",
             width: 500,

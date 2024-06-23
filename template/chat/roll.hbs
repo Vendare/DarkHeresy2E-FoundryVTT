@@ -3,14 +3,14 @@
         {{#if isReRoll}}
             <h1>{{localize "CHAT.REROLL"}}</h1>
         {{/if}}
-        <h1>{{name}} ({{target}})</h1>
-        {{#if isSuccess}}
+        <h1>{{name}} ({{target.final}})</h1>
+        {{#if flags.isSuccess}}
         <h3 style="color: var(--color-success)">{{localize "CHAT.SUCCESS"}} <span>({{result}})</span></h3>
         {{else}}
         <h3 style="color: var(--color-failure)">{{localize "CHAT.FAILURE"}} <span>({{result}})</span></h3>
         {{/if}}
 
-        <p><strong>{{localize "CHAT.TEST_MODIFIER"}}:</strong> {{modifier}}</p>
+        <p><strong>{{localize "CHAT.TEST_MODIFIER"}}:</strong> {{target.modifier}}</p>
 
         {{#if rolledWith}}
             <p><strong>{{localize "CHAT.ROLLED_WITH"}}:</strong> {{rolledWith}}</p>
@@ -20,14 +20,14 @@
             <p><strong>{{localize "CHAT.AIMING"}}:</strong> {{aim.text}}</p>
         {{/if}}
         {{#if rangeText}}
-            <p><strong>{{localize "CHAT.ATTACK_RANGE"}}:</strong> {{rangeText}}</p>
+            <p><strong>{{localize "CHAT.ATTACK_RANGE"}}:</strong> {{rangeModText}}</p>
         {{/if}}
 
         {{#if attackType}}
             <p><strong>{{localize "CHAT.ATTACK_TYPE"}}:</strong> {{attackType.text}}</p>
         {{/if}}
 
-        {{#if isSuccess}}
+        {{#if flags.isSuccess}}
             <p><strong>{{localize "CHAT.DOS"}}:</strong> {{dos}}</p>
             {{#if numberOfHits}}
             <p><strong>{{localize "CHAT.NUMBER_OF_HIT"}}:</strong> {{numberOfHits}}</p>
@@ -49,8 +49,8 @@
                 {{/if}}
             {{/if}}
         {{/if}}
-        {{#if isAttack}}
-            {{#if isSuccess}}
+        {{#if flags.isAttack}}
+            {{#if flags.isSuccess}}
                 <div class="wrapper flex-column">
                     <button class="invoke-test">{{localize "CHAT.ROLL_EVASION"}}</button>
                     <button class="invoke-damage">{{localize "CHAT.ROLL_DAMAGE"}}</button>

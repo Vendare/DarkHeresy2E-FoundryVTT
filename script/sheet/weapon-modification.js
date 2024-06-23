@@ -2,7 +2,7 @@ import { DarkHeresyItemSheet } from "./item.js";
 
 export class WeaponModificationSheet extends DarkHeresyItemSheet {
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "weapon-modification"],
             template: "systems/dark-heresy/template/sheet/weapon-modification.hbs",
             width: 500,

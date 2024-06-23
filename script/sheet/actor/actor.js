@@ -33,7 +33,7 @@ export class DarkHeresySheet extends ActorSheet {
         } else {
             enrichment["system.notes"] = await TextEditor.enrichHTML(this.actor.system.notes, {async: true});
         }
-        return expandObject(enrichment);
+        return foundry.utils.expandObject(enrichment);
     }
 
     /** @override */
@@ -53,7 +53,7 @@ export class DarkHeresySheet extends ActorSheet {
                     label: game.i18n.localize("BUTTON.ROLL"),
                     class: "custom-roll",
                     icon: "fas fa-dice",
-                    onclick: async ev => await this._prepareCustomRoll()
+                    onclick: async () => await this._prepareCustomRoll()
                 }
             ].concat(buttons);
         }
@@ -83,10 +83,6 @@ export class DarkHeresySheet extends ActorSheet {
         const div = $(event.currentTarget).parents(".item");
         this.actor.deleteEmbeddedDocuments("Item", [div.data("itemId")]);
         div.slideUp(200, () => this.render(false));
-    }
-
-    _onFocusIn(event) {
-        $(event.currentTarget).select();
     }
 
     async _prepareCustomRoll() {

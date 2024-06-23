@@ -13,25 +13,13 @@
                     <div class="flex row part">
                         <label>{{localize "CRITICAL_INJURY.PART"}}</label>
                         <select name="system.part">
-                            {{#select system.part}}
-                            <option value="head">{{localize "ARMOUR.HEAD"}}</option>
-                            <option value="leftArm">{{localize "ARMOUR.LEFT_ARM"}}</option>
-                            <option value="rightArm">{{localize "ARMOUR.RIGHT_ARM"}}</option>
-                            <option value="body">{{localize "ARMOUR.BODY"}}</option>
-                            <option value="leftLeg">{{localize "ARMOUR.LEFT_LEG"}}</option>
-                            <option value="rightLeg">{{localize "ARMOUR.RIGHT_LEG"}}</option>
-                            {{/select}}
+                             {{selectOptions (config "hitLocations") selected=system.part localize=true}}
                         </select>
                     </div>
                     <div class="flex row type">
                         <label>{{localize "CRITICAL_INJURY.TYPE"}}</label>
                         <select name="system.type">
-                            {{#select system.type}}
-                            <option value="energy">{{localize "DAMAGE_TYPE.ENERGY"}}</option>
-                            <option value="impact">{{localize "DAMAGE_TYPE.IMPACT"}}</option>
-                            <option value="rending">{{localize "DAMAGE_TYPE.RENDING"}}</option>
-                            <option value="explosive">{{localize "DAMAGE_TYPE.EXPLOSIVE"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "damageTypes") selected=system.type localize=true}}
                         </select>
                     </div>
                 </div>

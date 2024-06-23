@@ -2,7 +2,7 @@ import { DarkHeresyItemSheet } from "./item.js";
 
 export class DrugSheet extends DarkHeresyItemSheet {
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["dark-heresy", "sheet", "drug"],
             template: "systems/dark-heresy/template/sheet/drug.hbs",
             width: 500,

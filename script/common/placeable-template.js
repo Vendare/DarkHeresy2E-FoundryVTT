@@ -46,8 +46,10 @@ export class PlaceableTemplate extends MeasuredTemplate {
             flags: { "dark-heresy": { origin: origin } },
             angle: angle
         };
-        const template = new CONFIG.MeasuredTemplate.documentClass(templateData, {parent: canvas.scene});
+        const cls = CONFIG.MeasuredTemplate.documentClass;
+        const template = new cls(templateData, {parent: canvas.scene});
         const object = new this(template);
+        object.actorSheet = game.actors.get(origin.actor).sheet || null;
         return object;
     }
 

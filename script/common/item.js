@@ -15,8 +15,6 @@ export class DarkHeresyItem extends Item {
         ChatMessage.create(chatData);
     }
 
-
-    // TODO convert to config file
     get Clip() { return `${this.clip.value}/${this.clip.max}`; }
 
     get RateOfFire() {
@@ -276,6 +274,8 @@ export class DarkHeresyItem extends Item {
     get weight() { return this.system.weight;}
 
     get quantity() { return this.system.quantity;}
+
+    get weightSum() { return this.system.quantity * this.system.weight;}
 
     get effect() { return this.system.effect;}
 

@@ -3,11 +3,11 @@
         <h1>{{localize name}}</h1>
         <div class="wrapper">
             <label>{{localize "DIALOG.TARGET"}}</label>
-            <input id="target" type="number" value="{{baseTarget}}" data-dtype="Number"/>
+            <input id="target" type="number" value="{{target.base}}" data-dtype="Number"/>
         </div>
         <div class="wrapper">
             <label>{{localize "DIALOG.MODIFIER"}}</label>
-            <input id="modifier" type="text" value="{{modifier}}"/>
+            <input id="modifier" type="text" value="{{target.modifier}}"/>
         </div>
         <div class="separator"></div>
         <div class="wrapper">
@@ -25,35 +25,27 @@
         </script>
         <div class="wrapper damage">
             <label>{{localize "DIALOG.DAMAGE"}}</label>
-            <input id="damageFormula" type="text" value="{{damageFormula}}"/>
+            <input id="damageFormula" type="text" value="{{weapon.damageFormula}}"/>
         </div>
         <div class="wrapper damage">
             <label>{{localize "DIALOG.TYPE"}}</label>
             <select id="damageType">
-                {{#select damageType}}
-                    {{#each (config "damageTypes") as | damageType dt|}}
-                    <option value="{{dt}}">{{localize damageType}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions (config "damageTypes") selected=weapon.damageType localize=true}}
             </select>
         </div>
         <div class="wrapper">
             <label>{{localize "DIALOG.ATTACK_TYPE"}}</label>
             <select id="attackType">
-                {{#select attackType.name}}
-                    {{#each (config "attackTypePsy") as | type t|}}
-                    <option value="{{t}}">{{localize type}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions (config "attackTypePsy") selected=attackType.name localize=true}}
             </select>
         </div>
         <div class="wrapper">
             <label>{{localize "DIALOG.BONUS"}}</label>
-            <input id="damageBonus" type="number" value="{{damageBonus}}" data-dtype="Number"/>
+            <input id="damageBonus" type="number" value="{{weapon.damageBonus}}" data-dtype="Number"/>
         </div>
         <div class="wrapper">
             <label>{{localize "DIALOG.PENETRATION"}}</label>
-            <input id="penetration" type="text" value="{{penetrationFormula}}"/>
+            <input id="penetration" type="text" value="{{weapon.penetrationFormula}}"/>
         </div>
         <div class=wrapper>
             <label>{{localize "DIALOG.WARPCONDUIT"}}</label>

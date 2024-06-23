@@ -1230,7 +1230,8 @@
       },
       "reload": "",
       "special": "",
-      "attack": 0
+      "attack": 0,
+      "ammo" : ""
     },
     "weaponModification": {
       "templates": [ "equipment" ],

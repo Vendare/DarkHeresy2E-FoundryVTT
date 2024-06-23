@@ -26,30 +26,13 @@
                     <div class="stat craftsmanship">
                         <label>{{localize "DRUG.CRAFTSMANSHIP"}}</label>
                         <select name="system.craftsmanship">
-                            {{#select system.craftsmanship}}
-                                <option value="poor">{{localize "CRAFTSMANSHIP.POOR"}}</option>
-                                <option value="common">{{localize "CRAFTSMANSHIP.COMMON"}}</option>
-                                <option value="good">{{localize "CRAFTSMANSHIP.GOOD"}}</option>
-                                <option value="best">{{localize "CRAFTSMANSHIP.BEST"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "craftmanship") selected=system.craftsmanship localize=true}}
                         </select>
                     </div>
                     <div class="stat availability">
                         <label>{{localize "DRUG.AVAILABILITY"}}</label>
                         <select name="system.availability">
-                            {{#select system.availability}}
-                                <option value="ubiquitous">{{localize "AVAILABILITY.UBIQUITOUS"}}</option>
-                                <option value="abundant">{{localize "AVAILABILITY.ABUNDANT"}}</option>
-                                <option value="plentiful">{{localize "AVAILABILITY.PLENTIFUL"}}</option>
-                                <option value="common">{{localize "AVAILABILITY.COMMON"}}</option>
-                                <option value="average">{{localize "AVAILABILITY.AVERAGE"}}</option>
-                                <option value="scarce">{{localize "AVAILABILITY.SCARCE"}}</option>
-                                <option value="rare">{{localize "AVAILABILITY.RARE"}}</option>
-                                <option value="very-rare">{{localize "AVAILABILITY.VERY_RARE"}}</option>
-                                <option value="extremely-rare">{{localize "AVAILABILITY.EXTREMELY_RARE"}}</option>
-                                <option value="near-unique">{{localize "AVAILABILITY.NEAR_UNIQUE"}}</option>
-                                <option value="unique">{{localize "AVAILABILITY.UNIQUE"}}</option>
-                            {{/select}}
+                            {{selectOptions (config "availability") selected=system.availability localize=true}}
                         </select>
                     </div>
                     <div class="stat weight">

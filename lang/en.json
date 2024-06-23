@@ -10,6 +10,7 @@
   "ADVANCE.INTERMEDIATE": "Intermediate",
   "ADVANCE.TRAINED": "Trained",
   "ADVANCE.PROFICIENT": "Proficient",
+  "ADVANCE.EXPERIENCED": "Experienced",
   "ADVANCE.EXPERT": "Expert",
   "ADVANCE.VETERAN": "Veteran",
 
@@ -24,6 +25,7 @@
   "AMMUNITION.WEAPON": "Weapon",
   "AMMUNITION.QUANTITY": "Quantity",
   "AMMUNITION.WEIGHT": "Weight",
+  "AMMUNITION.SUM": "Sum",
   "AMMUNITION.SPECIAL": "Special",
   "AMMUNITION.CRAFTSMANSHIP": "Craftsmanship",
   "AMMUNITION.AVAILABILITY": "Availability",

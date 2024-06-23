@@ -154,7 +154,7 @@ export const migrateCompendium = async function(pack, worldSchemaVersion) {
             updateData = migrateActorData(ent, worldSchemaVersion);
         }
         if (!isObjectEmpty(updateData)) {
-            expandObject(updateData);
+            foundry.utils.expandObject(updateData);
             updateData._id = ent.id;
             await pack.updateEntity(updateData);
         }

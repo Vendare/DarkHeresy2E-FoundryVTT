@@ -114,11 +114,7 @@
             <input name="system.initiative.base" type="text" value="{{system.initiative.base}}" />
             +
             <select name="system.initiative.characteristic">
-                {{#select system.initiative.characteristic}}
-                    {{#each system.characteristics as |characteristic key|}}
-                        <option value="{{key}}">{{localize characteristic.label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions system.characteristics selected=system.initiative.characteristic labelAttr="label" localize=true}}
             </select>
         </div>
         <div class="information">
@@ -170,11 +166,7 @@
             <div class="class">
                 <label>{{localize "PSYCHIC_POWER.CLASS"}}</label>
                 <select disabled>
-                    {{#select system.psy.class}}
-                        <option value="bound">{{localize "PSYCHIC_POWER.BOUND"}}</option>
-                        <option value="unbound">{{localize "PSYCHIC_POWER.UNBOUND"}}</option>
-                        <option value="daemonic">{{localize "PSYCHIC_POWER.DAEMONIC"}}</option>
-                    {{/select}}
+                    {{selectOptions (config "psykerClass") selected=system.psy.class localize=true}}
                 </select>
             </div>
             <div class="rating">

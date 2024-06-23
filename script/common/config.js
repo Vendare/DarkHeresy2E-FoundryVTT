@@ -55,6 +55,87 @@ Dh.evasions = {
     deny: "DIALOG.DENY_THE_WITCH"
 };
 
+Dh.craftmanship = {
+    poor: "CRAFTSMANSHIP.POOR",
+    common: "CRAFTSMANSHIP.COMMON",
+    good: "CRAFTSMANSHIP.GOOD",
+    best: "CRAFTSMANSHIP.BEST"
+};
+
+Dh.availability = {
+    ubiquitous: "AVAILABILITY.UBIQUITOUS",
+    abundant: "AVAILABILITY.ABUNDANT",
+    plentiful: "AVAILABILITY.PLENTIFUL",
+    common: "AVAILABILITY.COMMON",
+    average: "AVAILABILITY.AVERAGE",
+    scarce: "AVAILABILITY.SCARCE",
+    rare: "AVAILABILITY.RARE",
+    "very-rare": "AVAILABILITY.VERY_RARE",
+    "extremely-rare": "AVAILABILITY.EXTREMELY_RARE",
+    "near-unique": "AVAILABILITY.NEAR_UNIQUE",
+    unique: "AVAILABILITY.UNIQUE"
+};
+
+
+Dh.armourTypes = {
+    basic: "ARMOUR_TYPE.BASIC",
+    flak: "ARMOUR_TYPE.FLAK",
+    mesh: "ARMOUR_TYPE.MESH",
+    carapace: "ARMOUR_TYPE.CARAPACE",
+    power: "ARMOUR_TYPE.POWER"
+};
+
+Dh.weaponType = {
+    las: "WEAPON.LAS",
+    solidprojectile: "WEAPON.SOLIDPROJECTILE",
+    bolt: "WEAPON.BOLT",
+    melta: "WEAPON.MELTA",
+    plasma: "WEAPON.PLASMA",
+    flame: "WEAPON.FLAME",
+    lowtech: "WEAPON.LOWTECH",
+    launcher: "WEAPON.LAUNCHER",
+    explosive: "WEAPON.EXPLOSIVE",
+    exotic: "WEAPON.EXOTIC",
+    chain: "WEAPON.CHAIN",
+    power: "WEAPON.POWER",
+    shock: "WEAPON.SHOCK",
+    force: "WEAPON.FORCE"
+};
+
+Dh.weaponClass = {
+    melee: "WEAPON.MELEE",
+    thrown: "WEAPON.THROWN",
+    pistol: "WEAPON.PISTOL",
+    basic: "WEAPON.BASIC",
+    heavy: "WEAPON.HEAVY",
+    launched: "WEAPON.LAUNCHED",
+    placed: "WEAPON.PLACED",
+    vehicle: "WEAPON.VEHICLE"
+};
+
+Dh.psykerClass = {
+    bound: "PSYCHIC_POWER.BOUND",
+    unbound: "PSYCHIC_POWER.UNBOUND",
+    daemonic: "PSYCHIC_POWER.DAEMONIC"
+};
+
+Dh.advanceStagesCharacteristics = {
+    0: "ADVANCE.NONE",
+    5: "ADVANCE.SIMPLE",
+    10: "ADVANCE.INTERMEDIATE",
+    15: "ADVANCE.TRAINED",
+    20: "ADVANCE.PROFICIENT",
+    25: "ADVANCE.EXPERT"
+};
+
+Dh.advanceStagesSkills = {
+    "-20": "ADVANCE.UNTRAINED",
+    0: "ADVANCE.KNOWN",
+    10: "ADVANCE.TRAINED",
+    20: "ADVANCE.EXPERIENCED",
+    30: "ADVANCE.VETERAN"
+}
+
 Dh.characteristicCosts = [
     [0, 0, 0],
     [100, 250, 500],
@@ -65,6 +146,14 @@ Dh.characteristicCosts = [
 
 Dh.talentCosts = [[200, 300, 600], [300, 450, 900], [400, 600, 1200]];
 
+Dh.hitLocations = {
+    head: "ARMOUR.HEAD",
+    leftArm: "ARMOUR.LEFT_ARM",
+    rightArm: "ARMOUR.RIGHT_ARM",
+    body: "ARMOUR.BODY",
+    leftLeg: "ARMOUR.LEFT_LEG",
+    rightLeg: "ARMOUR.RIGHT_LEG"
+};
 
 CONFIG.statusEffects = [
     {
