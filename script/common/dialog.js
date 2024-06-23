@@ -1,4 +1,4 @@
-import { commonRoll, combatRoll } from "./roll.js";
+import { commonRoll, combatRoll, reportEmptyClip } from "./roll.js";
 
 /**
  * Show a generic roll dialog.
@@ -59,68 +59,72 @@ export async function prepareCommonRoll(rollData) {
  * @param {DarkHeresyActor} actorRef
  */
 export async function prepareCombatRoll(rollData, actorRef) {
-    const html = await renderTemplate("systems/dark-heresy/template/dialog/combat-roll.hbs", rollData);
-    let dialog = new Dialog({
-        title: rollData.name,
-        content: html,
-        buttons: {
-            roll: {
-                icon: '<i class="fas fa-check"></i>',
-                label: game.i18n.localize("BUTTON.ROLL"),
-                callback: async html => {
-                    rollData.name = game.i18n.localize(rollData.name);
-                    rollData.target.base = parseInt(html.find("#target")[0]?.value, 10);
-                    rollData.target.modifier = parseInt(html.find("#modifier")[0]?.value, 10);
-                    const range = html.find("#range")[0];
-                    if (range) {
-                        rollData.rangeMod = parseInt(range.value, 10);
-                        rollData.rangeModText = range.options[range.selectedIndex].text;
+    if (rollData.weapon.clip.value <= 0) {
+        reportEmptyClip(rollData);
+    } else {
+        const html = await renderTemplate("systems/dark-heresy/template/dialog/combat-roll.hbs", rollData);
+        let dialog = new Dialog({
+            title: rollData.name,
+            content: html,
+            buttons: {
+                roll: {
+                    icon: '<i class="fas fa-check"></i>',
+                    label: game.i18n.localize("BUTTON.ROLL"),
+                    callback: async html => {
+                        rollData.name = game.i18n.localize(rollData.name);
+                        rollData.target.base = parseInt(html.find("#target")[0]?.value, 10);
+                        rollData.target.modifier = parseInt(html.find("#modifier")[0]?.value, 10);
+                        const range = html.find("#range")[0];
+                        if (range) {
+                            rollData.rangeMod = parseInt(range.value, 10);
+                            rollData.rangeModText = range.options[range.selectedIndex].text;
+                        }
+
+                        const attackType = html.find("#attackType")[0];
+                        rollData.attackType = {
+                            name: attackType?.value,
+                            text: attackType?.options[attackType.selectedIndex].text,
+                            modifier: 0
+                        };
+
+                        const aim = html.find("#aim")[0];
+                        rollData.aim = {
+                            val: parseInt(aim?.value, 10),
+                            isAiming: aim?.value !== "0",
+                            text: aim?.options[aim.selectedIndex].text
+                        };
+
+                        if (rollData.weapon.traits.inaccurate) {
+                            rollData.aim.val=0;
+                        } else if (rollData.weapon.traits.accurate && rollData.aim.isAiming) {
+                            rollData.aim.val += 10;
+                        }
+
+                        rollData.weapon.damageFormula = html.find("#damageFormula")[0].value.replace(" ", "");
+                        rollData.weapon.damageType = html.find("#damageType")[0].value;
+                        rollData.weapon.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
+                        rollData.weapon.penetrationFormula = html.find("#penetration")[0].value;
+                        rollData.flags.isDamageRoll = false;
+                        rollData.flags.isCombatRoll = true;
+
+                        if (rollData.weapon.traits.skipAttackRoll) {
+                            rollData.attackType.name = "standard";
+                        }
+
+                        await combatRoll(rollData);
                     }
-
-                    const attackType = html.find("#attackType")[0];
-                    rollData.attackType = {
-                        name: attackType?.value,
-                        text: attackType?.options[attackType.selectedIndex].text,
-                        modifier: 0
-                    };
-
-                    const aim = html.find("#aim")[0];
-                    rollData.aim = {
-                        val: parseInt(aim?.value, 10),
-                        isAiming: aim?.value !== "0",
-                        text: aim?.options[aim.selectedIndex].text
-                    };
-
-                    if (rollData.weapon.traits.inaccurate) {
-                        rollData.aim.val=0;
-                    } else if (rollData.weapon.traits.accurate && rollData.aim.isAiming) {
-                        rollData.aim.val += 10;
-                    }
-
-                    rollData.weapon.damageFormula = html.find("#damageFormula")[0].value.replace(" ", "");
-                    rollData.weapon.damageType = html.find("#damageType")[0].value;
-                    rollData.weapon.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
-                    rollData.weapon.penetrationFormula = html.find("#penetration")[0].value;
-                    rollData.flags.isDamageRoll = false;
-                    rollData.flags.isCombatRoll = true;
-
-                    if (rollData.weapon.traits.skipAttackRoll) {
-                        rollData.attackType.name = "standard";
-                    }
-
-                    await combatRoll(rollData);
+                },
+                cancel: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: game.i18n.localize("BUTTON.CANCEL"),
+                    callback: () => {}
                 }
             },
-            cancel: {
-                icon: '<i class="fas fa-times"></i>',
-                label: game.i18n.localize("BUTTON.CANCEL"),
-                callback: () => {}
-            }
-        },
-        default: "roll",
-        close: () => {}
-    }, {width: 200});
-    dialog.render(true);
+            default: "roll",
+            close: () => {}
+        }, {width: 200});
+        dialog.render(true);
+    }
 }
 
 /**

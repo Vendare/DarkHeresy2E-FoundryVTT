@@ -196,9 +196,7 @@ async function _rollDamage(rollData) {
     firstHit.location = firstLocation;
     rollData.damages.push(firstHit);
 
-    let stormMod = rollData.weapon.traits.storm ? 2 : 1;
-
-    let additionalhits = (rollData.numberOfHits * stormMod) - 1;
+    let additionalhits = rollData.numberOfHits -1;
 
     for (let i = 0; i < additionalhits; i++) {
         let additionalHit = await _computeDamage(
@@ -236,9 +234,11 @@ function _computeNumberOfHits(attackDos, evasionDos, attackType, shotsFired, wea
         attackDos += attackType.hitMargin;
     }
 
-    let hits = 1 + Math.floor((attackDos - 1) / attackType.hitMargin);
+    let stormMod = weaponTraits.storm ? 2 : 1;
 
-    let maxHits = attackType.maxHits;
+    let hits = (1 + Math.floor((attackDos - 1) / attackType.hitMargin)) * stormMod;
+
+    let maxHits = attackType.maxHits * stormMod;
 
     if (shotsFired) {
         maxHits = shotsFired < attackType.maxHits ? shotsFired : attackType.maxHits;
@@ -301,7 +301,7 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
             let rfFace = weaponTraits.rfFace ? weaponTraits.rfFace : term.faces; // Without the Vengeful weapon trait rfFace is undefined
             term.results?.forEach(async result => {
                 let dieResult = result.count ? result.count : result.result; // Result.count = actual value if modified by term
-                if (result.active && dieResult >= rfFace) damage.righteousFury = _rollRighteousFury();
+                if (result.active && dieResult >= rfFace) damage.righteousFury = await _rollRighteousFury();
                 if (result.active && dieResult < dos) damage.dices.push(dieResult);
                 if (result.active && (typeof damage.minDice === "undefined" || dieResult < damage.minDice)) damage.minDice = dieResult;
             });
@@ -320,7 +320,7 @@ async function _updateRangedAmmo(rollData) {
     let stormMod = rollData.weapon.traits.storm ? 2 : 1;
     if (rollData.weapon.isRange && rollData.weapon.clip.max > 0) {
         if (rollData.weapon.clip.value < 1) {
-            return reportEmptyClip(rollData);
+            return;
         }
         let weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
         if (weapon) {

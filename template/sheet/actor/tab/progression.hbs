@@ -102,7 +102,7 @@
                         <div class="characteristic item flex row">
                             <div class="name">{{localize characteristic.label}}</div>
                             <select class="advance" name="system.characteristics.{{key}}.advance" data-dtype="Number">
-                                {{selectOptions (config "advanceStages") selected=characteristic.advance localize=true}}
+                                {{selectOptions (config "advanceStagesCharacteristics") selected=characteristic.advance localize=true}}
                             </select>
                             <input class="unnatural" name="system.characteristics.{{key}}.unnatural" type="number" value="{{characteristic.unnatural}}" data-dtype="Number" />
                             <input class="base" name="system.characteristics.{{key}}.base" type="number" value="{{characteristic.base}}" data-dtype="Number" />
@@ -173,7 +173,7 @@
                         <div class="skill item flex row">
                             <div class="name">{{localize skill.label}}</div>
                             <select class="advance" name="system.skills.{{key}}.advance" data-dtype="Number">
-                                {{selectOptions (config "advanceStages") selected=skill.advance localize=true}}
+                                {{selectOptions (config "advanceStagesSkills") selected=skill.advance localize=true}}
                             </select>
                             <input class="total" name="system.skills.{{key}}.total" type="number" value="{{skill.total}}" data-dtype="Number" disabled />
                             <input class="cost" name="system.skills.{{key}}.cost" type="number" value="{{skill.cost}}" data-dtype="Number" />
@@ -190,7 +190,7 @@
                             <div class="speciality item flex row">
                                 <div class="name">{{localize speciality.label}}</div>
                                 <select class="advance" name="system.skills.{{key}}.specialities.{{keySpe}}.advance" data-dtype="Number">
-                                    {{selectOptions (config "advanceStages") selected=speciality.advance localize=true}}
+                                    {{selectOptions (config "advanceStagesSkills") selected=speciality.advance localize=true}}
                                 </select>
                                 <input class="total" name="system.skills.{{key}}.specialities.{{keySpe}}.total" type="number" value="{{speciality.total}}" data-dtype="Number" disabled />
                                 <input class="cost" name="system.skills.{{key}}.specialities.{{keySpe}}.cost" type="number" value="{{speciality.cost}}" data-dtype="Number" />

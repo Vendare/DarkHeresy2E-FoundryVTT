@@ -119,7 +119,7 @@ Dh.psykerClass = {
     daemonic: "PSYCHIC_POWER.DAEMONIC"
 };
 
-Dh.advanceStages = {
+Dh.advanceStagesCharacteristics = {
     0: "ADVANCE.NONE",
     5: "ADVANCE.SIMPLE",
     10: "ADVANCE.INTERMEDIATE",
@@ -127,6 +127,14 @@ Dh.advanceStages = {
     20: "ADVANCE.PROFICIENT",
     25: "ADVANCE.EXPERT"
 };
+
+Dh.advanceStagesSkills = {
+    "-20": "ADVANCE.UNTRAINED",
+    0: "ADVANCE.KNOWN",
+    10: "ADVANCE.TRAINED",
+    20: "ADVANCE.EXPERIENCED",
+    30: "ADVANCE.VETERAN"
+}
 
 Dh.characteristicCosts = [
     [0, 0, 0],

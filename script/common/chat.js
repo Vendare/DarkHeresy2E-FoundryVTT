@@ -173,7 +173,7 @@ async function onReloadClick(ev) {
     let msg = game.messages.get(id);
     let rollData = msg.getRollData();
     let weapon = game.actors.get(rollData.ownerId)?.items?.get(rollData.itemId);
-    await weapon.update({"system.clip.value": rollData.clip.max});
+    await weapon.update({"system.clip.value": rollData.weapon.clip.max});
 }
 
 /**
