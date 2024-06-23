@@ -60,7 +60,7 @@ Dh.craftmanship = {
     common: "CRAFTSMANSHIP.COMMON",
     good: "CRAFTSMANSHIP.GOOD",
     best: "CRAFTSMANSHIP.BEST"
-}
+};
 
 Dh.availability = {
     ubiquitous: "AVAILABILITY.UBIQUITOUS",
@@ -74,7 +74,7 @@ Dh.availability = {
     "extremely-rare": "AVAILABILITY.EXTREMELY_RARE",
     "near-unique": "AVAILABILITY.NEAR_UNIQUE",
     unique: "AVAILABILITY.UNIQUE"
-}
+};
 
 
 Dh.armourTypes = {
@@ -83,7 +83,7 @@ Dh.armourTypes = {
     mesh: "ARMOUR_TYPE.MESH",
     carapace: "ARMOUR_TYPE.CARAPACE",
     power: "ARMOUR_TYPE.POWER"
-}
+};
 
 Dh.weaponType = {
     las: "WEAPON.LAS",
@@ -100,7 +100,7 @@ Dh.weaponType = {
     power: "WEAPON.POWER",
     shock: "WEAPON.SHOCK",
     force: "WEAPON.FORCE"
-}
+};
 
 Dh.weaponClass = {
     melee: "WEAPON.MELEE",
@@ -111,13 +111,13 @@ Dh.weaponClass = {
     launched: "WEAPON.LAUNCHED",
     placed: "WEAPON.PLACED",
     vehicle: "WEAPON.VEHICLE"
-}
+};
 
 Dh.psykerClass = {
     bound: "PSYCHIC_POWER.BOUND",
     unbound: "PSYCHIC_POWER.UNBOUND",
     daemonic: "PSYCHIC_POWER.DAEMONIC"
-}
+};
 
 Dh.advanceStages = {
     0: "ADVANCE.NONE",
@@ -126,7 +126,7 @@ Dh.advanceStages = {
     15: "ADVANCE.TRAINED",
     20: "ADVANCE.PROFICIENT",
     25: "ADVANCE.EXPERT"
-}
+};
 
 Dh.characteristicCosts = [
     [0, 0, 0],
@@ -145,7 +145,8 @@ Dh.hitLocations = {
     body: "ARMOUR.BODY",
     leftLeg: "ARMOUR.LEFT_LEG",
     rightLeg: "ARMOUR.RIGHT_LEG"
-}
+};
+
 CONFIG.statusEffects = [
     {
         id: "bleeding",

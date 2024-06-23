@@ -1,7 +1,7 @@
 <div class="dark-heresy dialog">
     <div class="flex row wrap background border" style="flex-basis: 100%;margin-bottom: 5px">
         <h1>{{localize name}}</h1>
-        {{#unless isEvasion}}
+        {{#unless flags.isEvasion}}
             {{#if characteristics}}           
                 <div class="wrapper">
                     <label>{{localize "DIALOG.ROLL_WITH"}}</label>
@@ -14,10 +14,10 @@
             {{/if}}
             <div class="wrapper">
                 <label>{{localize "DIALOG.TARGET"}}</label>
-                <input id="target" type="number" value="{{baseTarget}}" data-dtype="Number"/>
+                <input id="target" type="number" value="{{target.base}}" data-dtype="Number"/>
             </div>         
         {{/unless}}
-        {{#if isEvasion}}
+        {{#if flags.isEvasion}}
             <div class="wrapper">
                 <label>{{localize "DIALOG.ROLL_WITH"}}</label>
                 <select id="selectedSkill">
@@ -27,7 +27,7 @@
         {{/if}}
         <div class="wrapper">
             <label>{{localize "DIALOG.MODIFIER"}}</label>
-            <input id="modifier" type="text" value="{{modifier}}" />
+            <input id="modifier" type="text" value="{{target.modifier}}" />
         </div>
     </div>
 </div>

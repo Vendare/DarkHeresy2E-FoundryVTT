@@ -28,6 +28,19 @@ export default class DarkHeresyUtil {
         };
     }
 
+    static createCommonNormalRollData(actor, value) {
+        return {
+            target: {
+                base: value.total,
+                modifier: 0
+            },
+            flags: {
+                isAttack: false
+            },
+            ownerId: actor.id
+        };
+    }
+
     static createWeaponRollData(actor, weaponItem) {
         let characteristic = this.getWeaponCharacteristic(actor, weaponItem);
         let rateOfFire;
@@ -36,20 +49,21 @@ export default class DarkHeresyUtil {
         } else {
             rateOfFire = {burst: weaponItem.rateOfFire.burst, full: weaponItem.rateOfFire.full};
         }
-        let weaponTraits = this.extractweapon.traits(weaponItem.special);
-        let attributeMod = (isMelee && !weaponItem.damage.match(/SB/gi) ? "+SB" : "");
+        let weaponTraits = this.extractWeaponTraits(weaponItem.special);
         let isMelee = weaponItem.class === "melee";
+        let attributeMod = (isMelee && !weaponItem.damage.match(/SB/gi) ? "+SB" : "");
 
         let rollData = this.createCommonAttackRollData(actor, weaponItem);
 
         rollData.target.base = characteristic.total + weaponItem.attack;
         rollData.rangeMod = !isMelee ? 10 : 0;
 
-        rollData.weapon =  foundry.utils.mergeObject(rollData.weapon, {
+        rollData.weapon = foundry.utils.mergeObject(rollData.weapon, {
             isMelee: isMelee,
             isRange: !isMelee,
             clip: weaponItem.clip,
             rateOfFire: rateOfFire,
+            range: !isMelee ? weaponItem.range : 0,
             damageFormula: weaponItem.damage + attributeMod + (weaponTraits.force ? "+PR": ""),
             penetrationFormula: weaponItem.penetration + (weaponTraits.force ? "+PR" : ""),
             traits: weaponTraits,
@@ -65,10 +79,10 @@ export default class DarkHeresyUtil {
         let rollData = this.createCommonAttackRollData(actor, power);
         rollData.target.base= focusPowerTarget.total;
         rollData.target.modifier= power.focusPower.difficulty;
-        rollData.weapon = foundry.utils.foundry.utils.mergeObject(rollData.weapon, {
+        rollData.weapon = foundry.utils.mergeObject(rollData.weapon, {
             damageFormula: power.damage.formula,
             penetrationFormula: power.damage.penetration,
-            traits: this.extractweapon.traits(power.damage.special),
+            traits: this.extractWeaponTraits(power.damage.special),
             special: power.damage.special
         });
         rollData.attackType.name = power.damage.zone;
@@ -92,76 +106,52 @@ export default class DarkHeresyUtil {
             return char;
         });
 
-        return {
+        return foundry.utils.mergeObject(this.createCommonNormalRollData(actor, skill), {
             name: skill.label,
-            target: {
-                base: skill.total,
-                modifier: 0
-            },
-            characteristics: characteristics,
-            ownerId: actor.id
-        };
+            characteristics: characteristics
+        });
     }
 
     static createSpecialtyRollData(actor, skillName, specialityName) {
         const skill = actor.skills[skillName];
         const speciality = skill.specialities[specialityName];
-        return {
-            name: speciality.label,
-            target: {
-                base: speciality.total,
-                modifier: 0
-            },
-            ownerId: actor.id
-        };
+        return foundry.utils.mergeObject(this.createCommonNormalRollData(actor, speciality), {
+            name: speciality.label
+        });
     }
 
     static createCharacteristicRollData(actor, characteristicName) {
         const characteristic = actor.characteristics[characteristicName];
-        return {
-            name: characteristic.label,
-            target: {
-                base: characteristic.total,
-                modifier: 0
-            },
-            ownerId: actor.id
-        };
+        return foundry.utils.mergeObject(this.createCommonNormalRollData(actor, characteristic), {
+            name: characteristic.label
+        });
     }
 
     static createFearTestRolldata(actor) {
         const characteristic = actor.characteristics.willpower;
-        return {
-            name: "FEAR.HEADER",
-            target: {
-                base: characteristic.total,
-                modifier: 0
-            },
-            ownerId: actor.id
-        };
+        return foundry.utils.mergeObject(this.createCommonNormalRollData(actor, characteristic), {
+            name: "FEAR.HEADER"
+        });
     }
 
     static createMalignancyTestRolldata(actor) {
         const characteristic = actor.characteristics.willpower;
-        return {
+        return foundry.utils.mergeObject(this.createCommonNormalRollData(actor, characteristic), {
             name: "CORRUPTION.MALIGNANCY",
             target: {
-                base: characteristic.total,
                 modifier: this.getMalignancyModifier(actor.corruption)
-            },
-            ownerId: actor.id
-        };
+            }
+        });
     }
 
     static createTraumaTestRolldata(actor) {
         const characteristic = actor.characteristics.willpower;
-        return {
+        return foundry.utils.mergeObject(this.createCommonNormalRollData(actor, characteristic), {
             name: "TRAUMA.HEADER",
             target: {
-                base: characteristic.total,
                 modifier: this.getTraumaModifier(actor.insanity)
-            },
-            ownerId: actor.id
-        };
+            }
+        });
     }
 
 

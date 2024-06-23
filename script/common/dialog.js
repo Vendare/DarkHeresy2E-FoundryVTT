@@ -14,7 +14,7 @@ export async function prepareCommonRoll(rollData) {
                 icon: '<i class="fas fa-check"></i>',
                 label: game.i18n.localize("BUTTON.ROLL"),
                 callback: async html => {
-                    if (rollData.isEvasion) {
+                    if (rollData.flags?.isEvasion) {
                         const skill = html.find("#selectedSkill")[0];
                         if (skill) {
                             rollData.name = game.i18n.localize(skill.options[skill.selectedIndex].text);
@@ -26,8 +26,8 @@ export async function prepareCommonRoll(rollData) {
                         rollData.rolledWith = html.find("[name=characteristic] :selected").text();
                     }
                     rollData.target.modifier = parseInt(html.find("#modifier")[0].value, 10);
-                    rollData.isDamageRoll = false;
-                    rollData.isCombatRoll = false;
+                    rollData.flags.isDamageRoll = false;
+                    rollData.flags.isCombatRoll = false;
                     await commonRoll(rollData);
                 }
             },
@@ -73,8 +73,8 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     rollData.target.modifier = parseInt(html.find("#modifier")[0]?.value, 10);
                     const range = html.find("#range")[0];
                     if (range) {
-                        rolldata.rangeMod = parseInt(range.value, 10);
-                        rolldata.rangeModText = range.options[range.selectedIndex].text;
+                        rollData.rangeMod = parseInt(range.value, 10);
+                        rollData.rangeModText = range.options[range.selectedIndex].text;
                     }
 
                     const attackType = html.find("#attackType")[0];
@@ -101,8 +101,8 @@ export async function prepareCombatRoll(rollData, actorRef) {
                     rollData.weapon.damageType = html.find("#damageType")[0].value;
                     rollData.weapon.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
                     rollData.weapon.penetrationFormula = html.find("#penetration")[0].value;
-                    rollData.isDamageRoll = false;
-                    rollData.isCombatRoll = true;
+                    rollData.flags.isDamageRoll = false;
+                    rollData.flags.isCombatRoll = true;
 
                     if (rollData.weapon.traits.skipAttackRoll) {
                         rollData.attackType.name = "standard";
@@ -151,8 +151,8 @@ export async function preparePsychicPowerRoll(rollData) {
                     rollData.attackType.name = attackType.value;
                     rollData.attackType.text = attackType.options[attackType.selectedIndex].text;
                     rollData.psy.useModifier = true;
-                    rollData.isDamageRoll = false;
-                    rollData.isCombatRoll = true;
+                    rollData.flags.isDamageRoll = false;
+                    rollData.flags.isCombatRoll = true;
                     await combatRoll(rollData);
                 }
             },

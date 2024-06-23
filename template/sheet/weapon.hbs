@@ -54,7 +54,7 @@
                         <label>{{localize "WEAPON.DAMAGE_FULL"}}</label>
                         <input name="system.damage" type="text" value="{{system.damage}}" />
                         <select name="system.damageType">
-                            {{{selectOptions (config "damageTypes") selected=system.damageType localize=true}}
+                            {{selectOptions (config "damageTypes") selected=system.damageType localize=true}}
                         </select>
                     </div>
                     <div class="stat penetration">

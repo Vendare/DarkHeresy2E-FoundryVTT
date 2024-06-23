@@ -26,7 +26,7 @@ export function chatListeners(html) {
 export const addChatMessageContextOptions = function(html, options) {
     let canApply = li => {
         const message = game.messages.get(li.data("messageId"));
-        return message.getRollData()?.isDamageRoll
+        return message.getRollData()?.flags.isDamageRoll
             && message.isContentVisible
             && canvas.tokens.controlled.length;
     };
@@ -43,7 +43,7 @@ export const addChatMessageContextOptions = function(html, options) {
         const message = game.messages.get(li.data("messageId"));
         let actor = game.actors.get(message.getRollData()?.ownerId);
         return message.isRoll
-            && !message.getRollData()?.isDamageRoll
+            && !message.getRollData()?.flags.isDamageRoll
             && message.isContentVisible
             && actor?.fate.value > 0;
     };
@@ -107,8 +107,8 @@ function rerollTest(rollData) {
     actor.update({ "system.fate.value": actor.fate.value -1 });
     delete rollData.damages; // Reset so no old data is shown on failure
 
-    rollData.isReRoll = true;
-    if (rollData.isCombatRoll) {
+    rollData.flags.isReRoll = true;
+    if (rollData.flags.isCombatRoll) {
     // All the regexes in this are broken once retrieved from the chatmessage
     // No idea why this happens so we need to fetch them again so the roll works correctly
         rollData.attributeBoni = actor.attributeBoni;
@@ -139,9 +139,11 @@ function onTestClick(ev) {
         selected: "dodge"
     };
     rollData.evasions = evasions;
-    rollData.isEvasion = true;
-    rollData.isDamageRoll = false;
-    rollData.isCombatRoll = false;
+    rollData.target.modifier = 0;
+    rollData.flags.isEvasion = true;
+    rollData.flags.isAttack = false;
+    rollData.flags.isDamageRoll = false;
+    rollData.flags.isCombatRoll = false;
     if (rollData.psy) rollData.psy.display = false;
     rollData.name = game.i18n.localize("DIALOG.EVASION");
     prepareCommonRoll(rollData);
@@ -156,9 +158,9 @@ function onDamageClick(ev) {
     let id = $(ev.currentTarget).parents(".message").attr("data-message-id");
     let msg = game.messages.get(id);
     let rollData = msg.getRollData();
-    rollData.isEvasion = false;
-    rollData.isCombatRoll = false;
-    rollData.isDamageRoll = true;
+    rollData.flags.isEvasion = false;
+    rollData.flags.isCombatRoll = false;
+    rollData.flags.isDamageRoll = true;
     return damageRoll(rollData);
 }
 
