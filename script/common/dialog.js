@@ -59,7 +59,7 @@ export async function prepareCommonRoll(rollData) {
  * @param {DarkHeresyActor} actorRef
  */
 export async function prepareCombatRoll(rollData, actorRef) {
-    if (rollData.weapon.clip.value <= 0) {
+    if (rollData.weapon.isRanged && rollData.weapon.clip.value <= 0) {
         reportEmptyClip(rollData);
     } else {
         const html = await renderTemplate("systems/dark-heresy/template/dialog/combat-roll.hbs", rollData);
