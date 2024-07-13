@@ -2,7 +2,7 @@
   "id": "dark-heresy",
   "title": "Dark Heresy 2E",
   "description": "Unofficial Foundry VTT System for Dark Heresy 2nd Edition.",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "minimumCoreVersion" : 11,
   "compatibility" : {
     "minimum" : 11,
@@ -18,7 +18,8 @@
       "reddit": "u/mooman10" }, 
     { "name":"fredthedeadhead" },
     { "name":"Perfectro" }, 
-    { "name":"Vendare" },
+    { "name":"Vendare",
+	  "discord": "Vendare#4014",},
     { "name":"Silver292" },
     { "name":"Giddy" },
     { "name":"Dazzerix" },
@@ -68,7 +69,7 @@
   "secondaryTokenAttribute": null,
   "url": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT",
   "socket": true,
-  "manifest": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT/releases/download/4.3.1/system.json",
-  "download": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT/releases/download/4.3.1/dark-heresy.zip",
+  "manifest": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT/releases/download/4.3.2/system.json",
+  "download": "https://github.com/Vendare/DarkHeresy2E-FoundryVTT/releases/download/4.3.2/dark-heresy.zip",
   "license": "LICENSE.txt"
 }

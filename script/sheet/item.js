@@ -8,9 +8,6 @@ export class DarkHeresyItemSheet extends ItemSheet {
         const data = await super.getData();
         data.enrichment = await this._handleEnrichment();
         data.system = data.data.system;
-        if (data.item.isWeapon) {
-            data.ammo = data.item.parent.itemTypes.ammunition;
-        }
         return data;
     }
 

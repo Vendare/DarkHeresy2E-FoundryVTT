@@ -229,19 +229,19 @@ async function _rollDamage(rollData) {
  */
 function _computeNumberOfHits(attackDos, evasionDos, attackType, shotsFired, weaponTraits) {
 
+    let stormMod = weaponTraits.storm ? 2 : 1;
+    let maxHits = attackType.maxHits * stormMod;
+
     if (weaponTraits.twinLinked && attackDos >=2) {
         maxHits += 1;
         attackDos += attackType.hitMargin;
+        if (shotsFired) shotsFired += 1;
     }
-
-    let stormMod = weaponTraits.storm ? 2 : 1;
 
     let hits = (1 + Math.floor((attackDos - 1) / attackType.hitMargin)) * stormMod;
 
-    let maxHits = attackType.maxHits * stormMod;
-
-    if (shotsFired) {
-        maxHits = shotsFired < attackType.maxHits ? shotsFired : attackType.maxHits;
+    if (shotsFired && shotsFired < maxHits) {
+        maxHits = shotsFired;
     }
 
     if (hits > maxHits) {
@@ -317,7 +317,7 @@ async function _computeDamage(damageFormula, penetration, dos, isAiming, weaponT
  */
 async function _updateRangedAmmo(rollData) {
     let firerate = 1;
-    let stormMod = rollData.weapon.traits.storm ? 2 : 1;
+    let mod = rollData.weapon.traits.storm || rollData.weapon.traits.twinLinked ? 2 : 1;
     if (rollData.weapon.isRange && rollData.weapon.clip.max > 0) {
         if (rollData.weapon.clip.value < 1) {
             return;
@@ -331,7 +331,7 @@ async function _updateRangedAmmo(rollData) {
                     break;
                 }
                 case "semi_auto": {
-                    firerate = rollData.weapon.rateOfFire.burst * stormMod;
+                    firerate = rollData.weapon.rateOfFire.burst * mod;
                     if (rollData.weapon.clip.value < firerate) {
                         rollData.shotsFired = rollData.weapon.clip.value;
                         rollData.weapon.clip.value = 0;
@@ -341,7 +341,7 @@ async function _updateRangedAmmo(rollData) {
                     break;
                 }
                 case "full_auto": {
-                    firerate = rollData.weapon.rateOfFire.full * stormMod;
+                    firerate = rollData.weapon.rateOfFire.full * mod;
                     if (rollData.weapon.clip.value < firerate) {
                         rollData.shotsFired = rollData.weapon.clip.value;
                         rollData.weapon.clip.value = 0;
@@ -627,7 +627,7 @@ async function _sendRollToChat(rollData) {
 
     if (rollData.rollObject) {
         rollData.render = await rollData.rollObject.render();
-        chatData.roll = rollData.rollObject;
+        chatData.rolls = [rollData.rollObject];
     }
 
     let html;
@@ -665,7 +665,7 @@ export async function sendDamageToChat(rollData) {
         rollData.tokenId = speaker.token;
     }
 
-    chatData.roll = rollData.damages[0].damageRoll;
+    chatData.rolls = rollData.damages.flatMap(r => r.damageRoll);
 
     const html = await renderTemplate("systems/dark-heresy/template/chat/damage.hbs", rollData);
     chatData.content = html;

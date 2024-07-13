@@ -11,7 +11,7 @@ export function chatListeners(html) {
     html.on("click", ".invoke-test", onTestClick.bind(this));
     html.on("click", ".invoke-damage", onDamageClick.bind(this));
     html.on("click", ".reload-Weapon", onReloadClick.bind(this));
-    html.on("click", ".dark-heresy.chat.roll>.background.border", onChatRollClick.bind(this));
+    html.on("dblclick", ".dark-heresy.chat.roll>.background.border", onChatRollClick.bind(this));
 }
 
 /**
