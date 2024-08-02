@@ -7,7 +7,6 @@ export class DarkHeresySheet extends ActorSheet {
         html.find(".item-create").click(ev => this._onItemCreate(ev));
         html.find(".item-edit").click(ev => this._onItemEdit(ev));
         html.find(".item-delete").click(ev => this._onItemDelete(ev));
-        html.find("input").focusin(ev => this._onFocusIn(ev));
         html.find(".roll-characteristic").click(async ev => await this._prepareRollCharacteristic(ev));
         html.find(".roll-skill").click(async ev => await this._prepareRollSkill(ev));
         html.find(".roll-speciality").click(async ev => await this._prepareRollSpeciality(ev));
