@@ -1,7 +1,6 @@
 export class DarkHeresyItem extends Item {
     async sendToChat() {
-        const item = new CONFIG.Item.documentClass(this.data._source);
-        const html = await renderTemplate("systems/dark-heresy/template/chat/item.hbs", {item, data: item.system});
+        const html = await renderTemplate("systems/dark-heresy/template/chat/item.hbs", { item: this, data: this.system });
         const chatData = {
             user: game.user.id,
             rollMode: game.settings.get("core", "rollMode"),
@@ -219,9 +218,10 @@ export class DarkHeresyItem extends Item {
         }
     }
 
-    get isInstalled() { return this.installed
-        ? game.i18n.localize("Yes")
-        : game.i18n.localize("No");
+    get isInstalled() {
+        return this.installed
+            ? game.i18n.localize("Yes")
+            : game.i18n.localize("No");
     }
 
 
@@ -265,85 +265,85 @@ export class DarkHeresyItem extends Item {
 
     get isAdditive() { return this.system.isAdditive; }
 
-    get craftsmanship() { return this.system.craftsmanship;}
+    get craftsmanship() { return this.system.craftsmanship; }
 
-    get description() { return this.system.description;}
+    get description() { return this.system.description; }
 
-    get availability() { return this.system.availability;}
+    get availability() { return this.system.availability; }
 
-    get weight() { return this.system.weight;}
+    get weight() { return this.system.weight; }
 
-    get quantity() { return this.system.quantity;}
+    get quantity() { return this.system.quantity; }
 
-    get weightSum() { return this.system.quantity * this.system.weight;}
+    get weightSum() { return this.system.quantity * this.system.weight; }
 
-    get effect() { return this.system.effect;}
+    get effect() { return this.system.effect; }
 
-    get weapon() { return this.system.weapon;}
+    get weapon() { return this.system.weapon; }
 
-    get source() { return this.system.source;}
+    get source() { return this.system.source; }
 
-    get subtype() { return this.system.type;}
+    get subtype() { return this.system.type; }
 
-    get part() { return this.system.part;}
+    get part() { return this.system.part; }
 
-    get maxAgility() { return this.system.maxAgility;}
+    get maxAgility() { return this.system.maxAgility; }
 
-    get installed() { return this.system.installed;}
+    get installed() { return this.system.installed; }
 
-    get shortDescription() { return this.system.shortDescription;}
+    get shortDescription() { return this.system.shortDescription; }
 
-    get protectionRating() { return this.system.protectionRating;}
+    get protectionRating() { return this.system.protectionRating; }
 
-    get overloadChance() { return this.system.overloadChance;}
+    get overloadChance() { return this.system.overloadChance; }
 
-    get cost() { return this.system.cost;}
+    get cost() { return this.system.cost; }
 
-    get prerequisite() { return this.system.prerequisite;}
+    get prerequisite() { return this.system.prerequisite; }
 
-    get action() { return this.system.action;}
+    get action() { return this.system.action; }
 
-    get focusPower() { return this.system.focusPower;}
+    get focusPower() { return this.system.focusPower; }
 
-    get range() { return this.system.range;}
+    get range() { return this.system.range; }
 
-    get sustained() { return this.system.sustained;}
+    get sustained() { return this.system.sustained; }
 
-    get psychicType() { return this.system.subtype;}
+    get psychicType() { return this.system.subtype; }
 
-    get damage() { return this.system.damage;}
+    get damage() { return this.system.damage; }
 
-    get benefit() { return this.system.benefit;}
+    get benefit() { return this.system.benefit; }
 
-    get prerequisites() { return this.system.prerequisites;}
+    get prerequisites() { return this.system.prerequisites; }
 
-    get aptitudes() { return this.system.aptitudes;}
+    get aptitudes() { return this.system.aptitudes; }
 
-    get starter() { return this.system.starter;}
+    get starter() { return this.system.starter; }
 
-    get tier() { return this.system.tier;}
+    get tier() { return this.system.tier; }
 
-    get class() { return this.system.class;}
+    get class() { return this.system.class; }
 
-    get rateOfFire() { return this.system.rateOfFire;}
+    get rateOfFire() { return this.system.rateOfFire; }
 
     get damageType() {
         return this.system.damageType
-        || this.system?.damage?.type
-        || this.system.effect?.damage?.type
-        || this.system.type;
+            || this.system?.damage?.type
+            || this.system.effect?.damage?.type
+            || this.system.type;
     }
 
-    get penetration() { return this.system.penetration;}
+    get penetration() { return this.system.penetration; }
 
-    get clip() { return this.system.clip;}
+    get clip() { return this.system.clip; }
 
-    get reload() { return this.system.reload;}
+    get reload() { return this.system.reload; }
 
-    get special() { return this.system.special;}
+    get special() { return this.system.special; }
 
-    get attack() { return this.system.attack;}
+    get attack() { return this.system.attack; }
 
-    get upgrades() { return this.system.upgrades;}
+    get upgrades() { return this.system.upgrades; }
 
 }
