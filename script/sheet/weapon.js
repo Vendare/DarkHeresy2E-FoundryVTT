@@ -14,7 +14,10 @@ export class WeaponSheet extends DarkHeresyItemSheet {
                     contentSelector: ".sheet-body",
                     initial: "stats"
                 }
-            ]
+            ],
+            dragDrop: [{
+                dropSelector: null
+            }]
         });
     }
 
@@ -26,5 +29,28 @@ export class WeaponSheet extends DarkHeresyItemSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
+    }
+
+    _canDragDrop(selector) {
+        return true;
+    }
+
+    async _onDrop(event) {
+        let dragEventData = TextEditor.getDragEventData(event);
+        let item = fromUuidSync(dragEventData.uuid);
+
+        // We only want to allow drops on weapons that belong to an actor
+        if (!this.item.actor) return;
+
+        // It has to be ammunition from the same actor
+        if (item?.type === "ammunition" && item?.actor.uuid === this.item.actor.uuid) {
+            if (this.item.system.ammo !== "") {
+                let oldAmmo = this.item.actor.items.get(this.item.system.ammo);
+                oldAmmo.update({ "system.weaponId": "" });
+            }
+
+            item.update({ "system.weaponId": this.item.id });
+            this.item.update({ "system.ammo": item.id });
+        }
     }
 }
