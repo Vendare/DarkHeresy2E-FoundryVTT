@@ -36,10 +36,16 @@ export default class WeaponData extends EquipmentItemData {
     prepareDerivedData() {
         super.prepareDerivedData();
 
-        if (this.ammo !== "") {
-            // load ammo
-        }
+        this.prepareAmmoFetch();
 
+    }
+
+    prepareAmmoFetch() {
+        // We only store a reference to the ammo, here we get the whole item and store it in memory only
+        // Ammo can only be connected to weapons for actor owned weapons
+        if (this.parent.actor && this.ammo !== "") {
+            this.ammoItem = this.parent.actor.items.get(this.ammo);
+        }
     }
 
 }

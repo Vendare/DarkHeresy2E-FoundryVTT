@@ -27,22 +27,30 @@
             </div>
             <div class="items">
                 {{#each items.weapons as |item|}}
-                    <div class="gear item flex row" data-item-id="{{item.id}}">
-                        <div class="flex name item-edit">
-                            <div class="image-container">
-                                <div class="image" style="background-image: url('{{item.img}}')"></div>
+                    <div class="gear item">
+                        <div class="flex row" data-item-id="{{item.id}}">
+                            <div class="flex name item-edit">
+                                <div class="image-container">
+                                    <div class="image" style="background-image: url('{{item.img}}')"></div>
+                                </div>
+                                <div>{{item.name}}</div>
                             </div>
-                            <div>{{item.name}}</div>
+                            <div class="class">{{item.WeaponClass}}</div>
+                            <div class="class">{{item.WeaponType}}</div>
+                            <div class="damage">{{item.damage}}</div>
+                            <div class="type">{{item.DamageTypeShort}}</div>
+                            <div class="clip">{{item.Clip}}</div>
+                            <div class="weight">{{item.weight}}</div>
+                            <div class="button">
+                                <a class="item-control item-delete" title="Delete Weapon"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
                         </div>
-                        <div class="class">{{item.WeaponClass}}</div>
-                        <div class="class">{{item.WeaponType}}</div>
-                        <div class="damage">{{item.damage}}</div>
-                        <div class="type">{{item.DamageTypeShort}}</div>
-                        <div class="clip">{{item.Clip}}</div>
-                        <div class="weight">{{item.weight}}</div>
-                        <div class="button">
-                            <a class="item-control item-delete" title="Delete Weapon"><i class="fas fa-trash"></i></a>
-                        </div>
+                        {{#if item.system.ammoItem}}
+                            <div class="linked-item">
+                                &#8627 {{item.system.ammoItem.name}}
+                            </div>
+                        {{/if}}
                     </div>
                 {{/each}}
             </div>
@@ -53,10 +61,11 @@
                 <b class="installed">{{localize "WEAPON_MODIFICATION.INSTALLED"}}</b>
                 <b class="upgrade">{{localize "WEAPON_MODIFICATION.UPGRADES"}}</b>
                 <b class="weight">{{localize "WEAPON_MODIFICATION.WEIGHT"}}</b>
-                <a class="button item-create" title="Add Weapon Modification" data-type="weaponModification"><i class="fas fa-plus"></i></a>
+                <a class="button item-create" title="Add Weapon Modification" data-type="weaponModification"><i
+                        class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each items.weaponMods as |item|}}                    
+                {{#each items.weaponMods as |item|}}
                     <div class="gear item flex row" data-item-id="{{item.id}}">
                         <div class="flex name item-edit">
                             <div class="image-container">
@@ -68,10 +77,11 @@
                         <div class="upgrade">{{item.upgrades}}</div>
                         <div class="weight">{{item.weight}}</div>
                         <div class="button">
-                            <a class="item-control item-delete" title="Delete Weapon Modification"><i class="fas fa-trash"></i></a>
+                            <a class="item-control item-delete" title="Delete Weapon Modification"><i
+                                    class="fas fa-trash"></i></a>
                         </div>
                     </div>
-                    
+
                 {{/each}}
             </div>
         </div>
@@ -82,25 +92,27 @@
                 <b class="quantity">{{localize "AMMUNITION.QUANTITY"}}</b>
                 <b class="weight">{{localize "AMMUNITION.WEIGHT"}}</b>
                 <b class="sum-weight">{{localize "AMMUNITION.SUM"}}</b>
-                <a class="button item-create" title="Add Ammunition" data-type="ammunition"><i class="fas fa-plus"></i></a>
+                <a class="button item-create" title="Add Ammunition" data-type="ammunition"><i
+                        class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each items.ammunitions as |item|}}                    
+                {{#each items.ammunitions as |item|}}
                     <div class="gear item flex row" data-item-id="{{item.id}}">
-                    <div class="flex name item-edit">
-                        <div class="image-container">
-                            <div class="image" style="background-image: url('{{item.img}}')"></div>
+                        <div class="flex name item-edit">
+                            <div class="image-container">
+                                <div class="image" style="background-image: url('{{item.img}}')"></div>
+                            </div>
+                            <div>{{item.name}}</div>
                         </div>
-                        <div>{{item.name}}</div>
+                        <div class="weapon">{{item.weapon}}</div>
+                        <div class="quantity">{{item.quantity}}</div>
+                        <div class="weight">{{item.weight}}</div>
+                        <div class="sum-weight">{{item.weightSum}}</div>
+                        <div class="button">
+                            <a class="item-control item-delete" title="Delete Ammunition"><i
+                                    class="fas fa-trash"></i></a>
+                        </div>
                     </div>
-                    <div class="weapon">{{item.weapon}}</div>
-                    <div class="quantity">{{item.quantity}}</div>
-                    <div class="weight">{{item.weight}}</div>
-                    <div class="sum-weight">{{item.weightSum}}</div>
-                    <div class="button">
-                        <a class="item-control item-delete" title="Delete Ammunition"><i class="fas fa-trash"></i></a>
-                    </div>
-                </div>
                 {{/each}}
             </div>
         </div>
@@ -134,7 +146,8 @@
                 <b class="name">{{localize "FORCE_FIELD.HEADER"}}</b>
                 <b class="craftsmanship">{{localize "FORCE_FIELD.CRAFTSMANSHIP"}}</b>
                 <b class="weight">{{localize "FORCE_FIELD.WEIGHT"}}</b>
-                <a class="button item-create" title="Add Force Field" data-type="forceField"><i class="fas fa-plus"></i></a>
+                <a class="button item-create" title="Add Force Field" data-type="forceField"><i
+                        class="fas fa-plus"></i></a>
             </div>
             <div class="items">
                 {{#each items.forceFields as |item|}}
@@ -148,7 +161,8 @@
                         <div class="craftsmanship">{{item.Craftsmanship}}</div>
                         <div class="weight">{{item.weight}}</div>
                         <div class="button">
-                            <a class="item-control item-delete" title="Delete Force Field"><i class="fas fa-trash"></i></a>
+                            <a class="item-control item-delete" title="Delete Force Field"><i
+                                    class="fas fa-trash"></i></a>
                         </div>
                     </div>
                 {{/each}}
@@ -187,7 +201,7 @@
                 <a class="button item-create" title="Add Drug" data-type="drug"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each items.drugs as |item|}}                    
+                {{#each items.drugs as |item|}}
                     <div class="gear item flex row" data-item-id="{{item.id}}">
                         <div class="flex name item-edit">
                             <div class="image-container">
@@ -200,7 +214,7 @@
                         <div class="button">
                             <a class="item-control item-delete" title="Delete Drug"><i class="fas fa-trash"></i></a>
                         </div>
-                    </div>                    
+                    </div>
                 {{/each}}
             </div>
         </div>
@@ -212,7 +226,7 @@
                 <a class="button item-create" title="Add Tool" data-type="tool"><i class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each items.tools as |item|}}                    
+                {{#each items.tools as |item|}}
                     <div class="gear item flex row" data-item-id="{{item.id}}">
                         <div class="flex name item-edit">
                             <div class="image-container">
@@ -225,7 +239,7 @@
                         <div class="button">
                             <a class="item-control item-delete" title="Delete Tool"><i class="fas fa-trash"></i></a>
                         </div>
-                    </div>                    
+                    </div>
                 {{/each}}
             </div>
         </div>
@@ -235,10 +249,11 @@
                 <b class="installed">{{localize "CYBERNETIC.INSTALLED"}}</b>
                 <b class="cybernetic-craftsmanship">{{localize "CYBERNETIC.CRAFTSMANSHIP"}}</b>
                 <b class="weight">{{localize "CYBERNETIC.WEIGHT"}}</b>
-                <a class="button item-create" title="Add Cybernetic" data-type="cybernetic"><i class="fas fa-plus"></i></a>
+                <a class="button item-create" title="Add Cybernetic" data-type="cybernetic"><i
+                        class="fas fa-plus"></i></a>
             </div>
             <div class="items">
-                {{#each items.cybernetics as |item|}}                    
+                {{#each items.cybernetics as |item|}}
                     <div class="gear item flex row" data-item-id="{{item.id}}">
                         <div class="flex name item-edit">
                             <div class="image-container">
@@ -250,7 +265,8 @@
                         <div class="cybernetic-craftsmanship">{{item.Craftsmanship}}</div>
                         <div class="weight">{{item.weight}}</div>
                         <div class="button">
-                            <a class="item-control item-delete" title="Delete Cybernetic"><i class="fas fa-trash"></i></a>
+                            <a class="item-control item-delete" title="Delete Cybernetic"><i
+                                    class="fas fa-trash"></i></a>
                         </div>
                     </div>
                 {{/each}}

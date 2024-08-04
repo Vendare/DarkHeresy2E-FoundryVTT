@@ -1,4 +1,4 @@
-import {PlaceableTemplate} from "./placeable-template.js";
+import { PlaceableTemplate } from "./placeable-template.js";
 
 /**
  * Roll a generic roll, and post the result to chat.
@@ -82,7 +82,7 @@ async function _computeCombatTarget(rollData) {
     }
     let psyModifier = 0;
     if (typeof rollData.psy !== "undefined" && typeof rollData.psy.useModifier !== "undefined" && rollData.psy.useModifier) {
-    // Set Current Psyrating to the allowed maximum if it is bigger
+        // Set Current Psyrating to the allowed maximum if it is bigger
         if (rollData.psy.value > rollData.psy.max) {
             rollData.psy.value = rollData.psy.max;
         }
@@ -95,11 +95,11 @@ async function _computeCombatTarget(rollData) {
     }
 
     let targetMods = rollData.target.modifier
-    + (rollData.aim?.val ? rollData.aim.val : 0)
-    + (rollData.rangeMod ? rollData.rangeMod : 0)
-    + (rollData.weapon?.traits?.twinLinked ? 20: 0)
-    + attackType
-    + psyModifier;
+        + (rollData.aim?.val ? rollData.aim.val : 0)
+        + (rollData.rangeMod ? rollData.rangeMod : 0)
+        + (rollData.weapon?.traits?.twinLinked ? 20 : 0)
+        + attackType
+        + psyModifier;
 
     rollData.target.final = _getRollTarget(targetMods, rollData.target.base);
 }
@@ -196,7 +196,7 @@ async function _rollDamage(rollData) {
     firstHit.location = firstLocation;
     rollData.damages.push(firstHit);
 
-    let additionalhits = rollData.numberOfHits -1;
+    let additionalhits = rollData.numberOfHits - 1;
 
     for (let i = 0; i < additionalhits; i++) {
         let additionalHit = await _computeDamage(
@@ -232,7 +232,7 @@ function _computeNumberOfHits(attackDos, evasionDos, attackType, shotsFired, wea
     let stormMod = weaponTraits.storm ? 2 : 1;
     let maxHits = attackType.maxHits * stormMod;
 
-    if (weaponTraits.twinLinked && attackDos >=2) {
+    if (weaponTraits.twinLinked && attackDos >= 2) {
         maxHits += 1;
         attackDos += attackType.hitMargin;
         if (shotsFired) shotsFired += 1;
@@ -351,7 +351,7 @@ async function _updateRangedAmmo(rollData) {
                     break;
                 }
             }
-            await weapon.update({"system.clip.value": rollData.weapon.clip.value});
+            await weapon.update({ "system.clip.value": rollData.weapon.clip.value });
         }
     }
 }

@@ -45,9 +45,9 @@ export default class DarkHeresyUtil {
         let characteristic = this.getWeaponCharacteristic(actor, weaponItem);
         let rateOfFire;
         if (weaponItem.class === "melee") {
-            rateOfFire = {burst: characteristic.bonus, full: characteristic.bonus};
+            rateOfFire = { burst: characteristic.bonus, full: characteristic.bonus };
         } else {
-            rateOfFire = {burst: weaponItem.rateOfFire.burst, full: weaponItem.rateOfFire.full};
+            rateOfFire = { burst: weaponItem.rateOfFire.burst, full: weaponItem.rateOfFire.full };
         }
         let weaponTraits = this.extractWeaponTraits(weaponItem.special);
         let isMelee = weaponItem.class === "melee";
@@ -64,8 +64,8 @@ export default class DarkHeresyUtil {
             clip: weaponItem.clip,
             rateOfFire: rateOfFire,
             range: !isMelee ? weaponItem.range : 0,
-            damageFormula: weaponItem.damage + attributeMod + (weaponTraits.force ? "+PR": ""),
-            penetrationFormula: weaponItem.penetration + (weaponTraits.force ? "+PR" : ""),
+            damageFormula: weaponItem.damage + attributeMod + (weaponTraits.force ? "+PR" : "") + (weaponItem.system.ammoItem ? `+${weaponItem.system.ammoItem.system.effect.damage.modifier}` : ""),
+            penetrationFormula: weaponItem.penetration + (weaponTraits.force ? "+PR" : "") + (weaponItem.system.ammoItem ? `+${weaponItem.system.ammoItem.system.effect.penetration}` : ""),
             traits: weaponTraits,
             special: weaponItem.special
         });
@@ -77,8 +77,8 @@ export default class DarkHeresyUtil {
         let focusPowerTarget = this.getFocusPowerTarget(actor, power);
 
         let rollData = this.createCommonAttackRollData(actor, power);
-        rollData.target.base= focusPowerTarget.total;
-        rollData.target.modifier= power.focusPower.difficulty;
+        rollData.target.base = focusPowerTarget.total;
+        rollData.target.modifier = power.focusPower.difficulty;
         rollData.weapon = foundry.utils.mergeObject(rollData.weapon, {
             damageFormula: power.damage.formula,
             penetrationFormula: power.damage.penetration,
@@ -156,7 +156,7 @@ export default class DarkHeresyUtil {
 
 
     static extractWeaponTraits(traits) {
-    // These weapon traits never go above 9 or below 2
+        // These weapon traits never go above 9 or below 2
         return {
             accurate: this.hasNamedTrait(/(?<!in)Accurate/gi, traits),
             rfFace: this.extractNumberedTrait(/Vengeful.*\(\d\)/gi, traits), // The alternativ die face Righteous Fury is triggered on
