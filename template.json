@@ -1218,24 +1218,7 @@
                 "source": ""
             }
         },
-        "ammunition": {
-            "templates": [
-                "equipment"
-            ],
-            "quantity": 0,
-            "effect": {
-                "damage": {
-                    "modifier": 0,
-                    "type": "impact"
-                },
-                "special": "",
-                "penetration": "",
-                "attack": {
-                    "modifier": 0
-                }
-            },
-            "weapon": ""
-        },
+        "ammunition": {},
         "armour": {
             "templates": [
                 "equipment"
