@@ -1,4 +1,4 @@
-import {prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll} from "../../common/dialog.js";
+import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "../../common/dialog.js";
 import DarkHeresyUtil from "../../common/util.js";
 
 export class DarkHeresySheet extends ActorSheet {
@@ -19,6 +19,7 @@ export class DarkHeresySheet extends ActorSheet {
     /** @override */
     async getData() {
         const data = super.getData();
+        console.log(data);
         data.system = data.data.system;
         data.items = this.constructItemLists(data);
         data.enrichment = await this._enrichment();
@@ -28,9 +29,9 @@ export class DarkHeresySheet extends ActorSheet {
     async _enrichment() {
         let enrichment = {};
         if (this.actor.type !== "npc") {
-            enrichment["system.bio.notes"] = await TextEditor.enrichHTML(this.actor.system.bio.notes, {async: true});
+            enrichment["system.bio.notes"] = await TextEditor.enrichHTML(this.actor.system.bio.notes, { async: true });
         } else {
-            enrichment["system.notes"] = await TextEditor.enrichHTML(this.actor.system.notes, {async: true});
+            enrichment["system.notes"] = await TextEditor.enrichHTML(this.actor.system.notes, { async: true });
         }
         return foundry.utils.expandObject(enrichment);
     }

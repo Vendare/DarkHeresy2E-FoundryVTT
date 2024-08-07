@@ -17,14 +17,18 @@ export class DarkHeresyActor extends Actor {
         this.updateSource(initData);
     }
 
-    prepareData() {
-        super.prepareData();
+    prepareBaseData() {
+        super.prepareBaseData();
         this._computeCharacteristics();
         this._computeSkills();
         this._computeItems();
         this._computeExperience();
         this._computeArmour();
         this._computeMovement();
+    }
+
+    prepareData() {
+        super.prepareData();
     }
 
     _computeCharacteristics() {
@@ -49,11 +53,11 @@ export class DarkHeresyActor extends Actor {
         // Done as variables to make it easier to read & understand
         let tb = Math.floor(
             (this.characteristics.toughness.base
-        + this.characteristics.toughness.advance) / 10);
+                + this.characteristics.toughness.advance) / 10);
 
         let wb = Math.floor(
             (this.characteristics.willpower.base
-        + this.characteristics.willpower.advance) / 10);
+                + this.characteristics.willpower.advance) / 10);
 
         // The only thing not affected by itself
         this.fatigue.max = tb + wb;
@@ -96,7 +100,7 @@ export class DarkHeresyActor extends Actor {
         this.experience.spentTalents = 0;
         if (this.experience.spentOther == null) this.experience.spentOther = 0;
         this.experience.spentPsychicPowers = 0;
-        let psyRatingCost = Math.max(0, ((this.psy.rating * (this.psy.rating + 1) /2) - 1) * 200); // N*(n+1)/2 equals 1+2+3... -1 because we start paying from 2
+        let psyRatingCost = Math.max(0, ((this.psy.rating * (this.psy.rating + 1) / 2) - 1) * 200); // N*(n+1)/2 equals 1+2+3... -1 because we start paying from 2
 
         this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost;
         for (let characteristic of Object.values(this.characteristics)) {
@@ -144,10 +148,10 @@ export class DarkHeresyActor extends Actor {
             }
         }
         this.experience.totalSpent = this.experience.spentCharacteristics
-      + this.experience.spentSkills
-      + this.experience.spentTalents
-      + this.experience.spentPsychicPowers
-      + this.experience.spentOther;
+            + this.experience.spentSkills
+            + this.experience.spentTalents
+            + this.experience.spentPsychicPowers
+            + this.experience.spentOther;
         this.experience.remaining = this.experience.value - this.experience.totalSpent;
     }
 
@@ -177,10 +181,10 @@ export class DarkHeresyActor extends Actor {
             }
         }
         this.experience.totalSpent = this.experience.spentCharacteristics
-      + this.experience.spentSkills
-      + this.experience.spentTalents
-      + this.experience.spentPsychicPowers
-      + this.experience.spentOther;
+            + this.experience.spentSkills
+            + this.experience.spentTalents
+            + this.experience.spentPsychicPowers
+            + this.experience.spentOther;
         this.experience.remaining = this.experience.value - this.experience.totalSpent;
     }
 
@@ -531,7 +535,7 @@ export class DarkHeresyActor extends Actor {
         return boni;
     }
 
-    get characteristics() {return this.system.characteristics;}
+    get characteristics() { return this.system.characteristics; }
 
     get skills() { return this.system.skills; }
 

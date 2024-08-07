@@ -32,11 +32,12 @@ import Dh from "./common/config.js";
 import * as chat from "./common/chat.js";
 import { registerDataModels } from "./setup/registerDataModels.js";
 
-Hooks.once("init", function() {
+Hooks.once("init", function () {
     CONFIG.Combat.initiative = { formula: "@initiative.base + @initiative.bonus", decimals: 0 };
     CONFIG.Actor.documentClass = DarkHeresyActor;
     CONFIG.Item.documentClass = DarkHeresyItem;
-    CONFIG.fontDefinitions["Caslon Antique"] = {editor: true, fonts: []};
+    CONFIG.fontDefinitions["Caslon Antique"] = { editor: true, fonts: [] };
+    CONFIG.ActiveEffect.legacyTransferral = false;
     game.darkHeresy = {
         config: Dh,
         testInit: {
@@ -104,9 +105,9 @@ Hooks.once("init", function() {
 
 });
 
-Hooks.once("ready", function() {
+Hooks.once("ready", function () {
     migrateWorld();
-    CONFIG.ChatMessage.documentClass.prototype.getRollData = function() {
+    CONFIG.ChatMessage.documentClass.prototype.getRollData = function () {
         return this.getFlag("dark-heresy", "rollData");
     };
 });
@@ -129,8 +130,7 @@ Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
  * Item      - open roll dialog for item
  */
 Hooks.on("hotbarDrop", (bar, data, slot) => {
-    if (data.type === "Item" || data.type === "Actor")
-    {
+    if (data.type === "Item" || data.type === "Actor") {
         DhMacroUtil.createMacro(data, slot);
         return false;
     }
