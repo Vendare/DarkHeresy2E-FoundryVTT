@@ -19,7 +19,6 @@ export class DarkHeresySheet extends ActorSheet {
     /** @override */
     async getData() {
         const data = super.getData();
-        console.log(data);
         data.system = data.data.system;
         data.items = this.constructItemLists(data);
         data.enrichment = await this._enrichment();

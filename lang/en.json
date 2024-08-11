@@ -424,6 +424,7 @@
     "WOUND.CRITICAL_DAMAGE": "Critical Damage",
     "DH": {
         "Effect": {
+            "Effect": "EFFECT",
             "Temporary": "Temporary",
             "Passive": "Passive",
             "Inactive": "Inactive",
