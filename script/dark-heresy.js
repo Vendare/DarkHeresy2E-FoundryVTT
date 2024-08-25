@@ -32,7 +32,7 @@ import Dh from "./common/config.js";
 import * as chat from "./common/chat.js";
 import { registerDataModels } from "./setup/registerDataModels.js";
 
-Hooks.once("init", function () {
+Hooks.once("init", function() {
     CONFIG.Combat.initiative = { formula: "@initiative.base + @initiative.bonus", decimals: 0 };
     CONFIG.Actor.documentClass = DarkHeresyActor;
     CONFIG.Item.documentClass = DarkHeresyItem;
@@ -105,9 +105,9 @@ Hooks.once("init", function () {
 
 });
 
-Hooks.once("ready", function () {
+Hooks.once("ready", function() {
     migrateWorld();
-    CONFIG.ChatMessage.documentClass.prototype.getRollData = function () {
+    CONFIG.ChatMessage.documentClass.prototype.getRollData = function() {
         return this.getFlag("dark-heresy", "rollData");
     };
 });

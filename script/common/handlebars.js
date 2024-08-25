@@ -43,6 +43,7 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/ammunition.hbs",
         "systems/dark-heresy/template/sheet/force-field.hbs",
         "systems/dark-heresy/template/sheet/item/parts/effect-part.hbs",
+        "systems/dark-heresy/template/sheet/item/parts/effect-tab.hbs",
 
         "systems/dark-heresy/template/sheet/characteristics/information.hbs",
         "systems/dark-heresy/template/sheet/characteristics/left.hbs",
@@ -68,16 +69,16 @@ function preloadHandlebarsTemplates() {
  * Add custom Handlerbars helpers.
  */
 function registerHandlebarsHelpers() {
-    Handlebars.registerHelper("removeMarkup", function (text) {
+    Handlebars.registerHelper("removeMarkup", function(text) {
         const markup = /<(.*?)>/gi;
         return text.replace(markup, "");
     });
 
-    Handlebars.registerHelper("enrich", function (string) {
+    Handlebars.registerHelper("enrich", function(string) {
         return TextEditor.enrichHTML(string, { async: false });
     });
 
-    Handlebars.registerHelper("damageTypeLong", function (damageType) {
+    Handlebars.registerHelper("damageTypeLong", function(damageType) {
         damageType = (damageType || "i").toLowerCase();
         switch (damageType) {
             case "e":
@@ -94,7 +95,7 @@ function registerHandlebarsHelpers() {
     });
 
 
-    Handlebars.registerHelper("damageTypeShort", function (damageType) {
+    Handlebars.registerHelper("damageTypeShort", function(damageType) {
         switch (damageType) {
             case "energy":
                 return game.i18n.localize("DAMAGE_TYPE.ENERGY_SHORT");
@@ -109,7 +110,7 @@ function registerHandlebarsHelpers() {
         }
     });
 
-    Handlebars.registerHelper("config", function (key) {
+    Handlebars.registerHelper("config", function(key) {
         return game.darkHeresy.config[key];
     });
 

@@ -22,6 +22,7 @@ export class DarkHeresySheet extends ActorSheet {
         data.system = data.data.system;
         data.items = this.constructItemLists(data);
         data.enrichment = await this._enrichment();
+        data.effects = this.prepareActiveEffectCategories();
         return data;
     }
 
@@ -194,4 +195,47 @@ export class DarkHeresySheet extends ActorSheet {
             else if (typeof items[list] == "object") _sortItemLists(items[list]);
         }
     }
+
+    /**
+     *  Prepare the data structure for Active Effects which are currently embedded in an Actor or Item.
+     * @returns {object}                   Data for rendering
+     */
+    prepareActiveEffectCategories() {
+        // Define effect header categories
+        const categories = {
+            temporary: {
+                type: "temporary",
+                label: game.i18n.localize("DH.Effect.Temporary"),
+                effects: []
+            },
+            passive: {
+                type: "passive",
+                label: game.i18n.localize("DH.Effect.Passive"),
+                effects: []
+            },
+            inactive: {
+                type: "inactive",
+                label: game.i18n.localize("DH.Effect.Inactive"),
+                effects: []
+            }
+        };
+
+        categories.conditions = CONFIG.statusEffects.map(i => {
+            return {
+                name: i.name,
+                key: i.id,
+                img: i.img,
+                existing: this.actor.hasCondition(i.id)
+            };
+        });
+
+        for (let e of Array.from(this.actor.allApplicableEffects(true)))
+        {
+            if (e.disabled) categories.disabled.push(e);
+            else if (e.isTemporary) categories.temporary.push(e);
+            else categories.passive.push(e);
+        }
+        return categories;
+    }
+
 }

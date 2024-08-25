@@ -535,6 +535,11 @@ export class DarkHeresyActor extends Actor {
         return boni;
     }
 
+    hasCondition(conditionKey) {
+        let existing = this.effects.find(e => e.statuses.has(conditionKey))
+        return existing
+    }
+
     get characteristics() { return this.system.characteristics; }
 
     get skills() { return this.system.skills; }
