@@ -49,4 +49,15 @@ export default class AmmunitionData extends EquipmentItemData {
         }
     }
 
+    /** @inheritdoc */
+    static migrateData(source) {
+        super.migrateData(source);
+
+        this.migrateDamageModifier(source);
+    }
+
+    static migrateDamageModifier(source) {
+        source.effect.damage.modifier = parseInt(source.effect.damage?.modifier) || 0;
+    }
+
 }
