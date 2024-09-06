@@ -7,6 +7,7 @@ export class DarkHeresySheet extends ActorSheet {
         html.find(".item-create").click(ev => this._onItemCreate(ev));
         html.find(".item-edit").click(ev => this._onItemEdit(ev));
         html.find(".item-delete").click(ev => this._onItemDelete(ev));
+        html.find(".ammo-unlink").click(ev => this._onAmmoUnlink(ev));
         html.find(".roll-characteristic").click(async ev => await this._prepareRollCharacteristic(ev));
         html.find(".roll-skill").click(async ev => await this._prepareRollSkill(ev));
         html.find(".roll-speciality").click(async ev => await this._prepareRollSpeciality(ev));
@@ -22,7 +23,7 @@ export class DarkHeresySheet extends ActorSheet {
         data.system = data.data.system;
         data.items = this.constructItemLists(data);
         data.enrichment = await this._enrichment();
-        data.effects = this.prepareActiveEffectCategories();
+        // data.effects = this.prepareActiveEffectCategories();
         return data;
     }
 
@@ -83,6 +84,16 @@ export class DarkHeresySheet extends ActorSheet {
         const div = $(event.currentTarget).parents(".item");
         this.actor.deleteEmbeddedDocuments("Item", [div.data("itemId")]);
         div.slideUp(200, () => this.render(false));
+    }
+
+    _onAmmoUnlink(event) {
+        event.preventDefault();
+        const ammoId = $(event.currentTarget).parents(".linked-item").data("ammoId");
+        const weaponId = $(event.currentTarget).parents(".item").data("itemId");
+
+        let newAmmos = this.actor.items.get(weaponId).system.ammo.filter(ammo => ammo !== ammoId);
+        this.actor.items.get(weaponId).update({ "system.ammo": newAmmos });
+        this.actor.items.get(ammoId).update({ "system.weaponId": "" });
     }
 
     async _prepareCustomRoll() {

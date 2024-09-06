@@ -28,7 +28,7 @@ export default class WeaponData extends EquipmentItemData {
             reload: new fields.StringField({ initial: "Full" }),
             special: new fields.StringField({ initial: "" }),
             attack: new fields.NumberField({ initial: 0 }),
-            ammo: new fields.StringField({ initial: "" })
+            ammo: new fields.ArrayField(new fields.StringField({ blank: false}))
         };
 
     }
@@ -43,8 +43,9 @@ export default class WeaponData extends EquipmentItemData {
     prepareAmmoFetch() {
         // We only store a reference to the ammo, here we get the whole item and store it in memory only
         // Ammo can only be connected to weapons for actor owned weapons
-        if (this.parent.actor && this.ammo !== "") {
-            this.ammoItem = this.parent.actor.items.get(this.ammo);
+        if (this.parent.actor && this.ammo.length > 0) {
+            this.ammoItems = [];
+            this.ammo.forEach(ammo => this.ammoItems.push(this.parent.actor.items.get(ammo)));
         }
     }
 

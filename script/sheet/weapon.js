@@ -44,13 +44,10 @@ export class WeaponSheet extends DarkHeresyItemSheet {
 
         // It has to be ammunition from the same actor
         if (item?.type === "ammunition" && item?.actor.uuid === this.item.actor.uuid) {
-            if (this.item.system.ammo !== "") {
-                let oldAmmo = this.item.actor.items.get(this.item.system.ammo);
-                oldAmmo.update({ "system.weaponId": "" });
-            }
-
             item.update({ "system.weaponId": this.item.id });
-            this.item.update({ "system.ammo": item.id });
+            let newAmmos = new Set(this.item.system.ammo);
+            newAmmos.add(item.id);
+            this.item.update({ "system.ammo": newAmmos });
         }
     }
 }

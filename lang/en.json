@@ -179,6 +179,7 @@
     "DIALOG.DAMAGE": "Damage",
     "DIALOG.TYPE": "Type",
     "DIALOG.PENETRATION": "Penetration",
+    "DIALOG.AMMO": "Ammunition",
     "DIALOG.PSY_RATING": "Psy Rating",
     "DIALOG.RANGE": "Range",
     "DIALOG.ATTACK_TYPE": "Attack Type",

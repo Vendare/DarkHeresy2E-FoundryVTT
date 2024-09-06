@@ -46,11 +46,15 @@
                                         class="fas fa-trash"></i></a>
                             </div>
                         </div>
-                        {{#if item.system.ammoItem}}
-                            <div class="linked-item">
-                                &#8627 {{item.system.ammoItem.name}}
+                        {{#each item.system.ammoItems as |ammo|}}
+                            <div class="linked-item flex row" data-ammo-id="{{ammo.id}}">
+                                &#8627 {{ammo.name}}
+                                <div class="button">
+                                    <a class="item-control ammo-unlink" title="Unlink Ammo"><i
+                                            class="fas fa-chain-broken"></i></a>
+                                </div>
                             </div>
-                        {{/if}}
+                        {{/each}}
                     </div>
                 {{/each}}
             </div>

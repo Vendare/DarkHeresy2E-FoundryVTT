@@ -64,8 +64,9 @@ export default class DarkHeresyUtil {
             clip: weaponItem.clip,
             rateOfFire: rateOfFire,
             range: !isMelee ? weaponItem.range : 0,
-            damageFormula: weaponItem.damage + attributeMod + (weaponTraits.force ? "+PR" : "") + (weaponItem.system.ammoItem ? `+${weaponItem.system.ammoItem.system.effect.damage.modifier}` : ""),
-            penetrationFormula: weaponItem.penetration + (weaponTraits.force ? "+PR" : "") + (weaponItem.system.ammoItem ? `+${weaponItem.system.ammoItem.system.effect.penetration}` : ""),
+            damageFormula: weaponItem.damage + attributeMod + (weaponTraits.force ? "+PR" : ""),
+            penetrationFormula: weaponItem.penetration + (weaponTraits.force ? "+PR" : ""),
+            ammos: weaponItem.system.ammoItems,
             traits: weaponTraits,
             special: weaponItem.special
         });
