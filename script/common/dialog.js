@@ -59,7 +59,7 @@ export async function prepareCommonRoll(rollData) {
  * @param {DarkHeresyActor} actorRef
  */
 export async function prepareCombatRoll(rollData, actorRef) {
-    if (rollData.weapon.isRanged && rollData.weapon.clip.value <= 0) {
+    if (rollData.weapon.isRange && rollData.weapon.clip.value <= 0) {
         reportEmptyClip(rollData);
     } else {
         const html = await renderTemplate("systems/dark-heresy/template/dialog/combat-roll.hbs", rollData);
@@ -100,10 +100,12 @@ export async function prepareCombatRoll(rollData, actorRef) {
                             rollData.aim.val += 10;
                         }
 
-                        rollData.weapon.damageFormula = html.find("#damageFormula")[0].value.replace(" ", "");
+                        let ammo = actorRef.items.get(html.find("#ammo")[0]?.value);
+
+                        rollData.weapon.damageFormula = `${html.find("#damageFormula")[0].value.replace(" ", "")} + ${ammo?.system.effect.damage.modifier ?? ""}`;
                         rollData.weapon.damageType = html.find("#damageType")[0].value;
                         rollData.weapon.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
-                        rollData.weapon.penetrationFormula = html.find("#penetration")[0].value;
+                        rollData.weapon.penetrationFormula = `${html.find("#penetration")[0].value} + ${ammo?.system.effect.damage.modifier ?? ""}`;
                         rollData.flags.isDamageRoll = false;
                         rollData.flags.isCombatRoll = true;
 

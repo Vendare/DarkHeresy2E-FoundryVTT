@@ -38,9 +38,9 @@ export default class AmmunitionData extends EquipmentItemData {
     prepareWeaponFetch() {
         // We only store a reference to the weapon, here we get the whole item and store it in memory only
         // Weapons can only be connected to ammo for actor owned ammo
-        if (this.parent.actor && this.weaponId !== "") {
+        if (this.parent.actor && this.weaponId && this.weaponId !== "") {
             this.weaponItem = this.parent.actor.items.get(this.weaponId);
-            this.weapon = this.weaponItem.name;
+            this.weapon = this.weaponItem?.name ?? "";
         }
 
         if (this.parent.actor && this.weaponId === "") {
@@ -57,7 +57,8 @@ export default class AmmunitionData extends EquipmentItemData {
     }
 
     static migrateDamageModifier(source) {
-        source.effect.damage.modifier = parseInt(source.effect.damage?.modifier) || 0;
+        if (source.effect?.damage) {
+            source.effect.damage.modifier = parseInt(source.effect.damage?.modifier) || 0;
+        }
     }
-
 }
