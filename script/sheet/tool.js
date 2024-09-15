@@ -7,7 +7,6 @@ export class ToolSheet extends DarkHeresyItemSheet {
             template: "systems/dark-heresy/template/sheet/tool.hbs",
             width: 500,
             height: 369,
-            resizable: false,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",

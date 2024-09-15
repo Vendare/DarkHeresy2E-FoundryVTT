@@ -7,7 +7,6 @@ export class ForceFieldSheet extends DarkHeresyItemSheet {
             template: "systems/dark-heresy/template/sheet/force-field.hbs",
             width: 500,
             height: 369,
-            resizable: false,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",
