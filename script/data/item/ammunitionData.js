@@ -13,7 +13,7 @@ export default class AmmunitionData extends EquipmentItemData {
             quantity: new fields.NumberField({ initial: 0 }),
             effect: new fields.SchemaField({
                 damage: new fields.SchemaField({
-                    modifier: new fields.NumberField({ initial: 0 }),
+                    modifier: new fields.StringField({ initial: "0" }),
                     type: new fields.StringField({ initial: "impact" })
                 }),
                 special: new fields.StringField({ initial: "" }),
