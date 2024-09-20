@@ -102,10 +102,10 @@ export async function prepareCombatRoll(rollData, actorRef) {
 
                         let ammo = actorRef.items.get(html.find("#ammo")[0]?.value);
 
-                        rollData.weapon.damageFormula = `${html.find("#damageFormula")[0].value.replace(" ", "")} + ${ammo?.system.effect.damage.modifier ?? ""}`;
+                        rollData.weapon.damageFormula = `${html.find("#damageFormula")[0].value.replace(" ", "")}${ammo?.system.effect.damage.modifier ? `+${ammo?.system.effect.damage.modifier}`: ""}`;
                         rollData.weapon.damageType = html.find("#damageType")[0].value;
                         rollData.weapon.damageBonus = parseInt(html.find("#damageBonus")[0].value, 10);
-                        rollData.weapon.penetrationFormula = `${html.find("#penetration")[0].value} + ${ammo?.system.effect.damage.modifier ?? ""}`;
+                        rollData.weapon.penetrationFormula = `${html.find("#penetration")[0].value}${ammo?.system.effect.penetration ? `+${ammo?.system.effect.penetration}`: ""}`;
                         rollData.flags.isDamageRoll = false;
                         rollData.flags.isCombatRoll = true;
 
