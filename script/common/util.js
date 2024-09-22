@@ -90,6 +90,7 @@ export default class DarkHeresyUtil {
         rollData.psy = {
             value: actor.psy.rating,
             rating: actor.psy.rating,
+            class: actor.psy.class,
             max: this.getMaxPsyRating(actor),
             warpConduit: false,
             display: true
