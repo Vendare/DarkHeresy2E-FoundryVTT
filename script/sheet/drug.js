@@ -7,7 +7,6 @@ export class DrugSheet extends DarkHeresyItemSheet {
             template: "systems/dark-heresy/template/sheet/drug.hbs",
             width: 500,
             height: 369,
-            resizable: false,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",

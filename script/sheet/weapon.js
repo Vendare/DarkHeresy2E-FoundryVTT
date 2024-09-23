@@ -7,7 +7,6 @@ export class WeaponSheet extends DarkHeresyItemSheet {
             template: "systems/dark-heresy/template/sheet/weapon.hbs",
             width: 500,
             height: 369,
-            resizable: false,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",
