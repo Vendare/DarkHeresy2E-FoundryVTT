@@ -524,7 +524,7 @@ export class DarkHeresyActor extends Actor {
             totalWounds,
             totalCritWounds
         });
-        ChatMessage.create({ content: html });
+        ChatMessage.create({ content: html, flags: {"dark-heresy.rolls": rolls, "dark-heresy.totalCritWounds": totalCritWounds} });
     }
 
     get attributeBoni() {
