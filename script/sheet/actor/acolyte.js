@@ -14,7 +14,8 @@ export class AcolyteSheet extends DarkHeresySheet {
                     contentSelector: ".sheet-body",
                     initial: "stats"
                 }
-            ]
+            ],
+            scrollY: [".items"]
         });
     }
 
