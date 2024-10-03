@@ -31,6 +31,7 @@ import Dh from "./common/config.js";
 // Import Helpers
 import * as chat from "./common/chat.js";
 import { registerDataModels } from "./setup/registerDataModels.js";
+import { registerAdditionalModuleSettings } from "./moduleSupport/moduleSupportSettings.js";
 
 Hooks.once("init", function() {
     CONFIG.Combat.initiative = { formula: "@initiative.base + @initiative.bonus", decimals: 0 };
@@ -103,6 +104,7 @@ Hooks.once("init", function() {
         type: Boolean
     });
 
+    registerAdditionalModuleSettings();
 });
 
 Hooks.once("ready", function() {
