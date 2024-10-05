@@ -49,4 +49,24 @@ export default class WeaponData extends EquipmentItemData {
         }
     }
 
+
+    /** @inheritdoc */
+    static migrateData(source) {
+        super.migrateData(source);
+
+        this.migrateRateOfFire(source);
+    }
+
+    static migrateRateOfFire(source) {
+        if (
+            !Number.isInteger(source.rateOfFire.single)
+            || !Number.isInteger(source.rateOfFire.burst)
+            || !Number.isInteger(source.rateOfFire.full)
+        ) {
+            source.rateOfFire.single = parseInt(source.rateOfFire.single) || 0;
+            source.rateOfFire.burst = parseInt(source.rateOfFire.single) || 0;
+            source.rateOfFire.full = parseInt(source.rateOfFire.single) || 0;
+        }
+    }
+
 }
