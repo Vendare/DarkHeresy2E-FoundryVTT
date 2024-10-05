@@ -13,7 +13,7 @@
     "@rollup/plugin-node-resolve": "^15.2.2",
 	"rollup":"^4.22.4",
     "eslint-plugin-jsdoc": "^46.2.6",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "gulp-eslint-new": "^1.8.0",
     "gulp-if": "^3.0.0",
     "gulp-less": "^5.0.0",
