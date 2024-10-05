@@ -14,7 +14,8 @@ export class NpcSheet extends DarkHeresySheet {
                     contentSelector: ".sheet-body",
                     initial: "stats"
                 }
-            ]
+            ],
+            scrollY: [".items"]
         });
     }
 
