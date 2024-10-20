@@ -15,6 +15,7 @@ export class DarkHeresySheet extends ActorSheet {
         html.find(".roll-corruption").click(async ev => await this._prepareRollCorruption(ev));
         html.find(".roll-weapon").click(async ev => await this._prepareRollWeapon(ev));
         html.find(".roll-psychic-power").click(async ev => await this._prepareRollPsychicPower(ev));
+        html.find(".condition-toggle").click(this._onConditionToggle.bind(this));
     }
 
     /** @override */
@@ -23,7 +24,7 @@ export class DarkHeresySheet extends ActorSheet {
         data.system = data.data.system;
         data.items = this.constructItemLists(data);
         data.enrichment = await this._enrichment();
-        // data.effects = this.prepareActiveEffectCategories();
+        data.effects = this.prepareActiveEffectCategories();
         return data;
     }
 
@@ -164,6 +165,16 @@ export class DarkHeresySheet extends ActorSheet {
         );
     }
 
+    _onConditionToggle(ev)
+    {
+        let key = $(ev.currentTarget).parents(".condition").data("key");
+        if (this.actor.hasCondition(key)) {
+            this.actor.removeCondition(key);
+        } else {
+            this.actor.addCondition(key);
+        }
+    }
+
     constructItemLists() {
         let items = {};
         let itemTypes = this.actor.itemTypes;
@@ -240,13 +251,19 @@ export class DarkHeresySheet extends ActorSheet {
             };
         });
 
-        for (let e of Array.from(this.actor.allApplicableEffects(true)))
+        for (let e of Array.from(this.actor.allApplicableEffects()))
         {
-            if (e.disabled) categories.disabled.push(e);
-            else if (e.isTemporary) categories.temporary.push(e);
-            else categories.passive.push(e);
+            if (!this._isCondition(e)) {
+                if (e.disabled) categories.inactive.effects.push(e);
+                else if (e.isTemporary) categories.temporary.effects.push(e);
+                else categories.passive.effects.push(e);
+            }
         }
         return categories;
+    }
+
+    _isCondition(effect) {
+        return CONFIG.statusEffects.map(i => i.id).includes(Array.from(effect.statuses)[0])
     }
 
 }

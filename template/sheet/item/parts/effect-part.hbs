@@ -1,9 +1,9 @@
 <div class="effects">
     <div class="condition-list">
-        {{#each conditions as |effect e|}}
-            <div class="condition" data-tooltip={{effect.name}} data-key={{effect.key}} {{#unless
-                effect.existing}}style="opacity:0.5" {{/unless}}>
-                <img src="{{effect.img}}" />
+        {{#each effects.conditions as |effect e|}}
+            {{#unless (eq "dead" effect.key)}}
+            <div class="condition" data-tooltip={{effect.name}} data-key={{effect.key}} {{#unless effect.existing}}style="opacity:0.5" {{/unless}}>
+                <img class="condition-image" src="{{effect.img}}" />
                 <a class="condition-toggle">
                     {{#if effect.existing}}
                         <i class="far fa-check-square"></i>
@@ -12,6 +12,7 @@
                     {{/if}}
                 </a>
             </div>
+            {{/unless}}
         {{/each}}
     </div>
     
@@ -32,7 +33,7 @@
                 {{#each section.effects as |effect|}}
                     <li class="item effect flexrow" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}">
                         <div class="item-name effect-name flexrow">
-                            <img class="item-image" src="{{effect.icon}}" />
+                            <img class="item-image" src="{{effect.img}}" />
                             <h4>{{effect.name}}</h4>
                         </div>
                         <div class="effect-source">{{effect.sourceName}}</div>

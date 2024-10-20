@@ -21,14 +21,14 @@ export class DarkHeresyActor extends Actor {
         super.prepareBaseData();
         this._computeCharacteristics();
         this._computeSkills();
-        this._computeItems();
+    }
+
+    prepareDerivedData() {
+        super.prepareDerivedData();
         this._computeExperience();
         this._computeArmour();
         this._computeMovement();
-    }
-
-    prepareData() {
-        super.prepareData();
+        this._computeItems();
     }
 
     _computeCharacteristics() {
@@ -535,9 +535,42 @@ export class DarkHeresyActor extends Actor {
         return boni;
     }
 
+    async addCondition(effect, options={}) {
+        if (typeof (effect) === "string") effect = CONFIG.statusEffects.find(e => e.id === effect);
+        if (!effect) return "No Effect Found";
+        else effect = duplicate(effect);
+
+        if (!effect.id) return "Conditions require an id field";
+
+
+        let existing = this.hasCondition(effect.id);
+
+        if (!existing) {
+            effect.label = game.i18n.localize(effect.label);
+            effect["flags.core.statusId"] = effect.id;
+            effect.origin = options.origin || "";
+            delete effect.id;
+            return this.createEmbeddedDocuments("ActiveEffect", [effect]);
+        }
+    }
+
+    async removeCondition(effect) {
+        if (typeof (effect) === "string") effect = CONFIG.statusEffects.find(e => e.id === effect);
+        if (!effect) return "No Effect Found";
+        else effect = duplicate(effect);
+
+        if (!effect.id) return "Conditions require an id field";
+
+        let existing = this.hasCondition(effect.id);
+
+        if (existing) {
+            return existing.delete();
+        }
+    }
+
     hasCondition(conditionKey) {
-        let existing = this.effects.find(e => e.statuses.has(conditionKey))
-        return existing
+        let existing = this.effects.find(i => i.getFlag("core", "statusId") === conditionKey);
+        return existing;
     }
 
     get characteristics() { return this.system.characteristics; }
