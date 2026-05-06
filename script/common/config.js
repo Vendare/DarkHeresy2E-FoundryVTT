@@ -219,7 +219,7 @@ CONFIG.statusEffects = [
     {
         id: "stunned",
         statuses: ["stunned"],
-        name : "CONDITION.STUNNED",
+        name: "CONDITION.STUNNED",
         img: "systems/dark-heresy/asset/icons/stunned.png"
     },
     {

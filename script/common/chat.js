@@ -8,10 +8,11 @@ import DarkHeresyUtil from "./util.js";
  * @param {HTMLElement} html
  */
 export function chatListeners(html) {
-    html.on("click", ".invoke-test", onTestClick.bind(this));
-    html.on("click", ".invoke-damage", onDamageClick.bind(this));
-    html.on("click", ".reload-Weapon", onReloadClick.bind(this));
-    html.on("dblclick", ".dark-heresy.chat.roll>.background.border", onChatRollClick.bind(this));
+    if (!(html instanceof HTMLElement)) return;
+    html.querySelectorAll(".invoke-test")?.forEach(button => button.addEventListener("click", event => onTestClick(event)));
+    html.querySelectorAll(".invoke-damage")?.forEach(button => button.addEventListener("click", event => onDamageClick(event)));
+    html.querySelectorAll(".reload-Weapon")?.forEach(button => button.addEventListener("click", event => onReloadClick(event)));
+    html.querySelectorAll(".dark-heresy.chat.roll>.background.border")?.forEach(button => button.addEventListener("dblclick", event => onChatRollClick(event)));
 }
 
 /**
@@ -25,12 +26,12 @@ export function chatListeners(html) {
  */
 export const addChatMessageContextOptions = function(html, options) {
     let canApply = li => {
-        const message = game.messages.get(li.data("messageId"));
+        const message = game.messages.get(li.dataset.messageId);
         return message.getRollData()?.flags.isDamageRoll
             && message.isContentVisible
             && canvas.tokens.controlled.length;
     };
-    options.push(
+    options.unshift(
         {
             name: game.i18n.localize("CHAT.CONTEXT.APPLY_DAMAGE"),
             icon: '<i class="fas fa-user-minus"></i>',
@@ -40,7 +41,7 @@ export const addChatMessageContextOptions = function(html, options) {
     );
 
     let canReroll = li => {
-        const message = game.messages.get(li.data("messageId"));
+        const message = game.messages.get(li.dataset.messageId);
         let actor = game.actors.get(message.getRollData()?.ownerId);
         return message.isRoll
             && !message.getRollData()?.flags.isDamageRoll
@@ -48,13 +49,13 @@ export const addChatMessageContextOptions = function(html, options) {
             && actor?.fate.value > 0;
     };
 
-    options.push(
+    options.unshift(
         {
             name: game.i18n.localize("CHAT.CONTEXT.REROLL"),
             icon: '<i class="fa-solid fa-repeat"></i>',
             condition: canReroll,
             callback: li => {
-                const message = game.messages.get(li.data("messageId"));
+                const message = game.messages.get(li.dataset.messageId);
                 rerollTest(message.getRollData());
             }
         }
@@ -72,11 +73,11 @@ export const addChatMessageContextOptions = function(html, options) {
  */
 function applyChatCardDamage(roll, multiplier) {
     // Get the damage data, get them as arrays in case of multiple hits
-    const amount = roll.find(".damage-total");
-    const location = roll.find(".damage-location");
-    const penetration = roll.find(".damage-penetration");
-    const type = roll.find(".damage-type");
-    const righteousFury = roll.find(".damage-righteous-fury");
+    const amount = roll.querySelectorAll(".damage-total");
+    const location = roll.querySelectorAll(".damage-location");
+    const penetration = roll.querySelectorAll(".damage-penetration");
+    const type = roll.querySelectorAll(".damage-type");
+    const righteousFury = roll.querySelectorAll(".damage-righteous-fury");
 
     // Put the data from different hits together
     const damages = [];

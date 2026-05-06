@@ -62,7 +62,7 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/dialog/combat-roll.hbs",
         "systems/dark-heresy/template/dialog/psychic-power-roll.hbs"
     ];
-    return loadTemplates(templatePaths);
+    return foundry.applications.handlebars.loadTemplates(templatePaths);
 }
 
 /**

@@ -120,12 +120,12 @@ Hooks.once("ready", function() {
 /* -------------------------------------------- */
 
 /** Add Event Listeners for Buttons on chat boxes */
-Hooks.once("renderChatLog", (chat, html) => {
+Hooks.on("renderChatMessageHTML", (chat, html, context) => {
     chatListeners(html);
 });
 
 /** Add Options to context Menu of chatmessages */
-Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
+Hooks.on("getChatMessageContextOptions", (html, options) => chat.addChatMessageContextOptions(html, options));
 
 /**
  * Create a macro when dropping an entity on the hotbar

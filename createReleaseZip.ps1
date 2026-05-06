@@ -1,7 +1,7 @@
 $target = '.\release'
 $targetFile = ".\dark-heresy.zip"
 
-New-Item -Path '.\release' -ItemType Directory
+New-Item -Path $target -ItemType Directory
 
 gulp buildAll
 

@@ -263,7 +263,7 @@ export class DarkHeresySheet extends ActorSheet {
     }
 
     _isCondition(effect) {
-        return CONFIG.statusEffects.map(i => i.id).includes(Array.from(effect.statuses)[0])
+        return CONFIG.statusEffects.map(i => i.id).includes(Array.from(effect.statuses)[0]);
     }
 
 }
