@@ -7,7 +7,6 @@ export class ArmourSheet extends DarkHeresyItemSheet {
             template: "systems/dark-heresy/template/sheet/armour.hbs",
             width: 500,
             height: 369,
-            resizable: false,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",

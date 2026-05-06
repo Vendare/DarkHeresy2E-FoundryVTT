@@ -7,7 +7,6 @@ export class MutationSheet extends DarkHeresyItemSheet {
             template: "systems/dark-heresy/template/sheet/mutation.hbs",
             width: 500,
             height: 369,
-            resizable: false,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",

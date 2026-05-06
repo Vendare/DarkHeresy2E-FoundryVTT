@@ -7,7 +7,6 @@ export class CriticalInjurySheet extends DarkHeresyItemSheet {
             template: "systems/dark-heresy/template/sheet/critical-injury.hbs",
             width: 500,
             height: 369,
-            resizable: false,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",

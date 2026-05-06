@@ -17,14 +17,18 @@ export class DarkHeresyActor extends Actor {
         this.updateSource(initData);
     }
 
-    prepareData() {
-        super.prepareData();
+    prepareBaseData() {
+        super.prepareBaseData();
         this._computeCharacteristics();
         this._computeSkills();
-        this._computeItems();
+    }
+
+    prepareDerivedData() {
+        super.prepareDerivedData();
         this._computeExperience();
         this._computeArmour();
         this._computeMovement();
+        this._computeItems();
     }
 
     _computeCharacteristics() {
@@ -49,11 +53,11 @@ export class DarkHeresyActor extends Actor {
         // Done as variables to make it easier to read & understand
         let tb = Math.floor(
             (this.characteristics.toughness.base
-        + this.characteristics.toughness.advance) / 10);
+                + this.characteristics.toughness.advance) / 10);
 
         let wb = Math.floor(
             (this.characteristics.willpower.base
-        + this.characteristics.willpower.advance) / 10);
+                + this.characteristics.willpower.advance) / 10);
 
         // The only thing not affected by itself
         this.fatigue.max = tb + wb;
@@ -96,7 +100,7 @@ export class DarkHeresyActor extends Actor {
         this.experience.spentTalents = 0;
         if (this.experience.spentOther == null) this.experience.spentOther = 0;
         this.experience.spentPsychicPowers = 0;
-        let psyRatingCost = Math.max(0, ((this.psy.rating * (this.psy.rating + 1) /2) - 1) * 200); // N*(n+1)/2 equals 1+2+3... -1 because we start paying from 2
+        let psyRatingCost = Math.max(0, ((this.psy.rating * (this.psy.rating + 1) / 2) - 1) * 200); // N*(n+1)/2 equals 1+2+3... -1 because we start paying from 2
 
         this.psy.cost = this.experience.spentPsychicPowers = psyRatingCost;
         for (let characteristic of Object.values(this.characteristics)) {
@@ -144,10 +148,10 @@ export class DarkHeresyActor extends Actor {
             }
         }
         this.experience.totalSpent = this.experience.spentCharacteristics
-      + this.experience.spentSkills
-      + this.experience.spentTalents
-      + this.experience.spentPsychicPowers
-      + this.experience.spentOther;
+            + this.experience.spentSkills
+            + this.experience.spentTalents
+            + this.experience.spentPsychicPowers
+            + this.experience.spentOther;
         this.experience.remaining = this.experience.value - this.experience.totalSpent;
     }
 
@@ -177,10 +181,10 @@ export class DarkHeresyActor extends Actor {
             }
         }
         this.experience.totalSpent = this.experience.spentCharacteristics
-      + this.experience.spentSkills
-      + this.experience.spentTalents
-      + this.experience.spentPsychicPowers
-      + this.experience.spentOther;
+            + this.experience.spentSkills
+            + this.experience.spentTalents
+            + this.experience.spentPsychicPowers
+            + this.experience.spentOther;
         this.experience.remaining = this.experience.value - this.experience.totalSpent;
     }
 
@@ -520,7 +524,7 @@ export class DarkHeresyActor extends Actor {
             totalWounds,
             totalCritWounds
         });
-        ChatMessage.create({ content: html });
+        ChatMessage.create({ content: html, flags: {"dark-heresy.rolls": rolls, "dark-heresy.totalCritWounds": totalCritWounds} });
     }
 
     get attributeBoni() {
@@ -531,7 +535,45 @@ export class DarkHeresyActor extends Actor {
         return boni;
     }
 
-    get characteristics() {return this.system.characteristics;}
+    async addCondition(effect, options={}) {
+        if (typeof (effect) === "string") effect = CONFIG.statusEffects.find(e => e.id === effect);
+        if (!effect) return "No Effect Found";
+        else effect = duplicate(effect);
+
+        if (!effect.id) return "Conditions require an id field";
+
+
+        let existing = this.hasCondition(effect.id);
+
+        if (!existing) {
+            effect.label = game.i18n.localize(effect.label);
+            effect["flags.core.statusId"] = effect.id;
+            effect.origin = options.origin || "";
+            delete effect.id;
+            return this.createEmbeddedDocuments("ActiveEffect", [effect]);
+        }
+    }
+
+    async removeCondition(effect) {
+        if (typeof (effect) === "string") effect = CONFIG.statusEffects.find(e => e.id === effect);
+        if (!effect) return "No Effect Found";
+        else effect = duplicate(effect);
+
+        if (!effect.id) return "Conditions require an id field";
+
+        let existing = this.hasCondition(effect.id);
+
+        if (existing) {
+            return existing.delete();
+        }
+    }
+
+    hasCondition(conditionKey) {
+        let existing = this.effects.find(i => i.getFlag("core", "statusId") === conditionKey);
+        return existing;
+    }
+
+    get characteristics() { return this.system.characteristics; }
 
     get skills() { return this.system.skills; }
 

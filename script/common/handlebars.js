@@ -42,6 +42,8 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/sheet/weapon-modification.hbs",
         "systems/dark-heresy/template/sheet/ammunition.hbs",
         "systems/dark-heresy/template/sheet/force-field.hbs",
+        "systems/dark-heresy/template/sheet/item/parts/effect-part.hbs",
+        "systems/dark-heresy/template/sheet/item/parts/effect-tab.hbs",
 
         "systems/dark-heresy/template/sheet/characteristics/information.hbs",
         "systems/dark-heresy/template/sheet/characteristics/left.hbs",
@@ -60,7 +62,7 @@ function preloadHandlebarsTemplates() {
         "systems/dark-heresy/template/dialog/combat-roll.hbs",
         "systems/dark-heresy/template/dialog/psychic-power-roll.hbs"
     ];
-    return loadTemplates(templatePaths);
+    return foundry.applications.handlebars.loadTemplates(templatePaths);
 }
 
 /**
@@ -73,7 +75,7 @@ function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper("enrich", function(string) {
-        return TextEditor.enrichHTML(string, {async: false});
+        return TextEditor.enrichHTML(string, { async: false });
     });
 
     Handlebars.registerHelper("damageTypeLong", function(damageType) {

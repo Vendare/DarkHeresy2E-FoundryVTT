@@ -7,7 +7,6 @@ export class MalignancySheet extends DarkHeresyItemSheet {
             template: "systems/dark-heresy/template/sheet/malignancy.hbs",
             width: 500,
             height: 369,
-            resizable: false,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",

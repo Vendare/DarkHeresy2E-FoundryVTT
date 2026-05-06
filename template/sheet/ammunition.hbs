@@ -35,14 +35,14 @@
                 <div class="stats-row">
                     <div class="stat damage">
                         <label>{{localize "AMMUNITION.DAMAGE"}}</label>
-                        <input name="system.effect.damage.modifier" type="text" value="{{system.effect.damage.modifier}}" />
+                        <input name="system.effect.damage.modifier" type="number" value="{{system.effect.damage.modifier}}" data-dtype="Number" />
                         <select name="system.effect.damage.type">
                             {{selectOptions (config "damageTypes") selected=system.effect.damage.type localize=true}}
                         </select>
                     </div>
                     <div class="stat penetration">
                         <label>{{localize "AMMUNITION.PENETRATION"}}</label>
-                        <input name="system.effect.penetration" type="text" value="{{system.effect.penetration}}" />
+                        <input name="system.effect.penetration" type="number" value="{{system.effect.penetration}}" data-dtype="Number" />
                     </div>
                     <div class="stat attack">
                         <label>{{localize "AMMUNITION.ATTACK"}}</label>

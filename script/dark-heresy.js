@@ -30,12 +30,15 @@ import Dh from "./common/config.js";
 
 // Import Helpers
 import * as chat from "./common/chat.js";
+import { registerDataModels } from "./setup/registerDataModels.js";
+import { registerAdditionalModuleSettings } from "./moduleSupport/moduleSupportSettings.js";
 
 Hooks.once("init", function() {
     CONFIG.Combat.initiative = { formula: "@initiative.base + @initiative.bonus", decimals: 0 };
     CONFIG.Actor.documentClass = DarkHeresyActor;
     CONFIG.Item.documentClass = DarkHeresyItem;
-    CONFIG.fontDefinitions["Caslon Antique"] = {editor: true, fonts: []};
+    CONFIG.fontDefinitions["Caslon Antique"] = { editor: true, fonts: [] };
+    CONFIG.ActiveEffect.legacyTransferral = false;
     game.darkHeresy = {
         config: Dh,
         testInit: {
@@ -72,6 +75,8 @@ Hooks.once("init", function() {
     Items.registerSheet("dark-heresy", TraitSheet, { types: ["trait"], makeDefault: true });
     Items.registerSheet("dark-heresy", AptitudeSheet, { types: ["aptitude"], makeDefault: true });
 
+    registerDataModels();
+
     initializeHandlebars();
 
     game.settings.register("dark-heresy", "worldSchemaVersion", {
@@ -99,6 +104,7 @@ Hooks.once("init", function() {
         type: Boolean
     });
 
+    registerAdditionalModuleSettings();
 });
 
 Hooks.once("ready", function() {
@@ -114,20 +120,19 @@ Hooks.once("ready", function() {
 /* -------------------------------------------- */
 
 /** Add Event Listeners for Buttons on chat boxes */
-Hooks.once("renderChatLog", (chat, html) => {
+Hooks.on("renderChatMessageHTML", (chat, html, context) => {
     chatListeners(html);
 });
 
 /** Add Options to context Menu of chatmessages */
-Hooks.on("getChatLogEntryContext", chat.addChatMessageContextOptions);
+Hooks.on("getChatMessageContextOptions", (html, options) => chat.addChatMessageContextOptions(html, options));
 
 /**
  * Create a macro when dropping an entity on the hotbar
  * Item      - open roll dialog for item
  */
 Hooks.on("hotbarDrop", (bar, data, slot) => {
-    if (data.type === "Item" || data.type === "Actor")
-    {
+    if (data.type === "Item" || data.type === "Actor") {
         DhMacroUtil.createMacro(data, slot);
         return false;
     }

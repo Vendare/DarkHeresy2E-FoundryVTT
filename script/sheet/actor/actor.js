@@ -1,4 +1,4 @@
-import {prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll} from "../../common/dialog.js";
+import { prepareCommonRoll, prepareCombatRoll, preparePsychicPowerRoll } from "../../common/dialog.js";
 import DarkHeresyUtil from "../../common/util.js";
 
 export class DarkHeresySheet extends ActorSheet {
@@ -7,7 +7,7 @@ export class DarkHeresySheet extends ActorSheet {
         html.find(".item-create").click(ev => this._onItemCreate(ev));
         html.find(".item-edit").click(ev => this._onItemEdit(ev));
         html.find(".item-delete").click(ev => this._onItemDelete(ev));
-        html.find("input").focusin(ev => this._onFocusIn(ev));
+        html.find(".ammo-unlink").click(ev => this._onAmmoUnlink(ev));
         html.find(".roll-characteristic").click(async ev => await this._prepareRollCharacteristic(ev));
         html.find(".roll-skill").click(async ev => await this._prepareRollSkill(ev));
         html.find(".roll-speciality").click(async ev => await this._prepareRollSpeciality(ev));
@@ -15,6 +15,7 @@ export class DarkHeresySheet extends ActorSheet {
         html.find(".roll-corruption").click(async ev => await this._prepareRollCorruption(ev));
         html.find(".roll-weapon").click(async ev => await this._prepareRollWeapon(ev));
         html.find(".roll-psychic-power").click(async ev => await this._prepareRollPsychicPower(ev));
+        html.find(".condition-toggle").click(this._onConditionToggle.bind(this));
     }
 
     /** @override */
@@ -23,15 +24,16 @@ export class DarkHeresySheet extends ActorSheet {
         data.system = data.data.system;
         data.items = this.constructItemLists(data);
         data.enrichment = await this._enrichment();
+        data.effects = this.prepareActiveEffectCategories();
         return data;
     }
 
     async _enrichment() {
         let enrichment = {};
         if (this.actor.type !== "npc") {
-            enrichment["system.bio.notes"] = await TextEditor.enrichHTML(this.actor.system.bio.notes, {async: true});
+            enrichment["system.bio.notes"] = await TextEditor.enrichHTML(this.actor.system.bio.notes, { async: true });
         } else {
-            enrichment["system.notes"] = await TextEditor.enrichHTML(this.actor.system.notes, {async: true});
+            enrichment["system.notes"] = await TextEditor.enrichHTML(this.actor.system.notes, { async: true });
         }
         return foundry.utils.expandObject(enrichment);
     }
@@ -83,6 +85,16 @@ export class DarkHeresySheet extends ActorSheet {
         const div = $(event.currentTarget).parents(".item");
         this.actor.deleteEmbeddedDocuments("Item", [div.data("itemId")]);
         div.slideUp(200, () => this.render(false));
+    }
+
+    _onAmmoUnlink(event) {
+        event.preventDefault();
+        const ammoId = $(event.currentTarget).parents(".linked-item").data("ammoId");
+        const weaponId = $(event.currentTarget).parents(".item").data("itemId");
+
+        let newAmmos = this.actor.items.get(weaponId).system.ammo.filter(ammo => ammo !== ammoId);
+        this.actor.items.get(weaponId).update({ "system.ammo": newAmmos });
+        this.actor.items.get(ammoId).update({ "system.weaponId": "" });
     }
 
     async _prepareCustomRoll() {
@@ -153,6 +165,16 @@ export class DarkHeresySheet extends ActorSheet {
         );
     }
 
+    _onConditionToggle(ev)
+    {
+        let key = $(ev.currentTarget).parents(".condition").data("key");
+        if (this.actor.hasCondition(key)) {
+            this.actor.removeCondition(key);
+        } else {
+            this.actor.addCondition(key);
+        }
+    }
+
     constructItemLists() {
         let items = {};
         let itemTypes = this.actor.itemTypes;
@@ -195,4 +217,53 @@ export class DarkHeresySheet extends ActorSheet {
             else if (typeof items[list] == "object") _sortItemLists(items[list]);
         }
     }
+
+    /**
+     *  Prepare the data structure for Active Effects which are currently embedded in an Actor or Item.
+     * @returns {object}                   Data for rendering
+     */
+    prepareActiveEffectCategories() {
+        // Define effect header categories
+        const categories = {
+            temporary: {
+                type: "temporary",
+                label: game.i18n.localize("DH.Effect.Temporary"),
+                effects: []
+            },
+            passive: {
+                type: "passive",
+                label: game.i18n.localize("DH.Effect.Passive"),
+                effects: []
+            },
+            inactive: {
+                type: "inactive",
+                label: game.i18n.localize("DH.Effect.Inactive"),
+                effects: []
+            }
+        };
+
+        categories.conditions = CONFIG.statusEffects.map(i => {
+            return {
+                name: i.name,
+                key: i.id,
+                img: i.img,
+                existing: this.actor.hasCondition(i.id)
+            };
+        });
+
+        for (let e of Array.from(this.actor.allApplicableEffects()))
+        {
+            if (!this._isCondition(e)) {
+                if (e.disabled) categories.inactive.effects.push(e);
+                else if (e.isTemporary) categories.temporary.effects.push(e);
+                else categories.passive.effects.push(e);
+            }
+        }
+        return categories;
+    }
+
+    _isCondition(effect) {
+        return CONFIG.statusEffects.map(i => i.id).includes(Array.from(effect.statuses)[0]);
+    }
+
 }

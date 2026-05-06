@@ -8,14 +8,14 @@ export class AcolyteSheet extends DarkHeresySheet {
             template: "systems/dark-heresy/template/sheet/actor/acolyte.hbs",
             width: 700,
             height: 881,
-            resizable: false,
             tabs: [
                 {
                     navSelector: ".sheet-tabs",
                     contentSelector: ".sheet-body",
                     initial: "stats"
                 }
-            ]
+            ],
+            scrollY: [".items"]
         });
     }
 

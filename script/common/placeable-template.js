@@ -1,7 +1,7 @@
 /**
  * A helper class for building MeasuredTemplates (adapted from https://github.com/foundryvtt/dnd5e).
  */
-export class PlaceableTemplate extends MeasuredTemplate {
+export class PlaceableTemplate extends foundry.canvas.placeables.MeasuredTemplate {
 
     /**
      * Track the timestamp when the last mouse move event was captured.
