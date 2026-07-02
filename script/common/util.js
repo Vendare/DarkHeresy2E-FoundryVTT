@@ -86,6 +86,7 @@ export default class DarkHeresyUtil {
             traits: this.extractWeaponTraits(power.damage.special),
             special: power.damage.special
         });
+        rollData.weapon.traits.skipAttackRoll = false;
         rollData.attackType.name = power.damage.zone;
         rollData.psy = {
             value: actor.psy.rating,

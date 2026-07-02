@@ -14,11 +14,7 @@
                         <div class="type">
                             <label>{{localize "BIO.TYPE"}}</label>
                             <select name="system.type" style="margin-left: 14px">
-                                {{#select system.type}}
-                                    <option value="troop">{{localize "NPC_TYPE.TROOP"}}</option>
-                                    <option value="master">{{localize "NPC_TYPE.MASTER"}}</option>
-                                    <option value="elite">{{localize "NPC_TYPE.ELITE"}}</option>
-                                {{/select}}
+                                {{selectOptions (config "npcTypes") selected=system.type localize=true}}
                             </select>
                         </div>
                         <div class="threat-level">
