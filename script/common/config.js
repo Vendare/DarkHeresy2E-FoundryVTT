@@ -123,7 +123,7 @@ Dh.npcTypes = {
     troop: "NPC_TYPE.TROOP",
     elite: "NPC_TYPE.ELITE",
     master: "NPC_TYPE.MASTER"
-}
+};
 
 Dh.advanceStagesCharacteristics = {
     0: "ADVANCE.NONE",

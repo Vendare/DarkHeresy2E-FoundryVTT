@@ -530,8 +530,8 @@ export class DarkHeresyActor extends Actor {
     get attributeBoni() {
         let boni = [];
         for (let characteristic of Object.values(this.characteristics)) {
-            if(characteristic.short.toLowerCase() === "t") {
-                boni.push({ regex: new RegExp(`(?<=[+\\-*\\/])\\s*TB`, "gi"), value: characteristic.bonus });
+            if (characteristic.short.toLowerCase() === "t") {
+                boni.push({ regex: /(?<=[+\-*/])\s*TB/gi, value: characteristic.bonus });
             } else {
                 boni.push({ regex: new RegExp(`${characteristic.short}B`, "gi"), value: characteristic.bonus });
             }
